@@ -9,8 +9,8 @@ import {
     HttpUtil,
     NamedIcon,
     Page
-} from "@tmgg/tmgg-base";
-import {TreeUtil} from "@tmgg/tmgg-commons-lang";
+} from "@jian41/admin-framework";
+import {TreeUtil} from "@jian41/admin-framework";
 
 const baseTitle = "组织机构";
 const baseApi = 'sysOrg/';

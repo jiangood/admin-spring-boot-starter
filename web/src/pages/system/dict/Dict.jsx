@@ -2,7 +2,7 @@ import {PlusOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Modal, Popconfirm} from 'antd'
 import React from 'react'
 
-import {ButtonList, FieldRadioBoolean,  HttpUtil, ProTable} from '@tmgg/tmgg-base'
+import {ButtonList, FieldRadioBoolean,  HttpUtil, ProTable} from '@jian41/admin-framework'
 
 
 export default class extends React.Component {

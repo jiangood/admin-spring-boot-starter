@@ -1,5 +1,5 @@
 import {history} from "umi";
-import {StrUtil, UrlUtil} from "@tmgg/tmgg-commons-lang";
+import {StrUtil, UrlUtil} from "@jian41/admin-framework";
 
 export class PageUtil {
 

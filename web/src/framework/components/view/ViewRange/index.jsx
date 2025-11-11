@@ -1,5 +1,5 @@
 import React from "react";
-import {StrUtil} from "@tmgg/tmgg-commons-lang";
+import {StrUtil} from "@jian41/admin-framework";
 
 export class ViewRange extends React.Component {
 

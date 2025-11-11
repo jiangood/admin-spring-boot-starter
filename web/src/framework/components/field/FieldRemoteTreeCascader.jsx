@@ -2,7 +2,7 @@ import { Cascader, message, Spin } from 'antd';
 
 import React from 'react';
 import {HttpUtil} from "../../system";
-import {TreeUtil} from "@tmgg/tmgg-commons-lang";
+import {TreeUtil} from "@jian41/admin-framework";
 
 
 /**

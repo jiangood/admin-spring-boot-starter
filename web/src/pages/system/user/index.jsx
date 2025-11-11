@@ -9,9 +9,9 @@ import {
     HttpUtil,
     OrgTree, Page,
     ProTable
-} from "@tmgg/tmgg-base";
+} from "@jian41/admin-framework";
 import UserPerm from "./UserPerm";
-import {RoleTree} from "@tmgg/tmgg-base/src/components/RoleTree";
+import {RoleTree} from "@jian41/admin-framework/src/components/RoleTree";
 
 const baseTitle = "用户"
 const baseApi = 'sysUser/';

@@ -1,7 +1,7 @@
 /**
  * umi 运行时配置
  */
-import {initBase} from "@tmgg/tmgg-base";
+import {initBase} from "@jian41/admin-framework";
 
 initBase()
 

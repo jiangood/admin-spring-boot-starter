@@ -1,6 +1,6 @@
 import {LazyLog, ScrollFollow} from "react-lazylog";
 import React from "react";
-import {SysUtil} from "@tmgg/tmgg-base";
+import {SysUtil} from "@jian41/admin-framework";
 /**
  * https://mozilla-frontend-infra.github.io/react-lazylog/
  */

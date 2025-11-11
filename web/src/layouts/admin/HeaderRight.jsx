@@ -2,8 +2,8 @@ import {Badge, Dropdown} from "antd";
 import {NotificationOutlined, QuestionCircleOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import React from "react";
 import {history} from "umi";
-import {HttpUtil, PageUtil, SysUtil} from "@tmgg/tmgg-base";
-import {isMobileDevice} from "@tmgg/tmgg-commons-lang";
+import {HttpUtil, PageUtil, SysUtil} from "@jian41/admin-framework";
+import {isMobileDevice} from "@jian41/admin-framework";
 import {MsgBox} from "../../components/MsgBox";
 
 

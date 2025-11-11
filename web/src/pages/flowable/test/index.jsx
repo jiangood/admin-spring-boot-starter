@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Card, Form, Input, message} from "antd";
-import {HttpUtil, PageLoading, PageUtil} from "@tmgg/tmgg-base";
-import {StrUtil} from "@tmgg/tmgg-commons-lang";
+import {HttpUtil, PageLoading, PageUtil} from "@jian41/admin-framework";
+import {StrUtil} from "@jian41/admin-framework";
 
 export default class extends React.Component {
 

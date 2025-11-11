@@ -1,4 +1,4 @@
-import {StorageUtil, StrUtil, UrlUtil} from "@tmgg/tmgg-commons-lang";
+import {StorageUtil, StrUtil, UrlUtil} from "@jian41/admin-framework";
 
 const SITE_INFO_KEY = "siteInfo"
 const LOGIN_INFO_KEY = "loginInfo"

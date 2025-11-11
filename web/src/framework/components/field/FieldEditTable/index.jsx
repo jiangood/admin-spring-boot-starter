@@ -2,7 +2,7 @@ import {Button, Form, Input, message, Table} from 'antd'
 import React from 'react'
 import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import './index.less'
-import {ArrUtil} from "@tmgg/tmgg-commons-lang";
+import {ArrUtil} from "@jian41/admin-framework";
 
 export class FieldEditTable extends React.Component {
 

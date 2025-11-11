@@ -4,7 +4,7 @@ import {message, Modal, Upload} from "antd";
 import UploadOutlined from "@ant-design/icons/lib/icons/UploadOutlined";
 import {SysUtil} from "../../../system";
 import {ViewFile} from "../../view";
-import {ObjUtil} from "@tmgg/tmgg-commons-lang";
+import {ObjUtil} from "@jian41/admin-framework";
 
 
 export class FieldUploadFile extends React.Component {

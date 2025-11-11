@@ -6,13 +6,13 @@ import '@ant-design/v5-patch-for-react-19';
 
 import {history, Outlet, withRouter} from "umi";
 import zhCN from 'antd/locale/zh_CN';
-import {ArrUtil, theme} from "@tmgg/tmgg-commons-lang";
+import {ArrUtil, theme} from "@jian41/admin-framework";
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 
 import '../style/global.less'
 import './index.less'
-import {HttpUtil, PageLoading, PageUtil, SysUtil} from "@tmgg/tmgg-base";
+import {HttpUtil, PageLoading, PageUtil, SysUtil} from "@jian41/admin-framework";
 import {MsgBoxComponent} from "../components/MsgBox";
 
 dayjs.locale('zh-cn');

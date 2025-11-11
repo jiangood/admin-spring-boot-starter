@@ -1,6 +1,6 @@
 import React from "react";
 import {Alert, Col, Row, Table} from "antd";
-import {HttpUtil, Page} from "@tmgg/tmgg-base";
+import {HttpUtil, Page} from "@jian41/admin-framework";
 import * as echarts from 'echarts';
 
 export default class extends React.Component {

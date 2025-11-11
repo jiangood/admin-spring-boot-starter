@@ -10,7 +10,7 @@ import {
     HttpUtil,
     Page, PageUtil,
     ProTable
-} from "@tmgg/tmgg-base";
+} from "@jian41/admin-framework";
 
 
 export default class extends React.Component {

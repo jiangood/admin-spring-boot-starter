@@ -1,6 +1,6 @@
 import React from "react";
 import {Form, Input, Typography} from "antd";
-import {PageUtil} from "@tmgg/tmgg-base";
+import {PageUtil} from "@jian41/admin-framework";
 
 export default class extends React.Component {
 

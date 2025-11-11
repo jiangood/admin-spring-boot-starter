@@ -8,7 +8,7 @@ import {
     HttpUtil,
     ProTable,
     SysUtil
-} from "@tmgg/tmgg-base";
+} from "@jian41/admin-framework";
 import {CloudUploadOutlined} from "@ant-design/icons";
 
 

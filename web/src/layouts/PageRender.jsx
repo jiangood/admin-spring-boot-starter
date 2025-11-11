@@ -1,7 +1,7 @@
 import {matchRoutes, useAppData} from "umi";
 import React from "react";
 import {Result} from "antd";
-import {UrlUtil} from "@tmgg/tmgg-commons-lang";
+import {UrlUtil} from "@jian41/admin-framework";
 
 /**
  * 通过指定 pathname 渲染页面

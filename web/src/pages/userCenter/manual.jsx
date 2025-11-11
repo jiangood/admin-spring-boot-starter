@@ -1,5 +1,5 @@
 import React from 'react'
-import {HttpUtil, Page, ProTable, SysUtil} from "@tmgg/tmgg-base";
+import {HttpUtil, Page, ProTable, SysUtil} from "@jian41/admin-framework";
 
 
 export default class extends React.Component {

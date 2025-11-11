@@ -3,7 +3,7 @@ import {Button, Form, Input, Modal} from "antd";
 
 
 import {history} from 'umi'
-import {HttpUtil, SysUtil} from "@tmgg/tmgg-base";
+import {HttpUtil, SysUtil} from "@jian41/admin-framework";
 
 export default class extends React.Component {
 

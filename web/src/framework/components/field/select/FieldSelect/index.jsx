@@ -2,7 +2,7 @@ import {Button, Select, Spin} from 'antd';
 
 import React from 'react';
 import {HttpUtil} from "../../../../system";
-import {ObjUtil} from "@tmgg/tmgg-commons-lang";
+import {ObjUtil} from "@jian41/admin-framework";
 import {ReloadOutlined} from "@ant-design/icons";
 
 export class FieldSelect extends React.Component {

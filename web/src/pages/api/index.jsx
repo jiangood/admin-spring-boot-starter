@@ -8,8 +8,8 @@ import {
     HttpUtil,
     PageUtil,
     ProTable
-} from "@tmgg/tmgg-base";
-import {StrUtil} from "@tmgg/tmgg-commons-lang";
+} from "@jian41/admin-framework";
+import {StrUtil} from "@jian41/admin-framework";
 
 
 export default class extends React.Component {

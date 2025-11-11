@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Space} from 'antd';
 import {LockOutlined, SafetyCertificateOutlined, UserOutlined, WarningOutlined} from '@ant-design/icons';
 import "./login.less"
 import {history} from 'umi';
-import {HttpUtil, PageUtil, SysUtil} from "@tmgg/tmgg-base";
+import {HttpUtil, PageUtil, SysUtil} from "@jian41/admin-framework";
 import {JSEncrypt} from "jsencrypt";
 import {MsgBox} from "../components/MsgBox";
 

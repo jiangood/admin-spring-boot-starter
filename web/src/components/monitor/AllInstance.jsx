@@ -1,7 +1,7 @@
 import React from "react";
-import {ProTable} from "@tmgg/tmgg-base"
+import {ProTable} from "@jian41/admin-framework"
 import {Popconfirm} from "antd";
-import {HttpUtil} from "@tmgg/tmgg-base";
+import {HttpUtil} from "@jian41/admin-framework";
 
 export default class extends React.Component {
 

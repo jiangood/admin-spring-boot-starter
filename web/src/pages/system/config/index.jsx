@@ -1,8 +1,8 @@
 import {Button, Form, Modal, Popconfirm} from 'antd'
 import React from 'react'
 
-import {ButtonList, HttpUtil, ProTable} from '@tmgg/tmgg-base'
-import {ValueType} from "@tmgg/tmgg-base/src/components/ValueType";
+import {ButtonList, HttpUtil, ProTable} from '@jian41/admin-framework'
+import {ValueType} from "@jian41/admin-framework/src/components/ValueType";
 
 
 export default class extends React.Component {
