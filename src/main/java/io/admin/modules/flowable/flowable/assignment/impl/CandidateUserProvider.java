@@ -2,6 +2,7 @@ package io.admin.modules.flowable.flowable.assignment.impl;
 
 
 
+import io.admin.modules.flowable.flowable.FlowableMasterDataProvider;
 import io.admin.modules.flowable.flowable.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.flowable.assignment.Identity;
 import jakarta.annotation.Resource;
