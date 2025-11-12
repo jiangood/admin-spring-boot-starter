@@ -16,9 +16,7 @@ import java.io.Serializable;
 @MappedSuperclass
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 @EqualsAndHashCode(of = "id", callSuper = false)
-@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity extends BaseAuditEntity implements Serializable {
-
 
 
     @Id
@@ -26,30 +24,10 @@ public abstract class BaseEntity extends BaseAuditEntity implements Serializable
     @Column(length = DBConstants.LEN_ID)
     private String id;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @JsonIgnore
     @Transient
     public boolean isNew() {
         return null == getId();
     }
-
-
-
-
 
 }
