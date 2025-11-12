@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  * TODO 再建一个IdGeneratorDesc注解放到类上， 本注解简化
  *
  */
-@IdGeneratorType(IdGenerator.class)
+@IdGeneratorType(CustomIdGenerator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD,ElementType.TYPE})
 public @interface CustomId {

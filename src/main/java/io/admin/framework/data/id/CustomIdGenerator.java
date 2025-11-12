@@ -33,7 +33,7 @@ import static cn.hutool.core.date.DatePattern.PURE_DATETIME_MS_PATTERN;
  *
  * @gendoc
  */
-public class IdGenerator implements IdentifierGenerator {
+public class CustomIdGenerator implements IdentifierGenerator {
 
     private static final int TIME_LEN = PURE_DATETIME_MS_PATTERN.length();
 
@@ -48,8 +48,8 @@ public class IdGenerator implements IdentifierGenerator {
     private String targetTable;
 
 
-    public IdGenerator(CustomId config, Member annotatedMember,
-                       CustomIdGeneratorCreationContext context) {
+    public CustomIdGenerator(CustomId config, Member annotatedMember,
+                             CustomIdGeneratorCreationContext context) {
         CustomId override = getOverride(context);
         this.cfg = override != null ? override : config;
         int idLen = cfg.length() - cfg.prefix().length(); // 不含前缀

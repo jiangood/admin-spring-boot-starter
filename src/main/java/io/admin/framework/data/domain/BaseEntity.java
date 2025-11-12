@@ -43,6 +43,7 @@ public abstract class BaseEntity implements PersistEntity, Serializable {
 
 
     @Id
+    @GeneratedValue(generator = "custom-id-generator")
     @CustomId(style = CustomId.Style.UUID)
     @Column(length = DBConstants.LEN_ID)
     private String id;
