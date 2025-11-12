@@ -1,16 +1,21 @@
 package io.admin.framework.data.id.impl;
 
 import cn.hutool.core.util.StrUtil;
+import io.admin.common.utils.IdTool;
+import io.admin.framework.data.id.CustomId;
+import io.admin.framework.data.id.ann.GeneratePrefixedSequence;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.OptimizableGenerator;
 import org.hibernate.id.enhanced.TableGenerator;
+import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.StandardBasicTypeTemplate;
 import org.hibernate.type.Type;
 import org.hibernate.type.descriptor.java.LongJavaType;
 import org.hibernate.type.descriptor.jdbc.IntegerJdbcType;
 
+import java.lang.reflect.Member;
 import java.util.Properties;
 
 /**
@@ -21,6 +26,11 @@ public class PrefixedSequenceGenerator extends TableGenerator {
 
     public static final String TABLE_NAME = "sys_sequence_ids";
 
+    private String prefix;
+
+    public PrefixedSequenceGenerator(GeneratePrefixedSequence config) {
+        this.prefix = config.prefix();
+    }
 
     @Override
     public void configure(Type type, Properties parameters, ServiceRegistry serviceRegistry) throws MappingException {
@@ -28,7 +38,7 @@ public class PrefixedSequenceGenerator extends TableGenerator {
 
         Properties p = new Properties(parameters);
         p.put(OptimizableGenerator.INCREMENT_PARAM, 1);
-        p.put(CONFIG_PREFER_SEGMENT_PER_ENTITY,true);
+        p.put(CONFIG_PREFER_SEGMENT_PER_ENTITY, true);
         p.put(TABLE_PARAM, TABLE_NAME);
 
         super.configure(longType, p, serviceRegistry);
@@ -38,9 +48,8 @@ public class PrefixedSequenceGenerator extends TableGenerator {
     public Object generate(SharedSessionContractImplementor session, Object obj) {
         String id = super.generate(session, obj).toString();
 
-        return StrUtil.padPre(id, 8,'0') ;
+        return prefix + StrUtil.padPre(id, 8, '0');
     }
-
 
 
 }

@@ -22,6 +22,7 @@ public class PrefixedSequenceGeneratorTest {
         em.persist(e);
         System.out.println("生成的id为 " + e.getId());
 
+
         Assertions.assertTrue(e.getId().startsWith("BOOK"));
 
     }
