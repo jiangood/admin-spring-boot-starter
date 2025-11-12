@@ -45,7 +45,7 @@ public class SysUser extends BaseEntity {
 
     @Remark("账号")
     @NotNull(message = "账号不能为空")
-    @Column(unique = true)
+    @Column(unique = true,length = 50)
     private String account;
 
     /**
@@ -103,9 +103,13 @@ public class SysUser extends BaseEntity {
     List<SysOrg> dataPerms = new ArrayList<>();
 
     @PrePersist
+    @PreUpdate
     public void prePersistOrUpdate() {
         if (dataPermType == null) {
             dataPermType = DataPermType.CHILDREN;
+        }
+        if(enabled == null){
+            enabled = true;
         }
     }
 

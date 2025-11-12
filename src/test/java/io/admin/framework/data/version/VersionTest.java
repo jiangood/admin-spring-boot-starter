@@ -1,5 +1,6 @@
 package io.admin.framework.data.version;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import io.admin.modules.system.dao.SysUserDao;
 import io.admin.modules.system.entity.SysUser;
@@ -15,12 +16,13 @@ public class VersionTest {
 
     @Test
     public void test() {
-       /* SysUser user = sysUserDao.findOne("admin");
+        SysUser user = new SysUser();
+        user.setAccount("test-"+ RandomUtil.randomString(30));
+        user = sysUserDao.saveAndFlush(user);
         System.out.println("当前版本："+user.getLockVersion());
         user.setExtra3(RandomUtil.randomString(12));
         sysUserDao.save(user);
         System.out.println("修改后版本："+user.getLockVersion());
-*/
 
     }
 
