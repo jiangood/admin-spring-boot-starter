@@ -26,6 +26,7 @@ data:
           value-type: img
         - id: sys.siteInfo.title
           name: 站点标题
+          default-value: 管理系统
         - id: sys.siteInfo.waterMark
           name: 开启水印
           value-type: boolean
