@@ -75,10 +75,15 @@ public class ApiResourceService extends BaseService<ApiResource> {
                 return;
             }
 
-            ApiResource r = new ApiResource();
+
+
             String action = api.action();
+            ApiResource r = this.findAction(action);
+            if(r == null){
+                r = new ApiResource();
+            }
+
             Assert.state(!action.contains("/"), "action不能包含斜杠: " + action);
-            r.setId(action);
             r.setName(api.name());
             r.setAction(action);
             r.setDesc(api.desc());

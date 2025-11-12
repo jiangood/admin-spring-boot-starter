@@ -108,7 +108,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
         sysConfigDao.setDefaultValue(ConfigTool.RSA_PUBLIC_KEY, rsa.getPublicKeyBase64()); // 放到siteInfo, 前端可获取
         sysConfigDao.setDefaultValue( ConfigTool.RSA_PRIVATE_KEY, rsa.getPrivateKeyBase64());
         sysConfigDao.setDefaultValue("sys.default.password", PasswordUtils.random());
-        sysConfigDao.cleanCache();
     }
 
 
