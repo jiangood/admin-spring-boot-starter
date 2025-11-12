@@ -63,18 +63,20 @@ public class SysJobController {
         for (SysJob job : page) {
             SysJobLog latest = sysJobLogService.findLatest(job);
             if (latest != null) {
-                job.putExtData("beginTime", latest.getBeginTime());
+                // TODO
+                /*job.putExtData("beginTime", latest.getBeginTime());
                 job.putExtData("endTime", latest.getEndTime());
                 job.putExtData("jobRunTime", latest.getJobRunTimeLabel());
-                job.putExtData("result", latest.getResult());
+                job.putExtData("result", latest.getResult());*/
             }
 
             if (job.getEnabled()) {
                 JobKey jobKey = JobKey.jobKey(job.getName(), job.getGroup());
                 JobExecutionContext ctx = currentlyExecutingJobsMap.get(jobKey);
                 if (ctx != null) {
-                    job.putExtData("executing", true);
-                    job.putExtData("fireTime", ctx.getFireTime());
+                    // TODO
+                  /*  job.putExtData("executing", true);
+                    job.putExtData("fireTime", ctx.getFireTime());*/
                 }
             }
         }

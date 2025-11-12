@@ -26,7 +26,7 @@ public class UserMsgController {
 
 
     @RequestMapping("page")
-    public AjaxResult page(Boolean read, @PageableDefault(sort = BaseEntity.FIELD_CREATE_TIME, direction = Sort.Direction.DESC) Pageable pageable) throws SQLException {
+    public AjaxResult page(Boolean read, @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable) throws SQLException {
         String id = SecurityUtils.getSubject().getId();
         Page<SysUserMessage> page = sysUserMsgService.findByUser(id, read, pageable);
         return AjaxResult.ok().data(page);

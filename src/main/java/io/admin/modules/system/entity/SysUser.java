@@ -102,9 +102,8 @@ public class SysUser extends BaseEntity {
     @JoinTable(name = "sys_user_data_perm", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "org_id"))
     List<SysOrg> dataPerms = new ArrayList<>();
 
-    @Override
+    @PrePersist
     public void prePersistOrUpdate() {
-        super.prePersistOrUpdate();
         if (dataPermType == null) {
             dataPermType = DataPermType.CHILDREN;
         }

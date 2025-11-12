@@ -77,7 +77,8 @@ public class SysJob extends BaseEntity {
 
 
 
-    @Override
+    @PrePersist
+    @PreUpdate
     public void prePersistOrUpdate() {
         Assert.state(jobClass.endsWith(JOB_SUFFIX), "必须以" + JOB_SUFFIX + "结尾");
     }

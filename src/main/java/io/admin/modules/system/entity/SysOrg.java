@@ -23,12 +23,7 @@ import java.util.List;
 @FieldNameConstants
 public class SysOrg extends BaseEntity implements TreeNode<SysOrg> {
 
-    public SysOrg() {
-    }
 
-    public SysOrg(String id) {
-        super(id);
-    }
 
     /**
      * 父id, 如果是根节点，则为空
@@ -92,9 +87,8 @@ public class SysOrg extends BaseEntity implements TreeNode<SysOrg> {
     }
 
 
-    @Override
+    @PrePersist
     public void prePersist() {
-        super.prePersist();
         if(enabled == null){
             enabled = true;
         }

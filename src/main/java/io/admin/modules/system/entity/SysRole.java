@@ -86,9 +86,8 @@ public class SysRole extends BaseEntity {
         return "admin".equals(this.code);
     }
 
-    @Override
+    @PrePersist
     public void prePersist() {
-        super.prePersist();
         if (enabled == null) {
             enabled = true;
         }

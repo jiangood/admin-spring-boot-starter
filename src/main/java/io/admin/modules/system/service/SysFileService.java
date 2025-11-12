@@ -302,7 +302,8 @@ public class SysFileService {
                 urls.add(dict);
             }
         }
-        sysFile.putExtData("imageUrls", urls);
+        // TODO
+       // sysFile.putExtData("imageUrls", urls);
     }
 
     public Page<SysFile> findAll(JpaQuery<SysFile> q, Pageable pageable) {

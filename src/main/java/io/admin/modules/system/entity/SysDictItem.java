@@ -55,7 +55,7 @@ public class SysDictItem extends BaseEntity {
 
 
 
-    @Override
+    @PrePersist
     public void prePersistOrUpdate() {
         if(seq == null){
             seq = 0;

@@ -43,8 +43,9 @@ public class ApiAccountController extends BaseController<ApiAccount> {
         for (ApiResource r : list) {
             List<ApiResourceArgument> parameterList = r.getParameterList();
             List<ApiResourceArgumentReturn> returnList = r.getReturnList();
-            r.putExtData("parameterList", parameterList);
-            r.putExtData("returnList", returnList);
+            // TODO
+           // r.putExtData("parameterList", parameterList);
+           // r.putExtData("returnList", returnList);
         }
 
 
