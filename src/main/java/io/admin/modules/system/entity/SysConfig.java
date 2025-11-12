@@ -5,6 +5,7 @@ import io.admin.framework.data.domain.BaseEntity;
 import io.admin.common.utils.ann.Remark;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,33 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 @Entity
 @FieldNameConstants
 @ToString
+@Table(name = "sys_config_value")
 public class SysConfig extends BaseEntity {
 
-    @Remark("名称")
-    @Column(length = 30, nullable = false)
-    private String label;
+    @Column(length = 64)
+    private String code;
 
 
-    /**
-     * 属性值
-     */
-    @Remark("值")
-    @Column(length = 2000)
+    @Column(length = 2048)
     private String value;
-
-    @Remark("默认值")
-    @Column(length = 2000)
-    private String defaultValue;
-
-    @Column(length = 20)
-    private String valueType;
-
-
-    @Remark("备注")
-    private String remark;
-
-    private Integer seq;
-
-
 
 }

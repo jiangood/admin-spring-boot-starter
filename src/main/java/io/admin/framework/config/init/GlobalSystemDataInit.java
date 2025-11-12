@@ -116,13 +116,12 @@ public class GlobalSystemDataInit implements CommandLineRunner {
     private void initUser(SysRole adminRole) {
         log.info("-------------------------------------------");
         log.info("初始化管理员中....");
-        String id = "admin";
-        SysUser admin = sysUserDao.findOne(id);
         String account = "admin-" + applicationName;
+
+        SysUser admin = sysUserDao.findByAccount(account);
         if (admin == null) {
             String pwd = PasswordUtils.random();
             admin = new SysUser();
-            admin.setId(id);
             admin.setAccount(account);
             admin.setName("管理员");
             admin.setEnabled(true);

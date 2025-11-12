@@ -163,12 +163,7 @@ public class SysConfigService extends BaseService<SysConfig> {
     // 解析最终的值， 优先级 数据库value >  默认值
     private static Object parseFinalValue(SysConfig sysConfig) {
         String v = sysConfig.getValue();
-        if (StrUtil.isEmpty(v)) {
-            v = sysConfig.getDefaultValue();
-        }
-        if ("boolean".equals(sysConfig.getValueType())) {
-            return Boolean.valueOf(v);
-        }
+
         return v;
     }
 
