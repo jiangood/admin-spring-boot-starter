@@ -24,7 +24,7 @@ public class ApiAccountResourceController {
     @Resource
     ApiAccountResourceService service;
 
-    @HasPermission("apiAccountResource:page")
+    @HasPermission("apiAccountResource:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, String accountId, @PageableDefault(sort = "resource.action") Pageable pageable) throws Exception {
         JpaQuery<ApiAccountResource> q = new JpaQuery<>();

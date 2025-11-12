@@ -11,15 +11,7 @@ data:
             - name: 保存
               perm: sysOrg:save
             - name: 查看
-              perm: sysOrg:page
-            - name: 排序
-              perm: sysOrg:sort
-            - name: 禁用
-              perm: sysOrg:disableAll
-            - name: 启用
-              perm: sysOrg:enableAll
-            - name: 查看
-              perm: sysOrg:detail
+              perm: sysOrg:view
             - name: 删除
               perm: sysOrg:delete
 
@@ -29,7 +21,7 @@ data:
           icon: UserOutlined
           perms:
             - name: 列表
-              perm: sysUser:page
+              perm: sysUser:view
             - name: 保存
               perm: sysUser:save
             - name: 删除
@@ -51,7 +43,7 @@ data:
           path: /system/sysManual
           icon: CopyOutlined
           perms:
-            - perm: sysManual:page
+            - perm: sysManual:view
               name: 查看
             - perm: sysManual:delete
               name: 删除
@@ -63,9 +55,10 @@ data:
           path: /system/config
           icon: SettingOutlined
           perms:
-            - perm: sysConfig:page
+            - perm: sysConfig:view
+              name: 查看
             - perm: sysConfig:save
-            - perm: sysConfig:delete
+              name: 保存
         - id: sysDict
           name: 数据字典
           path: /system/dict
@@ -82,8 +75,10 @@ data:
           path: /system/file
           icon: FolderOpenOutlined
           perms:
-            - perm: sysFile:page
+            - perm: sysFile:view
+              name: 查看
             - perm: sysFile:delete
+              name: 删除
 
         - id: jobMgr
           name: 作业调度
@@ -94,8 +89,10 @@ data:
               path: /job
               icon: OrderedListOutlined
               perms:
-                - perm: job:page
+                - perm: job:view
+                  name: 查看
                 - perm: job:save
+                  name: 保存
                 - name: 执行一次
                   perm: job:triggerJob
                 - name: 清理日志
@@ -120,7 +117,7 @@ data:
           icon: FileSearchOutlined
           perms:
             - name: 查看
-              perm: sysLog:page
+              perm: sysLog:view
 
 
         - id: sys_entity_gen

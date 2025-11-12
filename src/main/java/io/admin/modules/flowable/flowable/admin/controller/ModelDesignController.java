@@ -39,7 +39,7 @@ public class ModelDesignController {
     private SysFlowableModelService service;
 
 
-    @HasPermission("flowableModel:page")
+    @HasPermission("flowableModel:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, Pageable pageable) throws Exception {
         Page<SysFlowableModel> page = service.findAll(searchText, pageable);

@@ -30,7 +30,7 @@ public class SysFileController {
 
 
 
-    @HasPermission("sysFile:page")
+    @HasPermission("sysFile:view")
     @RequestMapping("page")
     public AjaxResult page(String dateRange,
                            String originName,

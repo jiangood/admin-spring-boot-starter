@@ -56,7 +56,7 @@ public class SysUserController {
     private SysOrgService sysOrgService;
 
 
-    @HasPermission("sysUser:page")
+    @HasPermission("sysUser:view")
     @RequestMapping("page")
     public AjaxResult page(String orgId, String roleId, String searchText, @PageableDefault(sort = "updateTime", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
 

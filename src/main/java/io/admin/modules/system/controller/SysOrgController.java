@@ -54,7 +54,7 @@ public class SysOrgController {
         return AjaxResult.ok().msg("删除机构成功");
     }
 
-    @HasPermission("sysOrg:detail")
+    @HasPermission("sysOrg:view")
     @GetMapping("detail")
     public AjaxResult detail(String id) {
         SysOrg org = sysOrgService.findOneByRequest(id);
@@ -62,7 +62,7 @@ public class SysOrgController {
     }
 
     @Log("机构-启用")
-    @HasPermission("sysOrg:enableAll")
+    @HasPermission("sysOrg:save")
     @GetMapping("enableAll")
     public AjaxResult enableAll(String id) {
         sysOrgService.toggleAllStatus(id, true);
@@ -70,7 +70,7 @@ public class SysOrgController {
     }
 
     @Log("机构-禁用")
-    @HasPermission("sysOrg:disableAll")
+    @HasPermission("sysOrg:save")
     @GetMapping("disableAll")
     public AjaxResult disableAll(String id) {
         sysOrgService.toggleAllStatus(id, false);
@@ -90,7 +90,7 @@ public class SysOrgController {
      *
      * @return
      */
-    @HasPermission("sysOrg:page")
+    @HasPermission("sysOrg:view")
     @RequestMapping("pageTree")
     public AjaxResult pageTree(@RequestBody PageParam param, String searchText) {
 
@@ -121,7 +121,7 @@ public class SysOrgController {
 
 
     @PostMapping("sort")
-    @HasPermission("sysOrg:sort")
+    @HasPermission("sysOrg:save")
     public AjaxResult sort(@RequestBody DragDropEvent e) {
         List<SysOrg> nodes = sysOrgService.findAll();
         List<SysOrg> list = TreeDragTool.onDrop(e, nodes);

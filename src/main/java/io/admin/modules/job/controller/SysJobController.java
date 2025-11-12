@@ -49,7 +49,7 @@ public class SysJobController {
 
 
 
-    @HasPermission("job:page")
+    @HasPermission("job:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws SchedulerException {
         JpaQuery<SysJob> q = new JpaQuery<>();

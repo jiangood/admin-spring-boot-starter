@@ -30,7 +30,7 @@ public class SysConfigController  {
 
 
 
-  @HasPermission("sysConfig:page")
+  @HasPermission("sysConfig:view")
   @RequestMapping("page")
   public AjaxResult page(String searchText) throws Exception {
     List<SysConfigResponse> list = service.findAllByRequest(searchText);

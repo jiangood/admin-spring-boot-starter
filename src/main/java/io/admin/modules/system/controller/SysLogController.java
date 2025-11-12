@@ -27,7 +27,7 @@ public class SysLogController {
 
 
 
-    @HasPermission("sysLog:page")
+    @HasPermission("sysLog:view")
     @RequestMapping("page")
     public AjaxResult page( String dateRange ,String operation, @PageableDefault(sort = "operationTime", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
         JpaQuery<SysLog> q = new JpaQuery<>();
