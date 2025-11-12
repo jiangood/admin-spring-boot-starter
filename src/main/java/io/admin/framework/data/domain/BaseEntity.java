@@ -1,6 +1,7 @@
 package io.admin.framework.data.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import io.admin.common.utils.IdTool;
 import io.admin.common.utils.ann.Remark;
 import io.admin.framework.data.DBConstants;
 import io.admin.framework.data.id.CustomGenerateIdProperties;
@@ -100,9 +101,15 @@ public abstract class BaseEntity implements PersistEntity, Serializable {
     }
 
 
+
+
     @PrePersist
     public void prePersist() {
         this.prePersistOrUpdate();
+        if(this.id == null){
+            this.id = IdTool.uuidV7();
+        }
+
         // 有些异步保存的数据，时间上有些许差异。 可提前设置createTime，防止差异发生
         Date now = this.createTime == null ? new Date() : this.createTime;
 
@@ -116,7 +123,6 @@ public abstract class BaseEntity implements PersistEntity, Serializable {
         if (this.lockVersion == null) {
             this.lockVersion = 0;
         }
-
     }
 
     /**
