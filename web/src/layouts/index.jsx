@@ -64,34 +64,36 @@ class _Layouts extends React.Component {
             return;
         }
 
-        Promise.all([
-            HttpUtil.get('public/checkLogin')
-                .then(rs => {
-                    const {login, needUpdatePwd} = rs
-                    if (login && !needUpdatePwd) {
-                        return;
-                    }
+        HttpUtil.get('public/checkLogin')
+            .then(rs => {
+                const {login, needUpdatePwd} = rs
+                if (login && !needUpdatePwd) {
+                    Promise.all([
+                        HttpUtil.get('/getLoginInfo').then(res => {
+                            SysUtil.setLoginInfo(res)
+                        }),
+                        HttpUtil.get('/common/dictTree').then(res => {
+                            SysUtil.setDictInfo(res)
+                        }),
 
-                    if (needUpdatePwd) {
-                        PageUtil.open('/userCenter/ChangePassword', '修改密码')
-                        return;
-                    }
+                    ]).then(() => {
+                        this.setState({loginInfoFinish: true})
+                    })
+                    return;
+                }
 
-                    // 缓存路径
-                    localStorage.setItem("pre_href", window.location.href)
+                if (needUpdatePwd) {
+                    PageUtil.open('/userCenter/ChangePassword', '修改密码')
+                    return;
+                }
 
-                    this.reLogin()
-                }),
-            HttpUtil.get('/getLoginInfo').then(res => {
-                SysUtil.setLoginInfo(res)
-            }),
-            HttpUtil.get('/common/dictTree').then(res => {
-                SysUtil.setDictInfo(res)
-            }),
+                // 缓存路径
+                localStorage.setItem("pre_href", window.location.href)
 
-        ]).then(() => {
-            this.setState({loginInfoFinish: true})
-        })
+                this.reLogin()
+            });
+
+
     }
 
 
