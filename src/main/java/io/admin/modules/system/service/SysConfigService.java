@@ -1,7 +1,6 @@
 
 package io.admin.modules.system.service;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.RequestTool;
@@ -121,17 +120,17 @@ public class SysConfigService {
             response.setName(config.getGroupName());
 
             for (ConfigDefinition child : config.getChildren()) {
-                if(StrUtil.isNotEmpty(searchText) &&!StrUtil.containsAll(searchText, child.getName(), child.getDescription(), child.getId())) {
+                if(StrUtil.isNotEmpty(searchText) &&!StrUtil.containsAll(searchText, child.getName(), child.getDescription(), child.getCode())) {
                     continue;
                 }
                 SysConfigResponse r = new SysConfigResponse();
                 r.setName(child.getName());
                 r.setDescription(child.getDescription());
-                r.setCode(child.getId());
+                r.setCode(child.getCode());
                 response.getChildren().add(r);
 
                 for (SysConfig c : configList) {
-                    if (c.getCode().equals(child.getId())) {
+                    if (c.getCode().equals(child.getCode())) {
                         r.setId(c.getId());
                         r.setValue(c.getValue());
                         r.setUpdateTime(c.getUpdateTime());

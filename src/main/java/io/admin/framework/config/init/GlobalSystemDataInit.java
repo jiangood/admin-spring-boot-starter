@@ -107,7 +107,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
         for (ConfigGroupDefinition config : dataProp.getConfigs()) {
             for (ConfigDefinition child : config.getChildren()) {
-                sysConfigDao.init(child.getId(),child.getDefaultValue());
+                sysConfigDao.init(child.getCode(),child.getDefaultValue());
             }
         }
 

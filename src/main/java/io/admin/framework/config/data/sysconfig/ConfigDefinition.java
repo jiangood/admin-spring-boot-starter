@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class ConfigDefinition {
-    String id;
+    String code;
     ValueType valueType;
     String defaultValue;
     String description;
