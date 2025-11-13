@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * 流程监控
  */
-@RequestMapping("flowable/monitor")
+@RequestMapping("admin/flowable/monitor")
 @RestController
 public class MonitorController {
 

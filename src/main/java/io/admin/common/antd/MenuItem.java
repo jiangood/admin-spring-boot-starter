@@ -4,10 +4,8 @@ package io.admin.common.antd;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +20,7 @@ public class MenuItem {
     String title; //    设置收缩时展示的悬浮标题 string
 
 
-    List<MenuItem> children = new ArrayList<>();
+    List<MenuItem> children ;
 
 
     // 额外字段，用于组装树

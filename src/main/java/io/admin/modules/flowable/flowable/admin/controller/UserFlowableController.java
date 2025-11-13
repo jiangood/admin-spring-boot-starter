@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 每个人都可以看自己任务，故而没有权限注解
  */
 @RestController
-@RequestMapping("user/flowable")
+@RequestMapping("admin/user/flowable")
 public class UserFlowableController {
 
 

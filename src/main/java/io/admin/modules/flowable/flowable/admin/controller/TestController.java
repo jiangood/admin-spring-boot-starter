@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("flowable/test")
+@RequestMapping("admin/flowable/test")
 public class TestController {
 
     @Resource

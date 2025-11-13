@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@RequestMapping("flowable/model")
+@RequestMapping("admin/flowable/model")
 public class ModelDesignController {
 
 

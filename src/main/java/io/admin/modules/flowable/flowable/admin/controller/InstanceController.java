@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("flowable/instance")
+@RequestMapping("admin/flowable/instance")
 public class InstanceController {
 
 

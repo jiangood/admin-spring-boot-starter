@@ -145,5 +145,3 @@ data:
               path: /api/accessLog
               icon: ApiOutlined
 
-    - id: biz
-      name: 业务模块

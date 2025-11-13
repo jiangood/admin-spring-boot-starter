@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
  * 每个人都可以看自己任务，故而没有权限注解
  */
 @RestController
-@RequestMapping("flowable/userClient")
+@RequestMapping("admin/flowable/userClient")
 public class UserClientController {
 
 

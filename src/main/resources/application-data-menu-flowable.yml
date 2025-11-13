@@ -13,13 +13,12 @@ data:
               refresh-on-tab-click: true
             - id: flowableMonitor
               name: 流程监控
-    - id: biz
-      children:
-        - name: 我的任务
-          id: flowableTask
-          path: /flowable/task
-          seq: -1
-          perms:
-            - perm: flowableTask
-              name: 任务管理
+
+    - name: 我的任务
+      id: flowableTask
+      path: /flowable/task
+      seq: -1
+      perms:
+        - perm: flowableTask
+          name: 任务管理
 

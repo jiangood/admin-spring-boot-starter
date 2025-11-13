@@ -26,20 +26,13 @@ public class DataConfig {
     public DataProp dataProp() throws IOException {
         Resource[] configFiles = this.getConfigFiles();
         DataProp prop = new DataProp();
-        Map<String, MenuDefinition> menuMap = new HashMap<>();
+        Map<String, MenuDefinition> menuMap = new LinkedHashMap<>();
         for (Resource configFile : configFiles) {
             DataRoot menuRoot = this.parseResource(configFile);
             configFile.getInputStream().close();
 
             DataProp data = menuRoot.getData();
             List<MenuDefinition> items = data.getMenus();
-            // 设置排序（如果没有主动设置的）
-            for (int i = 0; i < items.size(); i++) {
-                MenuDefinition definition = items.get(i);
-                if (definition.getSeq() == null) {
-                    definition.setSeq(i);
-                }
-            }
 
             TreeTool.walk(items, MenuDefinition::getChildren, (menu, parent) -> {
                 initMenu(menu, parent);
@@ -60,6 +53,17 @@ public class DataConfig {
 
                 menuMap.put(menu.getId(), menu);
             });
+
+            // 设置排序（如果没有主动设置的）
+            int seq = 1;
+            for (MenuDefinition def : menuMap.values()) {
+                if (def.getSeq() == null) {
+                    def.setSeq(seq);
+                }
+                seq++;
+            }
+
+
 
             if (CollUtil.isNotEmpty(data.getBadges())) {
                 prop.getBadges().addAll(data.getBadges());
