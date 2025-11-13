@@ -11,7 +11,7 @@ export const SysUtil = {
      * @returns {string}
      */
     getServerUrl() {
-        return "/admin/"
+        return "/"
     },
 
     /**
