@@ -102,7 +102,7 @@ export default class extends React.Component {
         const {siteInfo, loginInfo} = this.state
         let logo = this.props.logo || defaultLogo
         if (siteInfo.logo) {
-            logo = SysUtil.wrapServerUrl('sysFile/preview/' + siteInfo.logo)
+            logo = SysUtil.wrapServerUrl('admin/sysFile/preview/' + siteInfo.logo)
         }
 
 

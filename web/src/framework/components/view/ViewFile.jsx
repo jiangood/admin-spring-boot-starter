@@ -15,7 +15,7 @@ export class ViewFile extends React.Component {
 
         let arr = fileId.split(',');
 
-        let urlList = arr.map(id => SysUtil.wrapServerUrl('sysFile/preview/' + id));
+        let urlList = arr.map(id => SysUtil.wrapServerUrl('admin/sysFile/preview/' + id));
         let height = this.props.height;
 
         if(urlList.length === 1){

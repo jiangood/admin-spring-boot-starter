@@ -2,7 +2,6 @@ package io.admin.modules.system.controller;
 
 import cn.hutool.core.util.URLUtil;
 import io.admin.common.utils.ContentTypeTool;
-import io.admin.common.utils.ann.PublicRequest;
 import io.admin.modules.system.entity.SysFile;
 import io.admin.modules.system.service.SysFileService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -38,8 +37,9 @@ public class FilePreviewController {
     /**
      * 文件预览入口
      */
-    @PublicRequest
-    @GetMapping({"preview/{id}", "sysFile/preview/{id}", "sysFile/preview/{id}.{suffix}"})
+    @GetMapping({"admin/sysFile/preview/{id}",
+            // 兼容老系统
+            "preview/{id}", "sysFile/preview/{id}","sysFile/preview/{id}.{suffix}"})
     public ResponseEntity<StreamingResponseBody> previewFile(@PathVariable String id,
                                                              HttpServletRequest request,
                                                              Integer w, // 图片宽度

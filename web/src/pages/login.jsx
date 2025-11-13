@@ -71,7 +71,7 @@ export default class login extends React.Component {
 
         const pageStyle = {}
         if(siteInfo.loginBackground){
-            let url = SysUtil.wrapServerUrl('sysFile/preview/' + siteInfo.loginBackground);
+            let url = SysUtil.wrapServerUrl('admin/sysFile/preview/' + siteInfo.loginBackground);
             pageStyle.backgroundImage = 'url("'+url+'")'
         }
 
