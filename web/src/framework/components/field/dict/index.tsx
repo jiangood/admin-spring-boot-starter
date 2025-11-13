@@ -62,7 +62,7 @@ export function DictRadio(props: DictProps) {
 
   let list = dictList(typeCode);
   return (
-    <Radio.Group value={value} onChange={props.onChange}>
+    <Radio.Group value={String(value)} onChange={props.onChange}>
       {list.map((o: any) => (
         <Radio value={o.code} key={o.code}>
           {o.name}
