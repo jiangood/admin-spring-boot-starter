@@ -7,6 +7,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.tree.TreeTool;
 import io.admin.common.utils.tree.drag.DragDropEvent;
 import io.admin.common.utils.tree.drag.TreeDragTool;
+import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.log.Log;
@@ -37,13 +38,13 @@ public class SysOrgController {
     @Log("机构-保存")
     @HasPermission("sysOrg:save")
     @PostMapping("save")
-    public AjaxResult saveOrUpdate(@RequestBody SysOrg sysOrg) {
-        if(sysOrg.getLeader() != null){
-            if(StrUtil.isEmpty(sysOrg.getLeader().getId())){
-                sysOrg.setLeader(null);
+    public AjaxResult saveOrUpdate(@RequestBody SysOrg input, RequestBodyKeys requestBodyKeys) throws Exception {
+        if(input.getLeader() != null){
+            if(StrUtil.isEmpty(input.getLeader().getId())){
+                input.setLeader(null);
             }
         }
-        sysOrgService.saveOrUpdate(sysOrg);
+        sysOrgService.saveOrUpdateByRequest(input,requestBodyKeys);
         return AjaxResult.ok().msg("保存机构成功");
     }
 

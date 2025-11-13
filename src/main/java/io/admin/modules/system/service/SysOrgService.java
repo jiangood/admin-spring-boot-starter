@@ -1,6 +1,7 @@
 package io.admin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
+import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysUserDao;
@@ -48,14 +49,6 @@ public class SysOrgService extends BaseService<SysOrg> {
 
 
     /**
-     * 查早所有正常的机构
-     */
-    public List<SysOrg> findAllValid() {
-        return sysOrgDao.findAllValid();
-    }
-
-
-    /**
      * @param showDisabled 是否显示禁用
      */
     public List<SysOrg> findByLoginUser( boolean showDept, boolean showDisabled) {
@@ -92,22 +85,20 @@ public class SysOrgService extends BaseService<SysOrg> {
     }
 
 
+    @Override
     @Transactional
-    public SysOrg saveOrUpdate(SysOrg input) {
+    public SysOrg saveOrUpdateByRequest(SysOrg input, List<String> updateKeys) throws Exception {
         boolean isNew = input.isNew();
 
         if (!isNew) {
             Assert.state(!input.getId().equals(input.getPid()), "父节点不能和本节点一致，请重新选择父节点");
             List<String> childIdListById = sysOrgDao.findChildIdListById(input.getId());
             Assert.state(!childIdListById.contains(input.getId()), "父节点不能为本节点的子节点，请重新选择父节点");
-
-            SysOrg old = sysOrgDao.findOne(input.getId());
-            if (input.getSeq() == null) {
-                input.setSeq(old.getSeq());
-            }
         }
-        return sysOrgDao.save(input);
+
+        return super.saveOrUpdateByRequest(input, updateKeys);
     }
+
 
 
     /**

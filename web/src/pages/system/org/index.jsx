@@ -13,14 +13,6 @@ import {
     TreeUtil
 } from "@/framework";
 
-const baseTitle = "组织机构";
-const baseApi = 'admin/sysOrg/';
-
-const deleteTitle = '删除' + baseTitle
-
-
-const treeApi = baseApi + 'allTree'
-
 
 export default class extends React.Component {
 
@@ -89,7 +81,7 @@ export default class extends React.Component {
 
         const key = selectedKeys[0]
         this.setState({formLoading: true, formEditing: false})
-        HttpUtil.get(baseApi + "detail", {id: key}).then(rs => {
+        HttpUtil.get( "admin/sysOrg/detail", {id: key}).then(rs => {
             this.setState({formValues: rs})
         }).finally(() => {
             this.setState({formLoading: false})
@@ -98,7 +90,7 @@ export default class extends React.Component {
 
     onFinish = (values) => {
         this.setState({submitLoading: true, formEditing: false})
-        HttpUtil.post(baseApi + 'save', values).then(rs => {
+        HttpUtil.post( 'admin/sysOrg/save', values).then(rs => {
             this.loadTree()
         }).finally(() => {
             this.setState({submitLoading: false})
@@ -106,7 +98,7 @@ export default class extends React.Component {
     }
     handleEnableAll = (id) => {
         this.setState({enableAllLoading: true})
-        HttpUtil.get(baseApi + 'enableAll', {id}).then(rs => {
+        HttpUtil.get( 'admin/sysOrg/enableAll', {id}).then(rs => {
             this.loadTree()
         }).finally(() => {
             this.setState({enableAllLoading: false})
@@ -115,7 +107,7 @@ export default class extends React.Component {
 
     handleDisableAll = (id) => {
         this.setState({enableAllLoading: true})
-        HttpUtil.get(baseApi + 'disableAll', {id}).then(rs => {
+        HttpUtil.get('admin/sysOrg/disableAll', {id}).then(rs => {
             this.loadTree()
         }).finally(() => {
             this.setState({enableAllLoading: false})
@@ -235,7 +227,7 @@ export default class extends React.Component {
                                 <EditOutlined/> 编辑
                             </Button>
 
-                            <Popconfirm title={'是否确定' + deleteTitle} disabled={disabled}
+                            <Popconfirm title={'是否确定删除组织机构'} disabled={disabled}
                                         onConfirm={() => this.handleDelete(formValues)}>
                                 <Button icon={<DeleteOutlined/>} disabled={disabled}>删除</Button>
                             </Popconfirm>
@@ -265,7 +257,7 @@ export default class extends React.Component {
                             <Form.Item noStyle name='id'>
                             </Form.Item>
                             <Form.Item label='父节点' name='pid'>
-                                <FieldRemoteTreeSelect url={treeApi}/>
+                                <FieldRemoteTreeSelect url='admin/sysOrg/allTree'/>
                             </Form.Item>
                             <Form.Item label='名称' name='name' rules={[{required: true}]}>
                                 <Input />

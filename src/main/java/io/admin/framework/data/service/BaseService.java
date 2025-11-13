@@ -25,13 +25,12 @@ public abstract class BaseService<T extends Persistable<String>> {
      */
     @Transactional
     public T saveOrUpdateByRequest(T input, List<String> updateKeys) throws Exception {
-        String id = input.getId();
-        if (id == null) {
+        if (input.isNew()) {
             return baseDao.persist(input);
         }
 
         baseDao.updateField(input, updateKeys);
-        return baseDao.findById(id);
+        return baseDao.findById(input.getId());
     }
 
 
