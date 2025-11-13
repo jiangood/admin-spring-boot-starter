@@ -8,7 +8,6 @@ import lombok.Data;
 public class ConfigDefinition {
     String code;
     ValueType valueType;
-    String defaultValue;
     String description;
     String name;
 }

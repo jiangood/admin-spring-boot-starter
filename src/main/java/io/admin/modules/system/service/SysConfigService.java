@@ -2,6 +2,7 @@
 package io.admin.modules.system.service;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.RequestTool;
 import io.admin.common.utils.tree.TreeTool;
@@ -41,6 +42,9 @@ public class SysConfigService {
      */
     public <T> T getMixed(String key, Class<T> type) {
         String value = env.getProperty(key);
+
+
+
 
         SysConfig sysConfig = sysConfigDao.findByCode(key);
         if (sysConfig != null) {
@@ -169,4 +173,6 @@ public class SysConfigService {
 
         return responseList;
     }
+
+
 }
