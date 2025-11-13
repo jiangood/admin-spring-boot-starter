@@ -65,7 +65,7 @@ export default class extends React.Component {
     }
 
     loadData() {
-        HttpUtil.get('sysConfig/page').then(rs => {
+        HttpUtil.get('admin/sysConfig/page').then(rs => {
             this.setState({data: rs})
         })
     }

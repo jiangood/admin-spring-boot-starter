@@ -80,7 +80,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post( 'apiAccount/save', values).then(rs => {
+        HttpUtil.post( 'admin/apiAccount/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
@@ -89,7 +89,7 @@ export default class extends React.Component {
 
 
     handleDelete = record => {
-        HttpUtil.get( 'apiAccount/delete', {id:record.id}).then(rs => {
+        HttpUtil.get( 'admin/apiAccount/delete', {id:record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }

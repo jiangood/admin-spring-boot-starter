@@ -64,7 +64,7 @@ class _Layouts extends React.Component {
             return;
         }
 
-        HttpUtil.get('public/checkLogin')
+        HttpUtil.get('admin/public/checkLogin')
             .then(rs => {
                 const {login, needUpdatePwd} = rs
                 if (login && !needUpdatePwd) {

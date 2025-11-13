@@ -61,13 +61,13 @@ export default class extends React.Component {
     loadData() {
         this.setState({loading: true})
         Promise.all([
-            HttpUtil.get('sysRole/get', {id: this.roleId}).then(rs => {
+            HttpUtil.get('admin/sysRole/get', {id: this.roleId}).then(rs => {
                 this.setState({roleInfo: rs})
             }),
-            HttpUtil.get('sysRole/permTreeTable', {id: this.roleId}).then(rs => {
+            HttpUtil.get('admin/sysRole/permTreeTable', {id: this.roleId}).then(rs => {
                 this.setState({dataSource: rs})
             }),
-            HttpUtil.get('sysRole/ownPerms', {id: this.roleId}).then(rs => {
+            HttpUtil.get('admin/sysRole/ownPerms', {id: this.roleId}).then(rs => {
                 this.setState({rowSelectedKeys: rs})
             })
         ]).then(rs => {

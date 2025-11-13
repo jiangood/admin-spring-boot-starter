@@ -140,7 +140,7 @@ export default class extends React.Component {
 
     handleEditUser = record => {
         this.setState({usersModalOpen: true, formValues: record})
-        HttpUtil.get('sysRole/userList', {id: record.id}).then(rs => {
+        HttpUtil.get('admin/sysRole/userList', {id: record.id}).then(rs => {
             this.setState({userList: rs.list, targetKeys: rs.selectedKeys})
         })
     }
@@ -156,7 +156,7 @@ export default class extends React.Component {
 
 
     handleDelete = record => {
-        HttpUtil.get('sysRole/delete', {id: record.id}).then(rs => {
+        HttpUtil.get('admin/sysRole/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -173,10 +173,10 @@ export default class extends React.Component {
 
     handleEditMenu =(record)=>{
         this.setState({menuOpen:true,formValues:record,menuTreeLoading:true})
-        HttpUtil.get('sysRole/ownMenu', {id: record.id}).then(rs => {
+        HttpUtil.get('admin/sysRole/ownMenu', {id: record.id}).then(rs => {
             this.setState({menuChecked:rs.checked,menuHalfChecked:rs.halfChecked})
         })
-        HttpUtil.get('sysRole/menuTree').then(rs => {
+        HttpUtil.get('admin/sysRole/menuTree').then(rs => {
             this.setState({menuTree:rs, menuTreeLoading:false})
         })
     }

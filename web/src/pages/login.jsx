@@ -56,7 +56,7 @@ export default class login extends React.Component {
             password: values.password,
         }
 
-        HttpUtil.postForm('/auth/login', params).then(rs => {
+        HttpUtil.postForm('admin/auth/login', params).then(rs => {
             console.log('登录结果', rs)
             history.push('/')
         }).catch(e=>{

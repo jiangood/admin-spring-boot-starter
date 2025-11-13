@@ -24,7 +24,7 @@ export default class HeaderRight extends React.Component {
     }
 
     initMessage = () => {
-        HttpUtil.get('user/msg/getMessageCount').then(rs => {
+        HttpUtil.get('admin/user/msg/getMessageCount').then(rs => {
             this.setState({messageCount: rs})
         })
     }

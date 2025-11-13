@@ -14,7 +14,7 @@ export default class extends React.Component {
     let params = PageUtil.currentLocationQuery()
     const id = this.id = params.id
 
-    HttpUtil.get('flowable/test/get', {id}).then(rs=>{
+    HttpUtil.get('admin/flowable/test/get', {id}).then(rs=>{
         this.setState({model: rs})
 
     })

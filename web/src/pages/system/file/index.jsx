@@ -93,7 +93,7 @@ export default class extends React.Component {
 
 
     handleDelete = row => {
-        HttpUtil.get('sysFile/delete', row).then(rs => {
+        HttpUtil.get('admin/sysFile/delete', row).then(rs => {
             this.tableRef.current.reload()
         })
     }

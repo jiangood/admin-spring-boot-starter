@@ -31,7 +31,7 @@ export default class extends React.Component {
     componentDidMount() {
         const id = PageUtil.currentParams().id
 
-        HttpUtil.get('apiAccount/docInfo', {id}).then(rs => {
+        HttpUtil.get('admin/apiAccount/docInfo', {id}).then(rs => {
             this.setState(rs)
         })
 

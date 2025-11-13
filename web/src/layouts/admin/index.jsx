@@ -64,7 +64,7 @@ export default class extends React.Component {
 
 
     initMenu = () => {
-        HttpUtil.get('menuInfo').then(info => {
+        HttpUtil.get('admin/menuInfo').then(info => {
             const {menus, topMenus, badgeList} = info
 
             let pathname = PageUtil.currentPathname();

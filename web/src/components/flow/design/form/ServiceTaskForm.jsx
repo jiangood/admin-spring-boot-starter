@@ -23,7 +23,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    HttpUtil.get('flowable/model/javaDelegateOptions').then(rs=>{
+    HttpUtil.get('admin/flowable/model/javaDelegateOptions').then(rs=>{
       this.setState({javaDelegateOptions:rs})
 
     })

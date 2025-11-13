@@ -23,7 +23,7 @@ export default class extends React.Component {
 
     validator = (rule, value) => {
         return new Promise((resolve, reject) => {
-            HttpUtil.create().get("/sysUser/pwdStrength", {password: value}).then(response => {
+            HttpUtil.create().get("admin/sysUser/pwdStrength", {password: value}).then(response => {
                 const rs = response.data
                 if (!rs.success) {
                     reject(rs.message)

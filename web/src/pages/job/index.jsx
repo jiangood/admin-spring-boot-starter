@@ -42,7 +42,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        HttpUtil.get('job/jobClassOptions').then(rs => {
+        HttpUtil.get('admin/job/jobClassOptions').then(rs => {
             this.setState({jobClassOptions: rs})
         })
     }
@@ -146,12 +146,12 @@ export default class extends React.Component {
 
     handleDelete = row => {
         const hide = message.loading("删除作业中...")
-        HttpUtil.get('job/delete', {id: row.id}).then(rs => {
+        HttpUtil.get('admin/job/delete', {id: row.id}).then(rs => {
             this.tableRef.current.reload();
         }).catch(hide)
     }
     handleTriggerJob = row => {
-        HttpUtil.get('job/triggerJob', {id: row.id}).then(rs => {
+        HttpUtil.get('admin/job/triggerJob', {id: row.id}).then(rs => {
             this.tableRef.current.reload();
         })
     }

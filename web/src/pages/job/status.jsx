@@ -11,7 +11,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        HttpUtil.get('jobStatus/info').then(rs => {
+        HttpUtil.get('admin/jobStatus/info').then(rs => {
             this.setState({dataSource: rs.list, summary: rs.summary})
         })
 

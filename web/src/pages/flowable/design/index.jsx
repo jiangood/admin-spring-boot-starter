@@ -60,7 +60,7 @@ export default class extends React.Component {
         this.moddle = this.bpmnModeler.get('moddle'); // 数据模型， 主要存储元数据
 
 
-        HttpUtil.get('flowable/model/detail', {id: this.state.id}).then(rs => {
+        HttpUtil.get('admin/flowable/model/detail', {id: this.state.id}).then(rs => {
             let {conditionVariable, model} = rs;
             this.setState({model, conditionVariable}, () => this.initBpmn(model.content))
         })

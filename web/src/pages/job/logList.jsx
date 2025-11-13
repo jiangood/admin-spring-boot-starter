@@ -67,7 +67,7 @@ export default class extends React.Component {
   ]
 
   clean = (selectedRowKeys)=>{
-    HttpUtil.post('admin//job/jobLogClean', {ids:selectedRowKeys} ).then(rs=>{
+    HttpUtil.post('admin/job/jobLogClean', {ids:selectedRowKeys} ).then(rs=>{
       this.tableRef.current.reload()
     })
   }

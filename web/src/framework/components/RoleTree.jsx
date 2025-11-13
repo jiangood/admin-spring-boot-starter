@@ -16,7 +16,7 @@ export  class RoleTree  extends React.Component {
 
 
     componentDidMount() {
-        HttpUtil.get('sysRole/bizTree').then(tree => {
+        HttpUtil.get('admin/sysRole/bizTree').then(tree => {
             this.setState({treeData: tree,treeDataLoading: false})
         })
     }
