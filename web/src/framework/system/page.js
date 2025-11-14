@@ -3,6 +3,12 @@ import {StrUtil, UrlUtil} from "@/framework";
 
 export class PageUtil {
 
+    static redirectToLogin(){
+        let url = PageUtil.currentUrl();
+        url =encodeURIComponent(url)
+        history.push('/login?redirect='+ url)
+    }
+
     /**
      * @deprecated
      * @returns {{}}

@@ -78,7 +78,7 @@ class _Layouts extends React.Component {
                 }
             })
             .catch(async () => {
-                SysUtil.redirectToLogin()
+                PageUtil.redirectToLogin()
             })
     }
 

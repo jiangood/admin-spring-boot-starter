@@ -7,11 +7,6 @@ const LOGIN_INFO_KEY = "loginInfo"
 const DICT_INFO_KEY = "dictInfo"
 export const SysUtil = {
 
-    redirectToLogin(){
-        let url = PageUtil.currentUrl();
-        url =encodeURIComponent(url)
-        history.push('/login?redirect='+ url)
-    },
 
 
     /**

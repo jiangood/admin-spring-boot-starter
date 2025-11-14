@@ -4,6 +4,7 @@ import {SysUtil} from "./sys";
 import qs from 'qs'
 import {MsgBox} from "../components";
 import {history} from "umi";
+import {PageUtil} from "./page";
 
 
 export const HttpUtil = {
@@ -164,7 +165,7 @@ class Util {
 
                 if(e.status  === 401){
                     MsgBox.confirm('登录已过期，请重新登录').then(rs=>{
-                        history.push('/login')
+                        PageUtil.redirectToLogin()
                     })
                     return;
                 }
