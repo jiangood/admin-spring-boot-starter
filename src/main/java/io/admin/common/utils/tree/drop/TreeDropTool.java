@@ -19,8 +19,8 @@ public class TreeDropTool {
 
     public static DropResult onDrop(DropEvent e, List<TreeNodeItem> tree) {
         e.setDropPositionEnum(DropEvent.DropPositionEnum.valueOf(e.getDropPosition()));
-        Map<String, TreeNodeItem> keyMap = TreeTool.treeToMap(tree);
 
+        Map<String, TreeNodeItem> keyMap = TreeTool.treeToMap(tree);
 
         TreeNodeItem dragNode = keyMap.get(e.getDragKey());
         TreeNodeItem dropNode = keyMap.get(e.getDropKey());
