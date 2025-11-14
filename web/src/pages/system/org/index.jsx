@@ -251,7 +251,7 @@ export default class extends React.Component {
         const dropKey = node.key;
         const dragKey = dragNode.key;
         console.log(dragNode.title, '->', node.title, 'dropToGap', dropToGap, dropPosition)
-        HttpUtil.post('admin//sysOrg/sort', {dropPosition, dropToGap, dropKey, dragKey}).then(this.loadTree)
+        HttpUtil.post('admin/sysOrg/sort', {dropPosition, dropToGap, dropKey, dragKey}).then(this.loadTree)
     };
 }
 

@@ -1,9 +1,9 @@
-package io.admin.common.utils.tree.drag;
+package io.admin.common.antd;
 
 import lombok.Data;
 
 @Data
-public class DragDropEvent {
+public class DropEvent {
 
     String dropKey;
     String dragKey;

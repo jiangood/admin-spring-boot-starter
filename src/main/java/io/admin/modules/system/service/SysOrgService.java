@@ -1,6 +1,7 @@
 package io.admin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
+import io.admin.common.utils.tree.drop.DropResult;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.common.LoginTool;
@@ -229,5 +230,22 @@ public class SysOrgService extends BaseService<SysOrg> {
 
     public List<SysOrg> findAll(JpaQuery<SysOrg> q, Sort sort) {
         return sysOrgDao.findAll(q,sort);
+    }
+
+    @Transactional
+    public void sort(String dragKey, DropResult result) {
+        SysOrg dragOrg = sysOrgDao.findOne(dragKey);
+        if(result.getParentKey() != null){
+            dragOrg.setPid(result.getParentKey());
+        }
+
+        List<String> sortedKeys = result.getSortedKeys();
+        for (int i = 0; i < sortedKeys.size(); i++) {
+            String sortedKey = sortedKeys.get(i);
+            // 组织机构一般少，这里遍历获取
+            SysOrg org = sysOrgDao.findOne(sortedKey);
+            org.setSeq(i);
+        }
+
     }
 }

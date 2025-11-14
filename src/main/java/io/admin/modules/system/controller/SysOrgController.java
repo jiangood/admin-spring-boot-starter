@@ -5,8 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.common.antd.TreeNodeItem;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.tree.TreeTool;
-import io.admin.common.utils.tree.drag.DragDropEvent;
-import io.admin.common.utils.tree.drag.TreeDragTool;
+import io.admin.common.antd.DropEvent;
+import io.admin.common.utils.tree.drop.DropResult;
+import io.admin.common.utils.tree.drop.TreeDropTool;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
@@ -80,7 +81,6 @@ public class SysOrgController {
         }
         sysOrgService.saveOrUpdateByRequest(input, requestBodyKeys);
 
-        // 刷新当前用户的权限
       permissionStaleService.markUserStale(LoginTool.getUsername());
 
         return AjaxResult.ok().msg("保存机构成功");
@@ -119,13 +119,14 @@ public class SysOrgController {
 
     @PostMapping("sort")
     @HasPermission("sysOrg:save")
-    public AjaxResult sort(@RequestBody DragDropEvent e) {
+    public AjaxResult sort(@RequestBody DropEvent e) {
         List<SysOrg> nodes = sysOrgService.findAll();
-        List<SysOrg> list = TreeDragTool.onDrop(e, nodes);
-        for (int i = 0; i < list.size(); i++) {
-            SysOrg sysOrg = list.get(i);
-            sysOrg.setSeq(i);
-        }
+        List<TreeNodeItem> tree = list2Tree(nodes);
+
+        DropResult dropResult = TreeDropTool.onDrop(e, tree);
+
+        sysOrgService.sort(e.getDragKey(),dropResult);
+
 
         return AjaxResult.ok().msg("排序成功");
     }

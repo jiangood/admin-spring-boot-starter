@@ -3,6 +3,7 @@ package io.admin.common.utils.tree;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Dict;
+import io.admin.common.antd.TreeNodeItem;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -14,8 +15,28 @@ import java.util.function.Function;
  */
 public class TreeTool {
 
+    public static List<TreeNodeItem> buildTree(List<TreeNodeItem> list) {
+        return buildTree(list,TreeNodeItem::getKey, TreeNodeItem::getParentKey, TreeNodeItem::getChildren, TreeNodeItem::setChildren);
+    }
 
-    public static List<Dict> buildTree(List<Dict> list) {
+    public static Map<String,TreeNodeItem>  treeToMap(List<TreeNodeItem> tree) {
+        Map<String,TreeNodeItem> map = new HashMap<>();
+        walk(tree,TreeNodeItem::getChildren,node->{
+            map.put(node.getKey(), node);
+        });
+        return map;
+    }
+
+    public static <E> Map<String,E>  treeToMap(List<E> tree,Function<E, String> keyFn, Function<E, List<E>> getChildren) {
+        Map<String,E> map = new HashMap<>();
+        walk(tree,getChildren,node->{
+            String key = keyFn.apply(node);
+            map.put(key, node);
+        });
+        return map;
+    }
+
+    public static List<Dict> buildTreeByDict(List<Dict> list) {
         return buildTree(list, e -> e.getStr("key"), e -> e.getStr("parentKey"), (e) -> e.get("children", new ArrayList<>()), (e, children) -> e.set("children", children));
     }
 
@@ -24,22 +45,22 @@ public class TreeTool {
      * 构造树
      *
      * @param list
-     * @param idFn
-     * @param pidFn
+     * @param keyFn
+     * @param pkeyFn
      * @param <E>
      * @return
      */
-    public static <E> List<E> buildTree(List<E> list, Function<E, String> idFn, Function<E, String> pidFn, Function<E, List<E>> getChildren, BiConsumer<E, List<E>> setChildren) {
-        Map<String, E> idMap = new HashMap<>();
+    public static <E> List<E> buildTree(List<E> list, Function<E, String> keyFn, Function<E, String> pkeyFn, Function<E, List<E>> getChildren, BiConsumer<E, List<E>> setChildren) {
+        Map<String, E> keyMap = new HashMap<>();
         for (E e : list) {
-            idMap.put(idFn.apply(e), e);
+            keyMap.put(keyFn.apply(e), e);
         }
 
         List<E> tree = new ArrayList<>();
 
         for (E e : list) {
-            String pid = pidFn.apply(e);
-            E parent = idMap.get(pid);
+            String pid = pkeyFn.apply(e);
+            E parent = keyMap.get(pid);
 
             if (parent == null) {
                 tree.add(e);
@@ -140,10 +161,10 @@ public class TreeTool {
      * @param list 注意不是树，而是列表
      * @return
      */
-    public static <E> List<String> getPids(String nodeId, List<E> list, Function<E, String> idFn, Function<E, String> pidFn) {
+    public static <E> List<String> getPids(String nodeId, List<E> list, Function<E, String> keyFn, Function<E, String> pkeyFn) {
         Map<String, E> idMap = new HashMap<>();
         for (E e : list) {
-            idMap.put(idFn.apply(e), e);
+            idMap.put(keyFn.apply(e), e);
         }
         E node = idMap.get(nodeId);
         if (node == null) {
@@ -152,11 +173,11 @@ public class TreeTool {
 
         List<String> pids = new ArrayList<>();
 
-        String pid = pidFn.apply(node);
+        String pid = pkeyFn.apply(node);
         E parent = idMap.get(pid);
         while (parent != null) {
             pids.add(pid);
-            pid = pidFn.apply(parent);
+            pid = pkeyFn.apply(parent);
             parent = idMap.get(pid);
         }
 
