@@ -160,7 +160,7 @@ export default class extends React.Component {
     getContent = () => {
         const {siteInfo, loginInfo} = this.state
         if (this.state.menuTree.length === 0) { // 加载菜单中
-            return <div>数据加载中...</div>
+            return <></>
         }
         let tabPageRenderNode = <TabPageRender ref={this.tabPageRenderRef} pathMenuMap={this.state.pathMenuMap}/>;
         if (siteInfo.waterMark === true) {
