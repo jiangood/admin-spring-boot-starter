@@ -3,7 +3,6 @@ import {message as messageUtil, Modal} from "antd";
 import {SysUtil} from "./sys";
 import qs from 'qs'
 import {MsgBox} from "../components";
-import {history} from "umi";
 import {PageUtil} from "./page";
 
 
