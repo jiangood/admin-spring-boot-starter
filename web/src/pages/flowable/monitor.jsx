@@ -15,11 +15,12 @@ export default class extends React.Component {
     taskTableRef = React.createRef()
     render() {
         const items = [
-            {label: '运行中的流程', key: 'AllInstance', children: <AllInstance/>},
             {label: '运行中的任务', key: 'AllTask', children: this.renderTask()},
+            {label: '运行中的流程', key: 'AllInstance', children: <AllInstance/>},
+
             {label: '所有定义', key: 'AllDefinition', children: <AllDefinition/>},
         ];
-        return <Page padding> <Tabs items={items} destroyOnHidden/></Page>
+        return <Page padding> <Tabs items={items} destroyOnHidden /></Page>
 
     }
 
@@ -49,6 +50,10 @@ export default class extends React.Component {
                 {
                     dataIndex: 'assignee',
                     title: '处理人'
+                },
+                {
+                    dataIndex: 'assigneeLabel',
+                    title: '处理人显示名'
                 },
                 {
                     dataIndex: 'startTime',

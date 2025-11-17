@@ -7,6 +7,7 @@ import io.admin.framework.config.security.HasPermission;
 import io.admin.modules.flowable.core.FlowableLoginUserProvider;
 import io.admin.modules.flowable.core.dto.request.SetAssigneeRequest;
 import io.admin.modules.flowable.core.dto.response.MonitorTaskResponse;
+import io.admin.modules.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import org.flowable.common.engine.api.query.Query;
 import org.flowable.engine.RepositoryService;
@@ -49,6 +50,9 @@ public class MonitorController {
     @Resource
     private TaskService taskService;
 
+    @Resource
+    SysUserService sysUserService;
+
     @GetMapping("processDefinition")
     public AjaxResult processDefinition(Pageable pageable) {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
@@ -77,7 +81,7 @@ public class MonitorController {
 
 
     @GetMapping("task")
-    public AjaxResult task(Pageable pageable) {
+    public AjaxResult task() {
         TaskQuery query = taskService.createTaskQuery();
         List<Task> list = query.list();
 
@@ -89,6 +93,7 @@ public class MonitorController {
             r.setProcessDefinitionId(t.getProcessDefinitionId());
             r.setProcessInstanceId(t.getProcessInstanceId());
             r.setAssignee(t.getAssignee());
+            r.setAssigneeLabel(sysUserService.getNameById(t.getAssignee()));
             r.setExecutionId(t.getExecutionId());
             r.setStartTime(t.getInProgressStartTime());
             r.setTenantId(t.getTenantId());

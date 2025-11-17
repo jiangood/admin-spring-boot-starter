@@ -18,6 +18,7 @@ public class MonitorTaskResponse {
     private String processInstanceId;
 
     private String assignee;
+    private String assigneeLabel;
     private String executionId;
     private Date startTime;
     private String tenantId;
