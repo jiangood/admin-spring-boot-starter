@@ -7,36 +7,42 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MenuItem {
-    Boolean danger; //	展示错误状态样式	boolean	false
-    Boolean disabled; //	是否禁用	boolean	false
-    String extra; //	额外节点	ReactNode	-	5.21.0
-    AntDesignIcon icon; //	菜单图标	ReactNode	-
-    String key; //item 的唯一标志	string	-
-    String label; //	菜单项标题	ReactNode	-
-    String title; //    设置收缩时展示的悬浮标题 string
+public class MenuItem implements Cloneable{
+    private  Boolean danger; //	展示错误状态样式	boolean	false
+    private  Boolean disabled; //	是否禁用	boolean	false
+    private  String extra; //	额外节点	ReactNode	-	5.21.0
+    private  AntDesignIcon icon; //	菜单图标	ReactNode	-
+    private   String key; //item 的唯一标志	string	-
+    private  String label; //	菜单项标题	ReactNode	-
+    private  String title; //    设置收缩时展示的悬浮标题 string
 
 
-    List<MenuItem> children ;
+    private List<MenuItem> children ;
 
 
     // 额外字段，用于组装树
     @JsonIgnore
-    String parentKey;
+    private  String parentKey;
 
 
 
 
-    String path;
+    private  String path;
 
     @Override
     public MenuItem clone() {
         try {
             MenuItem clone = (MenuItem) super.clone();
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            // 深拷贝可变字段
+            if (this.children != null) {
+                clone.children = this.children.stream()
+                        .map(MenuItem::clone)
+                        .collect(Collectors.toList());
+            }
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
