@@ -17,9 +17,6 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.repository.ProcessDefinition;
-import org.flowable.engine.runtime.ProcessInstance;
-import org.flowable.task.api.Task;
-import org.flowable.task.api.TaskQuery;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.context.annotation.Lazy;
@@ -140,35 +137,6 @@ public class FlowableManagerImpl implements FlowableManager {
 
         // 判断相对角色
 
-    }
-
-
-    @Override
-    public Page<TaskVo> taskTodoList(Pageable pageable) {
-        FlowableLoginUser me = flowableLoginUserProvider.currentLoginUser();
-        TaskQuery taskQuery = myTaskService.createTodoTaskQuery(me);
-        taskQuery.orderByTaskCreateTime().desc();
-
-        List<Task> taskList = pageable.isPaged() ? taskQuery.listPage((int) pageable.getOffset(), pageable.getPageSize()) : taskQuery.list();
-        long count = taskQuery.count();
-
-
-        List<TaskVo> infoList = taskList.stream().map(task -> {
-            ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-
-            TaskVo taskVo = new TaskVo(task);
-            taskVo.fillInstanceInfo(instance);
-            return taskVo;
-        }).collect(Collectors.toList());
-
-        return new PageImpl<>(infoList, pageable, count);
-    }
-
-    @Override
-    public long taskTodoCount() {
-        FlowableLoginUser me = flowableLoginUserProvider.currentLoginUser();
-        TaskQuery taskQuery = myTaskService.createTodoTaskQuery(me);
-        return taskQuery.count();
     }
 
 

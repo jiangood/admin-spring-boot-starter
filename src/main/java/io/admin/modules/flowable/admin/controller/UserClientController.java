@@ -8,6 +8,9 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.BeanTool;
 import io.admin.common.utils.DateFormatTool;
 import io.admin.common.utils.ImgTool;
+import io.admin.common.utils.SpringTool;
+import io.admin.framework.config.security.LoginUser;
+import io.admin.modules.common.LoginUtils;
 import io.admin.modules.flowable.core.FlowableLoginUser;
 import io.admin.modules.flowable.core.FlowableLoginUserProvider;
 import io.admin.modules.flowable.core.FlowableManager;
@@ -17,33 +20,33 @@ import io.admin.modules.flowable.admin.entity.ConditionVariable;
 import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.MyTaskService;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
+import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.core.dto.TaskVo;
 import io.admin.modules.flowable.core.dto.request.HandleTaskRequest;
 import io.admin.modules.flowable.core.dto.response.CommentResult;
 
 
-
-
 import jakarta.annotation.Resource;
 import org.flowable.engine.HistoryService;
+import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.history.HistoricProcessInstanceQuery;
+import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.task.Comment;
 import org.flowable.task.api.Task;
+import org.flowable.task.api.TaskQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -56,13 +59,11 @@ import java.util.stream.Collectors;
 public class UserClientController {
 
 
-
     @Resource
     MyTaskService myTaskService;
 
     @Resource
     TaskService taskService;
-
 
 
     @Resource
@@ -80,9 +81,49 @@ public class UserClientController {
     @Resource
     FlowableManager fm;
 
+
+    @Resource
+    RuntimeService runtimeService;
+
     @RequestMapping("todoTaskPage")
     public AjaxResult todo(Pageable pageable) {
-        Page<TaskVo> page = fm.taskTodoList(pageable);
+        String userId = LoginUtils.getUserId();
+        TaskQuery query = taskService.createTaskQuery().active();
+
+        query.or();
+        query.taskAssignee(userId);
+        query.taskCandidateUser(userId);
+
+        // 人员及 分组
+        Collection<AssignmentTypeProvider> providerList = SpringTool.getBeans(AssignmentTypeProvider.class);
+        Set<String> groupIds = new HashSet<>();
+        for (AssignmentTypeProvider provider : providerList) {
+            List<String> groups = provider.findGroupsByUser(userId);
+            if (groups != null) {
+                groupIds.addAll(groups);
+            }
+        }
+        if (!CollectionUtils.isEmpty(groupIds)) {
+            query.taskCandidateGroupIn(groupIds);
+        }
+        query.endOr();
+
+        query.orderByTaskCreateTime().desc();
+
+
+        List<Task> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
+        long count = query.count();
+
+
+        List<TaskVo> infoList = taskList.stream().map(task -> {
+            ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
+
+            TaskVo taskVo = new TaskVo(task);
+            taskVo.fillInstanceInfo(instance);
+            return taskVo;
+        }).collect(Collectors.toList());
+
+        PageImpl<TaskVo> page = new PageImpl<>(infoList, pageable, count);
 
         return AjaxResult.ok().data(page);
     }
@@ -137,21 +178,22 @@ public class UserClientController {
 
     /**
      * 任务信息
+     *
      * @param id
      * @return
      */
     @GetMapping("taskInfo")
     @Transactional
     public AjaxResult taskInfo(String id) {
-        Assert.hasText(id,"任务id不能为空");
+        Assert.hasText(id, "任务id不能为空");
         Map<String, Object> variables = taskService.getVariables(id);
         Task task = taskService.createTaskQuery()
                 .taskId(id)
                 .singleResult();
 
         Dict data = Dict.of("id", task.getId(),
-               "formKey", task.getFormKey(),
-               "variables", variables
+                "formKey", task.getFormKey(),
+                "variables", variables
         );
 
         return AjaxResult.ok().data(data);
@@ -229,13 +271,13 @@ public class UserClientController {
             List<ConditionVariable> conditionVariableList = model.getConditionVariableList();
             if (conditionVariableList != null) {
                 Map<String, Object> pv = instance.getProcessVariables();
-                Map<String,Object> variables = new HashMap<>();
+                Map<String, Object> variables = new HashMap<>();
                 for (ConditionVariable con : conditionVariableList) {
                     String name = con.getName();
                     String label = con.getLabel();
                     variables.put(label, pv.get(name));
                 }
-                data.put("variables",variables);
+                data.put("variables", variables);
             }
         }
 

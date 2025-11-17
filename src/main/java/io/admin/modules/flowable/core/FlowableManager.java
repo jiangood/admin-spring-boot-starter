@@ -13,9 +13,7 @@ public interface FlowableManager {
 
     void validate(String processDefinitionKey, String bizKey, Map<String, Object> variables);
 
-    Page<TaskVo> taskTodoList(Pageable pageable);
 
-    long taskTodoCount();
 
     Page<TaskVo> taskDoneList(Pageable pageable);
 }

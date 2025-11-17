@@ -63,46 +63,8 @@ public class MyTaskService {
     FlowableProperties flowableProperties;
 
     public TaskQuery createTodoTaskQuery(FlowableLoginUser loginUser) {
-        String loginUserId = loginUser.getId();
 
-
-        TaskQuery query = taskService.createTaskQuery().active();
-
-        if (loginUser.isSuperAdmin()) {
-            return query;
-        }
-
-
-        Collection<AssignmentTypeProvider> providerList = SpringTool.getBeans(AssignmentTypeProvider.class);
-
-        {
-            // 人员及 分组
-            Set<String> groupIds = new HashSet<>();
-            for (AssignmentTypeProvider provider : providerList) {
-                List<String> groups = provider.findGroupsByUser(loginUserId);
-                if (groups != null) {
-                    groupIds.addAll(groups);
-                }
-            }
-
-            query.or();
-            query.taskAssignee(loginUserId);
-            query.taskCandidateUser(loginUserId);
-            if (!CollectionUtils.isEmpty(groupIds)) {
-                query.taskCandidateGroupIn(groupIds);
-            }
-            query.endOr();
-        }
-
-        query.orderByTaskCreateTime().desc();
-
-        return query;
-    }
-
-
-    public synchronized boolean isBizKeyExist(String bizKey) {
-        long count = runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(bizKey).count();
-        return count > 0;
+   throw  new IllegalStateException();
     }
 
 
