@@ -77,6 +77,7 @@ export default class extends React.Component {
                     }
                     return (
                         <LinkButton
+                            type='primary'
                             path={path}
                             label='处理任务'>处理</LinkButton>
                     );

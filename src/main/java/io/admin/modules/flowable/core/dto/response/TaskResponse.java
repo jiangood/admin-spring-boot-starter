@@ -31,20 +31,15 @@ public class TaskResponse {
     String formKey;
 
 
-    public TaskResponse(TaskInfo task) {
-        id = task.getId();
-        taskName = task.getName();
-        createTime = task.getCreateTime();
-        assigneeInfo = SpringTool.getBean(MyTaskService.class).getAssigneeInfoByTaskId(task);
-        formKey = task.getFormKey();
+    public TaskResponse() {
 
-        if (task instanceof HistoricTaskInstance ) {
+      /*  if (task instanceof HistoricTaskInstance ) {
             HistoricTaskInstance hisTask =  ((HistoricTaskInstance) task);
             endTime = hisTask.getEndTime();
 
             Long durationInMillis = hisTask.getDurationInMillis();
             durationInHours = durationInMillis / (60 * 60.0F * 1000);
-        }
+        }*/
     }
 
     public void fillInstanceInfo(ProcessInstance instance) {

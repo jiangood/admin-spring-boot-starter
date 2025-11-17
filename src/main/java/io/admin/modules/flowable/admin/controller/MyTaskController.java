@@ -9,6 +9,7 @@ import io.admin.common.utils.BeanTool;
 import io.admin.common.utils.DateFormatTool;
 import io.admin.common.utils.ImgTool;
 import io.admin.common.utils.SpringTool;
+import io.admin.framework.config.security.LoginUser;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.flowable.core.FlowableLoginUser;
 import io.admin.modules.flowable.core.FlowableLoginUserProvider;
@@ -25,16 +26,21 @@ import io.admin.modules.flowable.core.dto.request.HandleTaskRequest;
 import io.admin.modules.flowable.core.dto.response.CommentResult;
 
 
+import io.admin.modules.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.history.HistoricProcessInstanceQuery;
+import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.task.Comment;
 import org.flowable.task.api.Task;
+import org.flowable.task.api.TaskInfo;
 import org.flowable.task.api.TaskQuery;
+import org.flowable.task.api.history.HistoricTaskInstance;
+import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +61,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("admin/flowable/userClient")
-public class UserClientController {
+public class MyTaskController {
 
 
     @Resource
@@ -84,6 +90,8 @@ public class UserClientController {
     @Resource
     RuntimeService runtimeService;
 
+    @Resource
+    SysUserService sysUserService;
     @RequestMapping("todoTaskPage")
     public AjaxResult todo(Pageable pageable) {
         String userId = LoginUtils.getUserId();
@@ -116,15 +124,25 @@ public class UserClientController {
         long count = query.count();
 
         // 填充流程信息
+        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
+        Map<String, ProcessInstance> instanceMap = runtimeService.createProcessInstanceQuery().processInstanceIds(instanceIds).list().stream().collect(Collectors.toMap(Execution::getId, t -> t));
+
 
 
 
         List<TaskResponse> infoList = taskList.stream().map(task -> {
-            ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-
-            TaskResponse taskResponse = new TaskResponse(task);
-            taskResponse.fillInstanceInfo(instance);
-            return taskResponse;
+            ProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
+            TaskResponse r = new TaskResponse();
+            r.setId(task.getId());
+            r.setTaskName(task.getName());
+            r.setCreateTime(task.getCreateTime());
+            r.setAssigneeInfo(sysUserService.getNameById( task.getAssignee()));
+            r.setFormKey(task.getFormKey());
+            r.setInstanceId(task.getProcessInstanceId());
+            r.setInstanceName(instance.getName());
+            r.setInstanceStartTime(instance.getStartTime());
+            r.setInstanceStarter(sysUserService.getNameById( instance.getStartUserId()));
+            return r;
         }).collect(Collectors.toList());
 
         PageImpl<TaskResponse> page = new PageImpl<>(infoList, pageable, count);
@@ -134,8 +152,38 @@ public class UserClientController {
 
     @RequestMapping("doneTaskPage")
     public AjaxResult doneTaskPage(Pageable pageable) {
-        Page<TaskResponse> page = fm.taskDoneList(pageable);
-        return AjaxResult.ok().data(page);
+        LoginUser user = LoginUtils.getUser();
+        HistoricTaskInstanceQuery query = historyService.createHistoricTaskInstanceQuery()
+                .finished()
+                .includeProcessVariables()
+                .orderByHistoricTaskInstanceEndTime().desc();
+
+
+        List<HistoricTaskInstance> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
+        long count = query.count();
+
+        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
+        Map<String, HistoricProcessInstance> instanceMap = historyService.createHistoricProcessInstanceQuery().processInstanceIds(instanceIds).list()
+                .stream().collect(Collectors.toMap(HistoricProcessInstance::getId, t -> t));
+
+
+        List<TaskResponse> infoList = taskList.stream().map(task -> {
+            HistoricProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
+
+            TaskResponse r = new TaskResponse();
+            r.setId(task.getId());
+            r.setTaskName(task.getName());
+            r.setCreateTime(task.getCreateTime());
+            r.setAssigneeInfo(sysUserService.getNameById( task.getAssignee()));
+            r.setFormKey(task.getFormKey());
+            r.setInstanceId(task.getProcessInstanceId());
+            r.setInstanceName(instance.getName());
+            r.setInstanceStartTime(instance.getStartTime());
+            r.setInstanceStarter(sysUserService.getNameById( instance.getStartUserId()));
+            return r;
+        }).collect(Collectors.toList());
+
+        return AjaxResult.ok().data( new PageImpl<>(infoList, pageable, count));
     }
 
 

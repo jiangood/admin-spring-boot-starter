@@ -199,7 +199,7 @@ public class SysUserService extends BaseService<SysUser> {
 
 
     public synchronized String getNameById(String userId) {
-        if (userId == null || sysUserDao == null) {
+        if (userId == null) {
             return null;
         }
 

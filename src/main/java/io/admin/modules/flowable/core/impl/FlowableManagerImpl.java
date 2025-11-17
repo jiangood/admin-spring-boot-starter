@@ -140,39 +140,7 @@ public class FlowableManagerImpl implements FlowableManager {
     }
 
 
-    @Override
-    public Page<TaskResponse> taskDoneList(Pageable pageable) {
-        FlowableLoginUser me = flowableLoginUserProvider.currentLoginUser();
 
-
-        HistoricTaskInstanceQuery taskQuery = historyService.createHistoricTaskInstanceQuery().finished();
-
-        // 为方便调试，超级管理员可以查看所有
-        if (!me.isSuperAdmin()) {
-            taskQuery.taskAssigneeIds(Collections.singletonList(me.getId()));
-        }
-
-
-        //根据任务创建时间倒序，最新任务在最上面
-        taskQuery.orderByHistoricTaskInstanceEndTime().desc();
-
-        taskQuery.includeProcessVariables();
-
-        List<HistoricTaskInstance> taskList = taskQuery.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        long count = taskQuery.count();
-
-
-        List<TaskResponse> infoList = taskList.stream().map(task -> {
-
-            HistoricProcessInstance instance = historyService.createHistoricProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
-
-            TaskResponse taskResponse = new TaskResponse(task);
-            taskResponse.fillInstanceInfo(instance);
-            return taskResponse;
-        }).collect(Collectors.toList());
-
-        return new PageImpl<>(infoList, pageable, count);
-    }
 
 
     /***

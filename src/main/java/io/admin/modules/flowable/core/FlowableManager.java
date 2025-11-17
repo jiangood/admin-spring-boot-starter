@@ -14,6 +14,4 @@ public interface FlowableManager {
     void validate(String processDefinitionKey, String bizKey, Map<String, Object> variables);
 
 
-
-    Page<TaskResponse> taskDoneList(Pageable pageable);
 }

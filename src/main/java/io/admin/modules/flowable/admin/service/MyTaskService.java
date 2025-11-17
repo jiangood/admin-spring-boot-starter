@@ -2,33 +2,18 @@ package io.admin.modules.flowable.admin.service;
 
 
 
-import io.admin.common.utils.SpringTool;
-import io.admin.modules.flowable.core.FlowableLoginUser;
 import io.admin.modules.flowable.core.FlowableMasterDataProvider;
 import io.admin.modules.flowable.core.FlowableProperties;
-import io.admin.modules.flowable.core.assignment.AssignmentService;
-import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.core.dto.TaskHandleResult;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.flowable.bpmn.model.BpmnModel;
-import org.flowable.bpmn.model.ExtensionAttribute;
-import org.flowable.bpmn.model.FlowElement;
 import org.flowable.bpmn.model.UserTask;
-import org.flowable.engine.HistoryService;
-import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
-import org.flowable.engine.history.HistoricActivityInstance;
-import org.flowable.engine.history.HistoricActivityInstanceQuery;
 import org.flowable.engine.task.Comment;
 import org.flowable.task.api.Task;
-import org.flowable.task.api.TaskInfo;
-import org.flowable.task.api.TaskQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -45,27 +30,13 @@ public class MyTaskService {
     private RuntimeService runtimeService;
 
     @Resource
-    private RepositoryService repositoryService;
-
-    @Resource
     private TaskService taskService;
-
-    @Resource
-    private HistoryService historyService;
-
-    @Resource
-    private AssignmentService assignmentService;
 
     @Resource
     private FlowableMasterDataProvider flowableMasterDataProvider;
 
     @Resource
     FlowableProperties flowableProperties;
-
-    public TaskQuery createTodoTaskQuery(FlowableLoginUser loginUser) {
-
-   throw  new IllegalStateException();
-    }
 
 
     public void handle(String userId, TaskHandleResult result, String taskId, String comment) {
@@ -142,60 +113,6 @@ public class MyTaskService {
             return null;
         }
         return flowableMasterDataProvider.getUserNameById(userId);
-    }
-
-
-    public String getAssigneeInfoByTaskId(TaskInfo task) {
-        if (StringUtils.hasText(task.getAssignee())) {
-            return getUserName(task.getAssignee());
-        }
-
-        // 对于已办 由于处理任务设置了Assignee， 以下代码几乎不会调用到（为了兼容老代办）
-        String executionId = task.getExecutionId();
-
-        HistoricActivityInstanceQuery historicActivityInstanceQuery = historyService.createHistoricActivityInstanceQuery()
-                .executionId(executionId)
-                .processDefinitionId(task.getProcessDefinitionId())
-                .activityType("userTask")
-                .processInstanceId(task.getProcessInstanceId());
-
-        // 没有taskId 的选项， 只能返回list后再过滤
-        List<HistoricActivityInstance> historicActivityInstanceList = historicActivityInstanceQuery.list();
-        if (historicActivityInstanceList == null || historicActivityInstanceList.isEmpty()) {
-            // 流程历史可能已删除
-            return null;
-        }
-
-        HistoricActivityInstance historicActivityInstance = null;
-        for (HistoricActivityInstance activityInstance : historicActivityInstanceList) {
-            if (activityInstance.getTaskId().equals(task.getId())) {
-                historicActivityInstance = activityInstance;
-                break;
-            }
-        }
-        if (historicActivityInstance == null) {
-            return null;
-        }
-
-        String activityId = historicActivityInstance.getActivityId();
-
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(task.getProcessDefinitionId());
-        FlowElement flowElement = bpmnModel.getFlowElement(activityId);
-
-        if (flowElement instanceof UserTask) {
-            UserTask userTask = (UserTask) flowElement;
-
-            Map<String, List<ExtensionAttribute>> attr = userTask.getAttributes();
-            List<ExtensionAttribute> type = attr.get("assignmentType");
-            List<ExtensionAttribute> obj = attr.get("assignmentObject");
-
-            if (!CollectionUtils.isEmpty(type) && !CollectionUtils.isEmpty(obj)) {
-                return assignmentService.getObjectName(type.get(0).getValue(), obj.get(0).getValue());
-            }
-
-        }
-
-        return null;
     }
 
 
