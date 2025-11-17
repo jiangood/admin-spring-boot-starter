@@ -14,8 +14,6 @@ import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.log.Log;
-import io.admin.framework.perm.SecurityUtils;
-import io.admin.framework.perm.Subject;
 import io.admin.framework.pojo.param.DropdownParam;
 import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.dto.request.GrantUserPermRequest;
@@ -204,13 +202,12 @@ public class SysUserController {
      */
     @GetMapping("tree")
     public AjaxResult tree() {
-        Subject subject = SecurityUtils.getSubject();
         List<SysOrg> orgList = sysOrgService.findByLoginUser(true, false);
         if (orgList.isEmpty()) {
             return AjaxResult.ok().data(Collections.emptyList());
         }
 
-        Collection<String> orgPermissions = subject.getOrgPermissions();
+        Collection<String> orgPermissions = LoginTool.getOrgPermissions();
         List<SysUser> userList = sysUserService.findByUnit(orgPermissions);
 
         List<TreeOption> orgOptions = orgList.stream().map(o -> new TreeOption(o.getName(), o.getId(), o.getPid())).toList();

@@ -57,7 +57,6 @@ public class SysOrgService extends BaseService<SysOrg> {
             return Collections.emptyList();
         }
 
-
         JpaQuery<SysOrg> q = new JpaQuery<>();
         q.in("id", orgPermissions);
 
@@ -69,10 +68,8 @@ public class SysOrgService extends BaseService<SysOrg> {
             q.ne(SysOrg.Fields.type, OrgType.DEPT);
         }
 
-        List<SysOrg> list = sysOrgDao.findAll(q, Sort.by(SysOrg.Fields.type, SysOrg.Fields.seq));
 
-
-        return list;
+        return sysOrgDao.findAll(q, Sort.by(SysOrg.Fields.type, SysOrg.Fields.seq));
     }
 
     public Map<String, SysOrg> dict() {
