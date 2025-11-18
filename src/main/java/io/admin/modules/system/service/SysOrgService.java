@@ -215,6 +215,16 @@ public class SysOrgService extends BaseService<SysOrg> {
         return null;
     }
 
+    public String  getDeptLeaderId(String userId) {
+        SysUser deptLeader = getDeptLeader(userId);
+        if(deptLeader != null){
+            return deptLeader.getId();
+        }
+        return null;
+
+
+    }
+
     public SysOrg findOne(String id) {
         return sysOrgDao.findOne(id);
     }

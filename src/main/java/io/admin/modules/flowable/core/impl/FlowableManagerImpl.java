@@ -19,6 +19,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
+import static io.admin.modules.flowable.FlowableConsts.VAR_DEPT_LEADER;
+
 @Slf4j
 @Component
 @AllArgsConstructor
@@ -32,15 +34,10 @@ public class FlowableManagerImpl implements FlowableManager {
     public static final String VAR_DEPT_ID = "deptId";
     public static final String VAR_DEPT_NAME = "deptName";
 
-    public static final String VAR_DEPT_LEADER = "INITIATOR_DEPT_LEADER";
-
-
-
-
 
     private SysFlowableModelService modelService;
     private RuntimeService runtimeService;
-    private  RepositoryService repositoryService;
+    private RepositoryService repositoryService;
     private IdentityService identityService;
 
     @Override
@@ -55,7 +52,6 @@ public class FlowableManagerImpl implements FlowableManager {
         }
 
         LoginUser loginUser = LoginUtils.getUser();
-
 
 
         // 添加一些发起人的相关信息
@@ -112,9 +108,6 @@ public class FlowableManagerImpl implements FlowableManager {
 
 
     }
-
-
-
 
 
     /***

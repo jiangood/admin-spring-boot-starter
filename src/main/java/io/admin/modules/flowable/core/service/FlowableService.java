@@ -1,6 +1,7 @@
 package io.admin.modules.flowable.core.service;
 
 
+import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.FriendlyUtils;
 import io.admin.common.utils.SpringTool;
 import io.admin.modules.flowable.core.FlowableProperties;
@@ -46,6 +47,8 @@ public class FlowableService {
     private FlowableModelService myBpmnModelService;
 
     private FlowableProperties flowableProperties;
+
+
     public long findUserTaskCount(String userId) {
         TaskQuery taskQuery = buildUserTodoTaskQuery(userId);
         return taskQuery.count();
@@ -120,14 +123,15 @@ public class FlowableService {
 
         //获取流程实例id
         String processInstanceId = task.getProcessInstanceId();
-        comment = "【" +task.getName() + "】：" + result.getMessage() + "。" + comment;
+        comment = "【" + task.getName() + "】：" + result.getMessage() + "。" + comment;
         addComment(processInstanceId, taskId, userId, comment);
 
         String assignee = task.getAssignee();
-        // if (StringUtils.hasText(assignee)) {
-        //设置办理人为当前用户
+        if (StrUtil.isNotEmpty(assignee)) {
+            Assert.state(assignee.equals(userId), "处理人不一致");
+        }
+
         taskService.setAssignee(taskId, userId);
-        //   }
 
 
         if (result == TaskHandleType.APPROVE) {
@@ -171,7 +175,6 @@ public class FlowableService {
         }
 
 
-
         runtimeService.createChangeActivityStateBuilder()
                 .processInstanceId(task.getProcessInstanceId())
                 .moveSingleExecutionToActivityIds(task.getExecutionId(), ids)
@@ -197,15 +200,13 @@ public class FlowableService {
 
 
     /**
-     * @deprecated 替换MyBpmnModelService
      * @param instanceId
      * @return
+     * @deprecated 替换MyBpmnModelService
      */
     public BufferedImage drawImage(String instanceId) {
         return myBpmnModelService.drawImage(instanceId);
     }
-
-
 
 
     public TaskQuery buildUserTodoTaskQuery(String userId) {

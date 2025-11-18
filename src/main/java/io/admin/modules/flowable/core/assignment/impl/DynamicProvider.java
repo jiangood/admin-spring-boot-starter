@@ -4,14 +4,24 @@ import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.core.assignment.Identity;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-import static io.admin.modules.flowable.core.impl.FlowableManagerImpl.VAR_DEPT_LEADER;
+import static io.admin.modules.flowable.FlowableConsts.VAR_DEPT_LEADER;
 
 @Component
 public class DynamicProvider implements AssignmentTypeProvider {
+
+    /**
+     * 表达式，显示名
+     */
+    private static final Map<String, String> EXPR_MAP = new LinkedHashMap<>();
+
+
+    static {
+        EXPR_MAP.put("${INITIATOR}", "发起人");
+        EXPR_MAP.put("${" + VAR_DEPT_LEADER + "}", "部门领导");
+    }
+
 
     @Override
     public String getCode() {
@@ -34,7 +44,6 @@ public class DynamicProvider implements AssignmentTypeProvider {
     }
 
 
-
     @Override
     public XmlAttribute getXmlAttribute() {
         return XmlAttribute.assignee;
@@ -43,10 +52,9 @@ public class DynamicProvider implements AssignmentTypeProvider {
     @Override
     public Collection<Identity> findAll() {
         List<Identity> list = new ArrayList<>();
-
-        list.add(new Identity("${INITIATOR}",null, "发起人", true, true));
-        list.add(new Identity("${"+ VAR_DEPT_LEADER +"}", null, "部门领导", true, true));
-
+        for (Map.Entry<String, String> e : EXPR_MAP.entrySet()) {
+            list.add(new Identity(e.getKey(), null, e.getValue(), true, true));
+        }
 
         return list;
     }
