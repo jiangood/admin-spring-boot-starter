@@ -2,52 +2,43 @@ package io.admin.modules.flowable.admin.controller;
 
 
 import cn.hutool.core.lang.Dict;
-
-
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.*;
-import io.admin.framework.config.security.LoginUser;
+import io.admin.common.utils.BeanTool;
+import io.admin.common.utils.DateFormatTool;
+import io.admin.common.utils.ImgTool;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.flowable.core.FlowableLoginUser;
-import io.admin.modules.flowable.core.FlowableLoginUserProvider;
-import io.admin.modules.flowable.core.FlowableManager;
-
-import io.admin.modules.flowable.core.FlowableMasterDataProvider;
 import io.admin.modules.flowable.admin.entity.ConditionVariable;
 import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.MyTaskService;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
-import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
-import io.admin.modules.flowable.core.dto.response.TaskResponse;
+import io.admin.modules.flowable.core.FlowableLoginUser;
+import io.admin.modules.flowable.core.FlowableLoginUserProvider;
+import io.admin.modules.flowable.core.FlowableMasterDataProvider;
+import io.admin.modules.flowable.core.FlowableService;
 import io.admin.modules.flowable.core.dto.request.HandleTaskRequest;
 import io.admin.modules.flowable.core.dto.response.CommentResult;
-
-
+import io.admin.modules.flowable.core.dto.response.TaskResponse;
 import io.admin.modules.system.service.SysUserService;
-import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
 import org.flowable.engine.HistoryService;
-import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.history.HistoricProcessInstanceQuery;
-import org.flowable.engine.runtime.Execution;
-import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.task.Comment;
 import org.flowable.task.api.Task;
-import org.flowable.task.api.TaskInfo;
-import org.flowable.task.api.TaskQuery;
-import org.flowable.task.api.history.HistoricTaskInstance;
-import org.flowable.task.api.history.HistoricTaskInstanceQuery;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -56,133 +47,59 @@ import java.util.stream.Collectors;
  * 每个人都可以看自己任务，故而没有权限注解
  */
 @RestController
-@RequestMapping("admin/flowable/userClient")
+@RequestMapping("admin/flowable/my")
+@AllArgsConstructor
 public class MyFlowableController {
 
 
-    @Resource
-    MyTaskService myTaskService;
-
-    @Resource
-    TaskService taskService;
+    private MyTaskService myTaskService;
 
 
-    @Resource
-    HistoryService historyService;
-
-    @Resource
-    SysFlowableModelService myFlowModelService;
-
-    @Resource
-    FlowableLoginUserProvider flowableLoginUserProvider;
-
-    @Resource
-    FlowableMasterDataProvider masterDataProvider;
-
-    @Resource
-    FlowableManager fm;
+    private TaskService taskService;
 
 
-    @Resource
-    RuntimeService runtimeService;
+    private HistoryService historyService;
 
-    @Resource
-    SysUserService sysUserService;
+
+    private SysFlowableModelService myFlowModelService;
+
+
+    private FlowableLoginUserProvider flowableLoginUserProvider;
+
+
+    private FlowableMasterDataProvider masterDataProvider;
+
+
+
+
+    private SysUserService sysUserService;
+
+    private FlowableService flowableService;
+
+
+    @GetMapping("todoCount")
+    public AjaxResult todo() {
+        String userId = LoginUtils.getUserId();
+        long userTaskCount = flowableService.findUserTaskCount(userId);
+        return AjaxResult.ok().data(userTaskCount);
+    }
 
     @RequestMapping("todoTaskPage")
     public AjaxResult todo(Pageable pageable) {
         String userId = LoginUtils.getUserId();
-        TaskQuery query = taskService.createTaskQuery().active();
-
-        query.or();
-        query.taskAssignee(userId);
-        query.taskCandidateUser(userId);
-
-        // 人员及 分组
-        Collection<AssignmentTypeProvider> providerList = SpringTool.getBeans(AssignmentTypeProvider.class);
-        Set<String> groupIds = new HashSet<>();
-        for (AssignmentTypeProvider provider : providerList) {
-            List<String> groups = provider.findGroupsByUser(userId);
-            if (groups != null) {
-                groupIds.addAll(groups);
-            }
-        }
-        if (!CollectionUtils.isEmpty(groupIds)) {
-            query.taskCandidateGroupIn(groupIds);
-        }
-        query.endOr();
-
-        query.orderByTaskCreateTime().desc();
-
-        long count = query.count();
-        if (count == 0) {
-            return AjaxResult.ok().data(new PageImpl<>(new ArrayList<>(), pageable, 0));
-        }
-        List<Task> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-
-
-        // 填充流程信息
-        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
-        Map<String, ProcessInstance> instanceMap = runtimeService.createProcessInstanceQuery().processInstanceIds(instanceIds).list().stream().collect(Collectors.toMap(Execution::getId, t -> t));
-
-
-        List<TaskResponse> infoList = taskList.stream().map(task -> {
-            ProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
-            TaskResponse r = new TaskResponse();
-            convert(r, task);
-            r.setInstanceName(instance.getName());
-            r.setInstanceStartTime(FriendlyUtils.getPastTime( instance.getStartTime()));
-            r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
-            return r;
-        }).collect(Collectors.toList());
-
-        PageImpl<TaskResponse> page = new PageImpl<>(infoList, pageable, count);
+        Page<TaskResponse> page = flowableService.findUserTaskList(pageable, userId);
 
         return AjaxResult.ok().data(page);
     }
 
     @RequestMapping("doneTaskPage")
     public AjaxResult doneTaskPage(Pageable pageable) {
-        LoginUser user = LoginUtils.getUser();
-        HistoricTaskInstanceQuery query = historyService.createHistoricTaskInstanceQuery()
-                .taskAssignee(user.getId())
-                .finished()
-                .includeProcessVariables()
-                .orderByHistoricTaskInstanceEndTime().desc();
+        String userId = LoginUtils.getUserId();
 
-
-        List<HistoricTaskInstance> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        long count = query.count();
-
-        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
-        Map<String, HistoricProcessInstance> instanceMap = historyService.createHistoricProcessInstanceQuery().processInstanceIds(instanceIds).list()
-                .stream().collect(Collectors.toMap(HistoricProcessInstance::getId, t -> t));
-
-
-        List<TaskResponse> infoList = taskList.stream().map(task -> {
-            HistoricProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
-
-            TaskResponse r = new TaskResponse();
-            this.convert(r, task);
-            r.setInstanceName(instance.getName());
-            r.setInstanceStartTime(FriendlyUtils.getPastTime(instance.getStartTime()));
-            r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
-            r.setDurationInfo(FriendlyUtils.getTimeDiff(task.getCreateTime(), task.getEndTime()));
-            return r;
-        }).collect(Collectors.toList());
-
-        return AjaxResult.ok().data(new PageImpl<>(infoList, pageable, count));
+        Page<TaskResponse> page = flowableService.findUserTaskDoneList(pageable, userId);
+        return AjaxResult.ok().data(page);
     }
 
-    private void convert(TaskResponse r, TaskInfo task) {
-        r.setId(task.getId());
-        r.setTaskName(task.getName());
-        r.setCreateTime(FriendlyUtils.getPastTime(task.getCreateTime()));
-        r.setAssigneeInfo(sysUserService.getNameById(task.getAssignee()));
-        r.setFormKey(task.getFormKey());
-        r.setInstanceId(task.getProcessInstanceId());
-
-    }
 
     // 我发起的
     @GetMapping("myInstance")

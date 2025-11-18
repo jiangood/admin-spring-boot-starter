@@ -53,7 +53,7 @@ export default class extends React.Component {
 
     initMenu = () => {
         HttpUtil.get('admin/menuInfo').then(info => {
-            const {menuTree, pathMenuMap, badgeList} = info
+            const {menuTree, pathMenuMap, menuMap} = info
 
             let pathname = PageUtil.currentPathname();
 
@@ -70,7 +70,7 @@ export default class extends React.Component {
 
             this.setState({menuTree,pathMenuMap})
 
-            this.loadBadge(badgeList)
+            this.loadBadge(menuMap)
         })
 
 
@@ -80,15 +80,19 @@ export default class extends React.Component {
     toggleCollapsed = (v) => {
         this.setState({collapsed: v})
     }
-    loadBadge = list => {
-        for (let item of list) {
-            const {menuId, url} = item
-            HttpUtil.get(url, null).then(rs => {
-                const {leftMenus} = this.state
-                const menu = TreeUtil.findByKey(menuId, leftMenus)
+    loadBadge = menuMap => {
+        for (let id in menuMap) {
+            const item = menuMap[id]
+            const {messageCountUrl} = item;
+            if(!messageCountUrl){
+                continue
+            }
+            HttpUtil.get(messageCountUrl).then(rs => {
+                const {menuTree} = this.state
+                const menu = TreeUtil.findByKey(id, menuTree,'key')
                 if (menu) {
                     menu.icon = <Badge dot count={rs} size={"small"}>{menu.icon}</Badge>
-                    this.setState({leftMenus: [...leftMenus]})
+                    this.setState({menuTree: [...menuTree]})
                 }
 
             })

@@ -44,4 +44,9 @@ public class MenuDefinition  {
      * 权限表，
      */
     private List<MenuPermission> perms;
+
+    /**
+     * 菜单的消息数量接口
+     */
+    private String messageCountUrl;
 }

@@ -43,8 +43,6 @@ public class SysCommonController {
     @Resource
     SysConfigService sysConfigService;
 
-    @Resource
-    SysMenuBadgeService sysMenuBadgeService;
 
     @Resource
     SysFileService sysFileService;
@@ -146,6 +144,7 @@ public class SysCommonController {
         List<MenuDefinition> menuDefinitions = roleService.ownMenu(roles);
 
         Map<String,MenuDefinition> pathMenuMap = new HashMap<>();
+        Map<String,MenuDefinition> menuMap = new HashMap<>();
         List<MenuItem> list = menuDefinitions.stream().map(def -> {
             MenuItem item = new MenuItem();
             item.setKey(def.getId());
@@ -155,9 +154,11 @@ public class SysCommonController {
             item.setParentKey(def.getPid());
             item.setPath(StrUtil.nullToEmpty(def.getPath()));
 
+
             if(def.getPath() != null){
                 pathMenuMap.put(def.getPath(),def);
             }
+            menuMap.put(def.getId(),def);
 
             return item;
         }).toList();
@@ -166,8 +167,8 @@ public class SysCommonController {
         List<MenuItem> tree = TreeTool.buildTree(list, MenuItem::getKey, MenuItem::getParentKey, MenuItem::getChildren, MenuItem::setChildren);
         Dict data = new Dict();
         data.put("menuTree", tree);
+        data.put("menuMap", menuMap);
         data.put("pathMenuMap",pathMenuMap);
-        data.put("badgeList", sysMenuBadgeService.findAll());
 
 
         return AjaxResult.ok().data(data);

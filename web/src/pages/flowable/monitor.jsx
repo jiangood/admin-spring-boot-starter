@@ -25,7 +25,6 @@ export default class extends React.Component {
     }
 
     renderTask = () => {
-        console.log('渲染流程')
         return<> <ProTable
             actionRef={this.taskTableRef}
             columns={[
@@ -73,6 +72,9 @@ export default class extends React.Component {
             ]}
             request={(params) => HttpUtil.pageData('admin/flowable/monitor/task', params)}
         >
+            <Form.Item label='受理人'>
+                <FieldUserSelect />
+            </Form.Item>
         </ProTable>
         <Modal title='指定处理人'
                open={this.state.assigneeFormOpen}

@@ -29,6 +29,7 @@ data:
       path: /flowable/task
       seq: -1
       refresh-on-tab-click: true
+      message-count-url: /admin/flowable/my/todoCount
       perms:
         - perm: flowableTask
           name: 任务管理
