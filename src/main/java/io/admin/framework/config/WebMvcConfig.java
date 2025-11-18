@@ -4,7 +4,6 @@ package io.admin.framework.config;
 import cn.hutool.captcha.generator.CodeGenerator;
 import cn.hutool.captcha.generator.MathGenerator;
 import cn.hutool.captcha.generator.RandomGenerator;
-import io.admin.framework.WebConstants;
 import io.admin.framework.config.argument.resolver.RequestBodyKeysArgumentResolver;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -49,10 +51,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             "/error",
 
             // 接口
-            "/openApi/gateway/**",
-
-            // 移动端, 小程序
-            WebConstants.APP_API_PATTERN
+            "/openApi/gateway/**"
     };
 
 

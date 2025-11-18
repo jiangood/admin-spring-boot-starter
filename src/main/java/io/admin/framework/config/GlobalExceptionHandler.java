@@ -1,12 +1,11 @@
 
-package io.admin.framework.error;
+package io.admin.framework.config;
 
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.ExceptionToMessageUtils;
 import io.admin.common.utils.HttpServletTool;
 import io.admin.framework.CodeException;
-import io.admin.framework.config.SysProp;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
