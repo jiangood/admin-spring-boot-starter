@@ -1,6 +1,7 @@
 
 package io.admin.modules.flowable.admin.service;
 
+import cn.hutool.core.util.StrUtil;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.flowable.admin.dao.SysFlowableModelDao;
@@ -86,50 +87,7 @@ public class SysFlowableModelService extends BaseService<SysFlowableModel> {
         // 校验模型
         this.validateModel(bpmnModel);
 
-        // 修改和检验模型
-        for (FlowElement flowElement : mainProcess.getFlowElements()) {
-            // 校验是否都分配对象
-            if (flowElement instanceof UserTask) {
-                UserTask task = (UserTask) flowElement;
 
-                if (task.getAssignee() == null &&
-                    CollectionUtils.isEmpty(task.getCandidateUsers()) &&
-                    CollectionUtils.isEmpty(task.getCandidateGroups())) {
-                    //  throw new IllegalArgumentException("请指定分配对象");
-                }
-
-                String assignmentType = getAttr(task, "assignmentType");
-
-                if (StringUtils.isNotEmpty(assignmentType)) {
-                    // 重要，将指定人或组的类型放到category，方便后续使用
-                    task.setCategory(assignmentType);
-                }
-
-            }
-
-            // 设置发起人变量标识
-            if (flowElement instanceof StartEvent) {
-                StartEvent startEvent = (StartEvent) flowElement;
-                startEvent.setInitiator("INITIATOR");
-            }
-
-            // 条件表达式测试
-            if (flowElement instanceof SequenceFlow) {
-                SequenceFlow sequenceFlow = (SequenceFlow) flowElement;
-                String conditionExpression = sequenceFlow.getConditionExpression();
-
-                if (StringUtils.isEmpty(conditionExpression)) {
-                    continue;
-                }
-
-                try {
-                    processEngineConfiguration.getExpressionManager().createExpression(conditionExpression);
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("条件表达式异常:" + e.getMessage());
-                }
-
-            }
-        }
 
 
         String resourceName = name + ".bpmn20.xml";
@@ -171,12 +129,54 @@ public class SysFlowableModelService extends BaseService<SysFlowableModel> {
             translates.put("flowable-exclusive-gateway-seq-flow-without-conditions", "请设置分支条件");
             String msg = translates.get(problem);
 
-            Assert.state(false, StringUtils.defaultString(msg, error.getDefaultDescription()));
+            Assert.state(false, StrUtil.emptyToDefault(msg, error.getDefaultDescription()));
         }
+        Process mainProcess = model.getMainProcess();
+
         // task 必须命名
-        for (FlowElement flowElement : model.getMainProcess().getFlowElements()) {
+
+
+        // 修改和检验模型
+        for (FlowElement flowElement : mainProcess.getFlowElements()) {
+            // 校验是否都分配对象
             if (flowElement instanceof UserTask task) {
                 Assert.hasText(task.getName(), "部署失败：存在用户任务未命名的节点");
+
+
+                if (task.getAssignee() == null &&
+                        CollectionUtils.isEmpty(task.getCandidateUsers()) &&
+                        CollectionUtils.isEmpty(task.getCandidateGroups())) {
+                      throw new IllegalArgumentException("请指定分配对象");
+                }
+
+                String assignmentType = getAttr(task, "assignmentType");
+
+                if (StringUtils.isNotEmpty(assignmentType)) {
+                    // 重要，将指定人或组的类型放到category，方便后续使用
+                    task.setCategory(assignmentType);
+                }
+
+            }
+
+            // 设置发起人变量标识
+            if (flowElement instanceof StartEvent startEvent) {
+                startEvent.setInitiator("INITIATOR");
+            }
+
+            // 条件表达式测试
+            if (flowElement instanceof SequenceFlow sequenceFlow) {
+                String conditionExpression = sequenceFlow.getConditionExpression();
+
+                if (StringUtils.isEmpty(conditionExpression)) {
+                    continue;
+                }
+
+                try {
+                    processEngineConfiguration.getExpressionManager().createExpression(conditionExpression);
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("条件表达式异常:" + e.getMessage());
+                }
+
             }
         }
 
@@ -207,8 +207,6 @@ public class SysFlowableModelService extends BaseService<SysFlowableModel> {
     /**
      * 获取属性，忽略namespace
      *
-     * @param el
-     * @param name
      * @return
      */
     private String getAttr(FlowElement el, String name) {
