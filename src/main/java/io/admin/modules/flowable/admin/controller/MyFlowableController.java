@@ -11,7 +11,7 @@ import io.admin.modules.common.LoginUtils;
 import io.admin.modules.flowable.admin.entity.ConditionVariable;
 import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
-import io.admin.modules.flowable.core.FlowableService;
+import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.flowable.core.dto.request.HandleTaskRequest;
 import io.admin.modules.flowable.core.dto.response.CommentResponse;
 import io.admin.modules.flowable.core.dto.response.TaskResponse;

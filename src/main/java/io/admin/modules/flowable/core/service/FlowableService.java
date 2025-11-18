@@ -1,9 +1,9 @@
-package io.admin.modules.flowable.core;
+package io.admin.modules.flowable.core.service;
 
 
 import io.admin.common.utils.FriendlyUtils;
 import io.admin.common.utils.SpringTool;
-import io.admin.modules.flowable.admin.service.MyBpmnModelService;
+import io.admin.modules.flowable.core.FlowableProperties;
 import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.core.dto.TaskHandleType;
 import io.admin.modules.flowable.core.dto.response.TaskResponse;
@@ -43,7 +43,7 @@ public class FlowableService {
     private RuntimeService runtimeService;
     private SysUserService sysUserService;
     private HistoryService historyService;
-    private MyBpmnModelService myBpmnModelService;
+    private FlowableModelService myBpmnModelService;
 
     private FlowableProperties flowableProperties;
     public long findUserTaskCount(String userId) {

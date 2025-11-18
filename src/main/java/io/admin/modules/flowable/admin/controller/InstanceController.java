@@ -1,7 +1,7 @@
 package io.admin.modules.flowable.admin.controller;
 
 
-import io.admin.modules.flowable.core.FlowableService;
+import io.admin.modules.flowable.core.service.FlowableService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

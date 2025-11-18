@@ -1,7 +1,7 @@
 package io.admin.modules.flowable.core.dto.response;
 
 import io.admin.common.utils.SpringTool;
-import io.admin.modules.flowable.core.FlowableService;
+import io.admin.modules.flowable.core.service.FlowableService;
 import lombok.Data;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.flowable.engine.task.Comment;

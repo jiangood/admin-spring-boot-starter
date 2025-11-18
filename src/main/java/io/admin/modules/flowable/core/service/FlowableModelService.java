@@ -1,4 +1,4 @@
-package io.admin.modules.flowable.admin.service;
+package io.admin.modules.flowable.core.service;
 
 
 import io.admin.common.utils.FontTool;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * 流程图相关
  */
 @Service
-public class MyBpmnModelService {
+public class FlowableModelService {
 
     public static final String FONT_NAME = FontTool.getDefaultFontName();
 

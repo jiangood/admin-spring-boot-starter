@@ -6,7 +6,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.BeanTool;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.flowable.core.FlowableService;
+import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.flowable.core.dto.request.SetAssigneeRequest;
 import io.admin.modules.flowable.core.dto.response.MonitorTaskResponse;
 import io.admin.modules.system.service.SysUserService;
