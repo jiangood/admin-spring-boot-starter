@@ -9,16 +9,15 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
-import io.admin.framework.config.SysProp;
 import io.admin.common.utils.DownloadTool;
 import io.admin.common.utils.IdTool;
 import io.admin.common.utils.ImgTool;
 import io.admin.common.utils.enums.MaterialType;
+import io.admin.framework.config.SysProp;
+import io.admin.framework.data.query.JpaQuery;
 import io.admin.modules.system.dao.SysFileDao;
 import io.admin.modules.system.entity.SysFile;
 import io.admin.modules.system.file.FileOperator;
-import io.admin.framework.consts.SymbolConstant;
-import io.admin.framework.data.query.JpaQuery;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -168,7 +167,7 @@ public class SysFileService {
         // 获取文件后缀
         String suffix = null;
         if (ObjectUtil.isNotEmpty(originalFilename)) {
-            suffix = StrUtil.subAfter(originalFilename, SymbolConstant.PERIOD, true);
+            suffix = StrUtil.subAfter(originalFilename, ".", true);
         }
 
         if (StrUtil.isEmpty(suffix)) {

@@ -2,18 +2,15 @@
 package io.admin.framework.error;
 
 import cn.hutool.core.util.StrUtil;
+import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.ExceptionToMessageUtils;
 import io.admin.common.utils.HttpServletTool;
-import io.admin.common.dto.AjaxResult;
-import io.admin.framework.config.SysProp;
-import io.admin.modules.system.service.SysConfigService;
 import io.admin.framework.CodeException;
-import io.admin.framework.consts.AopSortConstant;
+import io.admin.framework.config.SysProp;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
@@ -41,7 +38,6 @@ import java.util.List;
 /**
  * 全局异常处理器
  */
-@Order(AopSortConstant.GLOBAL_EXP_HANDLER_AOP)
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -49,10 +45,6 @@ public class GlobalExceptionHandler {
 
     @Resource
     SysProp sysProp;
-
-
-    @Resource
-    private SysConfigService sysConfigService;
 
 
     /**
