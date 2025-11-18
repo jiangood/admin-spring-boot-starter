@@ -45,7 +45,7 @@ module.exports = (api) => {
     const deps = Object.assign({}, pkg.devDependencies, pkg.dependencies, pkg.peerDependencies)
     const pagePkg = [];
     for (let k in deps) {
-        if (k.startsWith("@jiangood/admin-framework")) {
+        if (k.startsWith("@jiangood/springboot-admin-starter")) {
             pagePkg.push(k)
         }
     }

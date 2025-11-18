@@ -26,8 +26,8 @@
     "umi": "^4.0.0",
     "axios": "^1.13.2"
   },
-  "name": "@jiangood/admin-framework",
-  "description": "admin-framework",
+  "name": "@jiangood/springboot-admin-starter",
+  "description": "springboot-admin-starter",
   "files": [
     "src/*",
     "config/*"
