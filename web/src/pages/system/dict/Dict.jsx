@@ -1,6 +1,6 @@
 import React from 'react'
+import {HttpUtil, ProTable} from "../../../framework";
 
-import {HttpUtil, ProTable} from '@/framework'
 
 
 export default class extends React.Component {
@@ -38,7 +38,6 @@ export default class extends React.Component {
     render() {
         return <>
             <ProTable
-                headerTitle='数据字典'
                 actionRef={this.tableRef}
 
                 request={(params) => HttpUtil.pageData('admin/sysDict/page', params)}

@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Form, Modal, Tabs} from "antd";
 import AllDefinition from "../../components/monitor/AllDefinition";
 import AllInstance from "../../components/monitor/AllInstance";
-import {FieldUserSelect, HttpUtil, Page, ProTable} from "@/framework";
+import {FieldUserSelect, HttpUtil, Page, ProTable} from "../../framework";
 
 export default class extends React.Component {
 

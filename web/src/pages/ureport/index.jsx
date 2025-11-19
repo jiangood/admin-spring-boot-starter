@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from "antd";
-import {ButtonList, HttpUtil, ProTable} from "@/framework";
+import {ButtonList, HttpUtil, ProTable} from "../../framework";
 
 export default class extends React.Component {
 

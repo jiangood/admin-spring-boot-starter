@@ -1,6 +1,6 @@
 import React from "react";
 import {Spin} from "antd";
-import {theme} from "@/framework";
+import {theme} from "./framework";
 
 export default class extends React.Component {
     render() {

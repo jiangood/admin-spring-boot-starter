@@ -9,7 +9,7 @@ import {
     PageUtil,
     ProTable,
     StrUtil
-} from "@/framework";
+} from "../../framework";
 
 
 export default class extends React.Component {

@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Space} from 'antd';
 import {LockOutlined, SafetyCertificateOutlined, UserOutlined, WarningOutlined} from '@ant-design/icons';
 import "./login.less"
 import {history} from 'umi';
-import {HttpUtil, MsgBox, PageUtil, SysUtil} from "@/framework";
+import {HttpUtil, MsgBox, PageUtil, SysUtil} from "../framework";
 import {JSEncrypt} from "jsencrypt";
 
 
