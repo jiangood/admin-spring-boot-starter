@@ -2,6 +2,7 @@ package io.admin.framework.config.data;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -105,10 +106,17 @@ public class ConfigDataDao {
 
         // 2. 排序，将包含framework的文件放在前面
         Arrays.sort(resources, (o1, o2) -> {
-            if (o1.getFilename().contains("framework")) {
+            String f1 = o1.getFilename();
+            String f2 = o2.getFilename();
+
+            if (f1.contains("framework") && !f2.contains("framework")) {
                 return -1;
             }
-            return 0;
+            if (f2.contains("framework") && !f1.contains("framework")) {
+                return 1;
+            }
+
+            return f1.compareTo(f2);
         });
 
         return resources;
