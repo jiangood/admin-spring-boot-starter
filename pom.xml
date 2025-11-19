@@ -34,7 +34,7 @@
     </scm>
     <properties>
         <!-- 这个表示版本号，构建时动态指定参数即可 如 mvn package -Drevision=1.1.1-->
-        <revision>2.0.0</revision>
+        <revision>0.0.2</revision>
         <java.version>17</java.version>
         <compile.version>17</compile.version>
         <maven.compiler.source>17</maven.compiler.source>
@@ -265,12 +265,10 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.3.0</version>
+                        <version>0.9.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <autoPublish>true</autoPublish>
                             <publishingServerId>central</publishingServerId>
-                            <tokenAuth>true</tokenAuth>
                         </configuration>
                     </plugin>
                     <!-- Javadoc -->
