@@ -121,15 +121,12 @@ export default class InstanceInfo extends React.Component {
         let ExForm = formRegistry.get(formKey);
         if (!ExForm) {
             return <div>
+                <p>
                 未注册表单，请注册表单 {formKey}。
-                <Gap></Gap>
-                <div>js代码示例：</div>
-                <div>
-                    // app.js
-                </div>
-                <div>
-                    formRegistry.register("{formKey}",XXXForm)
-                </div>
+                </p>
+                <Typography.Text>
+                    表单路径：src/forms/{formKey}.jsx
+                </Typography.Text>
                 </div>
         }
 
