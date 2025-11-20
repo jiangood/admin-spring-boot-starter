@@ -69,9 +69,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public AjaxResult missParamException(MissingServletRequestParameterException e) {
         log.error(">>> 请求参数异常，具体信息为：{}", e.getMessage());
-        String parameterType = e.getParameterType();
         String parameterName = e.getParameterName();
-        String message = StrUtil.format(">>> 缺少请求的参数{}，类型为{}", parameterName, parameterType);
+        String message = StrUtil.format("缺少请求的参数{}", parameterName);
         return AjaxResult.err().code(500).msg(message);
     }
 
