@@ -37,3 +37,4 @@ build/
 /web/src/.umi/
 /web/src/.umi-production/
 /web/dist/
+/web/config/dist/

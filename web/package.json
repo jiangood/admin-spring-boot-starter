@@ -30,11 +30,12 @@
   "description": "springboot-admin-starter",
   "files": [
     "src/*",
-    "config/*"
+    "config/dist/*"
   ],
   "main": "src/index.js",
+
   "scripts": {
-    "predeploy": "tsc config/plugins/admin-form.ts && tsc config/plugins/admin-route.ts",
+    "predeploy": "cd config && tsc --outDir dist index.ts",
     "dev": "umi dev",
     "build": "umi build"
   },
