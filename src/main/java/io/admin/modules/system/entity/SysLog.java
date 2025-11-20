@@ -64,17 +64,4 @@ public class SysLog extends BaseEntity {
 
     private Date operationTime;
 
-    public  enum OperationStatus {
-        SUCCESS(0), FAIL(1);
-
-        private Integer value;
-
-        OperationStatus(Integer value) {
-            this.value = value;
-        }
-
-        public Integer getValue() {
-            return value;
-        }
-    }
 }
