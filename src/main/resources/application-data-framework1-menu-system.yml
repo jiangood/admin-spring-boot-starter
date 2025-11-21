@@ -108,26 +108,7 @@ data:
         - id: api
           name: 开放接口
           icon: ApiOutlined
-          children:
-            - id: apiAccount
-              name: 账户管理
-              path: /api
-              icon: ApiOutlined
-              perms:
-                - name: 查看
-                  perm: apiAccount:view
-                - name: 保存
-                  perm: apiAccount:save
-                - name: 删除
-                  perm: apiAccount:delete
-
-
-            - id: apiResource
-              name: 接口管理
-              path: /api/resource
-              icon: ApiOutlined
-            - id: apiAccessLog
-              name: 访问记录
-              path: /api/accessLog
-              icon: ApiOutlined
-
+          path: /api
+          perms:
+            - name: 接口管理
+              perm: api:manage

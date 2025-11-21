@@ -1,11 +1,11 @@
 import {PlusOutlined} from '@ant-design/icons'
-import {Button, Form, Input, Modal, Popconfirm} from 'antd'
+import {Button, Form, Input, Modal, Popconfirm, Tabs} from 'antd'
 import React from 'react'
 import {
     ButtonList,
     FieldDateTimePickerString,
     FieldRadioBoolean,
-    HttpUtil,
+    HttpUtil, Page,
     PageUtil,
     ProTable,
     StrUtil
@@ -100,19 +100,146 @@ export default class extends React.Component {
     }
 
     render() {
-        return <>
-            <ProTable
-                actionRef={this.tableRef}
-                toolBarRender={() => {
-                    return <ButtonList>
-                        <Button perm='apiAccount:save' type='primary' onClick={this.handleAdd}>
-                            <PlusOutlined/> 新增
-                        </Button>
-                    </ButtonList>
-                }}
-                request={(params) => HttpUtil.pageData('admin/apiAccount/page', params)}
-                columns={this.columns}
-            />
+        return <Page padding>
+            <Tabs items={[
+
+                {
+                    label: '接口列表',
+                    key: '2',
+                    children:  <ProTable
+                        columns={[
+                            {dataIndex: 'name', title: '名称'},
+                            {dataIndex: 'action', title: '动作'},
+                            {dataIndex: 'desc', title: '描述'},
+
+                        ]}
+                        request={(params,) => HttpUtil.pageData('admin/apiResource/page', params)}
+                    />
+                },
+
+                {
+                    label: '账号列表',
+                    key: '1',
+                    children:  <ProTable
+                        actionRef={this.tableRef}
+                        toolBarRender={() => {
+                            return <ButtonList>
+                                <Button perm='apiAccount:save' type='primary' onClick={this.handleAdd}>
+                                    <PlusOutlined/> 新增
+                                </Button>
+                            </ButtonList>
+                        }}
+                        request={(params) => HttpUtil.pageData('admin/apiAccount/page', params)}
+                        columns={this.columns}
+                    />
+                },  {
+                    label: '接口文档',
+                    key: '3',
+                    children:  <ProTable
+                        columns={[
+                            {dataIndex: 'name', title: '名称'},
+                            {dataIndex: 'action', title: '动作'},
+                            {dataIndex: 'desc', title: '描述'},
+
+                        ]}
+                        request={(params,) => HttpUtil.pageData('admin/apiDoc/page', params)}
+                    />
+                },
+                {
+                    label: '访问记录',
+                    key: '4',
+                    children:  <ProTable
+                        request={(params) => HttpUtil.pageData('admin/apiAccessLog/page', params)}
+                        columns={[
+
+                            {
+                                title: '接口名称',
+                                dataIndex: 'name',
+
+
+
+
+                            },
+
+                            {
+                                title: '接口',
+                                dataIndex: 'action',
+
+
+
+
+                            },
+
+                            {
+                                title: 'requestId',
+                                dataIndex: 'requestId',
+
+                            },
+
+                            {
+                                title: '请求数据',
+                                dataIndex: 'requestData',
+
+
+
+
+                            },
+
+                            {
+                                title: '响应数据',
+                                dataIndex: 'responseData',
+
+
+
+
+                            },
+
+                            {
+                                title: 'ip',
+                                dataIndex: 'ip',
+
+
+
+
+                            },
+
+                            {
+                                title: 'ipLocation',
+                                dataIndex: 'ipLocation',
+
+
+
+
+                            },
+
+                            {
+                                title: '执行时间',
+                                dataIndex: 'executionTime',
+
+
+
+
+                            },
+
+                            {
+                                title: '接口账户',
+                                dataIndex: 'accountName',
+
+
+
+
+                            },
+
+
+                        ]}
+                    />
+                },
+
+            ]}>
+
+            </Tabs>
+
+
 
             <Modal title='接口访客'
                    open={this.state.formOpen}
@@ -155,7 +282,7 @@ export default class extends React.Component {
 
                 </Form>
             </Modal>
-        </>
+        </Page>
 
 
     }

@@ -45,6 +45,8 @@ public class ApiAccountController  {
     public AjaxResult docInfo(String id) {
         ApiAccount acc = service.findByRequest(id);
         List<ApiResource> list = accountResourceService.findByAccount(acc);
+
+        list = apiResourceService.findAll();
         list = apiResourceService.removeNotExist(list);
 
         for (ApiResource r : list) {
