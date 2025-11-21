@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.Resource;
+
 import java.util.List;
 
 /***
@@ -24,33 +25,23 @@ import java.util.List;
 public class QuartzInit implements CommandLineRunner {
 
 
-
     @Resource
     private SysJobDao sysJobDao;
 
 
-
+    @Resource
+    private QuartzManager quartzService;
 
     @Resource
-    QuartzManager quartzService;
-
-    @Resource
-    SysProp sysProp;
+    private SysProp sysProp;
 
 
     @Override
     public void run(String... args) throws Exception {
-        if(!sysProp.isJobEnable()){
+        if (!sysProp.isJobEnable()) {
             log.warn("定时任务模块已设置全局关闭");
             return;
         }
-        // 兼容性代码
-        if("false".equals(SpringTool.getProperty("sys.job.enable"))){
-            log.warn("【兼容性提示】请将sys.job.enable配置替换为sys.jobEnable");
-            log.warn("定时任务模块已设置全局关闭");
-            return;
-        }
-
 
         // 2. 加载数据库任务
         List<SysJob> list = sysJobDao.findAllEnabled();
