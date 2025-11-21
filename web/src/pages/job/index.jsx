@@ -71,10 +71,6 @@ export default class extends React.Component {
 
     columns = [
         {
-            title: '分组',
-            dataIndex: 'group',
-        },
-        {
             title: '名称',
             dataIndex: 'name',
 
@@ -100,14 +96,6 @@ export default class extends React.Component {
             }
         },
 
-        {
-            title: '运行状态',
-            dataIndex: 'executing',
-            render: (v, record) => {
-                return record.executing ? <Tag icon={<ReloadOutlined spin/>} color='green'>运行中</Tag> :
-                    <Tag>空闲</Tag>
-            },
-        },
 
 
         {

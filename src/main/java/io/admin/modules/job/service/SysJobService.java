@@ -72,33 +72,7 @@ public class SysJobService extends BaseService<SysJob> {
     public Page<SysJob> page(String searchText, Pageable pageable) throws SchedulerException {
         JpaQuery<SysJob> q = new JpaQuery<>();
         q.searchText(searchText, SysJob.Fields.name, SysJob.Fields.jobClass);
-        Page<SysJob> page = baseDao.findAll(q, pageable);
 
-        List<JobExecutionContext> currentlyExecutingJobs = scheduler.getCurrentlyExecutingJobs();
-        Map<JobKey, JobExecutionContext> currentlyExecutingJobsMap = currentlyExecutingJobs.stream().collect(Collectors.toMap(ctx -> ctx.getJobDetail().getKey(), ctx -> ctx));
-
-
-        for (SysJob job : page) {
-            SysJobExecuteRecord latest = sysJobExecuteRecordDao.findLatest(job.getId());
-            if (latest != null) {
-                // TODO
-                /*job.putExtData("beginTime", latest.getBeginTime());
-                job.putExtData("endTime", latest.getEndTime());
-                job.putExtData("jobRunTime", latest.getJobRunTimeLabel());
-                job.putExtData("result", latest.getResult());*/
-            }
-
-            if (job.getEnabled()) {
-                JobKey jobKey = JobKey.jobKey(job.getName());
-                JobExecutionContext ctx = currentlyExecutingJobsMap.get(jobKey);
-                if (ctx != null) {
-                    // TODO
-                  /*  job.putExtData("executing", true);
-                    job.putExtData("fireTime", ctx.getFireTime());*/
-                }
-            }
-        }
-
-        return page;
+        return baseDao.findAll(q, pageable);
     }
 }
