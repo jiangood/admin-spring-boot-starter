@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @MappedSuperclass
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 @EqualsAndHashCode(of = "id", callSuper = false)
-public abstract class BaseEntity extends BaseAuditEntity implements Serializable {
+public abstract class BaseEntity extends BaseNoIdEntity implements Serializable {
 
 
     @Id
