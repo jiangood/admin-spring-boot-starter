@@ -48,8 +48,8 @@ export default class extends React.Component {
         {
             title: '启用',
             dataIndex: 'enable',
-            render(v){
-                return v == null ? null : ( v ? '是': '否')
+            render(v) {
+                return v == null ? null : (v ? '是' : '否')
             },
         },
         {
@@ -57,9 +57,11 @@ export default class extends React.Component {
             dataIndex: 'option',
             render: (_, record) => (
                 <ButtonList>
-                    <Button size='small' onClick={()=>PageUtil.open('/api/perm?accountId=' + record.id, '账户权限')} type='primary'>权限</Button>
-                    <Button size='small' perm='apiAccount:save' onClick={() => this.handleEdit(record)}>编辑</Button>
-                    <Popconfirm perm='apiAccount:delete' title='是否确定删除接口访客'  onConfirm={() => this.handleDelete(record)}>
+                    <Button size='small' perm='api'
+                            onClick={() => PageUtil.open('/api/perm?accountId=' + record.id, '账户权限')}
+                            type='primary'>权限</Button>
+                    <Button size='small' perm='api' onClick={() => this.handleEdit(record)}>编辑</Button>
+                    <Popconfirm perm='api' title='是否确定删除接口访客' onConfirm={() => this.handleDelete(record)}>
                         <Button size='small'>删除</Button>
                     </Popconfirm>
                 </ButtonList>
@@ -67,31 +69,30 @@ export default class extends React.Component {
         },
     ]
 
-    handleAdd = ()=>{
+    handleAdd = () => {
         this.setState({formOpen: true, formValues: {}})
     }
 
-    handleEdit = record=>{
+    handleEdit = record => {
         this.setState({formOpen: true, formValues: record})
     }
 
 
     onFinish = values => {
-        HttpUtil.post( 'admin/apiAccount/save', values).then(rs => {
+        HttpUtil.post('admin/apiAccount/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
     }
 
 
-
     handleDelete = record => {
-        HttpUtil.get( 'admin/apiAccount/delete', {id:record.id}).then(rs => {
+        HttpUtil.get('admin/apiAccount/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
 
-    randomAppSecret = ()=>{
+    randomAppSecret = () => {
         const appSecret = StrUtil.random(32)
         this.formRef.current.setFieldsValue({appSecret})
     }
@@ -103,7 +104,7 @@ export default class extends React.Component {
                 {
                     label: '接口列表',
                     key: '2',
-                    children:  <ProTable
+                    children: <ProTable
                         rowKey='action'
                         columns={[
                             {dataIndex: 'name', title: '名称'},
@@ -118,11 +119,11 @@ export default class extends React.Component {
                 {
                     label: '账号列表',
                     key: '1',
-                    children:  <ProTable
+                    children: <ProTable
                         actionRef={this.tableRef}
                         toolBarRender={() => {
                             return <ButtonList>
-                                <Button perm='apiAccount:save' type='primary' onClick={this.handleAdd}>
+                                <Button perm='api' type='primary' onClick={this.handleAdd}>
                                     <PlusOutlined/> 新增
                                 </Button>
                             </ButtonList>
@@ -130,15 +131,15 @@ export default class extends React.Component {
                         request={(params) => HttpUtil.pageData('admin/apiAccount/page', params)}
                         columns={this.columns}
                     />
-                },  {
+                }, {
                     label: '接口文档',
                     key: '3',
-                    children:  <ApiDoc />
+                    children: <ApiDoc/>
                 },
                 {
                     label: '访问记录',
                     key: '4',
-                    children:  <ProTable
+                    children: <ProTable
                         request={(params) => HttpUtil.pageData('admin/apiAccessLog/page', params)}
                         columns={[
 
@@ -147,15 +148,11 @@ export default class extends React.Component {
                                 dataIndex: 'name',
 
 
-
-
                             },
 
                             {
                                 title: '接口',
                                 dataIndex: 'action',
-
-
 
 
                             },
@@ -171,15 +168,11 @@ export default class extends React.Component {
                                 dataIndex: 'requestData',
 
 
-
-
                             },
 
                             {
                                 title: '响应数据',
                                 dataIndex: 'responseData',
-
-
 
 
                             },
@@ -189,15 +182,11 @@ export default class extends React.Component {
                                 dataIndex: 'ip',
 
 
-
-
                             },
 
                             {
                                 title: 'ipLocation',
                                 dataIndex: 'ipLocation',
-
-
 
 
                             },
@@ -207,15 +196,11 @@ export default class extends React.Component {
                                 dataIndex: 'executionTime',
 
 
-
-
                             },
 
                             {
                                 title: '接口账户',
                                 dataIndex: 'accountName',
-
-
 
 
                             },
@@ -228,7 +213,6 @@ export default class extends React.Component {
             ]}>
 
             </Tabs>
-
 
 
             <Modal title='接口访客'
@@ -244,30 +228,30 @@ export default class extends React.Component {
                       onFinish={this.onFinish}
 
                 >
-                    <Form.Item  name='id' noStyle></Form.Item>
+                    <Form.Item name='id' noStyle></Form.Item>
 
                     <Form.Item label='名称' name='name' rules={[{required: true}]}>
                         <Input/>
                     </Form.Item>
 
 
-                    <Form.Item label='appId' name='appId' >
+                    <Form.Item label='appId' name='appId'>
                         <Input placeholder='多个用逗号分隔'/>
                     </Form.Item>
-                    <Form.Item label='appSecret' name='appSecret' rules={[{required: true},{len:32}]}
+                    <Form.Item label='appSecret' name='appSecret' rules={[{required: true}, {len: 32}]}
                                help={<Button size='small' type='link' onClick={this.randomAppSecret}>随机生成</Button>}
                     >
-                        <Input />
+                        <Input/>
                     </Form.Item>
 
-                    <Form.Item label='准入IP' name='accessIp' >
+                    <Form.Item label='准入IP' name='accessIp'>
                         <Input placeholder='多个用逗号分隔'/>
                     </Form.Item>
-                    <Form.Item label='有效期' name='endTime'  style={{marginTop:32}}>
-                        <FieldDateTimePickerString />
+                    <Form.Item label='有效期' name='endTime' style={{marginTop: 32}}>
+                        <FieldDateTimePickerString/>
                     </Form.Item>
                     <Form.Item label='启用' name='enable' rules={[{required: true}]}>
-                        <FieldRadioBoolean />
+                        <FieldRadioBoolean/>
                     </Form.Item>
 
                 </Form>
