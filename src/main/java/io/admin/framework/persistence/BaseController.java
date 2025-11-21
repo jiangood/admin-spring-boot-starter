@@ -32,7 +32,7 @@ public abstract class BaseController<T extends Persistable<String>> {
         JpaQuery<T> q = new JpaQuery<>();
 
 
-        Page<T> page = service.findAllByRequest(q, pageable);
+        Page<T> page = service.pageByRequest(q, pageable);
 
 
 

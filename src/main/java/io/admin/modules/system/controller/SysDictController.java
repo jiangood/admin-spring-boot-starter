@@ -27,7 +27,7 @@ public class SysDictController  {
         JpaQuery<SysDict> q = new JpaQuery<>();
         q.searchText(searchText, "text","code");
 
-        Page<SysDict> page = service.findAllByRequest(q, pageable);
+        Page<SysDict> page = service.pageByRequest(q, pageable);
 
         return AjaxResult.ok().data(page);
     }

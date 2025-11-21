@@ -54,7 +54,7 @@ public class SysJobController {
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws SchedulerException {
         JpaQuery<SysJob> q = new JpaQuery<>();
         q.searchText(searchText, SysJob.Fields.name, SysJob.Fields.jobClass);
-        Page<SysJob> page = service.findAllByRequest(q, pageable);
+        Page<SysJob> page = service.pageByRequest(q, pageable);
 
         List<JobExecutionContext> currentlyExecutingJobs = scheduler.getCurrentlyExecutingJobs();
         Map<JobKey, JobExecutionContext> currentlyExecutingJobsMap = currentlyExecutingJobs.stream().collect(Collectors.toMap(ctx -> ctx.getJobDetail().getKey(), ctx -> ctx));

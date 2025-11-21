@@ -34,7 +34,7 @@ public class ApiResourceController extends BaseController<ApiResource> {
           q.in("id", selected);
         }
 
-        Page<ApiResource> page = service.findAllByRequest(q,pageable);
+        Page<ApiResource> page = service.pageByRequest(q,pageable);
 
         Table<ApiResource> tb = new Table<>(page);
         tb.addColumn("标识", "id");

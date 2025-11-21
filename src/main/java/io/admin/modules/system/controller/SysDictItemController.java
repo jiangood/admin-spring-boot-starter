@@ -1,7 +1,6 @@
 
 package io.admin.modules.system.controller;
 
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.data.query.JpaQuery;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
@@ -39,7 +37,7 @@ public class SysDictItemController  {
         JpaQuery<SysDictItem> q = new JpaQuery<>();
         if(StrUtil.isNotEmpty(sysDictId)){
             q.eq(SysDictItem.Fields.sysDict + ".id",  sysDictId);
-            Page<SysDictItem> page = service.findAllByRequest(q, pageable);
+            Page<SysDictItem> page = service.pageByRequest(q, pageable);
             return AjaxResult.ok().data(page);
         }else {
             return AjaxResult.ok().data(Page.empty(pageable));

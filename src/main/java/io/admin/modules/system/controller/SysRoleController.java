@@ -8,6 +8,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.utils.CollectionTool;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
+import io.admin.framework.data.query.JpaQuery;
 import io.admin.modules.system.dto.request.SaveRolePermRequest;
 import io.admin.modules.system.dto.request.GrantUserToRoleRequest;
 import io.admin.modules.system.entity.SysRole;
@@ -21,6 +22,10 @@ import io.admin.framework.persistence.BaseController;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.common.dto.DropdownRequest;
 import jakarta.annotation.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -31,7 +36,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("admin/sysRole")
-public class SysRoleController extends BaseController<SysRole> {
+public class SysRoleController  {
 
     @Resource
     private SysRoleService sysRoleService;
@@ -46,6 +51,24 @@ public class SysRoleController extends BaseController<SysRole> {
     @Resource
     private PermissionStaleService permissionStaleService;
 
+   @HasPermission("role:view")
+    @RequestMapping("page")
+    public AjaxResult page(   @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
+        JpaQuery<SysRole> q = new JpaQuery<>();
+        Page<SysRole> page = sysRoleService.pageByRequest(q, pageable);
+        return AjaxResult.ok().data(page);
+    }
+
+
+
+    @HasPermission("role:delete")
+    @RequestMapping("delete")
+    public AjaxResult delete(String id) {
+        sysRoleService.deleteByRequest(id);
+        return AjaxResult.ok().msg("删除成功");
+    }
+
+
     /**
      * 添加系统角色
      */
@@ -55,11 +78,9 @@ public class SysRoleController extends BaseController<SysRole> {
         role.setBuiltin(false);
         role = sysRoleService.saveOrUpdateByRequest(role, updateFields);
 
-
         for (SysUser user : role.getUsers()) {
             permissionStaleService.markUserStale(user.getAccount());
         }
-
 
         return AjaxResult.ok().data(role).msg("保存角色成功");
     }

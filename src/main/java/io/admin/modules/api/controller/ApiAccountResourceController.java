@@ -31,7 +31,7 @@ public class ApiAccountResourceController {
         q.eq(ApiAccountResource.Fields.account + ".id", accountId);
         q.like(ApiAccountResource.Fields.account + ".name", searchText);
 
-        Page<ApiAccountResource> page = service.findAllByRequest(q, pageable);
+        Page<ApiAccountResource> page = service.pageByRequest(q, pageable);
 
         return AjaxResult.ok().data(page);
     }

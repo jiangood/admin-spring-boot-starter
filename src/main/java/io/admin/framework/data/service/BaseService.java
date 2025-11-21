@@ -41,7 +41,7 @@ public abstract class BaseService<T extends Persistable<String>> {
         baseDao.deleteById(id);
     }
 
-    public Page<T> findAllByRequest(JpaQuery<T> q, Pageable pageable) {
+    public Page<T> pageByRequest(JpaQuery<T> q, Pageable pageable) {
         return baseDao.findAll(q, pageable);
     }
 

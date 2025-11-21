@@ -36,7 +36,7 @@ public class SysJobLogController {
         q.searchText(searchText, SysJobLog.Fields.sysJob + "." + SysJob.Fields.name);
         q.eq(SysJobLog.Fields.sysJob + ".id", jobId);
 
-        Page<SysJobLog> page = service.findAllByRequest(q, pageable);
+        Page<SysJobLog> page = service.pageByRequest(q, pageable);
         return AjaxResult.ok().data(page);
     }
 

@@ -33,7 +33,7 @@ public class SysManualController  {
         JpaQuery<SysManual> q = new JpaQuery<>();
         q.searchText(searchText, SysManual.Fields.name);
 
-        Page<SysManual> page = service.findAllByRequest(q, pageable);
+        Page<SysManual> page = service.pageByRequest(q, pageable);
 
 
 
@@ -72,7 +72,7 @@ public class SysManualController  {
 
 
 
-        List<SysManual> list = service.findAllByRequest(q, Pageable.unpaged(pageable.getSort())).getContent();
+        List<SysManual> list = service.pageByRequest(q, Pageable.unpaged(pageable.getSort())).getContent();
         // 数据量不大，直接内存过滤吧
 
         Map<String,SysManual> rs = new HashMap<>();
