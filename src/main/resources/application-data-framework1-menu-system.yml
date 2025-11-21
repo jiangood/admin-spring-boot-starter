@@ -94,10 +94,6 @@ data:
               perm: job:triggerJob
             - name: 清理日志
               perm: job:jobLogClean
-
-
-
-
         - id: sysLog
           name: 操作日志
           path: /system/log
@@ -106,9 +102,9 @@ data:
             - name: 查看
               perm: sysLog:view
         - id: api
-          name: 开放接口
+          name: 接口管理
           icon: ApiOutlined
           path: /api
           perms:
-            - name: 接口管理
+            - name: 管理
               perm: api
