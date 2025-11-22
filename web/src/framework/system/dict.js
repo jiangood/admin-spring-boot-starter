@@ -19,6 +19,16 @@ export function dictList(code) {
     return map[code1] || map[code2] || [];
 }
 
+export function dictOptions(typeCode) {
+   const list = dictList(typeCode);
+   return list.map(i => {
+       return {
+           value: i.code,
+           label: i.text
+       }
+   })
+}
+
 export function dictMap(typeCode) {
     const list = dictList(typeCode);
 

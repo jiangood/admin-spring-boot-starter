@@ -2,3 +2,4 @@
 export * from './FieldRemoteSelect';
 export * from './FieldRemoteSelectMultiple';
 export * from './FieldRemoteTree';
+export * from './FieldDictSelect';

@@ -11,43 +11,6 @@ export interface DictProps {
   placeholder?: string;
 }
 
-/**
- * 字典希腊选择组件
- * @param props
- * @returns {JSX.Element|string|*}
- * @constructor
- */
-export class DictSelect extends React.Component<DictProps> {
-
-  render() {
-    let {typeCode, params, mode, value, onChange, placeholder = '请选择', ...restProps} = this.props;
-
-    if (typeCode == null) {
-      typeCode = params;
-    }
-
-
-    if (mode === 'read') {
-      return dictValueTag(typeCode, value);
-    }
-
-    let list = dictList(typeCode) || [];
-
-    if(value != null){
-      value = String(value)
-    }
-
-    return (
-        <Select value={value} onChange={onChange} placeholder={placeholder} allowClear {...restProps} style={{minWidth:150}}>
-          {list.map((o: any) => (
-              <Select.Option value={o.code} key={o.code}>
-                {o.name}
-              </Select.Option>
-          ))}
-        </Select>
-    );
-  }
-}
 
 export function DictRadio(props: DictProps) {
   let { typeCode, mode, value, params } = props;
@@ -105,6 +68,5 @@ export function FieldDictValue(props: DictProps) {
 
 export {
   DictRadio as FieldDictRadio,
-  DictSelect as FieldDictSelect,
   DictCheckbox as FieldDictCheckbox,
 };
