@@ -14,12 +14,6 @@ import './index.less'
 
 dayjs.locale('zh-cn');
 
-/**
- * 属性列表：
- *
- * logo: 自定义的logo图片
- *
- */
 
 // 不需要登录的页面
 const SIMPLE_URLS = ['/login', '/test']

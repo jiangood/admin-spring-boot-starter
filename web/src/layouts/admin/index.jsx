@@ -32,7 +32,6 @@ export default class extends React.Component {
         isMobileDevice: false,
     }
 
-    tabPageRenderRef = React.createRef()
 
 
     componentDidMount() {
@@ -160,7 +159,7 @@ export default class extends React.Component {
         if (this.state.menuTree.length === 0) { // 加载菜单中
             return <></>
         }
-        let tabPageRenderNode = <TabPageRender ref={this.tabPageRenderRef} pathMenuMap={this.state.pathMenuMap}/>;
+        let tabPageRenderNode = <TabPageRender  pathMenuMap={this.state.pathMenuMap}/>;
         if (siteInfo.waterMark === true) {
             return <Watermark content={[loginInfo.name, loginInfo.account]}>
                 {tabPageRenderNode}
