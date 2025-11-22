@@ -12,7 +12,7 @@ export class FieldSelect extends React.Component {
 
     constructor(props) {
         super(props);
-        console.error('FieldSelect即将弃用，请使用FRemoteSelect')
+        console.error('FieldSelect即将弃用，请使用FcRemoteSelect')
         ObjUtil.copyPropertyIfPresent(props, this.state)
         this.state.componentValue = this.convertInputToComponentValue(this.state.value)
 
