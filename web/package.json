@@ -8,10 +8,9 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^5.4.0",
-    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@tinymce/tinymce-react": "^6.0.0",
     "@umijs/types": "^3.5.43",
-    "antd": "^5.26.1",
+    "antd": "^6.0.0",
     "antd-img-crop": "^4.23.0",
     "bpmn-js": "^18.7.0",
     "dagre-d3": "^0.6.0",

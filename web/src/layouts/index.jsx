@@ -2,7 +2,6 @@ import AdminLayout from "./admin"
 import React from "react";
 
 import {ConfigProvider} from "antd";
-import '@ant-design/v5-patch-for-react-19';
 
 import {history, Outlet, withRouter} from "umi";
 import zhCN from 'antd/locale/zh_CN';
