@@ -47,10 +47,7 @@ public class SysDictController  {
     }
 
 
-    @GetMapping("tree")
-    public AjaxResult tree() {
-        return AjaxResult.ok().data(service.tree());
-    }
+
 
 
 }

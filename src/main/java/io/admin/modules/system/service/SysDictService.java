@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -71,32 +73,12 @@ public class SysDictService extends BaseService<SysDict> {
     }
 
 
-    public List<SysDictTreeResponse> tree() {
-        List<SysDictTreeResponse> resultList = CollectionUtil.newArrayList();
-
-        JpaQuery<SysDict> query = new JpaQuery<>();
-        List<SysDict> typeList = sysDictDao.findAll(query);
-
-        for (SysDict sysDict : typeList) {
-            SysDictTreeResponse sysDictTreeNode = new SysDictTreeResponse();
-            BeanUtil.copyProperties(sysDict, sysDictTreeNode);
-            sysDictTreeNode.setPid(null);
-            sysDictTreeNode.setName(sysDict.getText());
-            resultList.add(sysDictTreeNode);
-        }
 
 
+    public Map<String, List<SysDictItem>> mapList() {
         List<SysDictItem> dictData = sysDictItemDao.findAll(Sort.by(SysDictItem.Fields.seq));
-        for (SysDictItem item : dictData) {
-            SysDictTreeResponse node = new SysDictTreeResponse();
-            node.setId(item.getId());
-            node.setPid(item.getSysDict().getId());
-            node.setCode(getFinalKey(item));
-            node.setName(item.getText());
-            node.setColor(item.getColor());
-            resultList.add(node);
-        }
-        return TreeTool.buildTree(resultList, SysDictTreeResponse::getId, SysDictTreeResponse::getPid,SysDictTreeResponse::getChildren, SysDictTreeResponse::setChildren);
+        Map<String, List<SysDictItem>> map = dictData.stream().collect(Collectors.groupingBy(t->t.getSysDict().getCode().toUpperCase()));
+        return map;
     }
 
     public Object getFinalKey(SysDictItem item) {

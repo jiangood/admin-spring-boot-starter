@@ -56,8 +56,8 @@ class _Layouts extends React.Component {
 
         HttpUtil.get('admin/public/checkLogin')
             .then(rs => {
-                const {needUpdatePwd, dictTree, loginInfo} = rs
-                SysUtil.setDictInfo(dictTree)
+                const {needUpdatePwd, dictMap, loginInfo} = rs
+                SysUtil.setDictInfo(dictMap)
                 SysUtil.setLoginInfo(loginInfo)
                 if (!needUpdatePwd) {
                     this.setState({loginInfoFinish: true});
