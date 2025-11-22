@@ -12,6 +12,7 @@
     "@umijs/types": "^3.5.43",
     "antd": "^6.0.0",
     "antd-img-crop": "^4.23.0",
+    "axios": "^1.13.2",
     "bpmn-js": "^18.7.0",
     "dagre-d3": "^0.6.0",
     "dayjs": "^1.11.13",
@@ -22,8 +23,7 @@
     "react-amap": "^1.2.8",
     "react-dom": "^19.0.0",
     "react-lazylog": "^4.5.3",
-    "umi": "^4.0.0",
-    "axios": "^1.13.2"
+    "umi": "^4.0.0"
   },
   "name": "@jiangood/springboot-admin-starter",
   "description": "springboot-admin-starter",
@@ -36,5 +36,8 @@
     "dev": "umi dev",
     "build": "tsc --outDir config/dist --skipLibCheck --noEmitOnError false config/index.ts"
   },
-  "version": "0.0.1-beta.18"
+  "version": "0.0.1-beta.18",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
