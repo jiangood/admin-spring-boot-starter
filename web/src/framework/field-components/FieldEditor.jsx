@@ -31,8 +31,6 @@ export class FieldEditor extends React.Component {
                         'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
                         'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
                     ],
-                    toolbar_mode: 'Sliding',
-                    toolbar: "fontsize  blocks  bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify |image link | bullist numlist outdent indent | removeformat  |fontfamily| undo redo | help",
 
                 }}
                 onChange={e => {
