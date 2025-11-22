@@ -7,7 +7,6 @@ import io.admin.common.utils.PasswordUtils;
 import io.admin.framework.config.SysProp;
 import io.admin.framework.db.DbCacheDao;
 import io.admin.framework.dict.DictAnnHandler;
-import io.admin.framework.dict.DictFieldAnnHandler;
 import io.admin.modules.system.ConfigConsts;
 import io.admin.modules.system.dao.SysConfigDao;
 import io.admin.modules.system.dao.SysUserDao;
@@ -52,8 +51,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
     DictAnnHandler dictAnnHandler;
 
 
-    @Resource
-    DictFieldAnnHandler dictFieldAnnHandler;
 
 
 
@@ -85,7 +82,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
         long time = System.currentTimeMillis();
 
         dictAnnHandler.run();
-        dictFieldAnnHandler.run();
         systemHookService.trigger(SystemHookEventType.AFTER_SYSTEM_MENU_INIT);
 
         SysRole adminRole = sysRoleService.initDefaultAdmin();

@@ -1,7 +1,6 @@
 
 package io.admin.modules.system.entity;
 
-import io.admin.framework.dict.DictField;
 import io.admin.common.utils.tree.TreeNode;
 import io.admin.common.utils.ann.Remark;
 import io.admin.framework.data.domain.BaseEntity;
@@ -50,7 +49,6 @@ public class SysOrg extends BaseEntity implements TreeNode<SysOrg> {
 
 
     @NotNull
-    @DictField(code ="orgType", label="机构类型", items = "10-单位,20-部门,30-分组")
     private Integer type;
 
 

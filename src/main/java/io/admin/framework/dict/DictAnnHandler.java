@@ -59,7 +59,7 @@ public class DictAnnHandler {
 
 
 
-                sysDictItemDao.saveOrUpdate(sysDict, code, text, i, true);
+                sysDictItemDao.saveOrUpdate(sysDict, key, text, i, true);
             }
         }
     }
