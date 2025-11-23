@@ -46,35 +46,39 @@ export default class extends React.Component {
                                 localStorage.setItem("_test", JSON.stringify(values))
                             }}
 
-                            labelCol={{flex:'200px'}}
+                            labelAlign={'left'}
+                            labelCol={{flex:'400px',}}
                             layout='horizontal'
                         >
-                            <Form.Item label='布尔(checkbox)' name='boolean'>
+                            <Form.Item label='FieldBoolean 布尔 (switch)' name='boolean'>
+                                <FieldBoolean type='switch'></FieldBoolean>
+                            </Form.Item>
+                            <Form.Item label='FieldBoolean 布尔 (checkbox)' name='boolean'>
                                 <FieldBoolean type='checkbox'></FieldBoolean>
                             </Form.Item>
-                            <Form.Item label='布尔(radio)' name='boolean'>
+                            <Form.Item label='FieldBoolean 布尔 (radio)' name='boolean'>
                                 <FieldBoolean type='radio'></FieldBoolean>
                             </Form.Item>
-                            <Form.Item label='布尔(选择框)' name='boolean'>
+                            <Form.Item label='FieldBoolean 布尔 (选择框)' name='boolean'>
                                 <FieldBoolean type='select'></FieldBoolean>
                             </Form.Item>
-                            <Form.Item label='远程树选择(多选)' name='远程树选择(多选)'>
+                            <Form.Item label='FieldRemoteTreeSelectMultiple 远程树选择(多选)' name='users'>
                                 <FieldRemoteTreeSelectMultiple url='admin/sysUser/tree' />
                             </Form.Item>
-                            <Form.Item label='远程树选择' name='远程树选择'>
+                            <Form.Item label='远程树选择' name='user'>
                                 <FieldRemoteTreeSelect url='admin/sysUser/tree' />
                             </Form.Item>
-                            <Form.Item label='远程树' name='远程树'>
+                            <Form.Item label='远程树' name='user'>
                                 <FieldRemoteTree url='admin/sysUser/tree' />
                             </Form.Item>
-                            <Form.Item label='远程树级联选择' name='级联数选择'>
+                            <Form.Item label='远程树级联选择' name='user'>
                                 <FieldRemoteTreeCascader url='admin/sysUser/tree' />
                             </Form.Item>
 
-                            <Form.Item label='单选' name='单选值'>
+                            <Form.Item label='单选' name='user'>
                                 <FieldRemoteSelect url='admin/sysUser/options'/>
                             </Form.Item>
-                            <Form.Item label='多选' name='多选值'>
+                            <Form.Item label='多选' name='users'>
                                 <FieldRemoteSelectMultiple url='admin/sysUser/options'/>
                             </Form.Item>
                             <Form.Item label='富文本' name='富文本'>

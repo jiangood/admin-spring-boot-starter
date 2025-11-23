@@ -11,13 +11,13 @@
  *
  */
 import React from 'react';
-import {Checkbox, Radio, Select} from 'antd';
+import {Checkbox, Radio, Select, Switch} from 'antd';
 
 
 export class FieldBoolean extends React.Component {
 
     static defaultProps = {
-        type: 'radio'
+        type: 'select'
     }
 
     render() {
@@ -50,6 +50,11 @@ export class FieldBoolean extends React.Component {
                                allowClear={true}
                                placeholder={'请选择'}
                 />
+            case 'switch':
+                return <Switch
+                    checked={v}
+                    onChange={onChange}
+                />;
             default:
                 break;
         }
