@@ -92,7 +92,6 @@ export class FieldUploadFile extends React.Component {
 
 
     handlePreview = (file) => {
-        debugger
         Modal.info({
             title: '文件预览',
             width: '80vw',
