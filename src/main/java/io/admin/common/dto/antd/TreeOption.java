@@ -43,7 +43,6 @@ public class TreeOption {
     private String expandAction; //	目录展开逻辑，可选：false | click | doubleClick	string | boolean	click
 
     // 额外字段，方便构建树
-    @JsonIgnore
     private String parentKey;
 
     // 直接设置icon前端无法显示的，设置成这个，前端再转换为ReactNode

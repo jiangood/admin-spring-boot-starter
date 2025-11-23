@@ -33,18 +33,14 @@ export class FieldRemoteTreeCascader extends React.Component {
 
     };
 
-    handleChange = (arr) => {
-        if (this.props.onChange) {
-            this.props.onChange(arr[arr.length - 1]);
-        }
-    };
+
 
     render() {
-        const {data, map, loading} = this.state;
-        if (loading) {
+        const {data} = this.state;
+        if (this.state.loading) {
             return <Spin/>;
         }
-        let {value, ...restProps} = this.props;
+        let {value, onChange,...rest} = this.props;
 
         let arr = [];
         if (value != null) {
@@ -53,11 +49,13 @@ export class FieldRemoteTreeCascader extends React.Component {
 
         return (
             <Cascader
-                options={data}
-                onChange={this.handleChange}
+                options={this.state.data}
+                onChange={arr=>{
+                    onChange(arr[arr.length - 1]);
+                }}
                 value={arr}
                 fieldNames={{label: 'title', value: 'key'}}
-                {...restProps}
+                {...rest}
             />
         );
     }

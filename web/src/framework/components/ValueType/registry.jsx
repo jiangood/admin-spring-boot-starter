@@ -2,7 +2,6 @@ import {
     FieldDateTimePickerString,
     FieldDictRadio,
     FieldImageBase64,
-    FieldInput,
     FieldRadioBoolean,
     FieldUploadImage
 } from "../field";
@@ -13,7 +12,7 @@ import {Input} from "antd";
 
 
 export const fieldRegistry = {
-    'text':FieldInput,
+    'text':Input,
 
     'dict':FieldDictRadio,
     'dictRadio':FieldDictRadio,

@@ -24,6 +24,8 @@ export default class extends React.Component {
 
         return <>
             <Card title='表单组件'>
+                {JSON.stringify(this.state.formValues)}
+                <Divider></Divider>
                         <Form
                             ref={this.formRef}
                             onValuesChange={(changedValues, allValues) => {
@@ -39,6 +41,10 @@ export default class extends React.Component {
 
                             layout='vertical'
                         >
+                            <Form.Item label='级联数选择' name='级联数选择'>
+                                <FieldRemoteTreeCascader url='admin/sysUser/tree' />
+                            </Form.Item>
+
                             <Form.Item label='单选' name='单选值'>
                                 <FieldRemoteSelect url='admin/sysUser/options'/>
                             </Form.Item>
@@ -48,17 +54,14 @@ export default class extends React.Component {
                             <Form.Item label='富文本' name='富文本'>
                                 <FieldEditor height={100} />
                             </Form.Item>
-                            <Form.Item label='级联数选择' name='级联数选择'>
-                                <FieldRemoteTreeCascader url='admin/sysUser/tree' />
-                            </Form.Item>
 
                             <Space>
                                 <Button type='primary' htmlType='submit'>保存</Button>
                                 <Button htmlType='reset'>重置</Button>
                             </Space>
                         </Form>
-                        <Divider>表单数据</Divider>
-                        {JSON.stringify(this.state.formValues)}
+
+
 
 
 
