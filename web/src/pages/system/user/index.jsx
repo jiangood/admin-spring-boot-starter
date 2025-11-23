@@ -3,9 +3,8 @@ import {Button, Form, Input, Modal, Popconfirm, Splitter, Tabs} from 'antd';
 import React from 'react';
 import {
     ButtonList,
-    dictValueTag,
-    FieldOrgTreeSelect,
-    FieldRadioBoolean,
+    dictValueTag, FieldBoolean,
+    FieldOrgTreeSelect, FieldSysOrgTreeSelect,
     HttpUtil,
     OrgTree,
     Page,
@@ -221,7 +220,7 @@ export default class extends React.Component {
                     <Form.Item name='id' noStyle></Form.Item>
 
                     <Form.Item label='所属机构' name='deptId' rules={[{required: true}]}>
-                        <FieldOrgTreeSelect/>
+                        <FieldSysOrgTreeSelect />
                     </Form.Item>
 
                     <Form.Item label='姓名' name='name' rules={[{required: true}]}>
@@ -240,7 +239,7 @@ export default class extends React.Component {
                     </Form.Item>
 
                     <Form.Item label='启用状态' name='enabled' rules={[{required: true}]}>
-                        <FieldRadioBoolean/>
+                        <FieldBoolean/>
                     </Form.Item>
 
                 </Form>

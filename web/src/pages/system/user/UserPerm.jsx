@@ -1,6 +1,11 @@
 import {Form, Modal, Spin, Tree} from 'antd';
 import React from 'react';
-import {FieldDictSelect, FieldRemoteSelectMultiple, FieldRemoteTree, HttpUtil} from "../../../framework";
+import {
+    FieldDictSelect,
+    FieldRemoteSelectMultiple,
+    FieldSysOrgTree,
+    HttpUtil
+} from "../../../framework";
 
 
 
@@ -53,7 +58,7 @@ export default class UserPerm extends React.Component {
 
 
     render() {
-        let {visible, treeData, confirmLoading, checked} = this.state
+        let {visible, confirmLoading} = this.state
 
         return <Modal
             title="授权"
@@ -83,7 +88,7 @@ export default class UserPerm extends React.Component {
 
                 {this.state.formValues.dataPermType === 'CUSTOM' && <>
                     <Form.Item label='组织机构' name='orgIds'>
-                       <FieldRemoteTree url='admin/sysOrg/unitTree' />
+                      <FieldSysOrgTree />
                     </Form.Item>
                 </>}
 
