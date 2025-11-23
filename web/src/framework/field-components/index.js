@@ -7,3 +7,4 @@ export * from './FieldEditor'
 export * from './FieldRemoteTreeCascader'
 export * from './FieldRemoteTreeSelect'
 export * from './FieldRemoteTreeSelectMultiple'
+export * from './FieldBoolean';

@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Card, Divider, Form, Space, Splitter} from "antd";
 import {
+    FieldBoolean,
     FieldEditor,
     FieldRemoteSelect,
     FieldRemoteSelectMultiple,
@@ -48,6 +49,15 @@ export default class extends React.Component {
                             labelCol={{flex:'200px'}}
                             layout='horizontal'
                         >
+                            <Form.Item label='布尔(checkbox)' name='boolean'>
+                                <FieldBoolean type='checkbox'></FieldBoolean>
+                            </Form.Item>
+                            <Form.Item label='布尔(radio)' name='boolean'>
+                                <FieldBoolean type='radio'></FieldBoolean>
+                            </Form.Item>
+                            <Form.Item label='布尔(选择框)' name='boolean'>
+                                <FieldBoolean type='select'></FieldBoolean>
+                            </Form.Item>
                             <Form.Item label='远程树选择(多选)' name='远程树选择(多选)'>
                                 <FieldRemoteTreeSelectMultiple url='admin/sysUser/tree' />
                             </Form.Item>
