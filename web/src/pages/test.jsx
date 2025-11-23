@@ -58,7 +58,7 @@ export default class extends React.Component {
                     layout='horizontal'
                 >
                     <Form.Item label='上传'   name='file'>
-                        <FieldUploadFile />
+                        <FieldUploadFile cropImage={true} />
                     </Form.Item>
 
                     <Form.Item label='百分数'   name='number'>

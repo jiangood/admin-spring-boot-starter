@@ -118,7 +118,6 @@ export class FieldUploadFile extends React.Component {
             listType={this.props.listType || 'picture-card'}
             fileList={fileList}
             onChange={this.handleChange}
-            headers={SysUtil.getHeaders()}
             multiple={false}
             accept={accept}
             maxCount={maxCount}
