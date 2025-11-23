@@ -8,40 +8,40 @@ import {DatePicker, TimePicker} from "antd";
 
 export class FieldDateRange extends React.Component {
     static defaultProps = {
-        type: 'YEAR_MONTH_DAY'
+        type: 'YYYY-MM-DD'
     }
 
     render() {
         let {type, value, onChange, ...rest} = this.props;
         switch (type) {
-            case 'YEAR':
+            case 'YYYY':
                 return <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY'))}
                     picker="year"
                     {...rest}
                 />;
-            case 'YEAR_MONTH':
+            case 'YYYY-MM':
                 return <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY-MM')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY-MM'))}
                     picker="month"
                     {...rest}
                 />;
-            case 'YEAR_QUARTER':
+            case 'YYYY-QQ':
                 return <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY-QQ')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY-QQ'))}
                     picker="quarter"
                     {...rest}
                 />;
-            case 'YEAR_MONTH_DAY':
+            case 'YYYY-MM-DD':
                 return   <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY-MM-DD')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY-MM-DD'))}
                     {...rest}
                 />;
-            case 'YEAR_MONTH_DAY_HOUR_MINUTE':
+            case 'YYYY-MM-DD HH:mm':
                 return <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY-MM-DD HH:mm')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY-MM-DD HH:mm'))}
@@ -49,21 +49,21 @@ export class FieldDateRange extends React.Component {
                     showTime
                     {...rest}
                 />;
-            case 'YEAR_MONTH_DAY_HOUR_MINUTE_SECOND':
+            case 'YYYY-MM-DD HH:mm:ss':
                 return <DatePicker.RangePicker
                     value={this.strToDate(value, 'YYYY-MM-DD HH:mm:ss')}
                     onChange={v => onChange(this.dateToStr(v,'YYYY-MM-DD HH:mm:ss'))}
                     showTime
                     {...rest}
                 />;
-            case 'HOUR_MINUTE':
+            case 'HH:mm':
                 return <TimePicker.RangePicker
                     format='HH:mm'
                     value={this.strToDate(value, 'HH:mm')}
                     onChange={v => onChange(this.dateToStr(v,'HH:mm'))}
                     {...rest}
                 />;
-            case 'HOUR_MINUTE_SECOND':
+            case 'HH:mm:ss':
                 return <TimePicker.RangePicker
                     value={this.strToDate(value, 'HH:mm:ss')}
                     onChange={v => onChange(this.dateToStr(v,'HH:mm:ss'))}

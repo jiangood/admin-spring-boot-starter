@@ -91,56 +91,56 @@ export default class extends React.Component {
                     </Form.Item>
 
                     <Divider>日期区间 FieldDateRange</Divider>
-                    <Form.Item label=' YEAR_MONTH_DAY_HOUR_MINUTE_SECOND' name='dateRange'>
-                        <FieldDateRange type='YEAR_MONTH_DAY_HOUR_MINUTE_SECOND'></FieldDateRange>
+                    <Form.Item label=' YYYY-MM-DD HH:mm:ss' name='dateRange'>
+                        <FieldDateRange type='YYYY-MM-DD HH:mm:ss'></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='YEAR_MONTH_DAY_HOUR_MINUTE' name='dateRange'>
-                        <FieldDateRange type='YEAR_MONTH_DAY_HOUR_MINUTE'></FieldDateRange>
+                    <Form.Item label='YYYY-MM-DD HH:mm' name='dateRange'>
+                        <FieldDateRange type='YYYY-MM-DD HH:mm'></FieldDateRange>
                     </Form.Item>
                     <Form.Item label='日期' name='dateRange'>
                         <FieldDateRange ></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='YEAR_QUARTER 季度' name='dateRange'>
-                        <FieldDateRange type='YEAR_QUARTER'></FieldDateRange>
+                    <Form.Item label='YYYY-QQ 季度' name='dateRange'>
+                        <FieldDateRange type='YYYY-QQ'></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='YEAR_MONTH' name='dateRange'>
-                        <FieldDateRange type='YEAR_MONTH'></FieldDateRange>
+                    <Form.Item label='YYYY-MM' name='dateRange'>
+                        <FieldDateRange type='YYYY-MM'></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='YEAR' name='dateRange'>
-                        <FieldDateRange type='YEAR'></FieldDateRange>
+                    <Form.Item label='YYYY' name='dateRange'>
+                        <FieldDateRange type='YYYY'></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='HOUR_MINUTE' name='dateRange'>
-                        <FieldDateRange type='HOUR_MINUTE'></FieldDateRange>
+                    <Form.Item label='HH:mm' name='dateRange'>
+                        <FieldDateRange type='HH:mm'></FieldDateRange>
                     </Form.Item>
-                    <Form.Item label='HOUR_MINUTE_SECOND' name='dateRange'>
-                        <FieldDateRange type='HOUR_MINUTE_SECOND'></FieldDateRange>
+                    <Form.Item label='HH:mm:ss' name='dateRange'>
+                        <FieldDateRange type='HH:mm:ss'></FieldDateRange>
                     </Form.Item>
 
 
                     <Divider>日期</Divider>
-                    <Form.Item label='YEAR_MONTH_DAY_HOUR_MINUTE_SECOND' name='date'>
-                        <FieldDate type='YEAR_MONTH_DAY_HOUR_MINUTE_SECOND'></FieldDate>
+                    <Form.Item label='YYYY-MM-DD HH:mm:ss' name='date'>
+                        <FieldDate type='YYYY-MM-DD HH:mm:ss'></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate YEAR_MONTH_DAY_HOUR_MINUTE' name='date'>
-                        <FieldDate type='YEAR_MONTH_DAY_HOUR_MINUTE'></FieldDate>
+                    <Form.Item label='FieldDate YYYY-MM-DD HH:mm' name='date'>
+                        <FieldDate type='YYYY-MM-DD HH:mm'></FieldDate>
                     </Form.Item>
                     <Form.Item label='FieldDate 日期' name='date'>
                         <FieldDate ></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate YEAR_QUARTER 季度' name='date'>
-                        <FieldDate type='YEAR_QUARTER'></FieldDate>
+                    <Form.Item label='FieldDate YYYY-QQ 季度' name='date'>
+                        <FieldDate type='YYYY-QQ'></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate YEAR_MONTH' name='date'>
-                        <FieldDate type='YEAR_MONTH'></FieldDate>
+                    <Form.Item label='FieldDate YYYY-MM' name='date'>
+                        <FieldDate type='YYYY-MM'></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate YEAR' name='date'>
-                        <FieldDate type='YEAR'></FieldDate>
+                    <Form.Item label='FieldDate YYYY' name='date'>
+                        <FieldDate type='YYYY'></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate HOUR_MINUTE' name='date'>
-                        <FieldDate type='HOUR_MINUTE'></FieldDate>
+                    <Form.Item label='FieldDate HH:mm' name='date'>
+                        <FieldDate type='HH:mm'></FieldDate>
                     </Form.Item>
-                    <Form.Item label='FieldDate HOUR_MINUTE_SECOND' name='date'>
-                        <FieldDate type='HOUR_MINUTE_SECOND'></FieldDate>
+                    <Form.Item label='FieldDate HH:mm:ss' name='date'>
+                        <FieldDate type='HH:mm:ss'></FieldDate>
                     </Form.Item>
                     <Divider>布尔</Divider>
                     <Form.Item label='FieldBoolean 布尔 (switch)' name='boolean'>

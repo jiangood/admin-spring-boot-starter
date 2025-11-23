@@ -2,9 +2,14 @@ import React from 'react';
 
 export interface FieldDateProps  {
 
- type: 'YEAR' | 'YEAR_MONTH' | 'YEAR_QUARTER'| 'YEAR_MONTH_DAY' |
-     'YEAR_MONTH_DAY_HOUR_MINUTE' | 'YEAR_MONTH_DAY_HOUR_MINUTE_SECOND'|
-     'HOUR_MINUTE' | 'HOUR_MINUTE_SECOND';
+ type: 'YYYY' |
+     'YYYY-MM' |
+     'YYYY-QQ'|
+     'YYYY-MM-DD' |
+     'YYYY-MM-DD HH:mm' |
+     'YYYY-MM-DD HH:mm:ss'|
+     'HH:mm' |
+     'HH:mm:ss';
 
 
 }
