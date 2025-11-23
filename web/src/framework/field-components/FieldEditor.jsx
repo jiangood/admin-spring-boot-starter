@@ -38,7 +38,7 @@ export class FieldEditor extends React.Component {
                     // 设置图片上传对话框默认选中上传Tab
                     setup: function (editor) {
                         editor.on('OpenWindow', function(e) {
-                            var dialog = e.dialog;
+                            const dialog = e.dialog;
                             // 包含 dimensions 属性应该就是 上传图片的对话框
                             if (dialog && dialog.getData().dimensions) {
                                 dialog.showTab("upload")
