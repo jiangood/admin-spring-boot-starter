@@ -1,4 +1,4 @@
-import {StorageUtil, UrlUtil} from "../utils";
+import {StorageUtil} from "../utils";
 
 const SITE_INFO_KEY = "siteInfo"
 const LOGIN_INFO_KEY = "loginInfo"
@@ -7,23 +7,7 @@ export const SysUtil = {
 
 
 
-    /**
-     * 服务器端的地址， 以 /结尾
-     * @returns {string}
-     */
-    getServerUrl() {
-        return "/"
-    },
 
-    /**
-     * 将服务url加载最前
-     * @param url
-     * @returns {*}
-     */
-    wrapServerUrl(url) {
-        const serverUrl = SysUtil.getServerUrl()
-        return UrlUtil.join(serverUrl, url)
-    },
 
 
     getHeaders() {

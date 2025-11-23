@@ -93,7 +93,6 @@ class Util {
     request = config => {
         const defaultConfig = {
             withCredentials: true, // 带cookie
-            baseURL: SysUtil.getServerUrl(),
             headers: {
                 'Content-Type': 'application/json'
             },

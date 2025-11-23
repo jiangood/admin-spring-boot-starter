@@ -13,7 +13,7 @@ import {
     FieldRemoteTreeSelectMultiple, FieldSysOrgTree,
     FieldSysOrgTreeSelect,
     FieldTable,
-    FieldTableSelect
+    FieldTableSelect, FieldUploadFile
 } from "../framework";
 
 export default class extends React.Component {
@@ -57,6 +57,10 @@ export default class extends React.Component {
                     labelCol={{flex: '400px',}}
                     layout='horizontal'
                 >
+                    <Form.Item label='上传'   name='file'>
+                        <FieldUploadFile />
+                    </Form.Item>
+
                     <Form.Item label='百分数'   name='number'>
                         <FieldPercent />
                     </Form.Item>

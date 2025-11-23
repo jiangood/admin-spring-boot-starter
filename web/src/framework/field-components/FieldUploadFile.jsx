@@ -4,6 +4,7 @@ import {Modal, Upload} from "antd";
 import UploadOutlined from "@ant-design/icons/lib/icons/UploadOutlined";
 import {ObjUtil} from "../utils";
 import {ViewFile} from "../components";
+import {SysUtil} from "../system";
 
 
 export class FieldUploadFile extends React.Component {
@@ -29,7 +30,7 @@ export class FieldUploadFile extends React.Component {
         if (value && value.length > 0) {
             const arr = value.split(",")
             for (const id of arr) {
-                const url = SysUtil.wrapServerUrl('admin/sysFile/preview/' + id)
+                const url = 'admin/sysFile/preview/' + id
                 let file = {id, url, uid: id, name: id, status: 'done', fileName: id};
                 list.push(file);
             }
@@ -114,7 +115,7 @@ export class FieldUploadFile extends React.Component {
         const {accept, fileList, maxCount} = this.state;
 
         return <Upload
-            action={SysUtil.wrapServerUrl('admin/sysFile/upload')}
+            action={'admin/sysFile/upload'}
             listType={this.props.listType || 'picture-card'}
             fileList={fileList}
             onChange={this.handleChange}
