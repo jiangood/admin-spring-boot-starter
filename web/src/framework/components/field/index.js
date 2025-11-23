@@ -7,13 +7,11 @@ export * from './input-number-percent';
 
 export * from './time';
 export * from './dict';
-export * from './FieldRemoteTreeMultipleSelect';
 export * from './text';
 export * from './FieldProps'
 export * from './FieldOrgTree'
 
 export * from './FieldAutoTime'
-export * from './FieldRemoteTreeCheckable'
 
 export * from './FieldEditTable'
 export * from './FieldFileBase64'

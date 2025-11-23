@@ -6,3 +6,4 @@ export * from './FieldDictSelect';
 export * from './FieldEditor'
 export * from './FieldRemoteTreeCascader'
 export * from './FieldRemoteTreeSelect'
+export * from './FieldRemoteTreeSelectMultiple'

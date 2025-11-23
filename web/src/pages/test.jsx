@@ -5,7 +5,7 @@ import {
     FieldRemoteSelect,
     FieldRemoteSelectMultiple,
     FieldRemoteTree,
-    FieldRemoteTreeCascader, FieldRemoteTreeSelect
+    FieldRemoteTreeCascader, FieldRemoteTreeCheckable, FieldRemoteTreeSelect, FieldRemoteTreeSelectMultiple
 } from "../framework";
 
 export default class extends React.Component {
@@ -48,6 +48,9 @@ export default class extends React.Component {
                             labelCol={{flex:'200px'}}
                             layout='horizontal'
                         >
+                            <Form.Item label='远程树选择(多选)' name='远程树选择(多选)'>
+                                <FieldRemoteTreeSelectMultiple url='admin/sysUser/tree' />
+                            </Form.Item>
                             <Form.Item label='远程树选择' name='远程树选择'>
                                 <FieldRemoteTreeSelect url='admin/sysUser/tree' />
                             </Form.Item>

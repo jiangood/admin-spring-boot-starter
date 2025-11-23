@@ -3,8 +3,9 @@ import {Spin, TreeSelect} from 'antd';
 import React from 'react';
 import {StrUtil} from "../utils";
 import {HttpUtil} from "../system";
+import {FieldRemoteSelectMultiple} from "./FieldRemoteSelectMultiple";
 
-export class FieldRemoteTreeSelect extends React.Component {
+export class FieldRemoteTreeSelectMultiple extends React.Component {
 
     static defaultProps = {
         treeDefaultExpandAll: true,
@@ -55,6 +56,7 @@ export class FieldRemoteTreeSelect extends React.Component {
                 showCheckedStrategy={TreeSelect.SHOW_ALL}
                 value={value || undefined}
                 onChange={onChange}
+                multiple={true}
 
                 filterTreeNode={(inputValue, treeNode) => {
                     const {title} = treeNode
