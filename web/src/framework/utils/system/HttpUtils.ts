@@ -12,8 +12,6 @@ interface RequestOptions extends AxiosRequestConfig {
     transformData?: boolean;
     // 是否自动显示成功/失败消息（默认：true）
     showMessage?: boolean;
-    // 是否显示加载动画（默认：false）
-    showLoading?: boolean;
 }
 
 /**
@@ -25,7 +23,6 @@ export class HttpUtils {
     private static readonly DEFAULT_OPTIONS: Partial<RequestOptions> = {
         transformData: true,
         showMessage: true,
-        showLoading: false,
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json'
@@ -41,18 +38,12 @@ export class HttpUtils {
      * @returns Promise<any>
      */
     private static async coreRequest(config: RequestOptions): Promise<any> {
-
         // 合并配置
         const finalConfig: RequestOptions = { ...HttpUtils.DEFAULT_OPTIONS, ...config };
 
-        const { url, showLoading, transformData, showMessage, ...axiosConfig } = finalConfig;
+        const { url,  transformData, showMessage, ...axiosConfig } = finalConfig;
 
         axiosConfig.url = url.startsWith('admin') ? '/' + url: url;
-
-        let hideLoading: (() => void) | null = null;
-        if (showLoading) {
-            hideLoading = messageUtil.loading('处理中...', 0);
-        }
 
         try {
             const response: AxiosResponse = await axios(axiosConfig);
@@ -82,17 +73,11 @@ export class HttpUtils {
             // 成功则返回data，失败则抛出错误信息
             if (success) {
                 return data;
-            } else {
-                // 抛出后端定义的错误信息
-                throw new Error(message || '操作失败');
             }
+            // 抛出后端定义的错误信息
+            throw new Error(message || '操作失败');
 
         } catch (e: unknown) {
-            // 关闭加载动画
-            if (hideLoading) {
-                hideLoading();
-            }
-
             // 统一异常处理
             let msg = '操作失败';
 
@@ -124,12 +109,10 @@ export class HttpUtils {
             }
 
             // 将原始错误或处理后的错误信息向外抛出
-            return Promise.reject(e);
+            return throw e;
 
         } finally {
-            if (hideLoading) {
-                hideLoading();
-            }
+
         }
     }
 

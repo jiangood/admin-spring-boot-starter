@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {Form, Input, Tag} from "antd";
-import {Ellipsis, FieldDateRange, ProTable} from "../../../framework";
+import {Ellipsis, FieldDateRange, HttpUtils, ProTable} from "../../../framework";
 
 
 export default class extends React.Component {
@@ -64,7 +64,7 @@ export default class extends React.Component {
                     <Input/>
                 </Form.Item>
                 <Form.Item label='时间' name='dateRange'>
-                    <FieldDateRange format={"YYYY"}/>
+                    <FieldDateRange type={"YYYY"}/>
                 </Form.Item>
             </ProTable>
 
