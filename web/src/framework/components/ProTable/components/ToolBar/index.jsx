@@ -5,7 +5,7 @@ import {HistoryOutlined, ReloadOutlined} from '@ant-design/icons';
 import {Button, Input, message, Modal, Table} from 'antd';
 import React from 'react';
 import './index.less';
-import {DateUtil, PageUtils, StorageUtil} from "../../../../utils";
+import {DateUtils, PageUtils, StorageUtil} from "../../../../utils";
 
 export default class Toolbar extends React.Component {
 
@@ -104,7 +104,7 @@ export default class Toolbar extends React.Component {
             return
         }
         const list = StorageUtil.get(this.getParamKey()) || []
-        let data = {time: DateUtil.now(), params};
+        let data = {time: DateUtils.now(), params};
         list.unshift(data)
         if (list.length > 5) {
             list.pop()

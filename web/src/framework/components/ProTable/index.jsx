@@ -3,7 +3,7 @@ import Toolbar from './components/ToolBar';
 import React from "react";
 import './index.less'
 import {SearchOutlined} from "@ant-design/icons";
-import {StrUtil} from "../../utils";
+import {StringUtils} from "../../utils";
 
 
 export class ProTable extends React.Component {
@@ -42,7 +42,7 @@ export class ProTable extends React.Component {
         if (props.defaultPageSize) {
             this.state.pageSize = props.defaultPageSize
         }
-        this.id = StrUtil.random(32)
+        this.id = StringUtils.random(32)
         this.showToolbarSearch = this.props.showToolbarSearch
     }
 

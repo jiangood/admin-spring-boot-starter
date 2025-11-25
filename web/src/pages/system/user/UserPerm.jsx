@@ -24,7 +24,7 @@ export default class UserPerm extends React.Component {
     show(item) {
         this.setState({visible: true})
 
-        HttpUtil.get('admin/sysUser/getPermInfo', {id: item.id}).then(rs => {
+        HttpUtils.get('admin/sysUser/getPermInfo', {id: item.id}).then(rs => {
             this.setState({formValues: rs})
             this.formRef.current.setFieldsValue(rs)
         })
@@ -38,7 +38,7 @@ export default class UserPerm extends React.Component {
         })
 
 
-        HttpUtil.post('admin/sysUser/grantPerm', values).then(rs => {
+        HttpUtils.post('admin/sysUser/grantPerm', values).then(rs => {
             this.setState({
                 visible: false,
                 confirmLoading: false

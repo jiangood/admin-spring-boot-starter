@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal} from 'antd';
 import './Ellipsis.less'
-import {StrUtil} from "../utils";
+import {StringUtils, StringUtils} from "../utils";
 
 export class Ellipsis extends React.Component {
   static defaultProps = {length: 15}
@@ -17,7 +17,7 @@ export class Ellipsis extends React.Component {
     }
 
 
-    const shortText =  StrUtil.ellipsis(text, length)
+    const shortText =  StringUtils.ellipsis(text, length)
     return (
         <span className='ellipsis-text' onClick={this.showFull}>{shortText}</span>
     );

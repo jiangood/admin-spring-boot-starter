@@ -61,7 +61,7 @@ export default class login extends React.Component {
         values.password = crypt.encrypt(values.password)
 
 
-        HttpUtil.postForm('admin/auth/login', values).then(rs => {
+        HttpUtils.postForm('admin/auth/login', values).then(rs => {
             console.log('登录结果', rs)
             history.push(this.redirect)
         }).catch(e=>{

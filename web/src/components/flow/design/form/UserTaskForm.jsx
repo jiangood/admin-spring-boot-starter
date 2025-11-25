@@ -50,7 +50,7 @@ export default class extends React.Component {
 
     componentDidMount() {
         const {initData} = this.state;
-        HttpUtil.get('admin/flowable/model/assignmentTypeList').then(assignmentTypeList => {
+        HttpUtils.get('admin/flowable/model/assignmentTypeList').then(assignmentTypeList => {
             if (this.destroyed) {
                 return;
             }
@@ -86,7 +86,7 @@ export default class extends React.Component {
 
     loadAssignmentObjectTree = (assignmentTypeCode) => {
         const url = 'admin/flowable/model/assignmentObjectTree?code=' + assignmentTypeCode;
-        HttpUtil.get(url).then((rs) => {
+        HttpUtils.get(url).then((rs) => {
             this.setState({assignmentObjectList: rs});
         });
     };

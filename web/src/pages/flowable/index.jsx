@@ -67,14 +67,14 @@ export default class extends React.Component {
         })
     }
     onFinish = values => {
-        HttpUtil.post('admin/flowable/model/save', values).then(rs => {
+        HttpUtils.post('admin/flowable/model/save', values).then(rs => {
             this.actionRef.current.reload()
             this.setState({formOpen: false})
         })
     }
 
     handleDelete = row => {
-        HttpUtil.get('admin/flowable/model/delete', {id: row.id}).then(rs => {
+        HttpUtils.get('admin/flowable/model/delete', {id: row.id}).then(rs => {
             this.actionRef.current.reload();
         })
     }
@@ -98,7 +98,7 @@ public class DemoProcess implements ProcessDefinition {
                 actionRef={this.actionRef}
                 toolBarRender={() => <Button icon={<PlusOutlined/>} type='primary'
                                              onClick={this.handleAdd}> 新增</Button>}
-                request={(params) => HttpUtil.pageData('admin/flowable/model/page', params)}
+                request={(params) => HttpUtils.pageData('admin/flowable/model/page', params)}
                 columns={this.columns}
                 rowSelection={false}
                 rowKey="id"

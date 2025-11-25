@@ -38,7 +38,7 @@ export  class ApiDoc extends React.Component {
 
     async loadData(id) {
         const hide = message.loading('加载中...', 0)
-        const rs = await HttpUtil.get('admin/apiAccount/docInfo', {id})
+        const rs = await HttpUtils.get('admin/apiAccount/docInfo', {id})
         this.setState(rs)
         hide()
     }

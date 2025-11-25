@@ -70,7 +70,7 @@ export default class extends React.Component {
                     }
                 }
             ]}
-            request={(params) => HttpUtil.pageData('admin/flowable/monitor/task', params)}
+            request={(params) => HttpUtils.pageData('admin/flowable/monitor/task', params)}
         >
             <Form.Item label='受理人' name='assignee'>
                 <FieldUserSelect />
@@ -98,7 +98,7 @@ export default class extends React.Component {
     };
 
     submitSetAssignee = values => {
-        HttpUtil.post('admin/flowable/monitor/setAssignee',values).then(()=>{
+        HttpUtils.post('admin/flowable/monitor/setAssignee',values).then(()=>{
             this.setState({assigneeFormOpen:false})
             this.taskTableRef.current.reload()
         })

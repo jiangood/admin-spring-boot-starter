@@ -16,13 +16,13 @@ export default class extends React.Component {
     }
 
     async componentDidMount() {
-        const rs = await HttpUtil.get('admin/apiAccount/get', {id: this.accountId})
+        const rs = await HttpUtils.get('admin/apiAccount/get', {id: this.accountId})
         this.setState({perms: rs.perms})
     }
 
     onChange = async (action, checked) => {
         const hide = message.loading('保存中...', 0)
-        await HttpUtil.post('admin/apiAccount/grant', {accountId: this.accountId, action, checked});
+        await HttpUtils.post('admin/apiAccount/grant', {accountId: this.accountId, action, checked});
 
         const perms = this.state.perms
         if (checked) {
@@ -57,7 +57,7 @@ export default class extends React.Component {
                         }
                     }
                 ]}
-                request={(params,) => HttpUtil.get('admin/api/resource/page', params)}
+                request={(params,) => HttpUtils.get('admin/api/resource/page', params)}
             />
 
         </Page>

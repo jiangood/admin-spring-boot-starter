@@ -27,7 +27,7 @@ class _Layouts extends React.Component {
 
 
     componentDidMount() {
-        HttpUtil.get("/admin/public/site-info").then(rs => {
+        HttpUtils.get("/admin/public/site-info").then(rs => {
             SysUtil.setSiteInfo(rs)
             this.setState({siteInfoLoading: false})
 
@@ -54,7 +54,7 @@ class _Layouts extends React.Component {
             return;
         }
 
-        HttpUtil.get('admin/public/checkLogin')
+        HttpUtils.get('admin/public/checkLogin')
             .then(rs => {
                 const {needUpdatePwd, dictMap, loginInfo} = rs
                 SysUtil.setDictInfo(dictMap)

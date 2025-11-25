@@ -6,7 +6,7 @@ import {
     HttpUtil, Page,
     PageUtil,
     ProTable,
-    StrUtil, ViewPassword
+    StringUtils, ViewPassword
 } from "../../framework";
 import {ApiDoc} from "./ApiDoc";
 
@@ -80,7 +80,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post('admin/apiAccount/save', values).then(rs => {
+        HttpUtils.post('admin/apiAccount/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
@@ -88,13 +88,13 @@ export default class extends React.Component {
 
 
     handleDelete = record => {
-        HttpUtil.get('admin/apiAccount/delete', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/apiAccount/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
 
     randomAppSecret = () => {
-        const appSecret = StrUtil.random(32)
+        const appSecret = StringUtils.random(32)
         this.formRef.current.setFieldsValue({appSecret})
     }
 
@@ -113,7 +113,7 @@ export default class extends React.Component {
                             {dataIndex: 'desc', title: '描述'},
 
                         ]}
-                        request={(params,) => HttpUtil.pageData('admin/api/resource/page', params)}
+                        request={(params,) => HttpUtils.pageData('admin/api/resource/page', params)}
                     />
                 },
 
@@ -129,7 +129,7 @@ export default class extends React.Component {
                                 </Button>
                             </ButtonList>
                         }}
-                        request={(params) => HttpUtil.pageData('admin/apiAccount/page', params)}
+                        request={(params) => HttpUtils.pageData('admin/apiAccount/page', params)}
                         columns={this.columns}
                     />
                 }, {
@@ -141,7 +141,7 @@ export default class extends React.Component {
                     label: '访问记录',
                     key: '4',
                     children: <ProTable
-                        request={(params) => HttpUtil.get('admin/apiAccessLog/page', params)}
+                        request={(params) => HttpUtils.get('admin/apiAccessLog/page', params)}
                         columns={[
 
                             {

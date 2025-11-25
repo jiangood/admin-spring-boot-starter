@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Modal, Popover} from 'antd';
-import {StrUtil} from "../../utils";
+import {StringUtils} from "../../utils";
 
 
 export class ViewEllipsis extends React.Component {
@@ -10,7 +10,7 @@ export class ViewEllipsis extends React.Component {
     render() {
         let {maxLength, value} = this.props;
 
-        const short = StrUtil.ellipsis(value, maxLength)
+        const short = StringUtils.ellipsis(value, maxLength)
         return  <Popover placement="topLeft" title={'长文本'} content={<Button onClick={this.showModal}>点击查看全部内容</Button>}>
             {short}
         </Popover>

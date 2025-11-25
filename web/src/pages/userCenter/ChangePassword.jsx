@@ -9,7 +9,7 @@ export default class extends React.Component {
 
 
     onFinish = (values) => {
-        HttpUtil.post('admin/userCenter/updatePwd', values).then(() => {
+        HttpUtils.post('admin/userCenter/updatePwd', values).then(() => {
             Modal.success({
                 title: '提示',
                 content: '修改密码成功',
@@ -23,7 +23,7 @@ export default class extends React.Component {
 
     validator = (rule, value) => {
         return new Promise((resolve, reject) => {
-            HttpUtil.create().get("admin/sysUser/pwdStrength", {password: value}).then(response => {
+            HttpUtils.create().get("admin/sysUser/pwdStrength", {password: value}).then(response => {
                 const rs = response.data
                 if (!rs.success) {
                     reject(rs.message)

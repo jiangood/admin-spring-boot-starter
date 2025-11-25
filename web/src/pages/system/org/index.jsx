@@ -43,7 +43,7 @@ export default class extends React.Component {
             this.setState({treeLoading: true})
 
         const {params} = this.state
-        HttpUtil.get('admin/sysOrg/tree', params).then(rs => {
+        HttpUtils.get('admin/sysOrg/tree', params).then(rs => {
             let treeData = rs;
             this.setState({treeData})
         }).finally(() => {
@@ -52,7 +52,7 @@ export default class extends React.Component {
     }
 
     handleDelete = record => {
-           HttpUtil.get('admin/sysOrg/delete', {id:record.id})
+           HttpUtils.get('admin/sysOrg/delete', {id:record.id})
             .then(rs => {
                 this.setState({formValues: null})
                 this.loadTree()
@@ -68,7 +68,7 @@ export default class extends React.Component {
 
         const key = selectedKeys[0]
         this.setState({formLoading: true, formEditing: false})
-        HttpUtil.get( "admin/sysOrg/detail", {id: key}).then(rs => {
+        HttpUtils.get( "admin/sysOrg/detail", {id: key}).then(rs => {
             this.setState({formValues: rs})
         }).finally(() => {
             this.setState({formLoading: false})
@@ -77,7 +77,7 @@ export default class extends React.Component {
 
     onFinish = (values) => {
         this.setState({submitLoading: true, formEditing: false})
-        HttpUtil.post( 'admin/sysOrg/save', values).then(rs => {
+        HttpUtils.post( 'admin/sysOrg/save', values).then(rs => {
             this.loadTree()
         }).finally(() => {
             this.setState({submitLoading: false})
@@ -255,7 +255,7 @@ export default class extends React.Component {
 
 
         console.log(dragNode.title, '->', node.title, 'dropToGap:', dropToGap, "dropPosition:" ,dropPosition)
-        HttpUtil.post('admin/sysOrg/sort', {dropPosition, dropToGap, dropKey, dragKey}).then(this.loadTree)
+        HttpUtils.post('admin/sysOrg/sort', {dropPosition, dropToGap, dropKey, dragKey}).then(this.loadTree)
     };
 }
 

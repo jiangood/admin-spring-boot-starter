@@ -114,7 +114,7 @@ export default class extends React.Component {
 
 
     resetPwd(row) {
-        HttpUtil.post('admin/sysUser/resetPwd', {id: row.id}).then(rs => {
+        HttpUtils.post('admin/sysUser/resetPwd', {id: row.id}).then(rs => {
             Modal.success({
                 title: '重置密码成功',
                 content: rs
@@ -124,7 +124,7 @@ export default class extends React.Component {
 
 
     handleDelete = r => {
-        HttpUtil.get('admin/sysUser/delete', {id: r.id}).then(rs => {
+        HttpUtils.get('admin/sysUser/delete', {id: r.id}).then(rs => {
             this.tableRef.current.reload();
         })
     }
@@ -150,7 +150,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post('admin/sysUser/save', values).then(rs => {
+        HttpUtils.post('admin/sysUser/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
@@ -196,7 +196,7 @@ export default class extends React.Component {
                         request={(params) => {
                             params.orgId = this.state.currentOrgId
                             params.roleId = this.state.currentRoleId
-                            return HttpUtil.get('admin/sysUser/page', params)
+                            return HttpUtils.get('admin/sysUser/page', params)
                         }
                         }
                         columns={this.columns}

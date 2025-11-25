@@ -85,7 +85,7 @@ export default class extends React.Component {
 
 
     handleDelete = row => {
-        HttpUtil.get('admin/sysFile/delete', row).then(rs => {
+        HttpUtils.get('admin/sysFile/delete', row).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -103,7 +103,7 @@ export default class extends React.Component {
                     </Button>
                 }}
                 request={(params) => {
-                    return HttpUtil.pageData('admin/sysFile/page', params);
+                    return HttpUtils.pageData('admin/sysFile/page', params);
                 }}
 
                 columns={this.columns}

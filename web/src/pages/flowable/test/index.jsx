@@ -13,7 +13,7 @@ export default class extends React.Component {
     let params = PageUtil.currentLocationQuery()
     const id = this.id = params.id
 
-    HttpUtil.get('admin/flowable/test/get', {id}).then(rs=>{
+    HttpUtils.get('admin/flowable/test/get', {id}).then(rs=>{
         this.setState({model: rs})
 
     })
@@ -47,7 +47,7 @@ export default class extends React.Component {
 
   onFinish = values => {
     values.modelCode = this.state.model.code
-    HttpUtil.post('admin/flowable/test/submit', values).then(rs=>{
+    HttpUtils.post('admin/flowable/test/submit', values).then(rs=>{
 
     })
   };

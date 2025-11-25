@@ -60,7 +60,7 @@ export default class extends React.Component {
         this.moddle = this.bpmnModeler.get('moddle'); // 数据模型， 主要存储元数据
 
 
-        HttpUtil.get('admin/flowable/model/detail', {id: this.state.id}).then(rs => {
+        HttpUtils.get('admin/flowable/model/detail', {id: this.state.id}).then(rs => {
             let {conditionVariable, model} = rs;
             this.setState({model, conditionVariable}, () => this.initBpmn(model.content))
         })
@@ -139,7 +139,7 @@ export default class extends React.Component {
         return new Promise((resolve, reject) => {
             const hide = message.loading('保存中...', 0)
             this.bpmnModeler.saveXML().then(res => {
-                HttpUtil.post('admin//flowable/model/saveContent', {id: id, content: res.xml}).then(rs => {
+                HttpUtils.post('admin//flowable/model/saveContent', {id: id, content: res.xml}).then(rs => {
                     hide()
                     message.success('服务端保存成功')
                     resolve()
@@ -154,7 +154,7 @@ export default class extends React.Component {
         let id = this.state.id;
 
         this.bpmnModeler.saveXML().then(res => {
-            HttpUtil.post('admin//flowable/model/deploy', {id: id, content: res.xml})
+            HttpUtils.post('admin//flowable/model/deploy', {id: id, content: res.xml})
         })
     }
 

@@ -65,7 +65,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post('admin/sysManual/save', values).then(rs => {
+        HttpUtils.post('admin/sysManual/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
@@ -73,7 +73,7 @@ export default class extends React.Component {
 
 
     handleDelete = record => {
-        HttpUtil.get('admin/sysManual/delete', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/sysManual/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -89,7 +89,7 @@ export default class extends React.Component {
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtil.pageData('admin/sysManual/page', params)}
+                request={(params) => HttpUtils.pageData('admin/sysManual/page', params)}
                 columns={this.columns}
 
             />

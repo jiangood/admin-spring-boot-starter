@@ -15,7 +15,7 @@ export  class OrgTree  extends React.Component {
 
 
     componentDidMount() {
-        HttpUtil.get('admin/sysOrg/unitTree').then(tree => {
+        HttpUtils.get('admin/sysOrg/unitTree').then(tree => {
             this.setState({treeData: tree,treeDataLoading: false})
         })
     }

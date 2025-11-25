@@ -15,7 +15,7 @@ import {
 } from 'antd'
 import React from 'react'
 import {PlusOutlined, ReloadOutlined} from "@ant-design/icons";
-import {ButtonList, HttpUtil, Page, PageUtil, ProTable, StrUtil, SysUtil, ValueType} from "../../framework";
+import {ButtonList, HttpUtil, Page, PageUtil, ProTable, StringUtils, SysUtil, ValueType} from "../../framework";
 
 
 const cronOptions = [
@@ -61,7 +61,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        HttpUtil.get('admin/job/jobClassOptions').then(rs => {
+        HttpUtils.get('admin/job/jobClassOptions').then(rs => {
             this.setState({jobClassOptions: rs})
         })
     }
@@ -136,13 +136,13 @@ export default class extends React.Component {
     }
 
     loadJobParamFields(className, jobData) {
-        HttpUtil.post("admin/job/getJobParamFields", jobData || {}, {className}).then(rs => {
+        HttpUtils.post("admin/job/getJobParamFields", jobData || {}, {className}).then(rs => {
             this.setState({paramList: rs})
         })
     }
 
     onFinish = (values) => {
-        HttpUtil.post('admin/job/save', values).then(rs => {
+        HttpUtils.post('admin/job/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload();
         })
@@ -150,19 +150,19 @@ export default class extends React.Component {
 
     handleDelete = row => {
         const hide = message.loading("删除作业中...")
-        HttpUtil.get('admin/job/delete', {id: row.id}).then(rs => {
+        HttpUtils.get('admin/job/delete', {id: row.id}).then(rs => {
             this.tableRef.current.reload();
         }).catch(hide)
     }
     handleTriggerJob = row => {
-        HttpUtil.get('admin/job/triggerJob', {id: row.id}).then(rs => {
+        HttpUtils.get('admin/job/triggerJob', {id: row.id}).then(rs => {
             this.tableRef.current.reload();
         })
     }
 
     showStatus = () => {
         this.setState({statusOpen: true})
-        HttpUtil.get('admin/job/status').then(rs => {
+        HttpUtils.get('admin/job/status').then(rs => {
             this.setState({status: rs})
         })
     };
@@ -186,7 +186,7 @@ export default class extends React.Component {
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtil.pageData('admin/job/page', params)}
+                request={(params) => HttpUtils.pageData('admin/job/page', params)}
                 columns={this.columns}
                 showToolbarSearch
             />
@@ -294,7 +294,7 @@ export default class extends React.Component {
                     }
                 ]} request={params => {
                     params.jobId = this.state.formValues.id
-                    return HttpUtil.pageData('admin/job/executeRecord', params);
+                    return HttpUtils.pageData('admin/job/executeRecord', params);
                 }}></ProTable>
 
             </Modal>
@@ -307,7 +307,7 @@ export default class extends React.Component {
             const option = this.state.jobClassOptions.find(o => o.value === changed.jobClass)
             if (option) {
                 let {label} = option;
-                if (StrUtil.contains(label, " ")) { // 取中文名部门设置为name
+                if (StringUtils.contains(label, " ")) { // 取中文名部门设置为name
                     this.formRef.current.setFieldValue("name", label.split(" ")[1])
                 }
             }

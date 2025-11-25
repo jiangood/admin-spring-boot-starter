@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, Empty, Skeleton, Table} from "antd";
-import {HttpUtil} from "../framework";
+import {HttpUtils} from "../framework";
 
 
 export default class InstanceStatusInfo extends React.Component {
@@ -26,7 +26,7 @@ export default class InstanceStatusInfo extends React.Component {
 
     componentDidMount() {
         const {id, businessKey} = this.props;
-        HttpUtil.get("admin/flowable/my/getInstanceInfo", {id, businessKey}).then(rs => {
+        HttpUtils.get("admin/flowable/my/getInstanceInfo", {id, businessKey}).then(rs => {
             this.setState(rs)
             this.setState({data: rs})
         }).catch(e => {

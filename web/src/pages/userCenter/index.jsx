@@ -10,7 +10,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        HttpUtil.get('admin/userCenter/info').then(rs=>{
+        HttpUtils.get('admin/userCenter/info').then(rs=>{
             this.setState({info:rs})
         })
     }

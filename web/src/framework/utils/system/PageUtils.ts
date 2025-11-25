@@ -1,5 +1,6 @@
 import { history } from "umi";
-import { StrUtil, UrlUtil } from "../utils";
+import {StringUtils} from "../StringUtils";
+import {UrlUtils} from "../UrlUtils";
 
 /**
  * 页面相关的工具类，主要用于路由、URL参数和页面跳转操作。
@@ -74,9 +75,7 @@ export class PageUtils {
     static currentPathname(): string {
         // window.location.hash.substring(1) 得到 "/login?id=1"
         const path = window.location.hash.substring(1);
-        // 假设 StrUtil.subBefore(str, separator) 存在并返回 separator 之前的部分
-        // 需要确保 StrUtil 模块中存在 subBefore 方法
-        return StrUtil.subBefore(path, '?');
+        return StringUtils.subBefore(path, '?');
     }
 
     /**
@@ -104,8 +103,7 @@ export class PageUtils {
      */
     static currentPathnameLastPart(): string | undefined {
         const path = this.currentPathname();
-        // 假设 StrUtil.subAfterLast(str, separator) 存在并返回 separator 之后的部分
-        return StrUtil.subAfterLast(path, '/') || undefined;
+        return StringUtils.subAfterLast(path, '/') || undefined;
     }
 
     /**
@@ -117,7 +115,7 @@ export class PageUtils {
     let targetPath = path;
     if(label) {
         // 假设 UrlUtil.setParam(url, key, value) 存在并返回设置参数后的 URL
-        targetPath = UrlUtil.setParam(targetPath, '_label', label);
+        targetPath = UrlUtils.setParam(targetPath, '_label', label);
     }
     history.push(targetPath);
 }
@@ -129,7 +127,7 @@ export class PageUtils {
  */
 static openNoLayout(path: string): void {
     // 假设 UrlUtil.setParam(url, key, value) 存在
-    const targetPath = UrlUtil.setParam(path, '_noLayout', true);
+    const targetPath = UrlUtils.setParam(path, '_noLayout', true);
     history.push(targetPath);
 }
 

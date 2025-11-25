@@ -60,13 +60,13 @@ export default class extends React.Component {
     loadData() {
         this.setState({loading: true})
         Promise.all([
-            HttpUtil.get('admin/sysRole/get', {id: this.roleId}).then(rs => {
+            HttpUtils.get('admin/sysRole/get', {id: this.roleId}).then(rs => {
                 this.setState({roleInfo: rs})
             }),
-            HttpUtil.get('admin/sysRole/permTreeTable', {id: this.roleId}).then(rs => {
+            HttpUtils.get('admin/sysRole/permTreeTable', {id: this.roleId}).then(rs => {
                 this.setState({dataSource: rs})
             }),
-            HttpUtil.get('admin/sysRole/ownPerms', {id: this.roleId}).then(rs => {
+            HttpUtils.get('admin/sysRole/ownPerms', {id: this.roleId}).then(rs => {
                 this.setState({rowSelectedKeys: rs})
             })
         ]).then(rs => {
@@ -86,7 +86,7 @@ export default class extends React.Component {
             menus.push(menuId)
             ArrUtils.addAll(perms, ks)
         }
-        HttpUtil.post('admin/sysRole/savePerms', {id: this.roleId, perms, menus}).then(rs => {
+        HttpUtils.post('admin/sysRole/savePerms', {id: this.roleId, perms, menus}).then(rs => {
             //  Page.open(PageUtil.currentPathname(), PageUtil.currentLabel())
         })
     };

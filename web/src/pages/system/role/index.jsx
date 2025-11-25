@@ -131,7 +131,7 @@ export default class extends React.Component {
 
     handleEditUser = record => {
         this.setState({usersModalOpen: true, formValues: record})
-        HttpUtil.get('admin/sysRole/userList', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/sysRole/userList', {id: record.id}).then(rs => {
             this.setState({userList: rs.list, targetKeys: rs.selectedKeys})
         })
     }
@@ -139,7 +139,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post('admin/sysRole/save', values).then(rs => {
+        HttpUtils.post('admin/sysRole/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
@@ -147,7 +147,7 @@ export default class extends React.Component {
 
 
     handleDelete = record => {
-        HttpUtil.get('admin/sysRole/delete', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/sysRole/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -157,17 +157,17 @@ export default class extends React.Component {
             id: this.state.formValues.id,
             userIdList:this.state.targetKeys
         }
-        HttpUtil.post('admin/sysRole/grantUsers', params).then(rs => {
+        HttpUtils.post('admin/sysRole/grantUsers', params).then(rs => {
             this.setState({usersModalOpen:false})
         })
     }
 
     handleEditMenu =(record)=>{
         this.setState({menuOpen:true,formValues:record,menuTreeLoading:true})
-        HttpUtil.get('admin/sysRole/ownMenu', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/sysRole/ownMenu', {id: record.id}).then(rs => {
             this.setState({menuChecked:rs.checked,menuHalfChecked:rs.halfChecked})
         })
-        HttpUtil.get('admin/sysRole/menuTree').then(rs => {
+        HttpUtils.get('admin/sysRole/menuTree').then(rs => {
             this.setState({menuTree:rs, menuTreeLoading:false})
         })
     }
@@ -176,7 +176,7 @@ export default class extends React.Component {
             id: this.state.formValues.id,
             menuIds:[...this.state.menuChecked, ...this.state.menuHalfChecked]
         }
-        HttpUtil.post('admin/sysRole/grantMenu', params).then(rs => {
+        HttpUtils.post('admin/sysRole/grantMenu', params).then(rs => {
             debugger
             this.setState({menuOpen:false})
         })
@@ -193,7 +193,7 @@ export default class extends React.Component {
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtil.pageData('admin/sysRole/page', params)}
+                request={(params) => HttpUtils.pageData('admin/sysRole/page', params)}
                 columns={this.columns}
 
             />

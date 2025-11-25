@@ -53,7 +53,7 @@ export default class extends React.Component {
   ]
 
   close = (id) => {
-    HttpUtil.get('admin/flowable/monitor/processInstance/close', {id}).then((rs) => {
+    HttpUtils.get('admin/flowable/monitor/processInstance/close', {id}).then((rs) => {
       this.tableRef.current.reload()
     })
   }
@@ -64,7 +64,7 @@ export default class extends React.Component {
     return <ProTable    search={false}
       actionRef={this.tableRef}
       columns={this.columns}
-      request={(params) => HttpUtil.pageData('admin/flowable/monitor/processInstance', params)}
+      request={(params) => HttpUtils.pageData('admin/flowable/monitor/processInstance', params)}
       rowKey='id'
       scroll={{
         x: 'max-content'

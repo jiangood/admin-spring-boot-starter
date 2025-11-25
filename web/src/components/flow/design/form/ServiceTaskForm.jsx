@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Select} from 'antd';
-import {HttpUtil} from "../../../../framework";
+import {HttpUtils} from "../../../../framework";
 
 export default class extends React.Component {
   bo = null;
@@ -23,7 +23,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    HttpUtil.get('admin/flowable/model/javaDelegateOptions').then(rs=>{
+    HttpUtils.get('admin/flowable/model/javaDelegateOptions').then(rs=>{
       this.setState({javaDelegateOptions:rs})
 
     })

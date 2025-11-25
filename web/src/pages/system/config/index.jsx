@@ -65,7 +65,7 @@ export default class extends React.Component {
     }
 
     loadData() {
-        HttpUtil.get('admin/sysConfig/page').then(rs => {
+        HttpUtils.get('admin/sysConfig/page').then(rs => {
             this.setState({data: rs})
         })
     }
@@ -76,7 +76,7 @@ export default class extends React.Component {
 
 
     onFinish = values => {
-        HttpUtil.post('admin/sysConfig/save', values).then(rs => {
+        HttpUtils.post('admin/sysConfig/save', values).then(rs => {
             this.setState({formOpen: false})
             this.loadData()
         })
