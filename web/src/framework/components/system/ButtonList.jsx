@@ -1,6 +1,5 @@
 import React from 'react';
-import {Dropdown, Menu, Space} from 'antd';
-import {DownSquareTwoTone} from '@ant-design/icons';
+import {Space} from 'antd';
 import {PermUtils} from "../../utils";
 
 
@@ -11,73 +10,26 @@ import {PermUtils} from "../../utils";
  */
 export class ButtonList extends React.Component {
 
-  static defaultProps = {
-    maxNum: 2
-  }
 
-  render() {
-    let {children, maxNum} = this.props;
+    render() {
+        let {children} = this.props;
+        const menus = [];
 
-    // 单节点
-    if (children.length === undefined) {
-      const node = children;
-
-      const perm = node.props == null ? null : node.props.perm;
-
-      if (perm == null || PermUtils.hasPermission(perm)) {
-        return  node
-      }
-      return  null
-    }
-
-    // 多个
-    const showList = [];
-    const dropdownList = [];
-
-     {
-      const menus = [];
-      // 权限过滤
-      for (let child of children) {
-        if (child === null || child === undefined) {
-          continue;
-        }
-        if (child ) {
-          if(  child.props == null || child.props.perm == null || PermUtils.hasPermission(child.props.perm)){
-            menus.push(child);
-          }
-
-        }
-      }
-
-      // 添加分割线
-      const len = menus.length;
-      for (let i = 0; i < len; i++) {
-        if (i + 1 <= maxNum) {
-          showList.push(menus[i]);
+        // 判断是否数组
+        if (Array.isArray(children)) {
+            for (let child of children) {
+                if (child === null || child === undefined) {
+                    continue;
+                }
+                if (child.props == null || child.props.perm == null || PermUtils.hasPermission(child.props.perm)) {
+                    menus.push(child);
+                }
+            }
         } else {
-          dropdownList.push(menus[i]);
+            menus.push(children)
         }
-      }
-    }
 
-    return <Space>
-      {showList}
-      {dropdownList.length > 0 && <Dropdown
-          overlay={
-            <Menu>
-              {dropdownList.map((d, i) => {
-                let disabled = d.props.disabled;
-                return <Menu.Item key={i} disabled={disabled}>
-                  {d}
-                </Menu.Item>;
-              })}
-            </Menu>
-          }
-        >
-          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-            <DownSquareTwoTone style={{fontSize: 14}}/>
-          </a>
-        </Dropdown>}
-    </Space>;
-  }
+
+        return <Space>{menus}</Space>;
+    }
 }

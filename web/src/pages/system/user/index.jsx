@@ -97,12 +97,12 @@ export default class extends React.Component {
                             onClick={() => this.permRef.current.show(record)}> 授权 </Button>
 
                     <Popconfirm perm='sysUser:resetPwd' title='确认重置密码？' onConfirm={() => this.resetPwd(record)}>
-                        <a>重置密码</a>
+                        <Button  size='small' >重置密码</Button>
                     </Popconfirm>
 
                     <Popconfirm perm='sysUser:delete' title={'是否确定删除用户'}
                                 onConfirm={() => this.handleDelete(record)}>
-                        <a>删除</a>
+                        <Button  size='small' >删除</Button>
                     </Popconfirm>
                 </ButtonList>;
             },
