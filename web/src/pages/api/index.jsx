@@ -107,7 +107,7 @@ export default class extends React.Component {
                             {dataIndex: 'desc', title: '描述'},
 
                         ]}
-                        request={(params,) => HttpUtils.pageData('admin/api/resource/page', params)}
+                        request={(params,) => HttpUtils.get('admin/api/resource/page', params)}
                     />
                 },
 
@@ -123,7 +123,7 @@ export default class extends React.Component {
                                 </Button>
                             </ButtonList>
                         }}
-                        request={(params) => HttpUtils.pageData('admin/apiAccount/page', params)}
+                        request={(params) => HttpUtils.get('admin/apiAccount/page', params)}
                         columns={this.columns}
                     />
                 }, {

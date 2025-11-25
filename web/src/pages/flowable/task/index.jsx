@@ -31,7 +31,7 @@ export default class extends React.Component {
 
     renderTodo = () => <ProTable
         showToolbarSearch={false}
-        request={(params) => HttpUtils.pageData("admin/flowable/my/todoTaskPage", params)}
+        request={(params) => HttpUtils.get("admin/flowable/my/todoTaskPage", params)}
         columns={[
 
             {
@@ -84,7 +84,7 @@ export default class extends React.Component {
 
     renderDone = () => <ProTable
         showToolbarSearch={false}
-        request={(params) => HttpUtils.pageData("admin/flowable/my/doneTaskPage", params)}
+        request={(params) => HttpUtils.get("admin/flowable/my/doneTaskPage", params)}
         columns={[
             {
                 title: '流程名称',
@@ -138,7 +138,7 @@ export default class extends React.Component {
     />;
 
     renderMyStart = () => <ProTable
-        request={(params) => HttpUtils.pageData("admin/flowable/my/myInstance", params)}
+        request={(params) => HttpUtils.get("admin/flowable/my/myInstance", params)}
         columns={[
 
             {

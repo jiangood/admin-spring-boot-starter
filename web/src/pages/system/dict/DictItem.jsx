@@ -115,7 +115,7 @@ export default class extends React.Component {
                 }}
                 request={(params) => {
                     params.sysDictId = this.props.sysDictId
-                    return HttpUtils.pageData('admin/sysDictItem/page', params);
+                    return HttpUtils.get('admin/sysDictItem/page', params);
                 }}
                 columns={this.columns}
                 rowKey='id'

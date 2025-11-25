@@ -64,7 +64,7 @@ export default class extends React.Component {
     return <ProTable    search={false}
       actionRef={this.tableRef}
       columns={this.columns}
-      request={(params) => HttpUtils.pageData('admin/flowable/monitor/processInstance', params)}
+      request={(params) => HttpUtils.get('admin/flowable/monitor/processInstance', params)}
       rowKey='id'
       scroll={{
         x: 'max-content'

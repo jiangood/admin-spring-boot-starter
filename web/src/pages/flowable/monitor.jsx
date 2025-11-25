@@ -70,7 +70,7 @@ export default class extends React.Component {
                     }
                 }
             ]}
-            request={(params) => HttpUtils.pageData('admin/flowable/monitor/task', params)}
+            request={(params) => HttpUtils.get('admin/flowable/monitor/task', params)}
         >
             <Form.Item label='受理人' name='assignee'>
                 <FieldUserSelect />

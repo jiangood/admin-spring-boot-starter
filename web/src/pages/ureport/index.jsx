@@ -17,7 +17,7 @@ export default class extends React.Component {
                                              target='_blank'
                                              href={"/ureport/designer"}>打开设计器</Button>}
 
-                request={(params) => HttpUtils.pageData('admin/ureport/page', params)}
+                request={(params) => HttpUtils.get('admin/ureport/page', params)}
                 columns={[
                     {title: "文件名称", dataIndex: 'name'},
                     {title: "存储器", dataIndex: 'providerName'},

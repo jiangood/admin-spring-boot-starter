@@ -39,7 +39,7 @@ export default class extends React.Component {
             <ProTable
                 actionRef={this.tableRef}
 
-                request={(params) => HttpUtils.pageData('admin/sysDict/page', params)}
+                request={(params) => HttpUtils.get('admin/sysDict/page', params)}
                 columns={this.columns}
                 rowKey='id'
 

@@ -193,7 +193,7 @@ export default class extends React.Component {
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtils.pageData('admin/sysRole/page', params)}
+                request={(params) => HttpUtils.get('admin/sysRole/page', params)}
                 columns={this.columns}
 
             />

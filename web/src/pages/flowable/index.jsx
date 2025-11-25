@@ -98,7 +98,7 @@ public class DemoProcess implements ProcessDefinition {
                 actionRef={this.actionRef}
                 toolBarRender={() => <Button icon={<PlusOutlined/>} type='primary'
                                              onClick={this.handleAdd}> 新增</Button>}
-                request={(params) => HttpUtils.pageData('admin/flowable/model/page', params)}
+                request={(params) => HttpUtils.get('admin/flowable/model/page', params)}
                 columns={this.columns}
                 rowSelection={false}
                 rowKey="id"

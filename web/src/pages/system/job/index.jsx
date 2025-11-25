@@ -15,7 +15,7 @@ import {
 } from 'antd'
 import React from 'react'
 import {PlusOutlined} from "@ant-design/icons";
-import {ButtonList, Page, ProTable, StringUtils, ValueType} from "../../../framework";
+import {ButtonList, HttpUtils, Page, ProTable, StringUtils, ValueType} from "../../../framework";
 
 
 const cronOptions = [
@@ -186,7 +186,7 @@ export default class extends React.Component {
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtils.pageData('admin/job/page', params)}
+                request={(params) => HttpUtils.get('admin/job/page', params)}
                 columns={this.columns}
                 showToolbarSearch
             />
@@ -225,7 +225,7 @@ export default class extends React.Component {
 
 
                     {this.state.paramList?.map(p => (
-                        <>
+                        <div key={p.name}>
                             <Divider>作业参数</Divider>
                             <Form.Item label={p.label}
                                        name={['jobData', p.name]}
@@ -233,7 +233,7 @@ export default class extends React.Component {
                                        rules={[{required: p.required}]}>
                                 {ValueType.renderField(p.componentType, p.componentProps)}
                             </Form.Item>
-                        </>
+                        </div>
                     ))}
                 </Form>
             </Modal>
@@ -294,7 +294,7 @@ export default class extends React.Component {
                     }
                 ]} request={params => {
                     params.jobId = this.state.formValues.id
-                    return HttpUtils.pageData('admin/job/executeRecord', params);
+                    return HttpUtils.get('admin/job/executeRecord', params);
                 }}></ProTable>
 
             </Modal>
