@@ -16,3 +16,4 @@ export * from './FieldSysOrgTreeSelect'
 export * from './FieldSysOrgTree'
 export * from './FieldPercent'
 export * from './FieldUploadFile';
+export * from './system';

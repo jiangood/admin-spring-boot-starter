@@ -1,10 +1,10 @@
 import {Alert, Skeleton, Tree} from 'antd';
 import React from 'react';
-import {HttpUtil} from "../system";
 import * as Icons from '@ant-design/icons';
+import {HttpUtils} from "../../utils";
 
 
-export  class OrgTree  extends React.Component {
+export  class OrgTree  extends React.Component<any, any> {
 
     state = {
         treeDataLoading: true,
@@ -19,6 +19,7 @@ export  class OrgTree  extends React.Component {
             this.setState({treeData: tree,treeDataLoading: false})
         })
     }
+
 
     onSelectOrg = orgIds => {
         let orgId = orgIds[0] || null;
@@ -44,10 +45,10 @@ export  class OrgTree  extends React.Component {
             showIcon
             blockNode
             icon={item=>{
-                  const icon =  Icons[item.iconName]
-                    if(icon){
-                        return React.createElement(icon)
-                    }
+                const icon =  Icons[item.iconName]
+                if(icon){
+                    return React.createElement(icon)
+                }
             }}
         >
         </Tree>

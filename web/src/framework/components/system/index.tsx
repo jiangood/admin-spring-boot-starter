@@ -3,8 +3,6 @@ import React from "react";
 
 export * from './ButtonList'
 export * from './HasPerm'
-export * from './RoleTree'
-export * from './OrgTree'
 
 export function FieldUserSelect(props) {
     return <FieldRemoteSelect url="admin/sysUser/options" {...props} />;

@@ -1,10 +1,10 @@
 import {Skeleton, Tree} from 'antd';
 import React from 'react';
-import {HttpUtil} from "../system";
 import {SolutionOutlined} from '@ant-design/icons';
+import {HttpUtils} from "../../utils";
 
 
-export  class RoleTree  extends React.Component {
+export  class RoleTree  extends React.Component<any, any> {
 
     state = {
         treeDataLoading: true,
