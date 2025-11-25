@@ -6,9 +6,10 @@ import * as path from "path";
 
 console.log('i am config.ts')
 
+console.log('__dirname', __dirname)
+console.log('process.cwd()',process.cwd())
 
-
-const isFramework = fs.existsSync(path.join(__dirname, 'plugins'));
+const isFramework = fs.existsSync(path.join(process.cwd(), 'config/plugins/route-plugin.ts'));
 console.log('isFramework', isFramework)
 const pluginDir = isFramework ? './config/plugins' : '@jiangood/springboot-admin-starter/config/dist/plugins';
 console.log('pluginDir', pluginDir)
