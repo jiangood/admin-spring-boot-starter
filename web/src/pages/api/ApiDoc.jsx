@@ -1,5 +1,5 @@
 import React from "react";
-import {FieldRemoteSelect} from "../../framework";
+import {FieldRemoteSelect, HttpUtils, PageUtils} from "../../framework";
 import {Button, Descriptions, message, Space, Table, Typography} from "antd";
 
 const {Title, Paragraph, Text, Link} = Typography;

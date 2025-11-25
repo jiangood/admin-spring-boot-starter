@@ -64,7 +64,7 @@ export default class extends React.Component {
                     <Input/>
                 </Form.Item>
                 <Form.Item label='时间' name='dateRange'>
-                    <FieldDateRange type={"YYYY"}/>
+                    <FieldDateRange/>
                 </Form.Item>
             </ProTable>
 
