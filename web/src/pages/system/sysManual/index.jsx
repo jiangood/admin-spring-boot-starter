@@ -113,7 +113,7 @@ export default class extends React.Component {
                     </Form.Item>
 
                     <Form.Item label='文件' name='fileId' rules={[{required: true}]}>
-                        <FieldUploadFile accept=".pdf" maxCount={1} listType='text'/>
+                        <FieldUploadFile accept=".pdf" maxCount={1} />
                     </Form.Item>
 
                 </Form>

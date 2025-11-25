@@ -42,7 +42,9 @@ public class FilePreviewController {
             "admin/preview/{id}",
 
             // 兼容老系统
-            "sysFile/preview/{id}","sysFile/preview/{id}.{suffix}"})
+            "sysFile/preview/{id}",
+            "admin/sysFile/preview/{id}",
+            "sysFile/preview/{id}.{suffix}"})
     public ResponseEntity<StreamingResponseBody> previewFile(@PathVariable String id,
                                                              HttpServletRequest request,
                                                              Integer w, // 图片宽度
