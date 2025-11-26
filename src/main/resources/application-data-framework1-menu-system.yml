@@ -104,7 +104,7 @@ data:
         - id: api
           name: 接口管理
           icon: ApiOutlined
-          path: /api
+          path: /system/api
           perms:
             - name: 管理
               perm: api

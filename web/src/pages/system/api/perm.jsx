@@ -1,6 +1,6 @@
 import {message, Switch} from 'antd'
 import React from 'react'
-import {ArrUtils, HttpUtils, Page, PageUtils, ProTable} from "../../framework";
+import {ArrUtils, HttpUtils, Page, PageUtils, ProTable} from "../../../framework";
 
 
 export default class extends React.Component {

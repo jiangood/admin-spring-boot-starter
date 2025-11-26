@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Modal, Tabs} from "antd";
 import InstanceInfo from "../../../components/InstanceInfo";
-import {LinkButton, Page, PageLoading, ProTable} from "../../../framework";
+import {HttpUtils, LinkButton, Page, PageLoading, ProTable} from "../../../framework";
 
 
 export default class extends React.Component {

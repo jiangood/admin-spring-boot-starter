@@ -154,7 +154,7 @@ export default class extends React.Component {
         let id = this.state.id;
 
         this.bpmnModeler.saveXML().then(res => {
-            HttpUtils.post('admin//flowable/model/deploy', {id: id, content: res.xml})
+            HttpUtils.post('admin/flowable/model/deploy', {id: id, content: res.xml})
         })
     }
 

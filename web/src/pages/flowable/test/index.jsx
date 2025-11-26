@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Form, Input} from "antd";
-import {PageLoading} from "../../../framework";
+import {HttpUtils, PageLoading} from "../../../framework";
 
 export default class extends React.Component {
 

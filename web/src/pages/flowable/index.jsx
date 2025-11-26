@@ -1,7 +1,7 @@
 import {Button, Modal, Popconfirm, Space} from 'antd';
 import React from 'react';
 import {PlusOutlined} from "@ant-design/icons";
-import {PageUtils, ProTable} from "../../framework";
+import {HttpUtils, PageUtils, ProTable} from "../../framework";
 
 export default class extends React.Component {
 
