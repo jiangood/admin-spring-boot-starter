@@ -9,7 +9,7 @@ export function UserTaskForm(props) {
         candidateGroups: element.businessObject.candidateGroups,
         candidateUsers: StringUtils.split(element.businessObject.candidateUsers, ',')
     };
-    return (
+    return (<div style={{padding:16}}>
         <Form layout='vertical'
               initialValues={initialValues}
               onValuesChange={(changedValues) => {
@@ -24,6 +24,6 @@ export function UserTaskForm(props) {
             <Form.Item label="候选人" name='candidateUsers'>
                 <FieldRemoteSelectMultiple url='admin/flowable/model/candidateUsersOptions'/>
             </Form.Item>
-        </Form>
+        </Form></div>
     )
 }

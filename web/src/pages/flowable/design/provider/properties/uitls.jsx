@@ -14,7 +14,7 @@ export function convertReactComponent(props, ReactComponent){
         const dom = document.getElementById(elementId)
         const root = createRoot(dom);
         root.render(<ReactComponent element={element} modeling={modeling} />);
-        return root.unmount
+
     }, []);
 
     return h('div', {id: elementId})
