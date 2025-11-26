@@ -8,7 +8,6 @@ import BpmnModeler from 'bpmn-js/lib/Modeler'
 
 import './index.css'
 import customTranslate from "../../../components/flow/customTranslate/customTranslate";
-import TimerEventDefinitionForm from "../../../components/flow/design/form/TimerEventDefinitionForm";
 import ServiceTaskForm from "../../../components/flow/design/form/ServiceTaskForm";
 import ConditionForm from "../../../components/flow/design/form/ConditionForm";
 import palette from "../../../components/flow/design/palette";
@@ -21,7 +20,7 @@ import '@bpmn-io/properties-panel/assets/properties-panel.css';
 import {BpmnPropertiesPanelModule, BpmnPropertiesProviderModule} from 'bpmn-js-properties-panel';
 
 import magicPropertiesProviderModule from './provider/magic';
-import magicModdleDescriptor from './descriptors/magic';
+import flowableModdleDescriptor from './descriptors/flowable';
 
 export default class extends React.Component {
 
@@ -68,7 +67,7 @@ export default class extends React.Component {
                 magicPropertiesProviderModule
             ],
             moddleExtensions: {
-                magic: magicModdleDescriptor
+                magic: flowableModdleDescriptor
             }
         });
 
@@ -242,10 +241,7 @@ export default class extends React.Component {
                 return <UserTaskForm bo={curBo} node={this.curNode} modeling={this.modeling} model={this.state.model}/>
             case 'ServiceTask':
                 return <ServiceTaskForm bo={curBo}/>
-            case 'StartEvent':
-                if (curBo.eventDefinitions != null) {
-                    return <TimerEventDefinitionForm bo={curBo}/>
-                }
+
         }
         return <></>
     };

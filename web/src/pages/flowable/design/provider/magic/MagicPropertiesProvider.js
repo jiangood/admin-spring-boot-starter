@@ -13,7 +13,6 @@ export default function MagicPropertiesProvider(propertiesPanel, translate) {
          * the existing groups.
          */
         return function (groups) {
-            debugger
             if (is(element, 'bpmn:StartEvent')) {
                 groups.push({
                     id: 'magic',
