@@ -2,6 +2,7 @@
 import {is} from 'bpmn-js/lib/util/ModelUtil';
 import {DelegateExpressionProps} from "./properties/DelegateExpressionProps";
 import {FormProps} from "./properties/FormProps";
+import {UserProps} from "./properties/UserProps";
 
 const LOW_PRIORITY = 10001;
 
@@ -21,8 +22,8 @@ export default function MagicPropertiesProvider(propertiesPanel) {
             if(is(element,'bpmn:UserTask')){
                 groups.push({
                     id: 'user',
-                    label: "用户设置",
-                    entries: DelegateExpressionProps(element),
+                    label: "用户",
+                    entries: UserProps(element),
                 })
                 groups.push({
                     id: 'form',
