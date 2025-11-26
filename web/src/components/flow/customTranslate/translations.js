@@ -2,7 +2,10 @@
  * This is a sample file that should be replaced with the actual translation.
  *
  * Checkout https://github.com/bpmn-io/bpmn-js-i18n for a list of available
+ *
  * translations and labels to translate.
+ *
+ * demo: https://github.com/bpmn-io/bpmn-js-examples/
  */
 export default {
   "Activate create/remove space tool": "启动创建/删除空间工具",
