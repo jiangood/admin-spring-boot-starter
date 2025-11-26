@@ -14,12 +14,18 @@ import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
 import io.admin.modules.flowable.core.assignment.AssignmentTypeProvider;
 import io.admin.modules.flowable.core.assignment.Identity;
+import io.admin.modules.system.entity.SysRole;
+import io.admin.modules.system.entity.SysUser;
+import io.admin.modules.system.service.SysRoleService;
+import io.admin.modules.system.service.SysUserService;
 import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.engine.delegate.JavaDelegate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +39,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("admin/flowable/model")
+@AllArgsConstructor
 public class ModelDesignController {
 
-
-    @Resource
     private SysFlowableModelService service;
-
+    private SysUserService sysUserService;
+    private SysRoleService roleService;
 
     @HasPermission("flowableModel:design")
     @RequestMapping("page")
@@ -144,12 +150,13 @@ public class ModelDesignController {
             String remark = RemarkTool.getRemark(cls);
 
             String label = remark == null ? beanName : remark;
-            String key = "${"+beanName+"}";
+            String key = "${" + beanName + "}";
             options.add(Option.of(key, label));
         }
 
         return AjaxResult.ok().data(options);
     }
+
     @GetMapping("formOptions")
     public AjaxResult formOptions(String code) {
         SysFlowableModel model = service.findByCode(code);
@@ -159,5 +166,37 @@ public class ModelDesignController {
         return AjaxResult.ok().data(formKeyList);
     }
 
+    @GetMapping("assigneeOptions")
+    public AjaxResult assigneeOptions() {
+        List<Option> list = new ArrayList<>();
 
+        list.add(Option.of("${INITIATOR}", "* 发起人"));
+        list.add(Option.of("${INITIATOR_DEPT_LEADER}", "* 部门领导"));
+
+
+        List<SysUser> userList = sysUserService.findAll(Sort.by("name"));
+
+        for (SysUser sysUser : userList) {
+            list.add(Option.of(sysUser.getId(), sysUser.getName()));
+        }
+
+
+        return AjaxResult.ok().data(list);
+    }
+    @GetMapping("candidateGroupsOptions")
+    public AjaxResult candidateGroupsOptions() {
+        List<Option> list = new ArrayList<>();
+
+        List<SysRole> roleList = roleService.findAll(Sort.by("seq","name"));
+
+        for (SysRole sysRole : roleList) {
+            list.add(Option.of(sysRole.getId(), sysRole.getName()));
+
+        }
+
+
+
+
+        return AjaxResult.ok().data(list);
+    }
 }
