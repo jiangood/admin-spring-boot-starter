@@ -11,11 +11,11 @@ import customTranslate from "../../../components/flow/customTranslate/customTran
 import TimerEventDefinitionForm from "../../../components/flow/design/form/TimerEventDefinitionForm";
 import ServiceTaskForm from "../../../components/flow/design/form/ServiceTaskForm";
 import ConditionForm from "../../../components/flow/design/form/ConditionForm";
-import UserTaskForm from "../../../components/flow/design/form/UserTaskForm";
 import palette from "../../../components/flow/design/palette";
 import contextPad from "../../../components/flow/design/contextPad";
 import {CloudUploadOutlined, SaveOutlined} from "@ant-design/icons";
 import {HttpUtils, PageUtils} from "../../../framework";
+import UserTaskForm from "./components/UserTaskForm";
 
 export default class extends React.Component {
 
@@ -139,11 +139,11 @@ export default class extends React.Component {
         return new Promise((resolve, reject) => {
             const hide = message.loading('保存中...', 0)
             this.bpmnModeler.saveXML().then(res => {
-                HttpUtils.post('admin//flowable/model/saveContent', {id: id, content: res.xml}).then(rs => {
+                HttpUtils.post('admin/flowable/model/saveContent', {id: id, content: res.xml}).then(rs => {
                     hide()
                     message.success('服务端保存成功')
                     resolve()
-                }).catch(e => {
+                }).catch(() => {
                     hide()
                     reject()
                 })

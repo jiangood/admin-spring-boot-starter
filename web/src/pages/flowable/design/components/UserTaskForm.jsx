@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Divider, Form, Input, Select} from 'antd';
-import BpmnUtils from '../../BpmnUtils';
-import {HttpUtil} from "../../../../framework";
+import {HttpUtils} from "../../../../framework";
+import BpmnUtils from "../../../../components/flow/BpmnUtils";
 
 
 const PREFIX = 'flowable:';
