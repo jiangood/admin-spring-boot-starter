@@ -126,7 +126,6 @@ function CandidateUsersComponent(props) {
         getValue,
         setValue,
         debounce,
-        multi: true,
 
         getOptions: () => {
             return [{ value: '', label: '<留空>'},...options]
