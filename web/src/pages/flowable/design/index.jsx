@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, Col, Empty, Form, Input, message, Modal, Row, Space} from "antd";
+import {Button, Card, Empty, Form, Input, message, Modal, Space, Splitter} from "antd";
 
 import 'bpmn-js/dist/assets/diagram-js.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
@@ -16,6 +16,10 @@ import contextPad from "../../../components/flow/design/contextPad";
 import {CloudUploadOutlined, SaveOutlined} from "@ant-design/icons";
 import {HttpUtils, PageUtils} from "../../../framework";
 import UserTaskForm from "./components/UserTaskForm";
+import 'bpmn-js/dist/assets/bpmn-js.css';
+import '@bpmn-io/properties-panel/assets/properties-panel.css';
+import {BpmnPropertiesPanelModule, BpmnPropertiesProviderModule} from 'bpmn-js-properties-panel';
+
 
 export default class extends React.Component {
 
@@ -46,6 +50,9 @@ export default class extends React.Component {
         let params = PageUtils.currentParams()
         this.state.id = params.id
         this.bpmnModeler = new BpmnModeler({
+            propertiesPanel: {
+                parent: '#js-properties-panel'
+            },
             additionalModules: [
                 // 汉化翻译
                 {
@@ -53,6 +60,9 @@ export default class extends React.Component {
                 },
                 palette,
                 contextPad,
+
+                BpmnPropertiesPanelModule,
+                BpmnPropertiesProviderModule
             ]
         });
 
@@ -178,19 +188,17 @@ export default class extends React.Component {
                      </Space>}>
 
 
-            <Row gutter={16} wrap={false} style={{height: '90vh'}}>
-                <Col flex='auto'>
+            <Splitter style={{minHeight: 'calc(100vh - 200px)'}}>
+                <Splitter.Panel>
                     <div ref={this.bpmRef} style={{width: '100%', height: '100%'}}></div>
-                </Col>
+                </Splitter.Panel>
 
-                <Col flex='300px'>
-                    <Card title='属性面板'>
-                        {this.renderForm()}
-                    </Card>
-
+                <Splitter.Panel defaultSize={300}>
+                    <div id={'js-properties-panel'}></div>
+                    {this.renderForm()}
                     {this.renderMultiInstanceLoopCharacteristics()}
-                </Col>
-            </Row>
+                </Splitter.Panel>
+            </Splitter>
 
 
             <Modal title='流程定义XML文本内容' open={this.state.openXmlModal}
