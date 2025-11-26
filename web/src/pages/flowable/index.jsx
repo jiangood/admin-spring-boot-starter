@@ -63,7 +63,12 @@ public class DemoProcess implements ProcessDefinition {
             <Typography.Text>不支持页面创建， 请参考Java代码</Typography.Text>
             <pre>{demo}</pre>
         </div>
-        MessageUtils.alert(demo, '流程模型创建说明', {width: 800})
+     // MessageUtils.alert(demo,  {width: 800})
+       MessageUtils.prompt('请输入', '135','xxx').then(value=>{
+            alert('您输入的是' + value)
+        })
+
+
     }
 
 

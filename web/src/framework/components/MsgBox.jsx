@@ -136,16 +136,14 @@ export class MsgBoxComponent extends React.Component {
             case 'confirm':
                 return <pre>{msg}</pre>;
             case 'prompt':
-                return (
-                    <>
-                        <Typography.Text>{msg}</Typography.Text>
-                        <Input
-                            value={inputValue}
-                            onChange={this.handleInputChange}
-                            placeholder="请输入内容"
-                        />
-                    </>
-                );
+                return <>
+                    <Typography.Text>{msg}</Typography.Text>
+                    <Input
+                        value={inputValue}
+                        onChange={this.handleInputChange}
+                        placeholder="请输入内容"
+                    />
+                </>;
             default:
                 return null;
         }

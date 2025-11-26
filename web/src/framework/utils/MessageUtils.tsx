@@ -1,56 +1,8 @@
 import {Input, message, Modal, notification} from 'antd';
 import type {ModalFuncProps} from 'antd/es/modal/interface';
-import type {MessageType} from 'antd/es/message/index';
 import type {ArgsProps, NotificationPlacement} from 'antd/es/notification/interface';
-import React, {Component} from 'react';
+import React from 'react';
 import {ThemeUtils} from "./system";
-
-// --- 辅助组件：Prompt 输入组件 (Class Component 模式) ---
-interface PromptContentProps {
-    initialValue?: string;
-    placeholder?: string;
-    onChange: (value: string) => void;
-}
-
-interface PromptContentState {
-    value: string;
-}
-
-class PromptContent extends Component<PromptContentProps, PromptContentState> {
-    constructor(props: PromptContentProps) {
-        super(props);
-        // 使用 state 来管理输入框的值
-        this.state = {
-            value: props.initialValue || '',
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const newValue = e.target.value;
-        this.setState({value: newValue});
-        // 通知外部组件（Modal）值已更改
-        this.props.onChange(newValue);
-    }
-
-    // 组件挂载后，确保外部接收到初始值
-    componentDidMount() {
-        this.props.onChange(this.state.value);
-    }
-
-    render() {
-        const {placeholder} = this.props;
-        const {value} = this.state;
-        return (
-            <Input
-                value={value}
-                onChange={this.handleChange}
-                placeholder={placeholder || '请输入内容'}
-                style={{marginTop: 16}}
-            />
-        );
-    }
-}
 
 // --- MsgUtils 类 (包含静态方法的工具类) ---
 
@@ -71,13 +23,9 @@ export class MessageUtils {
     /**
      * 弹出 Alert 提示框
      */
-    static alert(
-        content: React.ReactNode,
-        title?: React.ReactNode,
-        config?: Omit<ModalFuncProps, 'content' | 'title' | 'icon' | 'onOk' | 'onCancel'>,
-    ) {
-        return Modal.info({
-            title: title || '提示',
+    static alert(content: React.ReactNode, config?: Omit<ModalFuncProps, 'content' | 'icon' | 'onOk' | 'onCancel'>) {
+        Modal.info({
+            title: '提示',
             content,
             okText: '确定',
             icon: null,
@@ -85,80 +33,60 @@ export class MessageUtils {
                 styles: buttonStyles
             },
             ...config,
-
         });
     }
 
     /**
      * 弹出 Confirm 确认框
      */
-    static confirm(
-        content: React.ReactNode,
-        onOk: () => void | Promise<any>,
-        title: React.ReactNode = '确认操作',
-        onCancel?: () => void,
-        config?: Omit<ModalFuncProps, 'content' | 'title' | 'icon' | 'onOk' | 'onCancel'>,
-    ) {
-        return Modal.confirm({
-            title,
-            content,
-            okText: '确定',
-            cancelText: '取消',
-            onOk,
-            onCancel,
-            okButtonProps: {
-                styles: buttonStyles
-            },
-            ...config,
-        });
+    static confirm(content: React.ReactNode, config?: Omit<ModalFuncProps, 'content' | 'icon' | 'onOk' | 'onCancel'>) {
+        return new Promise((resolve) => {
+            Modal.confirm({
+                title: '确认操作',
+                content,
+                okText: '确定',
+                cancelText: '取消',
+                onOk: () => resolve(true),
+                onCancel: () => resolve(false),
+                okButtonProps: {
+                    styles: buttonStyles
+                },
+                ...config,
+            });
+        })
+
     }
 
     /**
      * 弹出 Prompt 输入框对话框
      */
-    static prompt(
-        message: React.ReactNode,
-        onOk: (inputValue: string) => void | Promise<any>,
-        title: React.ReactNode = '请输入',
-        initialValue: string = '',
-        onCancel?: () => void,
-        config?: Omit<ModalFuncProps, 'content' | 'title' | 'icon' | 'onOk' | 'onCancel'>,
-    ) {
-        let inputValue = initialValue; // 用于存储输入框的实时值
+    static prompt(message: React.ReactNode, initialValue?: string, placeholder?: string, config?: Omit<ModalFuncProps, 'content' | 'title' | 'icon' | 'onOk'>) {
+        return new Promise((resolve) => {
 
-        const handleInputChange = (value: string) => {
-            inputValue = value; // 更新存储的值
-        };
-
-        const content = (
-            <div>
-                {message}
-                <PromptContent
-                    initialValue={initialValue}
-                    onChange={handleInputChange}
-                    placeholder={config?.placeholder as string} // 传递 placeholder
-                />
-            </div>
-        );
-
-        const handleOk = () => {
-            // 在点击确定时，将当前最新的 inputValue 传递给 onOk 回调
-            return onOk(inputValue);
-        };
-
-        return Modal.confirm({
-            title,
-            content,
-            okText: '确定',
-            cancelText: '取消',
-            onOk: handleOk, // 绑定包含输入值传递的函数
-
-            onCancel,
-            okButtonProps: {
-                styles: buttonStyles
-            },
-            ...config,
-        });
+            const ref = React.createRef()
+            Modal.confirm({
+                title: '提示',
+                content: <div>
+                    <div style={{marginBottom: 4}}>{message}</div>
+                    <Input ref={ref} placeholder={placeholder}/>
+                </div>,
+                okText: '确定',
+                cancelText: '取消',
+                onOk: () => {
+                    const inputInstance = ref.current;
+                    const inputElement = inputInstance.input;
+                    const inputValue = inputElement.value;
+                    resolve(inputValue)
+                },
+                onCancel: () => {
+                    resolve()
+                },
+                okButtonProps: {
+                    styles: buttonStyles
+                },
+                ...config,
+            });
+        })
     }
 
     // --- Antd message 封装 (全局通知/Loading) ---
@@ -166,35 +94,35 @@ export class MessageUtils {
     /**
      * 成功消息
      */
-    static success(content: React.ReactNode, duration: number = 3): MessageType {
-        return message.success(content, duration);
+    static success(content: React.ReactNode, duration: number = 3) {
+        message.success(content, duration);
     }
 
     /**
      * 错误消息
      */
-    static error(content: React.ReactNode, duration: number = 3): MessageType {
-        return message.error(content, duration);
+    static error(content: React.ReactNode, duration: number = 3) {
+        message.error(content, duration);
     }
 
     /**
      * 警告消息
      */
-    static warning(content: React.ReactNode, duration: number = 3): MessageType {
-        return message.warning(content, duration);
+    static warning(content: React.ReactNode, duration: number = 3) {
+        message.warning(content, duration);
     }
 
     /**
      * 通用消息
      */
-    static info(content: React.ReactNode, duration: number = 3): MessageType {
-        return message.info(content, duration);
+    static info(content: React.ReactNode, duration: number = 3) {
+        message.info(content, duration);
     }
 
     /**
      * 弹出 Loading 提示
      */
-    static loading(content: React.ReactNode = '正在加载...', duration?: number): MessageType {
+    static loading(content: React.ReactNode = '正在加载...', duration?: number) {
         return message.loading({content, duration: duration === undefined ? 0 : duration});
     }
 
