@@ -20,8 +20,8 @@ import 'bpmn-js/dist/assets/bpmn-js.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
 import {BpmnPropertiesPanelModule, BpmnPropertiesProviderModule} from 'bpmn-js-properties-panel';
 
-import magicModdleDescriptor from './flowable';
-console.log('magic', magicModdleDescriptor)
+import magicPropertiesProviderModule from './provider/magic';
+import magicModdleDescriptor from './descriptors/magic';
 
 export default class extends React.Component {
 
@@ -64,7 +64,8 @@ export default class extends React.Component {
                 contextPad,
 
                 BpmnPropertiesPanelModule,
-                BpmnPropertiesProviderModule
+                BpmnPropertiesProviderModule,
+                magicPropertiesProviderModule
             ],
             moddleExtensions: {
                 magic: magicModdleDescriptor
