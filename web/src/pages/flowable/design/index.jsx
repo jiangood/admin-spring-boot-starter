@@ -207,8 +207,6 @@ export default class extends React.Component {
                 />
             case 'UserTask':
                 return <UserTaskForm bo={curBo} node={this.curNode} modeling={this.modeling} model={this.state.model}/>
-            case 'ServiceTask':
-                return <ServiceTaskForm bo={curBo}/>
 
         }
         return <></>
