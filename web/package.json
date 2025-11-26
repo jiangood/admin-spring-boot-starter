@@ -36,6 +36,9 @@
     "dev": "umi dev",
     "build": "tsc --outDir config/dist --skipLibCheck --noEmitOnError false config/index.ts"
   },
-  "version": "0.0.1-beta.28"
-
+  "version": "0.0.1-beta.28",
+  "dependencies": {
+    "preact": "^10.27.2",
+    "preact-hooks": "0.0.0-0.0.0"
+  }
 }

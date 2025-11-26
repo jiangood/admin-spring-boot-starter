@@ -2,7 +2,9 @@
 import {is} from 'bpmn-js/lib/util/ModelUtil';
 import {DelegateExpressionProps} from "./properties/DelegateExpressionProps";
 import {FormProps} from "./properties/FormProps";
-import {UserProps} from "./properties/UserProps";
+import {convertReactComponent} from "./properties/uitls";
+import {UserTaskForm} from "./properties/UserTaskForm";
+import {isTextFieldEntryEdited} from "@bpmn-io/properties-panel";
 
 const LOW_PRIORITY = 10001;
 
@@ -24,7 +26,13 @@ export default function MagicPropertiesProvider(propertiesPanel) {
                 groups.push({
                     id: 'user',
                     label: "用户",
-                    entries: UserProps(element),
+                    entries: [
+                        {
+                            id: 'user',
+                            component: (props)=>convertReactComponent(props, UserTaskForm),
+                            isEdited: isTextFieldEntryEdited,
+                        }
+                    ],
                     shouldOpen:true
                 })
                 groups.push({

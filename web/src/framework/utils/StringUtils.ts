@@ -313,65 +313,72 @@ export class StringUtils {
      * @returns 是否为字符串
      */
     static isStr(value: any): value is string {
-    return typeof value === 'string';
-}
-
-
-/**
- * 将下划线或连字符分隔的字符串转为驼峰命名
- * @param str 原始字符串
- * @param firstLower 转换后首字母是否小写，默认为 true
- * @returns 转换后的驼峰字符串
- */
-static toCamelCase(str: string, firstLower: boolean = true): string {
-    // 匹配下划线或连字符后跟一个字母
-    let result: string = str.replace(/[-_](\w)/g, function (all, letter) {
-        return letter.toUpperCase();
-    });
-
-    if (firstLower) {
-        // 确保首字母小写
-        result = result.substring(0, 1).toLowerCase() + result.substring(1);
+        return typeof value === 'string';
     }
 
-    return result;
-}
 
-/**
- * 将驼峰命名字符串转为下划线命名
- * @param name 驼峰命名字符串
- * @returns 下划线命名字符串
- */
-static toUnderlineCase(name: string | null | undefined): string | null | undefined {
-    if (name == null) {
-        return null;
-    }
-    // 在大写字母前添加下划线，并全部转小写
-    let result: string = name.replace(/([A-Z])/g, '_$1').toLowerCase();
+    /**
+     * 将下划线或连字符分隔的字符串转为驼峰命名
+     * @param str 原始字符串
+     * @param firstLower 转换后首字母是否小写，默认为 true
+     * @returns 转换后的驼峰字符串
+     */
+    static toCamelCase(str: string, firstLower: boolean = true): string {
+        // 匹配下划线或连字符后跟一个字母
+        let result: string = str.replace(/[-_](\w)/g, function (all, letter) {
+            return letter.toUpperCase();
+        });
 
-    // 移除开头多余的下划线
-    if (result.startsWith('_')) {
-        result = result.substring(1);
-    }
-    return result;
-}
+        if (firstLower) {
+            // 确保首字母小写
+            result = result.substring(0, 1).toLowerCase() + result.substring(1);
+        }
 
-/**
- * 比较两个字符串是否相等，忽略大小写
- * @param a 字符串 a
- * @param b 字符串 b
- * @returns 是否相等（忽略大小写）
- */
-static equalsIgnoreCase(a: string | null | undefined, b: string | null | undefined): boolean {
-    if (a === b) { // 引用相同，或同时为 null/undefined
-        return true;
+        return result;
     }
 
-    if (a != null && b != null) {
-        return a.toLowerCase() === b.toLowerCase();
+    /**
+     * 将驼峰命名字符串转为下划线命名
+     * @param name 驼峰命名字符串
+     * @returns 下划线命名字符串
+     */
+    static toUnderlineCase(name: string | null | undefined): string | null | undefined {
+        if (name == null) {
+            return null;
+        }
+        // 在大写字母前添加下划线，并全部转小写
+        let result: string = name.replace(/([A-Z])/g, '_$1').toLowerCase();
+
+        // 移除开头多余的下划线
+        if (result.startsWith('_')) {
+            result = result.substring(1);
+        }
+        return result;
     }
 
-    // 只有在 a === b 时，null/undefined 才是 true
-    return false;
-}
+    /**
+     * 比较两个字符串是否相等，忽略大小写
+     * @param a 字符串 a
+     * @param b 字符串 b
+     * @returns 是否相等（忽略大小写）
+     */
+    static equalsIgnoreCase(a: string | null | undefined, b: string | null | undefined): boolean {
+        if (a === b) { // 引用相同，或同时为 null/undefined
+            return true;
+        }
+
+        if (a != null && b != null) {
+            return a.toLowerCase() === b.toLowerCase();
+        }
+
+        // 只有在 a === b 时，null/undefined 才是 true
+        return false;
+    }
+
+    static split(str: string, sp: string):null|string[] {
+        if(!str){
+            return null
+        }
+        return str.split(sp)
+    }
 }
