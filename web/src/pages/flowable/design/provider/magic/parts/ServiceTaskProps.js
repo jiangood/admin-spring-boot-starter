@@ -3,12 +3,11 @@ import { html } from 'htm/preact';
 import { TextFieldEntry, isTextFieldEntryEdited } from '@bpmn-io/properties-panel';
 import { useService } from 'bpmn-js-properties-panel';
 
-export  function createServiceTaskEntries (element) {
+export  function ServiceTaskProps () {
 
   return [
     {
       id: 'delegateExpression',
-      element,
       component: ServiceTaskComponent,
       isEdited: isTextFieldEntryEdited,
     }
@@ -22,7 +21,7 @@ function ServiceTaskComponent(props) {
   const modeling = useService('modeling');
   const debounce = useService('debounceInput');
 
-  const getValue = () => {
+  const getValue = (element) => {
     return element.businessObject.delegateExpression || '';
   };
 
@@ -31,6 +30,8 @@ function ServiceTaskComponent(props) {
       delegateExpression: value
     });
   };
+
+
 
   return html`<${TextFieldEntry}
     id=${ id }

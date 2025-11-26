@@ -13,7 +13,7 @@ import ConditionForm from "../../../components/flow/design/form/ConditionForm";
 import palette from "../../../components/flow/design/palette";
 import contextPad from "../../../components/flow/design/contextPad";
 import {CloudUploadOutlined, SaveOutlined} from "@ant-design/icons";
-import {HttpUtils, PageUtils} from "../../../framework";
+import {HttpUtils, MessageUtils, PageUtils} from "../../../framework";
 import UserTaskForm from "./components/UserTaskForm";
 import 'bpmn-js/dist/assets/bpmn-js.css';
 import '@bpmn-io/properties-panel/assets/properties-panel.css';
@@ -34,11 +34,6 @@ export default class extends React.Component {
         elementName: '',
 
         showForm: false, // 表单切换过渡使用
-
-
-        openXmlModal: false,
-        xml: null
-
     }
     curBo = null
     curNode = null
@@ -99,28 +94,12 @@ export default class extends React.Component {
 
     showXML = () => {
         this.bpmnModeler.saveXML({format: true}).then(res => {
-            this.setState({
-                openXmlModal: true,
-                xml: res.xml
-            })
+            MessageUtils.alert(<pre style={{overflowX:"auto", height:'64vh'}}>{res.xml}</pre>,{width:1024})
         })
     }
 
 
-    handleChangeXml = () => {
-        const xml = this.preXmlRef.current.innerText;
 
-        const root = this.bpmnModeler.getDefinitions().rootElements[0]
-        const {id, name} = root;
-
-
-        this.bpmnModeler.importXML(xml)
-        root.set('id', id)
-        root.set('name', name)
-
-        message.success('编辑完成');
-        this.setState({openXmlModal: false})
-    }
 
     onSelectionChanged = e => {
         const {newSelection} = e;
@@ -206,18 +185,7 @@ export default class extends React.Component {
             </Splitter>
 
 
-            <Modal title='流程定义XML文本内容' open={this.state.openXmlModal}
-                   okText='确定'
-                   width='70vw'
-                   onOk={this.handleChangeXml}
-                   onCancel={() => this.setState({openXmlModal: false})}>
-                <div style={{maxHeight: '70vh', overflow: 'auto'}}>
-                    {this.state.xml && <pre ref={this.preXmlRef} contentEditable>
-          {this.state.xml}
-        </pre>}
 
-                </div>
-            </Modal>
         </Card>
     }
 
