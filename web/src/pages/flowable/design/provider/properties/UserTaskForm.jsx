@@ -8,7 +8,7 @@ import React from "react";
 import {useService} from "bpmn-js-properties-panel";
 import {h} from "preact";
 import {createRoot} from "react-dom/client";
-import {useEffect} from "@bpmn-io/properties-panel/preact/hooks";
+import {useEffect, useRef} from "@bpmn-io/properties-panel/preact/hooks";
 
 export function UserTaskForm(props) {
     const {element, modeling} = props
@@ -39,13 +39,11 @@ export function UserTaskForm(props) {
 export function PreactUserTaskForm(props) {
     const {element, id} = props;
     const modeling = useService('modeling');
-    let elementId = UuidUtils.uuidV4();
-
+    const domRef = useRef(null);
     useEffect(() => {
-        const dom = document.getElementById(elementId)
-        const root = createRoot(dom);
+        const root = createRoot(domRef.current);
         root.render(<UserTaskForm element={element} modeling={modeling} />);
     }, []);
 
-    return h('div', {id: elementId})
+    return h('div', {ref:domRef})
 }
