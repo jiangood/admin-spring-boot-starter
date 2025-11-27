@@ -301,7 +301,7 @@ constructor(props) {
 
             {meta && (
               <Form.Item name="value" label="值" rules={[{ required: true }]}>
-                {meta.render(op)}
+                {meta.render()}
               </Form.Item>
             )}
 

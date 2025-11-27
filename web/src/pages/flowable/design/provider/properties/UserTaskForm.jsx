@@ -1,5 +1,9 @@
 import {Form} from "antd";
-import {FieldRemoteSelect, FieldRemoteSelectMultiple, StringUtils} from "../../../../../framework";
+import {
+    FieldRemoteSelect,
+    FieldRemoteSelectMultipleInline,
+    StringUtils
+} from "../../../../../framework";
 import React from "react";
 
 export function UserTaskForm(props) {
@@ -22,7 +26,7 @@ export function UserTaskForm(props) {
                 <FieldRemoteSelect url='admin/flowable/model/candidateGroupsOptions'/>
             </Form.Item>
             <Form.Item label="候选人" name='candidateUsers'>
-                <FieldRemoteSelectMultiple url='admin/flowable/model/candidateUsersOptions'/>
+                <FieldRemoteSelectMultipleInline url='admin/flowable/model/candidateUsersOptions'/>
             </Form.Item>
         </Form></div>
     )

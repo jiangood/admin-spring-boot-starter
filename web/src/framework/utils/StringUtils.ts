@@ -375,10 +375,36 @@ export class StringUtils {
         return false;
     }
 
-    static split(str: string, sp: string):null|string[] {
-        if(!str){
-            return null
+    /**
+     * 分割字符串
+     * @param str
+     * @param sp
+     */
+    static split(str: any, sp: string):null|string[] {
+        if(str == null){
+            return str
         }
+        if(Array.isArray(str)){
+            return str;
+        }
+
         return str.split(sp)
+    }
+
+    /**
+     * 连接字符串
+     * @param arr
+     * @param sp 分隔符
+     */
+    static join(arr, sp: string) {
+        if (arr == null) {
+            return  []
+        }
+
+        if(!Array.isArray(arr)){
+            return arr;
+        }
+
+        return arr.join(sp);
     }
 }
