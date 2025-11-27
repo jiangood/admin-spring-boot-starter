@@ -1,6 +1,6 @@
-import MagicPropertiesProvider from './MagicPropertiesProvider';
+import FlowablePropertiesProvider from './FlowablePropertiesProvider';
 
 export default {
   __init__: [ 'magicPropertiesProvider' ],
-  magicPropertiesProvider: [ 'type', MagicPropertiesProvider ]
+  magicPropertiesProvider: [ 'type', FlowablePropertiesProvider ]
 };

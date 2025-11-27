@@ -51,3 +51,7 @@ export function PreactUserTaskForm(props) {
 
     return h('div', {ref:domRef})
 }
+
+export function renderReact(props, ReactComponent) {
+    return PreactUserTaskForm(props)
+}

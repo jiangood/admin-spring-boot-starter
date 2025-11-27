@@ -8,7 +8,7 @@ import {isTextFieldEntryEdited} from "@bpmn-io/properties-panel";
 const LOW_PRIORITY = 10001;
 
 
-export default function MagicPropertiesProvider(propertiesPanel) {
+export default function FlowablePropertiesProvider(propertiesPanel) {
 
     this.getGroups = function (element) {
         return function (groups) {
@@ -49,6 +49,6 @@ export default function MagicPropertiesProvider(propertiesPanel) {
     propertiesPanel.registerProvider(LOW_PRIORITY, this);
 }
 
-MagicPropertiesProvider.$inject = ['propertiesPanel'];
+FlowablePropertiesProvider.$inject = ['propertiesPanel'];
 
 
