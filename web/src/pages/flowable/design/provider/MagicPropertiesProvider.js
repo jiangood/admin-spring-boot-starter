@@ -2,7 +2,7 @@
 import {is} from 'bpmn-js/lib/util/ModelUtil';
 import {DelegateExpressionProps} from "./properties/DelegateExpressionProps";
 import {FormProps} from "./properties/FormProps";
-import {convertReactComponent} from "./properties/uitls";
+import {renderReactComponent} from "./properties/uitls";
 import {UserTaskForm} from "./properties/UserTaskForm";
 import {isTextFieldEntryEdited} from "@bpmn-io/properties-panel";
 
@@ -29,7 +29,7 @@ export default function MagicPropertiesProvider(propertiesPanel) {
                     entries: [
                         {
                             id: 'user',
-                            component: (props)=>convertReactComponent(props, UserTaskForm),
+                            component: (props)=>renderReactComponent(props, UserTaskForm),
                             isEdited: isTextFieldEntryEdited,
                         }
                     ],

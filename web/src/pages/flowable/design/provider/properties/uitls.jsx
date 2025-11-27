@@ -5,7 +5,7 @@ import {h} from "preact";
 import React from "react";
 import {useEffect} from "@bpmn-io/properties-panel/preact/hooks";
 
-export function convertReactComponent(props, ReactComponent){
+export function renderReactComponent(props, ReactComponent){
     const {element, id} = props;
     const modeling = useService('modeling');
 
