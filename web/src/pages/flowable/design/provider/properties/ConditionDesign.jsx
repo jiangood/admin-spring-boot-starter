@@ -8,6 +8,11 @@ export class ConditionDesignButton extends Component {
         open:false
     }
 
+    componentDidMount() {
+        const {processId} = this.props;
+        console.log('流程id',processId)
+    }
+
     onChange(arr){
         console.log('arr')
     }
@@ -30,8 +35,7 @@ export class ConditionDesignButton extends Component {
                         {dataIndex:'value',title:'值'},
                     ]
                 }
-
-                            onChange={this.onChange}
+                onChange={this.onChange}
 
                 ></FieldTable>
             </Modal>

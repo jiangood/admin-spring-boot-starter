@@ -9,9 +9,13 @@ export function renderReact(props, ReactComponent) {
     const {element, id} = props;
     const modeling = useService('modeling');
     const domRef = useRef(null);
+    const canvas = useService('canvas');
+    const rootElement = canvas.getRootElement();
+    const processId = rootElement.id;
+
     useEffect(() => {
         const root = createRoot(domRef.current);
-        root.render(<ReactComponent element={element} modeling={modeling}/>);
+        root.render(<ReactComponent element={element} modeling={modeling} processId={processId}/>);
     }, []);
 
     return h('div', {ref: domRef})
