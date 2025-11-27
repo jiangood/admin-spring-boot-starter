@@ -1,27 +1,24 @@
-import {isTextFieldEntryEdited, SelectEntry} from '@bpmn-io/properties-panel';
-import { useService } from 'bpmn-js-properties-panel';
-import { useEffect, useState } from '@bpmn-io/properties-panel/preact/hooks';
+import {isTextFieldEntryEdited, SelectEntry, TextFieldEntry} from '@bpmn-io/properties-panel';
+import {useService} from 'bpmn-js-properties-panel';
+import {useEffect, useState} from '@bpmn-io/properties-panel/preact/hooks';
 import {HttpUtils} from "../../../../../framework";
-export  function ConditionProps () {
+
+export function ConditionProps() {
 
     return [
         {
-            id: 'form',
+            id: 'expression',
             component: Component,
             isEdited: isTextFieldEntryEdited,
         }
-
-    ];
+    ]
 }
 
 function Component(props) {
-    const { element, id } = props;
+    const {element, id} = props;
 
     const modeling = useService('modeling');
     const debounce = useService('debounceInput');
-    const canvas = useService('canvas');
-    const rootElement = canvas.getRootElement();
-    const processId = rootElement.id;
     const getValue = (element) => {
         return element.businessObject.formKey || '';
     };
@@ -32,24 +29,16 @@ function Component(props) {
         });
     };
 
-    const [ options, setOptions ] = useState([]);
 
-    useEffect(async () => {
-        const rs = await HttpUtils.get('admin/flowable/model/formOptions',{code:processId})
-        setOptions(rs)
-    }, [ setOptions ]);
-
-    return SelectEntry({
+    return TextFieldEntry({
         element,
         id: id,
-        label: '选择表单',
+        label: '条件表达式',
         getValue,
         setValue,
         debounce,
 
-        getOptions: () => {
-            return [{ value: '', label: '<留空>'},...options]
-        }
+
     })
 
 }

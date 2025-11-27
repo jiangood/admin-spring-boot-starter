@@ -171,13 +171,13 @@ export default class extends React.Component {
                      </Space>}>
 
 
-            <Splitter >
+            <Splitter style={{minHeight: 'calc(100vh - 200px)'}}>
                 <Splitter.Panel>
                     <div ref={this.bpmRef} style={{width: '100%', height: '100%'}}></div>
                 </Splitter.Panel>
 
                 <Splitter.Panel defaultSize={300}>
-                    <div id={'js-properties-panel'} style={{height:500}}></div>
+                    <div id={'js-properties-panel'} ></div>
                     {this.renderForm()}
                     {this.renderMultiInstanceLoopCharacteristics()}
                 </Splitter.Panel>
