@@ -151,12 +151,9 @@ public class ModelController {
                 .addBpmnModel(resourceName, bpmnModel)
                 .name(m.getName())
                 .key(key)
-
                 .deploy();
 
-        ProcessDefinition def = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key).latestVersion().singleResult();
-        int version = def.getVersion();
-        log.info("流程最新版本 {}", version);
+
 
         return AjaxResult.ok().msg("部署成功");
     }
