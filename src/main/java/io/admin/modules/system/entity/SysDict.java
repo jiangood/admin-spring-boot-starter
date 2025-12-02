@@ -27,8 +27,7 @@ public class SysDict extends BaseEntity {
     private String code;
 
 
-
-
+    private Boolean isNumber;
 
 
 }

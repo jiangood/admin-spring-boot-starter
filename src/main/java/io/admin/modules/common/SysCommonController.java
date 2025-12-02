@@ -110,7 +110,7 @@ public class SysCommonController {
         }
         r.setLogin(true);
         r.setNeedUpdatePwd(false); // TODO
-        r.setDictMap(sysDictService.mapList());
+        r.setDictMap(sysDictService.dictMap());
 
 
         List<String> permissions = LoginUtils.getPermissions();

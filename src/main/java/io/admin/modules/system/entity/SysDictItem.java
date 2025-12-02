@@ -3,6 +3,7 @@ package io.admin.modules.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.admin.common.utils.ann.Remark;
+import io.admin.common.utils.field.ValueType;
 import io.admin.framework.data.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -51,6 +52,7 @@ public class SysDictItem extends BaseEntity {
 
     @Remark("序号")
     private Integer seq;
+
 
 
 

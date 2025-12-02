@@ -2,6 +2,8 @@
 package io.admin.modules.system.service;
 
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Multimap;
+import io.admin.common.utils.GoogleUtils;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.system.dao.SysDictDao;
 import io.admin.modules.system.dao.SysDictItemDao;
@@ -13,9 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -57,15 +59,25 @@ public class SysDictService extends BaseService<SysDict> {
     }
 
 
-    public Map<String, List<SysDictItem>> mapList() {
-        List<SysDictItem> dictData = sysDictItemDao.findAll(Sort.by(SysDictItem.Fields.seq));
+    public record SimpleDictItem(Object value, String label, String color) {}
 
-        Map<String, List<SysDictItem>> map = dictData.stream().collect(Collectors.groupingBy(t-> {
-            String code = t.getSysDict().getCode();
-            code = StrUtil.toUnderlineCase(code);
-            return code.toUpperCase();
-        }));
-        return map;
+    public Map<String, Collection<SimpleDictItem>> dictMap() {
+        List<SysDictItem> list = sysDictItemDao.findAll(Sort.by(SysDictItem.Fields.seq));
+
+        Multimap<String, SimpleDictItem> map = GoogleUtils.newMultimap();
+
+        for (SysDictItem item : list) {
+            SysDict sysDict = item.getSysDict();
+            String dictCode = sysDict.getCode();
+            dictCode = StrUtil.toUnderlineCase(dictCode).toUpperCase();
+
+            Boolean isNumber = sysDict.getIsNumber() != null ? sysDict.getIsNumber() : false;
+            Object value = isNumber ? Integer.parseInt(item.getCode()) : item.getCode();
+
+            map.put(dictCode, new SimpleDictItem(value, item.getText(), item.getColor()));
+        }
+
+        return map.asMap();
     }
 
 }

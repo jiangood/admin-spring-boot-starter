@@ -1,7 +1,7 @@
 
 package io.admin.modules.system.dao;
 
-import io.admin.modules.system.entity.OrgType;
+import io.admin.modules.system.enums.OrgType;
 import io.admin.modules.system.entity.SysOrg;
 import io.admin.common.utils.tree.TreeManager;
 import io.admin.framework.data.repository.BaseDao;
@@ -67,7 +67,7 @@ public class SysOrgDao extends BaseDao<SysOrg> {
      */
     public List<SysOrg> findDirectChildUnit(String id, Boolean enabled) {
         JpaQuery<SysOrg> query = new JpaQuery<>();
-        query.eq(SysOrg.Fields.type, OrgType.UNIT);
+        query.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT.getCode());
         query.eq(SysOrg.Fields.pid, id);
         if (enabled != null) {
             query.eq(SysOrg.Fields.enabled, enabled);

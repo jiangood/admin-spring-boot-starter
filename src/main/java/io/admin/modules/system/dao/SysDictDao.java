@@ -1,6 +1,7 @@
 
 package io.admin.modules.system.dao;
 
+import io.admin.common.utils.field.ValueType;
 import io.admin.modules.system.entity.SysDict;
 import io.admin.framework.data.repository.BaseDao;
 import io.admin.framework.data.query.JpaQuery;
@@ -46,13 +47,14 @@ public class SysDictDao extends BaseDao<SysDict> {
 
 
     @Transactional
-    public SysDict saveOrUpdate(String code, String label) {
+    public SysDict saveOrUpdate(String code, String label, boolean isNumber) {
         SysDict dict = this.findByCode(code);
         if(dict == null){
             dict = new SysDict();
             dict.setCode(code);
         }
         dict.setText(label);
+        dict.setIsNumber(isNumber);
       return  this.save(dict);
     }
 }

@@ -14,7 +14,7 @@ import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.log.Log;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.system.entity.OrgType;
+import io.admin.modules.system.enums.OrgType;
 import io.admin.modules.system.entity.SysOrg;
 import io.admin.modules.system.service.SysOrgService;
 import jakarta.annotation.Resource;
@@ -54,7 +54,7 @@ public class SysOrgController {
         }
 
         if (onlyShowUnit) {
-            q.eq(SysOrg.Fields.type, OrgType.UNIT);
+            q.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT.getCode());
         }
         q.searchText(searchText, SysOrg.Fields.name);
 
@@ -104,11 +104,12 @@ public class SysOrgController {
 
 
     private String getIconByType(int type) {
-        switch (type) {
-            case OrgType.UNIT -> {
+        OrgType orgType = OrgType.valueOf(type);
+        switch (orgType) {
+            case TYPE_UNIT -> {
                 return "ApartmentOutlined";
             }
-            case OrgType.DEPT -> {
+            case TYPE_DEPT -> {
                 return "HomeOutlined";
             }
 

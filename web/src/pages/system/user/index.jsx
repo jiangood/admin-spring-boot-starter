@@ -77,7 +77,7 @@ export default class extends React.Component {
             title: '数据权限',
             dataIndex: 'dataPermType',
             render(v) {
-                return DictUtils.dictValueTag('dataPermType', v)
+                return DictUtils.dictTag('dataPermType', v)
             }
         },
 

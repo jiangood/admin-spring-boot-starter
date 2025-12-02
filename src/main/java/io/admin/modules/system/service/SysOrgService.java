@@ -7,7 +7,7 @@ import io.admin.framework.data.service.BaseService;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysUserDao;
-import io.admin.modules.system.entity.OrgType;
+import io.admin.modules.system.enums.OrgType;
 import io.admin.modules.system.entity.SysOrg;
 import io.admin.modules.system.entity.SysUser;
 import jakarta.annotation.Resource;
@@ -65,7 +65,7 @@ public class SysOrgService extends BaseService<SysOrg> {
             q.eq(SysOrg.Fields.enabled, true);
         }
         if (!showDept) {
-            q.ne(SysOrg.Fields.type, OrgType.DEPT);
+            q.ne(SysOrg.Fields.type, OrgType.TYPE_DEPT.getCode());
         }
 
 
@@ -200,7 +200,7 @@ public class SysOrgService extends BaseService<SysOrg> {
         // 如果没有找到部门领导，则机构树的上一级部门找
         while (deptId != null) {
             SysOrg dept = sysOrgDao.findOne(deptId);
-            if (dept == null || dept.getType() != OrgType.UNIT) {
+            if (dept == null || dept.getType() != OrgType.TYPE_DEPT.getCode()) {
                 break;
             }
             SysUser leader = dept.getLeader();

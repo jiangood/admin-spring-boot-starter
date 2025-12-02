@@ -1,9 +1,9 @@
 package io.admin.modules.common.dto.response;
 
-import io.admin.modules.system.dto.response.SysDictTreeResponse;
-import io.admin.modules.system.entity.SysDictItem;
+import io.admin.modules.system.service.SysDictService;
 import lombok.Data;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class LoginDataResponse {
     private boolean needUpdatePwd;
 
 
-    private Map<String, List<SysDictItem>> dictMap;
+    private Map<String, Collection<SysDictService.SimpleDictItem>> dictMap;
 
     private LoginInfoResponse loginInfo;
 }

@@ -51,11 +51,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
 
 
-
-
-
-
-
     @Resource
     SysProp sysProp;
 

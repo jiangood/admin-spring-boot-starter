@@ -4,6 +4,7 @@ package io.admin.modules.system.entity;
 import io.admin.common.utils.tree.TreeNode;
 import io.admin.common.utils.ann.Remark;
 import io.admin.framework.data.domain.BaseEntity;
+import io.admin.modules.system.enums.OrgType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
@@ -75,7 +76,7 @@ public class SysOrg extends BaseEntity implements TreeNode<SysOrg> {
         if (type == null) {
             return false;
         }
-        return type == OrgType.DEPT;
+        return type == OrgType.TYPE_DEPT.getCode();
     }
 
 

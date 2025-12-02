@@ -7,7 +7,6 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.dto.antd.TreeOption;
-import io.admin.common.dto.table.Table;
 import io.admin.common.utils.tree.TreeTool;
 import io.admin.framework.config.SysProp;
 import io.admin.framework.config.argument.RequestBodyKeys;
@@ -20,7 +19,7 @@ import io.admin.common.dto.DropdownRequest;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.system.dto.request.GrantUserPermRequest;
 import io.admin.modules.system.dto.response.UserResponse;
-import io.admin.modules.system.entity.OrgType;
+import io.admin.modules.system.enums.OrgType;
 import io.admin.modules.system.entity.SysOrg;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.modules.system.service.SysOrgService;
@@ -78,7 +77,7 @@ public class SysUserController {
         boolean isNew = input.isNew();
         String inputOrgId = input.getDeptId();
         SysOrg org = sysOrgService.findByRequest(inputOrgId);
-        if (org.getType() == OrgType.UNIT) {
+        if (org.getType() == OrgType.TYPE_UNIT.getCode()) {
             input.setUnitId(inputOrgId);
             input.setDeptId(null);
         } else {

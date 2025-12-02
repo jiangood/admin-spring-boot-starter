@@ -4,6 +4,8 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.SpringUtils;
 import io.admin.common.utils.ann.Remark;
+import io.admin.common.utils.field.ValueType;
+import io.admin.framework.enums.CodeEnum;
 import io.admin.modules.system.dao.SysDictDao;
 import io.admin.modules.system.dao.SysDictItemDao;
 import io.admin.modules.system.entity.SysDict;
@@ -43,22 +45,37 @@ public class DictAnnHandler {
             }
 
 
-            SysDict sysDict = sysDictDao.saveOrUpdate(code, label);
+            boolean isCodeEnum = CodeEnum.class.isAssignableFrom(cls);
 
+
+
+            SysDict sysDict = sysDictDao.saveOrUpdate(code, label, isCodeEnum);
+
+            boolean buildin = true;
             Field[] fields = cls.getFields();
-            for (int i = 0; i < fields.length; i++) {
+            if (isCodeEnum) {
+                Object[] enumConstants = cls.getEnumConstants();
+                for (int i = 0; i < enumConstants.length; i++){
+                    CodeEnum codeEnum = (CodeEnum) enumConstants[i];
+                    sysDictItemDao.saveOrUpdate(sysDict, String.valueOf(codeEnum.getCode()), codeEnum.getMsg(), i, buildin);
+                }
 
-                Field field = fields[i];
-                String key = field.getName();
-                Remark fieldAnnotation = field.getAnnotation(Remark.class);
-                Assert.notNull(fieldAnnotation, "需要有" + Remark.class.getName() + "注解");
+            }else {
+                for (int i = 0; i < fields.length; i++) {
+                    Field field = fields[i];
 
-                String text = fieldAnnotation.value();
+                    String key = field.getName();
+                    Remark fieldAnnotation = field.getAnnotation(Remark.class);
+                    Assert.notNull(fieldAnnotation, "需要有" + Remark.class.getName() + "注解");
 
+                    String text = fieldAnnotation.value();
+                    sysDictItemDao.saveOrUpdate(sysDict, key, text, i, buildin);
 
+                }
 
-                sysDictItemDao.saveOrUpdate(sysDict, key, text, i, true);
             }
+
+
         }
     }
 
