@@ -6,6 +6,7 @@ import io.admin.modules.flowable.core.config.meta.ProcessMeta;
 import io.admin.modules.flowable.core.FlowableManager;
 
 import jakarta.annotation.Resource;
+import lombok.AllArgsConstructor;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Model;
 import org.springframework.util.Assert;
@@ -15,20 +16,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("admin/flowable/test")
+@AllArgsConstructor
 public class TestController {
 
-
-
-    @Resource
     private FlowableManager flowableManager;
-
-    @Resource
     private ProcessMetaCfg metaCfg;
-
-    @Resource
     private RepositoryService repositoryService;
-
-
 
     @GetMapping("get")
     public AjaxResult get(String id) {
