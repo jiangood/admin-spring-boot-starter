@@ -9,12 +9,11 @@ import io.admin.common.utils.ann.RemarkTool;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.query.JpaQuery;
-import io.admin.modules.flowable.admin.entity.ConditionVariable;
-import io.admin.modules.flowable.admin.entity.FormKey;
 import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
+import io.admin.modules.flowable.core.definition.FormDefinition;
 import io.admin.modules.flowable.core.definition.ProcessDefinitionRegistry;
-import io.admin.modules.flowable.dto.ProcessDefinitionInfo;
+import io.admin.modules.flowable.core.dto.ProcessDefinitionInfo;
 import io.admin.modules.system.entity.SysRole;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.modules.system.service.SysRoleService;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * 流程模型控制器
@@ -100,13 +98,8 @@ public class ModelDesignController {
 
         ProcessDefinitionInfo info = registry.getInfo(model.getCode());
 
-        List<ConditionVariable> conditionVariable = info.getConditionVariableList();
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("model", model);
-        data.put("conditionVariable", conditionVariable);
-
-        return AjaxResult.ok().data(data);
+        return AjaxResult.ok().data(info);
     }
 
 
@@ -134,9 +127,9 @@ public class ModelDesignController {
     @GetMapping("formOptions")
     public AjaxResult formOptions(String code) {
         ProcessDefinitionInfo info = registry.getInfo(code);
-        List<FormKey> formKeyList = info.getFormKeyList();
+        List<FormDefinition> formList = info.getFormList();
 
-        return AjaxResult.ok().data(formKeyList);
+        return AjaxResult.ok().data(formList);
     }
 
     @GetMapping("assigneeOptions")
@@ -197,8 +190,7 @@ public class ModelDesignController {
     @GetMapping("varList")
     public AjaxResult varOptions(String code) {
         ProcessDefinitionInfo info = registry.getInfo(code);
-        List<ConditionVariable> list = info.getConditionVariableList();
-        return AjaxResult.ok().data(list);
+        return AjaxResult.ok().data(info.getConditionVariableList());
     }
 
 }

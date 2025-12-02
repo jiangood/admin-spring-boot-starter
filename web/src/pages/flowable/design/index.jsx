@@ -24,7 +24,6 @@ export default class extends React.Component {
     state = {
         id: null,
         model: null,
-        conditionVariable: null,
     }
 
     bpmRef = React.createRef()
@@ -35,8 +34,7 @@ export default class extends React.Component {
         let params = PageUtils.currentParams()
         this.state.id = params.id
         const rs = await HttpUtils.get('admin/flowable/model/detail', {id: this.state.id})
-        let {conditionVariable, model} = rs;
-        this.setState({model, conditionVariable}, this.initBpmn)
+        this.setState({model:rs}, this.initBpmn)
     }
 
     initBpmn = () => {

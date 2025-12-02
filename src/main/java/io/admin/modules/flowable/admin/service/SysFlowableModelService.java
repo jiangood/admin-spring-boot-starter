@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.flowable.admin.dao.SysFlowableModelDao;
-import io.admin.modules.flowable.admin.entity.ConditionVariable;
 import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

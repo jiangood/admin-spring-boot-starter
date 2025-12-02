@@ -16,7 +16,7 @@ import java.util.Map;
 public class TestController {
 
     @Resource
-    private SysFlowableModelService myFlowModelService;
+    private SysFlowableModelService sysFlowableModelService;
 
     @Resource
     private FlowableManager fm;
@@ -25,7 +25,7 @@ public class TestController {
     @GetMapping("get")
     public AjaxResult get(String id) {
         Assert.hasText(id, "id不能为空");
-        SysFlowableModel model = myFlowModelService.findOne(id);
+        SysFlowableModel model = sysFlowableModelService.findOne(id);
         return AjaxResult.ok().data(model);
     }
 

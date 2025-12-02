@@ -1,27 +1,17 @@
 package io.admin.modules.flowable.core.definition;
 
-import io.admin.modules.flowable.core.FlowableEventType;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
 
-/**
- * 流程定义接口
- */
-public interface ProcessDefinition {
+@Data
+public class ProcessDefinition {
+    private String key;
+    private String name;
 
+    private Class<? extends ProcessListener> listener;
+    // ... 其他字段
 
-
-
-    /**
-     *
-     * @param type
-     * @param initiator 发起人
-     * @param businessKey 业务标识，如key
-     * @param variables 变量
-     */
-    @Transactional
-    void onProcessEvent(FlowableEventType type, String initiator, String businessKey, Map<String, Object> variables);
-
-
+    private List<ProcessVariable> variables; // 变量名更改
+    private List<FormDefinition> forms;       // 变量名更改
 }

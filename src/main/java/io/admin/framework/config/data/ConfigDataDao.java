@@ -3,12 +3,15 @@ package io.admin.framework.config.data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.setting.yaml.YamlUtil;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import io.admin.common.utils.SpringUtils;
+import io.admin.common.utils.YmlUtils;
 import io.admin.common.utils.tree.TreeTool;
 import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
@@ -125,14 +128,7 @@ public class ConfigDataDao {
 
     @SneakyThrows
     private DataPropConfig parseResource(Resource resource) {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE);
-        mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
-
-        try (InputStream is = resource.getInputStream()) {
-            return mapper.readValue(is, DataRoot.class).getData();
-        }
-
+      return YmlUtils.parseYml(resource, DataRoot.class).getData();
     }
 
 

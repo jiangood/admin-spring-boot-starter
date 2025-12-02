@@ -1,0 +1,25 @@
+# 流程定义列表
+process:
+  definitions:
+    - key: "leave_request"
+      name: "请假流程"
+      listener: io.admin.modules.flowable.demo.LeaveProcessListener
+
+      variables:
+        - name: "days"
+          label: "请假天数"
+          type: "number" # 优化：使用小写类型名
+          required: true
+        - name: "reason"
+          label: "请假原因"
+          type: "string"
+          required: true
+
+      # 流程中各个节点对应的表单定义
+      forms:
+        - key: "start_form"
+          label: "请假申请表"
+        - key: "manager_approve_form"
+          label: "经理审批表"
+        - key: "finish_view"
+          label: "流程结果查看"

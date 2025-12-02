@@ -1,7 +1,7 @@
 package io.admin.modules.flowable.core.config;
 
 import io.admin.modules.flowable.core.FlowableEventType;
-import io.admin.modules.flowable.core.definition.ProcessDefinition;
+import io.admin.modules.flowable.core.definition.ProcessListener;
 import io.admin.modules.flowable.core.definition.ProcessDefinitionRegistry;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class GlobalProcessListener implements FlowableEventListener {
         String definitionKey = execution.getProcessDefinitionKey();
 
 
-        ProcessDefinition listener = registry.getDefinition(definitionKey);
+        ProcessListener listener = registry.getDefinition(definitionKey);
         if (listener == null) {
             return;
         }

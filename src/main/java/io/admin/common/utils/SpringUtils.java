@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 public class SpringUtils extends SpringUtil implements ApplicationContextAware {
 
 
+
+
     /**
      * Spring应用上下文环境
      */
@@ -28,6 +30,9 @@ public class SpringUtils extends SpringUtil implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) {
         SpringUtils.applicationContext = applicationContext;
     }
+
+
+
 
     /**
      * 获取{@link ApplicationContext}

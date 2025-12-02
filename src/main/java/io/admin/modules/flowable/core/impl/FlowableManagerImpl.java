@@ -3,11 +3,11 @@ package io.admin.modules.flowable.core.impl;
 import io.admin.common.utils.DateFormatTool;
 import io.admin.framework.config.security.LoginUser;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.flowable.admin.entity.ConditionVariable;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
 import io.admin.modules.flowable.core.FlowableManager;
 import io.admin.modules.flowable.core.definition.ProcessDefinitionRegistry;
-import io.admin.modules.flowable.dto.ProcessDefinitionInfo;
+import io.admin.modules.flowable.core.definition.ProcessVariable;
+import io.admin.modules.flowable.core.dto.ProcessDefinitionInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.IdentityService;
@@ -95,9 +95,9 @@ public class FlowableManagerImpl implements FlowableManager {
 
         // 判断必填流程变量
         ProcessDefinitionInfo info = registry.getInfo(processDefinitionKey);
-        List<ConditionVariable> conditionVariable = info.getConditionVariableList();
-        if (!CollectionUtils.isEmpty(conditionVariable)) {
-            for (ConditionVariable formItem : conditionVariable) {
+        List<ProcessVariable> variableList = info.getConditionVariableList();
+        if (!CollectionUtils.isEmpty(variableList)) {
+            for (ProcessVariable formItem : variableList) {
                 String name = formItem.getName();
                 Assert.state(variables.containsKey(name), "流程异常, 必填变量未设置：" + formItem.getLabel() + ":" + name);
                 Object v = variables.get(name);

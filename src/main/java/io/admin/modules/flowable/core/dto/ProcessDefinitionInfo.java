@@ -1,7 +1,7 @@
-package io.admin.modules.flowable.dto;
+package io.admin.modules.flowable.core.dto;
 
-import io.admin.modules.flowable.admin.entity.ConditionVariable;
-import io.admin.modules.flowable.admin.entity.FormKey;
+import io.admin.modules.flowable.core.definition.FormDefinition;
+import io.admin.modules.flowable.core.definition.ProcessVariable;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -19,6 +19,6 @@ public class ProcessDefinitionInfo {
     private  String code;
 
 
-    private List<FormKey> formKeyList = new ArrayList<>();
-    private List<ConditionVariable> conditionVariableList = new ArrayList<>();
+    private List<FormDefinition> formList = new ArrayList<>();
+    private List<ProcessVariable> conditionVariableList = new ArrayList<>();
 }
