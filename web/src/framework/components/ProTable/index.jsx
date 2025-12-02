@@ -91,7 +91,8 @@ export class ProTable extends React.Component {
         })
     }
 
-// 数据重新加载后，更新toolbar需要的已选择数据行
+
+    // 数据重新加载后，更新toolbar需要的已选择数据行
     updateSelectedRows = list => {
         const {rowKey = "id"} = this.props
         const {selectedRows} = this.state
@@ -121,10 +122,7 @@ export class ProTable extends React.Component {
 
 
         return <div className={'tmgg-pro-table '} id={this.id}>
-
             {this.renderForm()}
-
-
                 {toolbarOptions !== false && <Toolbar
                     actionRef={actionRef}
                     toolBarRender={this.getToolBarRenderNode(toolBarRender)}

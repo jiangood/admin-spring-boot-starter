@@ -1,6 +1,5 @@
 /**
- * @fileoverview 主题相关的工具类
- * @description 将原对象导出转换为一个Utils类，以Utils结尾
+ * 主题相关的工具类
  */
 export class ThemeUtils {
     // 使用 readonly 属性来定义主题常量，保持其不可变性
@@ -28,8 +27,8 @@ export class ThemeUtils {
      * @returns 对应的颜色值，如果键名不存在则返回undefined
      */
     public static getColor(key: keyof typeof ThemeUtils.theme): string | undefined {
-    return ThemeUtils.theme[key];
-}
+        return ThemeUtils.theme[key];
+    }
 }
 
 // 示例：如果你需要在其他地方导入并使用主题颜色

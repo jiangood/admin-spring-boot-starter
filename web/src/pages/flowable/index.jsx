@@ -1,7 +1,6 @@
-import {Button, Popconfirm, Space, Typography} from 'antd';
+import {Button, Popconfirm, Space} from 'antd';
 import React from 'react';
-import {QuestionCircleOutlined} from "@ant-design/icons";
-import {ButtonList, Gap, HttpUtils, MessageUtils, PageUtils, ProTable} from "../../framework";
+import {ButtonList, HttpUtils, PageUtils, ProTable} from "../../framework";
 
 export default class extends React.Component {
 
@@ -43,8 +42,6 @@ export default class extends React.Component {
     ];
 
 
-
-
     handleDelete = row => {
         HttpUtils.get('admin/flowable/model/delete', {id: row.id}).then(rs => {
             this.actionRef.current.reload();
@@ -62,13 +59,13 @@ export default class extends React.Component {
                 showToolbarSearch={true}
                 toolBarRender={() => {
                     return <ButtonList>
-                        <Button    onClick={() => PageUtils.open('/flowable/monitor/task', "运行中的任务")}>
+                        <Button onClick={() => PageUtils.open('/flowable/monitor/task', "运行中的任务")}>
                             运行中的任务
                         </Button>
-                        <Button    onClick={() => PageUtils.open('/flowable/monitor/instance', "运行中的流程实例")}>
+                        <Button onClick={() => PageUtils.open('/flowable/monitor/instance', "运行中的流程实例")}>
                             运行中的流程实例
                         </Button>
-                        <Button    onClick={() => PageUtils.open('/flowable/monitor/definition', "已部署的流程定义")}>
+                        <Button onClick={() => PageUtils.open('/flowable/monitor/definition', "已部署的流程定义")}>
                             已部署的流程定义
                         </Button>
                     </ButtonList>

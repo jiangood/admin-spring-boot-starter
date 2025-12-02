@@ -12,11 +12,8 @@ data:
               name: 部署
             - perm: flowableTask:setAssignee
               name: 动态修改受理人
-
-
-
-
-
+            - perm: flowableInstance:close
+              name: 终止流程
     - name: 我的任务
       id: myFlowableTask
       path: /flowable/task

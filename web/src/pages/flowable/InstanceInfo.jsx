@@ -91,8 +91,9 @@ export default class InstanceInfo extends React.Component {
     renderProcess = (img, commentList) => <Card title='处理记录'>
         {img && <img src={img} style={{maxWidth: '100%'}}
                      onClick={this.onImgClick}/>}
+        <Gap></Gap>
         <Table dataSource={commentList}
-               bordered
+
                size='small'
                pagination={false}
                rowKey='id'

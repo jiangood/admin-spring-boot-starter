@@ -2,12 +2,12 @@ import axios, {AxiosRequestConfig, AxiosResponse, Method} from "axios";
 import {message as messageUtil, Modal} from "antd";
 import qs from 'qs';
 import {PageUtils} from "./PageUtils";
-import {MsgBox} from "../../components"; // 假设路径正确
+import {MessageUtils} from "../MessageUtils";
 
 
 const axiosInstance = axios.create({
     withCredentials: true,
-    headers:{
+    headers: {
         'Content-Type': 'application/json'
     },
     // 解决get请求时，数组参数的问题
@@ -17,12 +17,10 @@ const axiosInstance = axios.create({
 })
 
 
-
 /**
  * @description HTTP请求工具类
  */
 export class HttpUtils {
-
 
 
     /**
@@ -31,63 +29,67 @@ export class HttpUtils {
      * @param transformData 是否返回最总的data字段
      * @returns Promise<any>
      */
-    private static async coreRequest(config: AxiosRequestConfig, transformData:boolean=true): Promise<any> {
+    // ... existing code ...
+    private static coreRequest(config: AxiosRequestConfig, transformData: boolean = true): Promise<any> {
         const url = config.url;
         config.url = url.startsWith('admin') ? '/' + url : url;
 
-        try {
-            const response: AxiosResponse = await axios(config);
-            const body = response.data;
-            // 假设后端响应结构为 { success: boolean | null, message: string, data: any, code: number }
-            let {success, message, data} = body;
-            if (success == undefined) { // 如果没有success字段，说明非标准接口
-                return response;
-            }
+        return new Promise((resolve, reject) => {
+            axios(config).then((response: AxiosResponse) => {
+                const body = response.data;
+                // 假设后端响应结构为 { success: boolean | null, message: string, data: any, code: number }
+                let {success, message, data} = body;
+                if (success == undefined) { // 如果没有success字段，说明非标准接口
+                    return response;
+                }
 
-            if (!success) {
-                messageUtil.error(message || '操作失败');
-                return
-            }
+                if (!success) {
+                    messageUtil.error(message || '操作失败');
+                    reject('操作失败');
+                    return
+                }
 
-            // 自动消息提示
-            if (message) {
-                messageUtil.success(message);
-            }
+                // 自动消息提示
+                if (message) {
+                    messageUtil.success(message);
+                }
+                resolve(transformData ? data : response);
+            }).catch((e: unknown) => {
+                // 统一异常处理
+                let msg = '操作失败';
 
-            return transformData ? data : response;
-        } catch (e: unknown) {
-            // 统一异常处理
-            let msg = '操作失败';
+                if (axios.isAxiosError(e)) {
+                    const status = e.response?.status;
+                    const responseData = e.response?.data;
 
-            if (axios.isAxiosError(e)) {
-                const status = e.response?.status;
-                const responseData = e.response?.data;
-
-                if (status === 401) {
-                    // 登录过期处理
-                    MsgBox.confirm('登录已过期，请重新登录').then(() => {
-                        PageUtils.redirectToLogin();
-                    });
-                    // 阻止后续的错误提示，返回一个特殊 Promise.reject
-                    return Promise.reject('登录过期');
-                } else if (status === 504) {
-                    msg = '504 请求后端服务失败';
-                } else if (responseData && responseData.message) {
-                    msg = responseData.message;
-                } else if (e.message) {
+                    if (status === 401) {
+                        // 登录过期处理
+                        MessageUtils.confirm('登录已过期，请重新登录').then(() => {
+                            PageUtils.redirectToLogin();
+                        });
+                        // 阻止后续的错误提示，返回一个特殊 Promise.reject
+                         reject('登录过期');
+                        return
+                    }
+                    if (status === 504) {
+                        msg = '504 请求后端服务失败';
+                    } else if (responseData && responseData.message) {
+                        msg = responseData.message;
+                    } else if (e.message) {
+                        msg = e.message;
+                    }
+                } else if (e instanceof Error) {
+                    // 可能是后端success=false抛出的自定义错误
                     msg = e.message;
                 }
-            } else if (e instanceof Error) {
-                // 可能是后端success=false抛出的自定义错误
-                msg = e.message;
-            }
 
-            messageUtil.error(msg);
+                messageUtil.error(msg);
 
-            // 将原始错误或处理后的错误信息向外抛出
-             throw e;
+                // 将原始错误或处理后的错误信息向外抛出
+                reject(e);
+            });
+        })
 
-        }
     }
 
 
@@ -154,7 +156,6 @@ export class HttpUtils {
             resolve();
         });
     }
-
 
 
     /**
@@ -233,7 +234,7 @@ export class HttpUtils {
 
         try {
             // coreRequest返回的是完整的 AxiosResponse，因此需要类型断言
-            const response = await HttpUtils.coreRequest(downloadConfig,false) as AxiosResponse;
+            const response = await HttpUtils.coreRequest(downloadConfig, false) as AxiosResponse;
             await HttpUtils.handleDownloadBlob(response);
         } catch (error) {
             // coreRequest已经处理了401、504和通用的错误提示

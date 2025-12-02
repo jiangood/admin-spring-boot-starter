@@ -3,7 +3,7 @@ import {Button, Form, Input, message, Space} from 'antd';
 import {LockOutlined, SafetyCertificateOutlined, UserOutlined, WarningOutlined} from '@ant-design/icons';
 import "./login.less"
 import {history} from 'umi';
-import {HttpUtils, MsgBox, PageUtils, SysUtils} from "../framework";
+import {HttpUtils, MessageUtils, PageUtils, SysUtils} from "../framework";
 import {JSEncrypt} from "jsencrypt";
 
 
@@ -37,7 +37,7 @@ export default class login extends React.Component {
         }
 
         if (localStorage.length === 0) {
-            MsgBox.toast('站点数据缺失，刷新当前页面...')
+            MessageUtils.alert('站点数据缺失，刷新当前页面...')
             window.location.reload()
             return
         }

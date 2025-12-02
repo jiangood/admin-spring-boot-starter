@@ -1,15 +1,18 @@
 package io.admin.modules.flowable.admin.controller;
 
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.security.HasPermission;
+import io.admin.framework.log.Log;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.flowable.core.dto.request.SetAssigneeRequest;
 import io.admin.modules.flowable.core.dto.response.MonitorTaskResponse;
+import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.system.service.SysUserService;
 import lombok.AllArgsConstructor;
+import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +46,8 @@ public class MonitorController {
     private RuntimeService runtimeService;
     private TaskService taskService;
     private SysUserService sysUserService;
-
     private FlowableService flowableService;
+    private HistoryService historyService;
 
     @GetMapping("definitionPage")
     public AjaxResult processDefinition(Pageable pageable) {
@@ -116,12 +120,36 @@ public class MonitorController {
         return AjaxResult.ok().data(new PageImpl<>(mapList, pageable, count));
     }
 
+    @Log("关闭流程实例")
+    @HasPermission("flowableInstance:close")
     @GetMapping("processInstance/close")
     public AjaxResult processInstanceClose(String id) {
         String name = LoginUtils.getUser().getName();
         runtimeService.deleteProcessInstance(id, name + "手动关闭");
 
         return AjaxResult.ok();
+    }
+
+    @GetMapping("instance/vars")
+    public AjaxResult instanceVars(String id) {
+        ProcessInstance instance = runtimeService.createProcessInstanceQuery()
+                .includeProcessVariables()
+                .processInstanceId(id)
+                .singleResult();
+
+
+        Map<String, Object> processVariables = instance.getProcessVariables();
+        List<Map<String, Object>> list = new ArrayList<>();
+        processVariables.forEach((k, v) -> {
+
+            Map<String, Object> item = new HashMap<>();
+            item.put("key", k);
+            item.put("value", v);
+            list.add(item);
+        });
+
+
+        return AjaxResult.ok().data(new PageImpl<>(list));
     }
 
 

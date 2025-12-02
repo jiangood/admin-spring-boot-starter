@@ -8,7 +8,6 @@ import zhCN from 'antd/locale/zh_CN';
 import {
     ArrUtils,
     HttpUtils,
-    MsgBoxComponent,
     PageLoading, PageUtils,
     SysUtils, ThemeUtils,
 } from "../framework";
@@ -138,22 +137,17 @@ class _Layouts extends React.Component {
                         triggerHeight: 32
                     },
 
+
                 }
             }}>
 
             {this.renderContent()}
 
-            {this.renderGlobalComponent()}
         </ConfigProvider>
     }
 
 
-    renderGlobalComponent() {
-        console.log('渲染全局组件')
-        return <div className='global-component'>
-            <MsgBoxComponent/>
-        </div>
-    }
+
 }
 
 export const Layouts = withRouter(_Layouts);

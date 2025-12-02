@@ -4,12 +4,11 @@ import type {ArgsProps, NotificationPlacement} from 'antd/es/notification/interf
 import React from 'react';
 import {ThemeUtils} from "./system";
 
-// --- MsgUtils 类 (包含静态方法的工具类) ---
 
-
+let color = ThemeUtils.getColor('primary-color');
 const buttonStyles = {
     root: {
-        backgroundColor: ThemeUtils.getColor('primary-color')
+        backgroundColor: color
     }
 }
 

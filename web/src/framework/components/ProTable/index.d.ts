@@ -4,8 +4,12 @@ import {ColumnsType} from "antd/es/table";
 
 declare type ProTableProps = {
     columns:  ColumnsType,
-    // 请求数据，注意：需处理下载
+    /**
+     * 请求函数
+      */
     request: (params:any)=>{};
+
+    rowKey?: string,
 
     // 选择行，通ant table
     rowSelection?: any,

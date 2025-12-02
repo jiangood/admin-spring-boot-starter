@@ -2,7 +2,7 @@ import {Badge, Dropdown} from "antd";
 import {NotificationOutlined, QuestionCircleOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import React from "react";
 import {history} from "umi";
-import {DeviceUtils, HttpUtils, MsgBox, PageUtils, SysUtils} from "../../framework";
+import {DeviceUtils, HttpUtils, MessageUtils,  PageUtils, SysUtils} from "../../framework";
 
 
 const ID = 'header-right';
@@ -24,10 +24,10 @@ export default class HeaderRight extends React.Component {
     logout = () => {
         HttpUtils.post('admin/auth/logout').then(async () => {
             localStorage.clear()
-            await MsgBox.alert('退出登录成功');
+            await MessageUtils.alert('退出登录成功');
             history.replace('/login')
         }).catch(async e => {
-            let confirm = await MsgBox.confirm('退出登录失败，是否清空缓存');
+            let confirm = await MessageUtils.confirm('退出登录失败，是否清空缓存');
             if (confirm) {
                 localStorage.clear();
                 history.replace('/login')

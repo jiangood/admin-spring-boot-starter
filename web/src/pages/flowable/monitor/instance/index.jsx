@@ -1,5 +1,5 @@
-import {Popconfirm} from "antd";
-import {HttpUtils, ProTable} from "../../../framework";
+import {Button, Popconfirm, Space} from "antd";
+import {HttpUtils, PageUtils, ProTable} from "../../../../framework";
 import React from "react";
 
 export default class extends React.Component {
@@ -144,8 +144,14 @@ export default class extends React.Component {
         {
             dataIndex: 'options',
             title: '操作',
+            fixed: 'right',
             render: (_, r) => {
-                return <Popconfirm title={'关闭流程'} onConfirm={() => this.close(r.id)}> <a>关闭流程</a></Popconfirm>
+                return <Space>
+                    <Button size='small' onClick={() => PageUtils.open(`/flowable/monitor/instance/view?id=${r.id}`, '查看流程')}>查看</Button>
+                    <Popconfirm title={'关闭流程'}
+                                onConfirm={() => this.close(r.id)}>
+                        <a>关闭流程</a>
+                    </Popconfirm></Space>
             }
         }
 

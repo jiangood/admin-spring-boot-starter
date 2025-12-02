@@ -16,7 +16,6 @@
 | --- | --- |
 | `DownloadFileButton` | 一个点击后会触发文件下载并显示加载状态的按钮。 |
 | `LinkButton` | 一个用于页面导航的按钮。 |
-| `MsgBox` | 提供静态方法来显示 alert, confirm 和 prompt 对话框。 |
 | `NamedIcon` | 根据名称渲染一个 Ant Design 图标。 |
 | `PageLoading` | 在页面加载时显示一个居中的加载指示器。 |
 
