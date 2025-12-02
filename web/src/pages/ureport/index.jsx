@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from "antd";
-import {ButtonList, ProTable} from "../../framework";
+import {ButtonList, HttpUtils, Page, ProTable} from "../../framework";
 
 export default class extends React.Component {
 
@@ -10,7 +10,7 @@ export default class extends React.Component {
 
 
     render() {
-        return <div>
+        return <Page padding>
 
             <ProTable
                 toolBarRender={() => <Button type='primary'
@@ -33,7 +33,7 @@ export default class extends React.Component {
                 ]}></ProTable>
 
 
-        </div>
+        </Page>
     }
 
 
