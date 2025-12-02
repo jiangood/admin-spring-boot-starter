@@ -208,7 +208,7 @@ export default class extends React.Component {
                             </Form.Item>
 
                             <Form.Item label='部门领导' name={['leader','id']} >
-                                <FieldUserSelect />
+                                <FieldUserSelect  />
                             </Form.Item>
                             <Form.Item label='启用' name='enabled' rules={[{required: true}]}>
                                 <FieldBoolean/>

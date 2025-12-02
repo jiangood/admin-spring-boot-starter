@@ -39,19 +39,17 @@ export class DictUtils {
      * @returns 对应的字典项列表，未找到返回空数组
      */
     public static dictList(code: string): DictItem[] {
-        // 假设 SysUtil.getDictInfo() 返回 DictMap
         const map: DictMap | undefined = SysUtils.getDictInfo();
         if (map === undefined) {
             return [];
         }
 
         // 尝试使用原始大写Code
-        const code1: string = code.toUpperCase();
         // 尝试使用下划线大写Code (例如 'userStatus' -> 'USER_STATUS')
         const code2: string = StringUtils.toUnderlineCase(code).toUpperCase();
 
         // 优先匹配 code1，然后 code2
-        return map[code1] || map[code2] || [];
+        return  map[code2] || [];
     }
 
     /**

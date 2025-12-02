@@ -5,7 +5,7 @@ import io.admin.framework.config.security.LoginUser;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.flowable.core.config.ProcessMetaCfg;
 import io.admin.modules.flowable.core.FlowableManager;
-import io.admin.modules.flowable.core.definition.ProcessVariable;
+import io.admin.modules.flowable.core.config.meta.ProcessVariable;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.BpmnModel;
@@ -40,7 +40,8 @@ public class FlowableManagerImpl implements FlowableManager {
     }
 
     @Override
-    public void start(String processDefinitionKey, String bizKey, String title, Map<String, Object> variables) {
+    public void start(String key, String bizKey, String title, Map<String, Object> variables) {
+        Assert.notNull(key,"key不能为空");
         if (variables == null) {
             variables = new HashMap<>();
         }
@@ -53,7 +54,7 @@ public class FlowableManagerImpl implements FlowableManager {
 
         // 流程名称
         ProcessDefinition def = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionKey(processDefinitionKey).active()
+                .processDefinitionKey(key).active()
                 .latestVersion()
                 .singleResult();
         Assert.notNull(def, "流程部署");
@@ -72,7 +73,7 @@ public class FlowableManagerImpl implements FlowableManager {
 
         // 启动
         runtimeService.createProcessInstanceBuilder()
-                .processDefinitionKey(processDefinitionKey)
+                .processDefinitionKey(key)
                 .businessKey(bizKey)
                 .variables(variables)
                 .name(title)

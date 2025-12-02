@@ -9,8 +9,8 @@ import io.admin.common.utils.ann.RemarkTool;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.query.JpaQuery;
 import io.admin.modules.flowable.core.config.ProcessMetaCfg;
-import io.admin.modules.flowable.core.definition.FormDefinition;
-import io.admin.modules.flowable.core.definition.ProcessMeta;
+import io.admin.modules.flowable.core.config.meta.FormDefinition;
+import io.admin.modules.flowable.core.config.meta.ProcessMeta;
 import io.admin.modules.flowable.utils.ModelUtils;
 import io.admin.modules.system.entity.SysRole;
 import io.admin.modules.system.entity.SysUser;
@@ -87,9 +87,15 @@ public class ModelController {
 
     @GetMapping("detail")
     public AjaxResult detail(String id) {
-        Model model1 = repositoryService.getModel(id);
+        Model model = repositoryService.getModel(id);
+        byte[] source = repositoryService.getModelEditorSource(id);
 
-        return AjaxResult.ok().data(model1);
+        Map<String, Object> data = new HashMap<>();
+        data.put("id",id);
+        data.put("name",model.getName());
+        data.put("content", new String(source,StandardCharsets.UTF_8));
+
+        return AjaxResult.ok().data(data);
     }
 
 
@@ -108,7 +114,7 @@ public class ModelController {
     public AjaxResult save(@RequestBody ModelRequest param) throws Exception {
         Assert.hasText(param.content(), "内容不能为空");
         repositoryService.addModelEditorSource(param.id(), param.content().getBytes(StandardCharsets.UTF_8));
-        return AjaxResult.ok();
+        return AjaxResult.ok().msg("保存成功");
     }
 
 

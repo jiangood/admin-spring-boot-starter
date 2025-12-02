@@ -3,7 +3,7 @@ package io.admin.modules.flowable.core.config;
 
 import io.admin.framework.config.init.SystemHookEventType;
 import io.admin.framework.config.init.SystemHookService;
-import io.admin.modules.flowable.core.definition.ProcessMeta;
+import io.admin.modules.flowable.core.config.meta.ProcessMeta;
 import io.admin.modules.flowable.utils.ModelUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

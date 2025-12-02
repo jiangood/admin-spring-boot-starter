@@ -1,17 +1,16 @@
 package io.admin.modules.flowable.admin.controller;
 
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.log.Log;
 import io.admin.modules.common.LoginUtils;
-import io.admin.modules.flowable.core.dto.request.SetAssigneeRequest;
 import io.admin.modules.flowable.core.dto.response.MonitorTaskResponse;
 import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.system.service.SysUserService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
@@ -183,10 +182,12 @@ public class MonitorController {
         return AjaxResult.ok().data(new PageImpl<>(responseList));
     }
 
+    public record SetAssigneeRequest(String taskId, String assignee) {}
+
     @HasPermission("flowableTask:setAssignee")
     @RequestMapping("setAssignee")
     public AjaxResult setAssignee(@RequestBody SetAssigneeRequest request) {
-        taskService.setAssignee(request.getTaskId(), request.getAssignee());
+        taskService.setAssignee(request.taskId(), request.assignee());
         return AjaxResult.ok().msg("设置任务处理人成功");
     }
 

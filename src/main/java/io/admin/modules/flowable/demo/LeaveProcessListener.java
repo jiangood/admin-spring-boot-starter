@@ -1,7 +1,7 @@
 package io.admin.modules.flowable.demo;
 
 import io.admin.modules.flowable.core.FlowableEventType;
-import io.admin.modules.flowable.core.definition.ProcessListener;
+import io.admin.modules.flowable.core.config.meta.ProcessListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

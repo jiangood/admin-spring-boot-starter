@@ -3,7 +3,7 @@ package io.admin.modules.flowable.core.config;
 // ... imports
 
 import io.admin.common.utils.YmlUtils;
-import io.admin.modules.flowable.core.definition.ProcessMeta;
+import io.admin.modules.flowable.core.config.meta.ProcessMeta;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

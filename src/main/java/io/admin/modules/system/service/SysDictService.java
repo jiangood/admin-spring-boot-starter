@@ -1,18 +1,12 @@
 
 package io.admin.modules.system.service;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import io.admin.common.utils.tree.TreeTool;
-import io.admin.common.dto.antd.Option;
-import io.admin.modules.system.dto.response.SysDictTreeResponse;
+import cn.hutool.core.util.StrUtil;
+import io.admin.framework.data.service.BaseService;
 import io.admin.modules.system.dao.SysDictDao;
 import io.admin.modules.system.dao.SysDictItemDao;
 import io.admin.modules.system.entity.SysDict;
 import io.admin.modules.system.entity.SysDictItem;
-import io.admin.framework.data.domain.BaseEntity;
-import io.admin.framework.data.service.BaseService;
-import io.admin.framework.data.query.JpaQuery;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -62,28 +56,16 @@ public class SysDictService extends BaseService<SysDict> {
         return dict;
     }
 
-    public String findTextByDictCodeAndKey(String code, String key) {
-        return sysDictItemDao.findText(code, key);
-    }
-
-    public List<Option> findOptions(String code) {
-        List<SysDictItem> list = sysDictItemDao.findAllByDictCode(code);
-
-        return Option.convertList(list, BaseEntity::getId, SysDictItem::getText);
-    }
-
-
-
 
     public Map<String, List<SysDictItem>> mapList() {
         List<SysDictItem> dictData = sysDictItemDao.findAll(Sort.by(SysDictItem.Fields.seq));
-        Map<String, List<SysDictItem>> map = dictData.stream().collect(Collectors.groupingBy(t->t.getSysDict().getCode().toUpperCase()));
-        return map;
-    }
 
-    public Object getFinalKey(SysDictItem item) {
-        String code = item.getCode();
-        return code;
+        Map<String, List<SysDictItem>> map = dictData.stream().collect(Collectors.groupingBy(t-> {
+            String code = t.getSysDict().getCode();
+            code = StrUtil.toUnderlineCase(code);
+            return code.toUpperCase();
+        }));
+        return map;
     }
 
 }

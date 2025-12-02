@@ -1,4 +1,4 @@
-package io.admin.modules.flowable.core.definition;
+package io.admin.modules.flowable.core.config.meta;
 
 import lombok.Data;
 
