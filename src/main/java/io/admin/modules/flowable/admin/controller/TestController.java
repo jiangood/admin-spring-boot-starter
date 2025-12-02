@@ -5,6 +5,8 @@ import io.admin.modules.flowable.admin.entity.SysFlowableModel;
 import io.admin.modules.flowable.admin.service.SysFlowableModelService;
 import io.admin.modules.flowable.core.FlowableManager;
 
+import io.admin.modules.flowable.core.definition.ProcessDefinitionRegistry;
+import io.admin.modules.flowable.core.dto.ProcessDefinitionInfo;
 import jakarta.annotation.Resource;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,16 @@ public class TestController {
     @Resource
     private FlowableManager fm;
 
+    @Resource
+    private ProcessDefinitionRegistry registry;
+
 
     @GetMapping("get")
     public AjaxResult get(String id) {
         Assert.hasText(id, "id不能为空");
         SysFlowableModel model = sysFlowableModelService.findOne(id);
-        return AjaxResult.ok().data(model);
+        ProcessDefinitionInfo info = registry.getInfo(model.getCode());
+        return AjaxResult.ok().data(info);
     }
 
     @PostMapping("submit")

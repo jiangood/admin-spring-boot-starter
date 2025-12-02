@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Form, Input} from "antd";
-import {HttpUtils, PageLoading, PageUtils} from "../../../framework";
+import {HttpUtils, PageLoading, PageUtils, StringUtils} from "../../../framework";
 
 export default class extends React.Component {
 
@@ -27,7 +27,7 @@ export default class extends React.Component {
 
     return <Card title={'流程测试 / 【' + this.state.model.name + "】 / " + this.state.model.code }>
       <Form onFinish={this.onFinish} layout='vertical' >
-        <Form.Item name='id' label='业务标识(相当于业务表的id)' rules={[{required: true}]} initialValue={1}>
+        <Form.Item name='id' label='业务标识(相当于业务表的id)' rules={[{required: true}]} initialValue={StringUtils.random(16)}>
           <Input />
         </Form.Item>
 
