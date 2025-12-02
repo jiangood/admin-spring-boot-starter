@@ -8,6 +8,7 @@ import io.admin.common.utils.SpringUtils;
 import io.admin.common.utils.ann.RemarkTool;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.query.JpaQuery;
+import io.admin.framework.log.Log;
 import io.admin.modules.flowable.core.config.ProcessMetaCfg;
 import io.admin.modules.flowable.core.config.meta.FormDefinition;
 import io.admin.modules.flowable.core.config.meta.ProcessMeta;
@@ -22,6 +23,7 @@ import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.Process;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.delegate.JavaDelegate;
+import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.Model;
 import org.flowable.engine.repository.ModelQuery;
 import org.springframework.data.domain.PageImpl;
@@ -118,6 +120,7 @@ public class ModelController {
     }
 
 
+    @Log("部署流程模型")
     @HasPermission("flowableModel:deploy")
     @PostMapping("deploy")
     public AjaxResult deploy(@RequestBody ModelRequest param) throws InvocationTargetException, IllegalAccessException, JsonProcessingException {
@@ -126,8 +129,10 @@ public class ModelController {
         Assert.hasText(xml, "内容不能为空");
         repositoryService.addModelEditorSource(id, xml.getBytes(StandardCharsets.UTF_8));
 
+        log.info("保存成功，准备部署");
+
         Model m = repositoryService.getModel(id);
-        BpmnModel bpmnModel = repositoryService.getBpmnModel(xml);
+        BpmnModel bpmnModel = ModelUtils.xmlToModel(xml);
 
 
         Process mainProcess = bpmnModel.getMainProcess();
@@ -141,7 +146,7 @@ public class ModelController {
         String resourceName = m.getName() + ".bpmn20.xml";
 
         RepositoryService repositoryService = SpringUtils.getBean(RepositoryService.class);
-        repositoryService.createDeployment()
+        Deployment deploy = repositoryService.createDeployment()
                 .addBpmnModel(resourceName, bpmnModel)
                 .name(m.getName())
                 .key(m.getKey())

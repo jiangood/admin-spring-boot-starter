@@ -51,11 +51,8 @@ public class GlobalProcessListener implements FlowableEventListener {
         String definitionKey = execution.getProcessDefinitionKey();
 
 
-        ProcessMeta meta = metaCfg.getMeta(definitionKey);
-        Class<? extends ProcessListener> listener = meta.getListener();
-        if (listener == null) {
-            return;
-        }
+
+
 
 
         log.info("流程事件 {} {}", definitionKey, event.getType());
@@ -75,10 +72,19 @@ public class GlobalProcessListener implements FlowableEventListener {
 
 
         // 触发
-        ProcessListener bean = SpringUtils.getBean(listener);
-        if(bean != null){
-            bean.onProcessEvent(eventType, initiator, businessKey, variables);
+        ProcessMeta meta = metaCfg.getMeta(definitionKey);
+        if(meta !=null){
+            Class<? extends ProcessListener> listener = meta.getListener();
+            if (listener != null) {
+                ProcessListener bean = SpringUtils.getBean(listener);
+                if(bean != null){
+                    bean.onProcessEvent(eventType, initiator, businessKey, variables);
+                }
+            }
         }
+
+
+
     }
 
 

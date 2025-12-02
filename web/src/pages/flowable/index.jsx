@@ -12,16 +12,20 @@ export default class extends React.Component {
         {
             title: '模型名称',
             dataIndex: 'name',
-            sorter: true
         },
         {
             title: '唯一编码',
-            dataIndex: 'code'
+            dataIndex: 'key'
         },
 
+
+        {
+            title: '版本',
+            dataIndex: 'version',
+        },
         {
             title: '更新时间',
-            dataIndex: 'updateTime',
+            dataIndex: 'lastUpdateTime',
         },
 
 

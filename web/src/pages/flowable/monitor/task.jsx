@@ -46,13 +46,10 @@ export default class extends React.Component {
                         title: '实例'
                     },
 
-                    {
-                        dataIndex: 'assignee',
-                        title: '处理人'
-                    },
+
                     {
                         dataIndex: 'assigneeLabel',
-                        title: '处理人显示名'
+                        title: '处理人'
                     },
                     {
                         dataIndex: 'startTime',

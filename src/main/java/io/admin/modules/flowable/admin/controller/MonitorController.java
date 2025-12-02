@@ -46,7 +46,6 @@ public class MonitorController {
     private TaskService taskService;
     private SysUserService sysUserService;
     private FlowableService flowableService;
-    private HistoryService historyService;
 
     @GetMapping("definitionPage")
     public AjaxResult processDefinition(Pageable pageable) {
@@ -159,7 +158,7 @@ public class MonitorController {
         if (StrUtil.isNotEmpty(assignee)) {
             query = flowableService.buildUserTodoTaskQuery(assignee);
         }
-
+        query.orderByTaskCreateTime().desc();
         List<Task> list = query.list();
 
         List<MonitorTaskResponse> responseList = list.stream().map(t -> {
@@ -172,7 +171,7 @@ public class MonitorController {
             r.setAssignee(t.getAssignee());
             r.setAssigneeLabel(sysUserService.getNameById(t.getAssignee()));
             r.setExecutionId(t.getExecutionId());
-            r.setStartTime(t.getInProgressStartTime());
+            r.setStartTime(t.getCreateTime());
             r.setTenantId(t.getTenantId());
 
             return r;
