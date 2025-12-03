@@ -1,5 +1,5 @@
 # springboot-admin-starter
-
+![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/springboot-admin-starter)
 ## 简介
 
 `springboot-admin-starter` 是一个功能强大的企业级应用快速开发入门套件，旨在提供一个现成的、集成了常用后台管理功能的基础平台。
