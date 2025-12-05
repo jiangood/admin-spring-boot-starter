@@ -1,5 +1,6 @@
 package io.admin.framework.config.security;
 
+import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.ResponseUtils;
 import io.admin.framework.servlet.ReplaceParameterRequestWrapper;
@@ -7,7 +8,6 @@ import io.admin.modules.common.AuthService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * 增加额外的登录逻辑，如 最大重试次数，验证码等
- *
+ * <p>
  * 前端密码解密
  */
 @Slf4j
@@ -40,11 +40,18 @@ public class LoginFilter extends OncePerRequestFilter {
         }
 
         String username = request.getParameter("username");
-        String password;
         try {
-            password = authService.validate(request);
+            authService.validate(request);
+            String password = request.getParameter("password");
+
+            String passwordType = (String) request.getAttribute("passwordType");
+            passwordType = StrUtil.nullToDefault(passwordType, "WEB");
+            if (passwordType.equals("WEB")) {
+                password = authService.decodeWebPassword(password);
+            }
+
             ReplaceParameterRequestWrapper newRequest = new ReplaceParameterRequestWrapper(request);
-            newRequest.replace("password",password);
+            newRequest.replace("password", password);
         } catch (Exception e) {
             log.error("用户[{}]认证失败： {}", username, e.getMessage());
             ResponseUtils.response(response, AjaxResult.err(e.getMessage()));
