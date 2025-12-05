@@ -1,18 +1,10 @@
-package io.admin.framework.data.query;
+package io.admin.framework.data.specification;
 
+import jakarta.persistence.criteria.*;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Join;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * 简洁、动态的 JPA Specification 构建器。
@@ -24,6 +16,44 @@ public class QuerySpec<T> implements Specification<T> {
 
     // 存储所有查询条件
     private final List<Specification<T>> specifications = new ArrayList<>();
+
+
+    @AllArgsConstructor
+    public static final class SimpleOperation<T> implements Specification<T> {
+        private final String field;
+        private final String op;
+        private final Object value;
+
+
+        @Override
+        public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+            switch (op) {
+                case "=":
+                    return criteriaBuilder.equal(root.get(field), value);
+                case ">":
+                    return criteriaBuilder.greaterThan(root.get(field), (Comparable) value);
+                case "<":
+                    return criteriaBuilder.lessThan(root.get(field), (Comparable) value);
+                case ">=":
+                    return criteriaBuilder.greaterThanOrEqualTo(root.get(field), (Comparable) value);
+                case "<=":
+                    return criteriaBuilder.lessThanOrEqualTo(root.get(field), (Comparable) value);
+                case "!=":
+                    return criteriaBuilder.notEqual(root.get(field), value);
+                case "like":
+                    return criteriaBuilder.like(root.get(field), "%" + value + "%");
+                case "in":
+                    return criteriaBuilder.in(root.get(field)).value(value);
+                case "isNull":
+                    return criteriaBuilder.isNull(root.get(field));
+                case "isNotNull":
+                    return criteriaBuilder.isNotNull(root.get(field));
+            }
+            return null;
+        }
+    }
+
+
     // 缓存已创建的 Join，避免多次重复 Join
     private final Map<String, Join<?, ?>> joinCache = new HashMap<>();
 
@@ -62,7 +92,9 @@ public class QuerySpec<T> implements Specification<T> {
      * 等值查询: field = value (非空添加)
      */
     public QuerySpec<T> equal(String field, Object value) {
-        if (value != null) specifications.add((root, query, cb) -> cb.equal(root.get(field), value));
+        if (value != null) {
+            specifications.add(new SimpleOperation<>(field, "=", value));
+        }
         return this;
     }
 
@@ -70,20 +102,18 @@ public class QuerySpec<T> implements Specification<T> {
      * IN 查询: field IN (value1, value2...) (非空、非空列表添加)
      */
     public QuerySpec<T> in(String field, Collection<?> values) {
-        if (values == null || values.isEmpty()) {
-            return this;
+        if (values != null && !values.isEmpty()) {
+            specifications.add(new SimpleOperation<>(field, "in", values));
         }
-        specifications.add((root, query, cb) -> root.get(field).in(values));
         return this;
     }
 
     // ... 其他基础条件如 like, between 保持不变 ...
     public QuerySpec<T> like(String field, String value) {
-        if (value == null || value.isEmpty()) {
-            return this;
+        if (value != null && !value.isEmpty()) {
+            String likeValue = "%" + value.toLowerCase() + "%";
+            specifications.add(new SimpleOperation<>(field, "like", likeValue));
         }
-        String likeValue = "%" + value.toLowerCase() + "%";
-        specifications.add((root, query, cb) -> cb.like(cb.lower(root.get(field)), likeValue));
         return this;
     }
 
