@@ -43,7 +43,7 @@ public class SecurityConfig {
                         authz.requestMatchers(loginExclude).permitAll();
                     }
                     authz.requestMatchers("/admin/auth/**", "/admin/public/**").permitAll()
-                            .requestMatchers("/admin/**").authenticated()
+                            .requestMatchers("/admin/**","/ureport/**").authenticated()
                             .anyRequest().permitAll();
 
                 })
