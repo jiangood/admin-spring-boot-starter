@@ -423,37 +423,7 @@ public abstract class BaseDao<T extends Persistable<String>> {
         }).toList();
     }
 
-    /**
-     * 分组统计数量
-     *
-     * @param q
-     * @param groupField
-     * @return
-     */
-    public Map<String, Long> count(Specification<T> q, String groupField) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Object> query = builder.createQuery(Object.class);
-        Root<T> root = query.from(domainClass);
 
-        Expression group = ExpressionTool.getPath(root, groupField); // 支持 . 分割， 如 user.id
-
-        Predicate predicate = q.toPredicate(root, query, builder);
-        query.multiselect(group, builder.count(root)).where(predicate).groupBy(group);
-
-        List<Object> resultList = entityManager.createQuery(query).getResultList();
-
-        // 组装数据结构
-        Map<String, Long> map = new HashMap<>();
-        for (Object row : resultList) {
-            Object[] rowArr = (Object[]) row;
-            String groupValue = (String) rowArr[0];
-            Number count = (Number) rowArr[1];
-            if (count != null) {
-                map.put(groupValue, count.longValue());
-            }
-        }
-        return map;
-    }
 
 
     // --- 7. 结果集映射 (Dictionary Mapping) ---
