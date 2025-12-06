@@ -415,7 +415,9 @@ public abstract class BaseDao<T extends Persistable<String>> {
         List<Object[]> resultList = entityManager.createQuery(query).getResultList();
 
         // 转换为map
-        List<Map<String, Object>> list = resultList.stream().map(record -> {
+
+
+        return resultList.stream().map(record -> {
             Map<String, Object> map = new LinkedHashMap<>();
             for (int i = 0; i < selections.size(); i++) {
                 Selection<?> selection = selections.get(i);
@@ -423,9 +425,6 @@ public abstract class BaseDao<T extends Persistable<String>> {
             }
             return map;
         }).toList();
-
-
-        return list;
     }
 
     /**
