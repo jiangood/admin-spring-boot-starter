@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
 
     /**
@@ -118,7 +118,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
     public AjaxResult assertError(RuntimeException e) {
         log.error(">>> 业务异常，具体信息为：{}", e.getMessage());
-        if(sysProp.isPrintException()){
+        if(sysProperties.isPrintException()){
             log.error("打印异常已开启,以下是异常详细信息", e);
         }
 

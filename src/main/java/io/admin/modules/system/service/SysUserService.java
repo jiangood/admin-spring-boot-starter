@@ -4,7 +4,7 @@ package io.admin.modules.system.service;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.PasswordUtils;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.DataPermType;
 import io.admin.modules.system.entity.SysOrg;
@@ -22,7 +22,6 @@ import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysRoleDao;
 import io.admin.modules.system.dao.SysUserDao;
 import io.admin.modules.system.dto.request.GrantUserPermRequest;
-import io.admin.framework.CodeAssert;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,7 +62,7 @@ public class SysUserService extends BaseService<SysUser> {
     private UserMapper userMapper;
 
     @Resource
-    private SysProp sysProp;
+    private SysProperties sysProperties;
 
 
     public UserResponse findOneDto(String id) {
@@ -122,7 +121,7 @@ public class SysUserService extends BaseService<SysUser> {
     public SysUser saveOrUpdateByRequest(SysUser input, List<String> updateKeys) throws Exception {
         boolean isNew = input.isNew();
         if (isNew) {
-            String password = sysProp.getDefaultPassword();
+            String password = sysProperties.getDefaultPassword();
             input.setPassword(PasswordUtils.encode(password));
         }
 
@@ -165,7 +164,7 @@ public class SysUserService extends BaseService<SysUser> {
 
     @Transactional
     public void resetPwd(String id) {
-        String password = sysProp.getDefaultPassword();
+        String password = sysProperties.getDefaultPassword();
         this.resetPwd(id, password);
     }
 

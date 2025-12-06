@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 import io.admin.common.utils.PasswordUtils;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.dict.DictAnnHandler;
 import io.admin.modules.system.ConfigConsts;
 import io.admin.modules.system.dao.SysConfigDao;
@@ -52,7 +52,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
     @Value("${spring.application.name}")
     String applicationName;
@@ -116,7 +116,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
         }
         log.info("管理员登录账号:{}", admin.getAccount());
 
-        String pwd = sysProp.getResetAdminPwd();
+        String pwd = sysProperties.getResetAdminPwd();
         if(StrUtil.isNotEmpty(pwd)){
             admin.setPassword(PasswordUtils.encode(pwd));
             log.info("管理员密码重置为 {}", pwd);

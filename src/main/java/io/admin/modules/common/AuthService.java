@@ -7,7 +7,7 @@ import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import io.admin.common.utils.PasswordUtils;
 import io.admin.modules.system.ConfigConsts;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,7 +29,7 @@ public class AuthService {
     LoginAttemptService loginAttemptService;
 
     @Resource
-    SysProp prop;
+    SysProperties prop;
 
     @Resource
     CodeGenerator codeGenerator;

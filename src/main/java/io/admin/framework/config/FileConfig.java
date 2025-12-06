@@ -14,20 +14,20 @@ import org.springframework.context.annotation.Configuration;
 public class FileConfig {
 
     @Resource
-    MinioProp minioProp;
+    MinioProperties minioProperties;
 
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
     @Bean
     public FileOperator fileOperator() {
-        if (minioProp.getEnable()) {
+        if (minioProperties.getEnable()) {
             log.info("配置文件服务为minio模式");
-            return new MinioFileOperator(minioProp.getUrl(), minioProp.getAccessKey(), minioProp.getSecretKey(), minioProp.getBucketName());
+            return new MinioFileOperator(minioProperties.getUrl(), minioProperties.getAccessKey(), minioProperties.getSecretKey(), minioProperties.getBucketName());
         }
         log.info("本地文件模式");
-        return new LocalFileOperator(sysProp.getFileUploadPath());
+        return new LocalFileOperator(sysProperties.getFileUploadPath());
     }
 
 }

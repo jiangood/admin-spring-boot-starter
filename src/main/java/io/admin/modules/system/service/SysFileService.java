@@ -13,7 +13,7 @@ import io.admin.common.utils.DownloadUtils;
 import io.admin.common.utils.IdUtils;
 import io.admin.common.utils.ImgUtils;
 import io.admin.common.utils.enums.MaterialType;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 
 import io.admin.modules.system.dao.SysFileDao;
 import io.admin.modules.system.entity.SysFile;
@@ -54,7 +54,7 @@ public class SysFileService {
     public static final String[] IMAGE_SIZE_LABEL = {"小图", "中图", "大图"};
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
 
     @Resource
@@ -180,7 +180,7 @@ public class SysFileService {
         }
 
         Assert.hasText(suffix, "解析后缀失败");
-        Assert.state(sysProp.getAllowUploadFiles().contains(suffix), "文件格式" + suffix + "不允许上传");
+        Assert.state(sysProperties.getAllowUploadFiles().contains(suffix), "文件格式" + suffix + "不允许上传");
 
         String id = IdUtils.uuidV7();
 

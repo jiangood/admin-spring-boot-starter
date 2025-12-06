@@ -8,7 +8,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.dto.antd.TreeOption;
 import io.admin.common.utils.tree.TreeUtils;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
@@ -55,7 +55,7 @@ public class SysUserController {
     private SysOrgService sysOrgService;
 
     @Resource
-    private SysProp sysProp;
+    private SysProperties sysProperties;
 
     @Resource
     private PermissionStaleService permissionStaleService;
@@ -92,7 +92,7 @@ public class SysUserController {
         sysUserService.saveOrUpdateByRequest(input, updateFields);
 
         if (isNew) {
-            return AjaxResult.ok().msg("添加成功,密码：" + sysProp.getDefaultPassword());
+            return AjaxResult.ok().msg("添加成功,密码：" + sysProperties.getDefaultPassword());
         }else {
             permissionStaleService.markUserStale(input.getAccount());
         }
@@ -138,7 +138,7 @@ public class SysUserController {
     @HasPermission("sysUser:resetPwd")
     @PostMapping("resetPwd")
     public AjaxResult resetPwd(@RequestBody SysUser user) {
-        String defaultPassWord = sysProp.getDefaultPassword();
+        String defaultPassWord = sysProperties.getDefaultPassword();
         Assert.hasText(defaultPassWord,"未配置默认密码，请再配置sys.default-password");
         sysUserService.resetPwd(user.getId());
         return AjaxResult.ok().msg("重置成功,新密码为：" + defaultPassWord).data("新密码：" + defaultPassWord);

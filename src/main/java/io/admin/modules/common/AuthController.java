@@ -3,7 +3,7 @@ package io.admin.modules.common;// src/main/java/com/example/controller/AuthCont
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ICaptcha;
 import cn.hutool.captcha.generator.CodeGenerator;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.common.dto.AjaxResult;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class AuthController {
 
 
     @Resource
-    SysProp prop;
+    SysProperties prop;
 
     @Resource
     CodeGenerator codeGenerator;

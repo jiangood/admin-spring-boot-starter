@@ -1,7 +1,7 @@
 package io.admin.modules.job.quartz;
 
 import io.admin.modules.job.entity.SysJob;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.modules.job.dao.SysJobDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -32,12 +32,12 @@ public class QuartzInit implements CommandLineRunner {
     private QuartzManager quartzService;
 
     @Resource
-    private SysProp sysProp;
+    private SysProperties sysProperties;
 
 
     @Override
     public void run(String... args) throws Exception {
-        if (!sysProp.isJobEnable()) {
+        if (!sysProperties.isJobEnable()) {
             log.warn("定时任务模块已设置全局关闭");
             return;
         }

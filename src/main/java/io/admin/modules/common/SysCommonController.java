@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.antd.MenuItem;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.tree.TreeUtils;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import io.admin.framework.config.security.LoginUser;
 import io.admin.modules.common.dto.response.LoginDataResponse;
@@ -48,7 +48,7 @@ public class SysCommonController {
     SysFileService sysFileService;
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
     @Resource
     private SysUserService sysUserService;
@@ -70,8 +70,8 @@ public class SysCommonController {
         data.put("captchaType", sysConfigService.getMixed("sys.captchaType", String.class));
         data.put("copyright", sysConfigService.getMixed("sys.copyright", String.class));
         data.put("loginBoxBottomTip", sysConfigService.getMixed("sys.loginBoxBottomTip", String.class));
-        data.put("logoUrl", sysProp.getLogoUrl());
-        data.put("title", sysProp.getTitle());
+        data.put("logoUrl", sysProperties.getLogoUrl());
+        data.put("title", sysProperties.getTitle());
 
         data.put("waterMark", sysConfigService.getMixed("sys.waterMark", Boolean.class));
 

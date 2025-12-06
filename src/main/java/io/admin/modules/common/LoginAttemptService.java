@@ -2,7 +2,7 @@ package io.admin.modules.common;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.time.Duration;
 public class LoginAttemptService {
 
     @Resource
-    private SysProp prop;
+    private SysProperties prop;
 
     // 登录尝试次数
     private final Cache<String, Integer> loginAttempts = CacheBuilder.newBuilder().expireAfterWrite(Duration.ofDays(1)).build();

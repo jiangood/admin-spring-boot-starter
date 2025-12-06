@@ -6,7 +6,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.utils.RequestUtils;
 import io.admin.common.utils.tree.TreeUtils;
-import io.admin.framework.config.SysProp;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.data.ConfigDataDao;
 import io.admin.framework.config.data.sysconfig.ConfigDefinition;
 import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
@@ -36,7 +36,7 @@ public class SysConfigService {
     private Environment env;
 
     @Resource
-    private SysProp sysProp;
+    private SysProperties sysProperties;
 
 
     /***
@@ -48,7 +48,7 @@ public class SysConfigService {
         String sysKeyPrefix = "sys.";
         if (StrUtil.isEmpty(value) && key.startsWith(sysKeyPrefix)) {
             String sysKey = key.substring(sysKeyPrefix.length()); // 去掉前缀
-            Object fieldValue = BeanUtil.getFieldValue(sysProp, sysKey);
+            Object fieldValue = BeanUtil.getFieldValue(sysProperties, sysKey);
             if (fieldValue != null) {
                 value = Convert.convert(String.class,fieldValue);
             }

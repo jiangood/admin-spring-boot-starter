@@ -4,8 +4,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.utils.ArrayUtils;
 import io.admin.common.utils.PasswordUtils;
 import io.admin.common.utils.ResponseUtils;
-import io.admin.framework.config.SysProp;
-import io.admin.framework.config.init.SystemHook;
+import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.init.SystemHookService;
 import io.admin.framework.config.security.refresh.PermissionRefreshFilter;
 import lombok.AllArgsConstructor;
@@ -26,21 +25,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
-import java.util.List;
-
 @Slf4j
 @Configuration
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private final SysProp sysProp;
+    private final SysProperties sysProperties;
 
     private SystemHookService systemHookService;
 
     // 配置 HTTP 安全
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, LoginFilter loginFilter, PermissionRefreshFilter permissionRefreshFilter) throws Exception {
-        String[] loginExclude = ArrayUtils.toStrArr(sysProp.getXssExcludePathList());
+        String[] loginExclude = ArrayUtils.toStrArr(sysProperties.getXssExcludePathList());
 
         systemHookService.beforeConfigSecurity(http);
         // 前后端分离项目，关闭csrf
@@ -65,7 +62,7 @@ public class SecurityConfig {
         });
 
         http.sessionManagement(cfg -> {
-            int maximumSessions = sysProp.getMaximumSessions();
+            int maximumSessions = sysProperties.getMaximumSessions();
             log.info("设置最大并发会话数为 {}", maximumSessions);
 
             cfg.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);

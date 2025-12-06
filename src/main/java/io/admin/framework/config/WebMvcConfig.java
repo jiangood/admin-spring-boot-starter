@@ -101,14 +101,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Resource
-    SysProp sysProp;
+    SysProperties sysProperties;
 
     /**
      * 验证码生成器
      */
     @Bean
     public CodeGenerator getCodeGenerator() {
-        SysProp.CaptchaType captchaType = sysProp.getCaptchaType();
+        SysProperties.CaptchaType captchaType = sysProperties.getCaptchaType();
         if(captchaType != null){
             switch (captchaType) {
                 case MATH -> {
