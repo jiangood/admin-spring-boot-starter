@@ -21,19 +21,26 @@
 ### index.md
 解析pom.xml和 web/package.json
 说明开发环境
-说明引用方式，使用maven、npm的引用方式 其中版本号使用shields.io生成，不要写死
+说明maven版本号，![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/springboot-admin-starter)
+说明npm版本号，![NPM Version](https://img.shields.io/npm/v/springboot-admin-starter)
 
-然后描述项目依赖，但是前端忽略开发依赖
+描述后端依赖
+描述前端依赖（只解析peerDependencies部分）
 
-解析 src/main/resources/application-data-framework.yml，并生成说明
 
-最后增加其他文档的链接
+
+解析 src/main/resources/application-data-framework.yml
+描述功能列表
+描述配置信息
+描述业务项目如何配置
+
+增加其他文档的链接
 
 
 ### front.md
-表格形式
-主要解析文件如下
-- web/src/framework 目录下组件和工具类，并生成文档，文档包括组件名称，描述，主要参数
+
+解析 web/src/framework 目录下组件和工具类
+描述组件和工具类，包含名称，参数，说明
 
 ### back.md
 主要解析文件如下
