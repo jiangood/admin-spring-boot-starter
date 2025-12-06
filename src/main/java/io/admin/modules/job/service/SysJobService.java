@@ -1,6 +1,5 @@
 package io.admin.modules.job.service;
 
-import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.data.service.BaseService;
 import io.admin.framework.data.specification.Spec;
 import io.admin.modules.job.dao.SysJobExecuteRecordDao;

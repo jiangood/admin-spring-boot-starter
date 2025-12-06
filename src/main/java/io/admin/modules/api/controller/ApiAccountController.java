@@ -6,7 +6,7 @@ import io.admin.Build;
 import io.admin.common.dto.antd.Option;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.modules.api.dto.GrantRequest;
 import io.admin.modules.api.entity.ApiAccount;
 import io.admin.modules.api.entity.ApiResource;

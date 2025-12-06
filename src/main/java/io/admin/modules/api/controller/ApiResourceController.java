@@ -6,7 +6,7 @@ import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.modules.api.service.ApiResourceService;
 import io.admin.common.dto.table.Table;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.common.dto.AjaxResult;
 import io.admin.modules.api.entity.ApiResource;
 import io.admin.common.dto.DropdownRequest;

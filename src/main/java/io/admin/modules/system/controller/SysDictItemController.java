@@ -3,7 +3,7 @@ package io.admin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.admin.framework.config.argument.RequestBodyKeys;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.modules.system.entity.SysDict;
 import io.admin.modules.system.entity.SysDictItem;
 import io.admin.modules.system.service.SysDictItemService;

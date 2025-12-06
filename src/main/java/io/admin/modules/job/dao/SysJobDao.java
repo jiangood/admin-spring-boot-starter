@@ -2,7 +2,7 @@ package io.admin.modules.job.dao;
 
 import io.admin.modules.job.entity.SysJob;
 import io.admin.framework.data.repository.BaseDao;
-import io.admin.framework.data.query.JpaQuery;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;

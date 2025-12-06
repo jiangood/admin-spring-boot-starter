@@ -6,7 +6,6 @@ import io.admin.modules.system.entity.SysOrg;
 import io.admin.common.utils.tree.TreeManager;
 import io.admin.framework.data.repository.BaseDao;
 import io.admin.framework.data.domain.BaseEntity;
-import io.admin.framework.data.query.JpaQuery;
 import cn.hutool.core.collection.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;

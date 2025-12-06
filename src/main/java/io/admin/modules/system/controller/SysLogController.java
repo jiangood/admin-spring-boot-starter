@@ -1,7 +1,7 @@
 
 package io.admin.modules.system.controller;
 
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.common.dto.AjaxResult;
 import io.admin.modules.system.entity.SysLog;
 import io.admin.modules.system.service.SysLogService;

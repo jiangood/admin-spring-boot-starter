@@ -9,7 +9,7 @@ import io.admin.modules.system.dao.SysUserDao;
 import io.admin.modules.system.entity.SysRole;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.framework.data.service.BaseService;
-import io.admin.framework.data.query.JpaQuery;
+
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

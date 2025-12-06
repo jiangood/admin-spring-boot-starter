@@ -1,7 +1,7 @@
 package io.admin.modules.system.service;
 
 import io.admin.framework.data.service.BaseService;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.modules.system.dao.SysUserMessageDao;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.modules.system.entity.SysUserMessage;

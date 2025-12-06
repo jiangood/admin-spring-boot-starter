@@ -2,7 +2,7 @@
 package io.admin.modules.system.controller;
 
 
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.framework.log.Log;
 import io.admin.modules.system.dto.response.SysConfigResponse;
 import io.admin.modules.system.service.SysConfigService;

@@ -1,7 +1,7 @@
 
 package io.admin.modules.system.controller;
 
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.common.dto.AjaxResult;

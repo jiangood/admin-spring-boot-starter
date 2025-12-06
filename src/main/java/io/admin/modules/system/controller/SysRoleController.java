@@ -8,7 +8,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.utils.CollectionUtils;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.modules.system.dto.request.SaveRolePermRequest;
 import io.admin.modules.system.dto.request.GrantUserToRoleRequest;
 import io.admin.modules.system.entity.SysRole;

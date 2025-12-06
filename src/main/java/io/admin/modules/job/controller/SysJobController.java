@@ -11,7 +11,7 @@ import io.admin.framework.log.Log;
 import io.admin.common.utils.field.Field;
 import io.admin.common.utils.SpringUtils;
 import io.admin.framework.config.argument.RequestBodyKeys;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.common.utils.field.FieldDescription;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;

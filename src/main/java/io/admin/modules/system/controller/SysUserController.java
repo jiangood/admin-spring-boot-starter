@@ -13,7 +13,7 @@ import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.domain.BaseEntity;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.framework.log.Log;
 import io.admin.common.dto.DropdownRequest;
 import io.admin.modules.common.LoginUtils;

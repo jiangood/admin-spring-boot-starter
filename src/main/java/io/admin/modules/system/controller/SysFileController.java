@@ -6,7 +6,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.modules.system.entity.SysFile;
 import io.admin.modules.system.service.SysFileService;
 import io.admin.framework.config.security.HasPermission;
-import io.admin.framework.data.query.JpaQuery;
+
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

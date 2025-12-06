@@ -11,7 +11,7 @@ import io.admin.common.utils.tree.drop.TreeDropUtils;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.framework.log.Log;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.system.enums.OrgType;

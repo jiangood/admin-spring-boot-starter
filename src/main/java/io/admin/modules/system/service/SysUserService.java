@@ -16,7 +16,7 @@ import io.admin.modules.system.dto.mapper.UserMapper;
 import io.admin.modules.system.dto.response.UserResponse;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.framework.data.service.BaseService;
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysRoleDao;
 import io.admin.modules.system.dao.SysUserDao;

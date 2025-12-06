@@ -1,7 +1,6 @@
 package io.admin.modules.api.controller;
 
 import io.admin.common.dto.AjaxResult;
-import io.admin.framework.data.query.JpaQuery;
 import io.admin.modules.api.entity.ApiAccessLog;
 import io.admin.modules.api.service.ApiAccessLogService;
 import jakarta.annotation.Resource;

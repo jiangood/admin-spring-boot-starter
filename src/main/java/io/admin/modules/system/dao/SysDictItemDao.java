@@ -1,7 +1,7 @@
 
 package io.admin.modules.system.dao;
 
-import io.admin.framework.data.query.JpaQuery;
+
 import io.admin.framework.data.repository.BaseDao;
 import io.admin.modules.system.entity.SysDict;
 import io.admin.modules.system.entity.SysDictItem;

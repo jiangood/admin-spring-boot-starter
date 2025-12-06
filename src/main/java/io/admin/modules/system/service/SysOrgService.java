@@ -2,8 +2,8 @@ package io.admin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import io.admin.common.utils.tree.drop.DropResult;
-import io.admin.framework.data.query.JpaQuery;
 import io.admin.framework.data.service.BaseService;
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysUserDao;
@@ -14,6 +14,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -38,10 +39,7 @@ public class SysOrgService extends BaseService<SysOrg> {
 
     @Override
     public void deleteByRequest(String id) {
-        JpaQuery<SysOrg> query = new JpaQuery<>();
-        query.eq(SysOrg.Fields.pid, id);
-
-        long count = sysOrgDao.count(query);
+        long count = sysOrgDao.count(Spec.<SysOrg>of().equal(SysOrg.Fields.pid, id));
         Assert.state(count == 0, "请先删除子节点");
 
         sysOrgDao.deleteById(id);
@@ -233,7 +231,7 @@ public class SysOrgService extends BaseService<SysOrg> {
         return sysOrgDao.findAll(Sort.by(SysOrg.Fields.seq));
     }
 
-    public List<SysOrg> findAll(JpaQuery<SysOrg> q, Sort sort) {
+    public List<SysOrg> findAll(Specification<SysOrg> q, Sort sort) {
         return sysOrgDao.findAll(q, sort);
     }
 
