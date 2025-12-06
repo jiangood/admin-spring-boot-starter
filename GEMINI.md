@@ -16,6 +16,7 @@
 - pom.xml
 - web/package.json
 
+其中版本号使用shields.io生成，不要使用文件中声明的版本号
 
 
 ### 前端文档，文档名称为front-framework.md
