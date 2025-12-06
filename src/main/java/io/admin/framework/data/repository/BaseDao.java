@@ -2,8 +2,6 @@ package io.admin.framework.data.repository;
 
 import cn.hutool.core.bean.BeanUtil;
 import io.admin.framework.data.query.ExpressionTool;
-import io.admin.framework.data.query.JpaQuery;
-import io.admin.framework.data.query.StatField;
 import io.admin.framework.data.specification.Spec;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -17,7 +15,6 @@ import lombok.Getter;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.query.QueryUtils;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
@@ -392,11 +389,15 @@ public abstract class BaseDao<T extends Persistable<String>> {
 
     /**
      * 分组统计
+     *
+     * 例子
+     *      Spec<User> spec = Spec.<User>of().groupBy("dept");
+     *      List<Object[]> records = userDao.stats(spec,  StatField.count("age"));
+     *
      * @param spec
-     * @param statFields
      * @return 列表， 每一行数据分别为group字段， 聚合字段
      */
-    public List<Object[]> stats(Specification<T> spec, StatField... statFields) {
+    public List<Object[]> stats(Specification<T> spec) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
         Root<T> root = query.from(domainClass);
@@ -404,27 +405,7 @@ public abstract class BaseDao<T extends Persistable<String>> {
         Predicate predicate = spec.toPredicate(root, query, builder);
 
 
-        List<Selection<?>> selections = new ArrayList<>();
-        List<Expression<?>> groupList = query.getGroupList();
-        for (Expression<?> expression : groupList) {
-            selections.add(expression);
-        }
-
-        for (StatField statField : statFields) {
-            String fieldName = statField.getName();
-            Path<Number> f = root.get(fieldName);
-            Expression<?> statExpr = switch (statField.getType()) {
-                case SUM -> builder.sum(f);
-                case COUNT -> builder.count(f);
-                case AVG -> builder.avg(f);
-                case MIN -> builder.min(f);
-                case MAX -> builder.max(f);
-                default -> throw new IllegalStateException("not support stat type " + statField.getType());
-            };
-            selections.add(statExpr);
-        }
-
-        query.multiselect(selections).where(predicate);
+        query.where(predicate);
 
         return entityManager.createQuery(query).getResultList();
     }

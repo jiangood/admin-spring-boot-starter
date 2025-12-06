@@ -1,6 +1,5 @@
 package io.admin.framework.data.specification;
 
-import io.admin.framework.data.query.StatField;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ public class SpecBuilderTest {
 
     @Autowired
     private UserDao userDao;
-    
+
     @Autowired
     private EntityManager entityManager;
 
@@ -44,17 +43,20 @@ public class SpecBuilderTest {
     }
 
     @Test
-    void testGroup(){
-        Spec<User> spec = Spec.<User>of().groupBy("username");
-        List<Object[]> age = userDao.stats(spec,  StatField.count("age"));
+    void testGroup() {
+        Spec<User> spec = Spec.<User>of()
+                .select("username")
+                .selectFnc(Spec.Fuc.SUM, "age")
+                .selectFnc(Spec.Fuc.COUNT, "age").
+
+                groupBy("username");
+        List<Object[]> age = userDao.stats(spec);
 
 
         for (Object[] row : age) {
-            System.out.println(ReflectionToStringBuilder.toString( row));
+            System.out.println(ReflectionToStringBuilder.toString(row));
         }
     }
-
-
 
 
 }

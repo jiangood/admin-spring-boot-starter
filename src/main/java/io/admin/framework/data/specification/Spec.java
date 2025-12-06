@@ -23,6 +23,55 @@ public class Spec<T> implements Specification<T> {
     // 存储所有查询条件
     private final List<Specification<T>> specifications = new ArrayList<>();
 
+    public enum Fuc {
+        SUM,
+        COUNT,
+
+        /**
+         * 平均
+         */
+        AVG,
+
+        MIN,
+        MAX
+    }
+    public Spec<T> selectFnc(Fuc fn, String field) {
+        return this.add((Specification<T>) (root, query, cb) -> {
+
+            List<Selection<?>> newSections = new ArrayList<>(query.getSelection().getCompoundSelectionItems());
+            Path<Number> x = root.get(field);
+
+           Expression<? extends Number> sel = switch (fn) {
+               case AVG -> cb.avg(x);
+               case SUM -> cb.sum(x);
+               case MIN -> cb.min(x);
+               case MAX -> cb.max(x);
+               case COUNT -> cb.count(x);
+            };
+           sel.alias(fn.name().toLowerCase() + "_" + field);
+
+
+            newSections.add(sel);
+
+            query.multiselect(newSections);
+            return cb.conjunction();
+        });
+    }
+
+
+    public Spec<T> select(String... fields) {
+        return this.add((Specification<T>) (root, query, cb) -> {
+
+            List<Selection<?>> newSections = new  ArrayList<>(query.getSelection().getCompoundSelectionItems());
+            for (String field : fields) {
+                newSections.add(root.get(field).alias(field));
+            }
+
+            query.multiselect(newSections);
+            return cb.conjunction();
+        });
+    }
+
 
     /**
      * 定义支持的操作符，消除魔术字符串，提高可读性和类型安全。
