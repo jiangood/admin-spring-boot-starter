@@ -49,3 +49,7 @@
 参考src/main/java/io/admin/modules/system/controller/SysManualController.java生成controller
 参考src/main/resources/application-data-framework.yml，生成菜单配置
 参考web/src/pages/system/sysManual/index.jsx 生成页面模板，主要是让业务项目使用，所以前端引用时，使用模块名@jiangood/springboot-admin-starter即可
+
+
+# 整理
+最后整理标题，序号，增加目录
