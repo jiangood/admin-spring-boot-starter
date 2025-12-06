@@ -406,8 +406,6 @@ public abstract class BaseDao<T extends Persistable<String>> {
         Root<T> root = query.from(domainClass);
 
         Predicate predicate = spec.toPredicate(root, query, builder);
-
-
         query.where(predicate);
 
 
@@ -415,8 +413,6 @@ public abstract class BaseDao<T extends Persistable<String>> {
         List<Object[]> resultList = entityManager.createQuery(query).getResultList();
 
         // 转换为map
-
-
         return resultList.stream().map(record -> {
             Map<String, Object> map = new LinkedHashMap<>();
             for (int i = 0; i < selections.size(); i++) {
