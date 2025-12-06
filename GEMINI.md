@@ -24,6 +24,7 @@
 - web/package.json
 首先说明引用方式，其中版本号使用shields.io生成，不要使用文件中声明的版本号
 然后描述项目依赖，使用表格，包含名称和版本，简要说明
+解析 src/main/resources/application-data-framework.yml，生成表格方式的说明
 最后增加每个文档的链接
 
 ### front.md
@@ -37,7 +38,7 @@
 - pom.xml
 - src/main/java/io/admin/common/utils/tree
 - src/main/java/io/admin/framework/data/specification/Spec.java
-- src/main/resources/application-data-framework.yml
+
 
 除此之外，根据src目录下所有代码的使用频率，将使用率高的代码生成文档，并添加示例
 
