@@ -55,7 +55,18 @@ public class SpecBuilderTest {
         entityManager.flush(); // 确保数据写入数据库
     }
 
+    @Test
+    void testGroup(){
+        Spec<User> spec = Spec.<User>of().groupBy("username");
+        List<User> users = userRepository.findAll(spec);
+        users.forEach(System.out::println);
+    }
+
+
+
     // --- 基础查询测试：AND 逻辑连接 ---
+
+
     
     @Test
     void testBasicEqualAndGreaterThan() {
