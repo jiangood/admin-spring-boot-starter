@@ -22,7 +22,7 @@
 解析pom.xml和 web/package.json
 说明开发环境
 说明maven版本号，![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/springboot-admin-starter)
-说明npm版本号，![NPM Version](https://img.shields.io/npm/v/springboot-admin-starter)
+说明npm版本号，![NPM Version](https://img.shields.io/npm/v/@jiangood/springboot-admin-starter)
 
 描述后端依赖
 描述前端依赖（只解析peerDependencies部分）
