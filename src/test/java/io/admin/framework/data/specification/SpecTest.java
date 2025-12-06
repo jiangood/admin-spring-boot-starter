@@ -126,13 +126,14 @@ public class SpecTest {
 
     @Test
     void testOrLikeCondition() {
-        // 查找 username 包含 'o' 或者 status 包含 'ive' 的用户
+        // 查找 username 包含 'e' 或者 status 包含 'e' 的用户
+        // 'e' 匹配 Alice (AlICE) 和 Bob (InactivE)
         Specification<User> spec = new Spec<User>()
-                .orLike("o", "username", "status");
+                .orLike("e", "username", "status");
 
         List<User> results = userRepository.findAll(spec);
 
-        // Bob (username 包含 'o') 和 Alice (status 包含 'Active') 都应被找到
+        // 预期：Alice (username=Alice) 和 Bob (status=Inactive) 都被找到
         assertThat(results).hasSize(2);
         assertThat(results).extracting(User::getUsername).containsExactlyInAnyOrder("Alice", "Bob");
     }
