@@ -34,7 +34,9 @@ public class Spec<T> implements Specification<T> {
         IN, NOT_IN,
         IS_NULL, IS_NOT_NULL,
         BETWEEN,
-        // ... 其他操作符，如 IS_MEMBER, DISTINCT 等已通过 Lambdas 或专用方法处理
+
+        // 新增：用于集合成员查询
+        IS_MEMBER, IS_NOT_MEMBER
     }
 
     public static <T> Spec<T> of(){
@@ -191,6 +193,86 @@ public class Spec<T> implements Specification<T> {
         return this.add(orSpec);
     }
 
+    /**
+     * **JPA IS MEMBER OF**：检查一个元素是否属于实体集合字段中的成员。
+     * 适用于 @OneToMany 或 @ManyToMany 关联。
+     *
+     * 例如查询用户列表， 条件为拥有管理员角色的用户列表 isMemberOf("roles", adminRole)
+     *
+     * @param element 要检查的实体对象（e.g., 一个 Role 对象）
+     * @param field 实体中的集合字段名 (e.g., "roles")
+     */
+    public Spec<T> isMember(String field, Object element) {
+        // field 作为集合属性名，element 作为要检查的元素
+        if (element != null && StringUtils.hasText(field)) {
+            this.add(new ConditionSpec<>(Operator.IS_MEMBER, field, element));
+        }
+        return this;
+    }
+
+    /**
+     * **JPA IS NOT MEMBER OF**：检查一个元素是否不属于实体集合字段中的成员。
+     *
+     * @param element 要检查的实体对象
+     * @param field 实体中的集合字段名
+     */
+    public Spec<T> isNotMember(String field, Object element) {
+        if (element != null && StringUtils.hasText(field)) {
+            this.add(new ConditionSpec<>(Operator.IS_NOT_MEMBER, field, element));
+        }
+        return this;
+    }
+
+    /**
+     * 设置 GROUP BY 字段。
+     * 注意：这会修改 CriteriaQuery，返回的 Predicate 仍是 AND 连接的结果。
+     * @param fields 需要分组的字段 (支持点操作 e.g., "dept.id")
+     */
+    public Spec<T> groupBy(String... fields) {
+        if (fields == null || fields.length == 0) {
+            return this;
+        }
+
+        this.add((root, query, cb) -> {
+            if (query.getGroupList().isEmpty()) {
+                List<Expression<?>> groups = new ArrayList<>();
+                for (String field : fields) {
+                    groups.add(ExpressionTool.getPath(root, field));
+                }
+                // 设置分组字段
+                query.groupBy(groups);
+            }
+            return cb.conjunction();
+        });
+        return this;
+    }
+
+    /**
+     * 设置 HAVING 过滤条件，用于 GROUP BY 之后。
+     * 注意：havingSpec 内部必须使用聚合函数，否则其行为等同于 WHERE 过滤。
+     * @param havingSpec 包含聚合函数条件的 Specification
+     */
+    public Spec<T> having(Specification<T> havingSpec) {
+        if (havingSpec == null) {
+            return this;
+        }
+
+        this.add((root, query, cb) -> {
+            Predicate havingPredicate = havingSpec.toPredicate(root, query, cb);
+
+            if (havingPredicate != null) {
+                // 将新的 HAVING 条件与已有的 HAVING 条件通过 AND 连接
+                Predicate existingHaving = query.getGroupRestriction();
+                if (existingHaving != null) {
+                    query.having(cb.and(existingHaving, havingPredicate));
+                } else {
+                    query.having(havingPredicate);
+                }
+            }
+            return cb.conjunction();
+        });
+        return this;
+    }
 
     // ---------------------- 私有辅助方法 ----------------------
 
@@ -281,6 +363,14 @@ public class Spec<T> implements Specification<T> {
                     Object[] values = (Object[]) value;
                     Assert.state(values.length == 2, "BETWEEN operation requires exactly two values.");
                     yield cb.between(path, (Comparable) values[0], (Comparable) values[1]);
+                }
+                case IS_MEMBER -> {
+                    Path collectionPath = root.get(field);
+                    yield cb.isMember(value, collectionPath);
+                }
+                case IS_NOT_MEMBER -> {
+                    Path collectionPath = root.get(field);
+                    yield cb.isNotMember(value, collectionPath);
                 }
                 default -> throw new IllegalArgumentException("Unsupported operator: " + op);
             };
