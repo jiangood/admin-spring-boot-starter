@@ -2,6 +2,7 @@ package io.admin.framework.data.service;
 
 
 import io.admin.framework.data.repository.BaseDao;
+import io.admin.framework.data.specification.Spec;
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public abstract class BaseService<T extends Persistable<String>> {
     @Delegate
     @Autowired
     protected BaseDao<T> baseDao;
+
+
+    public Spec<T> spec(){
+        return Spec.of();
+    }
 
     /**
      * 更新时，指定字段更新

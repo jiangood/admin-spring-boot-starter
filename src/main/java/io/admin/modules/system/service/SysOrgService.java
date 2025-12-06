@@ -55,15 +55,15 @@ public class SysOrgService extends BaseService<SysOrg> {
             return Collections.emptyList();
         }
 
-        JpaQuery<SysOrg> q = new JpaQuery<>();
-        q.in("id", orgPermissions);
+
+        Spec<SysOrg> q = spec().in("id", orgPermissions);
 
         // 如果不显示全部，则只显示启用的
         if (!showDisabled) {
-            q.eq(SysOrg.Fields.enabled, true);
+            q.equal(SysOrg.Fields.enabled, true);
         }
         if (!showDept) {
-            q.ne(SysOrg.Fields.type, OrgType.TYPE_DEPT.getCode());
+            q.notEqual(SysOrg.Fields.type, OrgType.TYPE_DEPT.getCode());
         }
 
 
@@ -143,21 +143,12 @@ public class SysOrgService extends BaseService<SysOrg> {
 
 
     public List<SysOrg> findByType(OrgType type) {
-        JpaQuery<SysOrg> q = new JpaQuery<>();
-
-        q.eq(SysOrg.Fields.enabled, true);
-        q.eq(SysOrg.Fields.type, type);
-
-        return sysOrgDao.findAll(q, Sort.by(SysOrg.Fields.seq));
+        return sysOrgDao.findAll(spec().equal(SysOrg.Fields.type, type).equal(SysOrg.Fields.enabled, true), Sort.by(SysOrg.Fields.seq));
     }
 
 
     public List<SysOrg> findByTypeAndLevel(OrgType orgType, int orgLevel) {
-        JpaQuery<SysOrg> q = new JpaQuery<>();
-        q.eq(SysOrg.Fields.enabled, true);
-        q.eq(SysOrg.Fields.type, orgType);
-
-        List<SysOrg> all = sysOrgDao.findAll(q, Sort.by(SysOrg.Fields.seq));
+        List<SysOrg> all = sysOrgDao.findAll(spec().equal(SysOrg.Fields.enabled, true).equal(SysOrg.Fields.type, orgType), Sort.by(SysOrg.Fields.seq));
 
         return all.stream().filter(o -> sysOrgDao.findLevelById(o.getId()) == orgLevel).collect(Collectors.toList());
     }
@@ -172,17 +163,6 @@ public class SysOrgService extends BaseService<SysOrg> {
         SysOrg org = sysOrgDao.findOne(orgId);
 
         return sysOrgDao.findUnit(org);
-    }
-
-
-    @Transactional
-    public void toggleAllStatus(String id, boolean enabled) {
-        List<String> ids = sysOrgDao.findChildIdListWithSelfById(id);
-        List<SysOrg> all = sysOrgDao.findAllById(ids);
-        for (SysOrg sysOrg : all) {
-            sysOrg.setEnabled(enabled);
-            sysOrgDao.save(sysOrg);
-        }
     }
 
 

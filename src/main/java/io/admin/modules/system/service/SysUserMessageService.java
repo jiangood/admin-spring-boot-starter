@@ -2,6 +2,7 @@ package io.admin.modules.system.service;
 
 import io.admin.framework.data.service.BaseService;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.dao.SysUserMessageDao;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.modules.system.entity.SysUserMessage;
@@ -21,22 +22,16 @@ public class SysUserMessageService extends BaseService<SysUserMessage> {
     SysUserMessageDao sysUserMsgDao;
 
     public Page<SysUserMessage> findByUser(String id, Boolean read, Pageable pageable) {
-        JpaQuery<SysUserMessage> q = new JpaQuery<>();
-        q.eq(SysUserMessage.Fields.user + ".id", id);
+        Spec<SysUserMessage> spec = Spec.<SysUserMessage>of().equal(SysUserMessage.Fields.user + ".id", id);
         if(read != null){
-            q.eq(SysUserMessage.Fields.isRead , read);
+            spec.equal(SysUserMessage.Fields.isRead , read);
         }
 
-        Page<SysUserMessage> list = sysUserMsgDao.findAll(q, pageable);
-        return list;
+        return sysUserMsgDao.findAll(spec, pageable);
     }
 
     public long countUnReadByUser(String id) {
-        JpaQuery<SysUserMessage> q = new JpaQuery<>();
-        q.eq(SysUserMessage.Fields.user + ".id", id);
-            q.eq(SysUserMessage.Fields.isRead , false);
-
-       return sysUserMsgDao.count(q);
+       return sysUserMsgDao.count(Spec.<SysUserMessage>of().equal(SysUserMessage.Fields.user + ".id", id).equal(SysUserMessage.Fields.isRead , false));
     }
 
     @Transactional

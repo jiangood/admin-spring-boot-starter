@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.stereotype.Service;
@@ -304,7 +305,7 @@ public class SysFileService {
        // sysFile.putExtData("imageUrls", urls);
     }
 
-    public Page<SysFile> findAll(JpaQuery<SysFile> q, Pageable pageable) {
+    public Page<SysFile> findAll(Specification<SysFile> q, Pageable pageable) {
         Page<SysFile> page = sysFileDao.findAll(q, pageable);
         for (SysFile sysFile : page) {
             this.fillAllImageUrl(sysFile);

@@ -41,22 +41,7 @@ public class SysRoleService extends BaseService<SysRole> {
 
 
     public SysRole findByCode(String code) {
-        JpaQuery<SysRole> query = new JpaQuery<>();
-        query.eq(SysRole.Fields.code, code);
-
-        return roleDao.findOne(query);
-    }
-
-
-    @Transactional
-    public Set<SysRole> getLoginRoles(String userId) {
-        Assert.state(userId != null, "用户ID不能为空");
-        SysUser user = sysUserDao.findOne(userId);
-
-        Collection<SysRole> roles = user.getRoles();
-
-
-        return roles.stream().filter(SysRole::getEnabled).collect(Collectors.toSet());
+        return roleDao.findByCode(code);
     }
 
 
