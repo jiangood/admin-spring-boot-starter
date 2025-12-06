@@ -17,7 +17,7 @@
 - web/package.json
 
 其中版本号使用shields.io生成，不要使用文件中声明的版本号
-
+其中前端说明依赖时，使用表格，包含名称和版本，简要说明
 
 ### 前端文档，文档名称为front-framework.md
 表格形式
