@@ -4,6 +4,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysManual;
 import io.admin.modules.system.service.SysManualService;
 import jakarta.annotation.Resource;
@@ -30,8 +31,8 @@ public class SysManualController  {
     @RequestMapping("page")
     public AjaxResult page(   String searchText,
                               @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
-        JpaQuery<SysManual> q = new JpaQuery<>();
-        q.searchText(searchText, SysManual.Fields.name);
+        Spec<SysManual> q = Spec.of();
+        q.orLike(searchText, SysManual.Fields.name);
 
         Page<SysManual> page = service.findPageByRequest(q, pageable);
 
@@ -66,9 +67,9 @@ public class SysManualController  {
      */
     @RequestMapping("pageForUser")
     public AjaxResult pageForUser(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = {"name", "version"}) Pageable pageable) {
-        JpaQuery<SysManual> q = new JpaQuery<>();
+        Spec<SysManual> q = Spec.of();
 
-        q.searchText(searchText, "name");
+        q.orLike(searchText, "name");
 
 
 

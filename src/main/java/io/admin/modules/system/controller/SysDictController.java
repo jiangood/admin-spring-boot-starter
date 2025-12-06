@@ -5,6 +5,7 @@ package io.admin.modules.system.controller;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.common.dto.AjaxResult;
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysDict;
 import io.admin.modules.system.service.SysDictService;
 import jakarta.annotation.Resource;
@@ -24,8 +25,8 @@ public class SysDictController  {
     @HasPermission("sysDict:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
-        JpaQuery<SysDict> q = new JpaQuery<>();
-        q.searchText(searchText, "text","code");
+        Spec<SysDict> q = service.spec();
+        q.orLike(searchText, "text","code");
 
         Page<SysDict> page = service.findPageByRequest(q, pageable);
 

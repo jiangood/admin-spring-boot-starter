@@ -3,6 +3,7 @@ package io.admin.modules.system.controller;
 
 import io.admin.common.utils.enums.MaterialType;
 import io.admin.common.dto.AjaxResult;
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysFile;
 import io.admin.modules.system.service.SysFileService;
 import io.admin.framework.config.security.HasPermission;
@@ -37,7 +38,7 @@ public class SysFileController {
                            String objectName,
                            MaterialType type,
                            @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) {
-        JpaQuery<SysFile> q = new JpaQuery<>();
+        Spec<SysFile> q = Spec.of();
         q.betweenIsoDateRange("createTime", dateRange,true);
         q.eq(SysFile.Fields.originName, originName);
         q.eq(SysFile.Fields.objectName, objectName);

@@ -16,9 +16,7 @@ public class SysJobExecuteRecordDao extends BaseDao<SysJobExecuteRecord> {
 
     @Transactional
     public void deleteByJobId(String jobId) {
-        JpaQuery<SysJobExecuteRecord> q = new JpaQuery<>();
-        q.eq(SysJobExecuteRecord.Fields.sysJob, new SysJob(jobId));
-        List<SysJobExecuteRecord> list = findAll(q);
+        List<SysJobExecuteRecord> list = this.findAllByField(SysJobExecuteRecord.Fields.sysJob, new SysJob(jobId));
         this.deleteAll(list);
     }
 

@@ -14,6 +14,7 @@ import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.domain.BaseEntity;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.framework.log.Log;
 import io.admin.common.dto.DropdownRequest;
 import io.admin.modules.common.LoginUtils;
@@ -147,7 +148,7 @@ public class SysUserController {
     @RequestMapping("options")
     public AjaxResult options(DropdownRequest dropdownRequest) {
         String searchText = dropdownRequest.getSearchText();
-        JpaQuery<SysUser> query = new JpaQuery<>();
+        Spec<SysUser> query = Spec.of();
 
         if (searchText != null) {
             query.like("name", "%" + searchText.trim() + "%");
@@ -156,10 +157,10 @@ public class SysUserController {
         // 权限过滤
         Collection<String> orgIds = LoginUtils.getOrgPermissions();
         if (CollUtil.isNotEmpty(orgIds)) {
-            query.addSubOr(q -> {
-                q.in(SysUser.Fields.unitId, orgIds);
-                q.in(SysUser.Fields.deptId, orgIds);
-            });
+            query.or(
+                Spec.<SysUser>of().in(SysUser.Fields.unitId, orgIds),
+                Spec.<SysUser>of().in(SysUser.Fields.deptId, orgIds)
+            );
 
         }
 

@@ -7,6 +7,7 @@ import io.admin.common.dto.antd.Option;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.api.dto.GrantRequest;
 import io.admin.modules.api.entity.ApiAccount;
 import io.admin.modules.api.entity.ApiResource;
@@ -65,8 +66,7 @@ public class ApiAccountController {
     @HasPermission("apiAccount:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
-        JpaQuery<ApiAccount> q = new JpaQuery<>();
-        q.searchText(searchText, "name");
+        Spec<ApiAccount> q = service.spec().orLike(searchText, "name");
         Page<ApiAccount> page = service.findPageByRequest(q, pageable);
         return AjaxResult.ok().data(page);
     }

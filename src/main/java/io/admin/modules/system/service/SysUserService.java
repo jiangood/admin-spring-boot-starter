@@ -95,26 +95,22 @@ public class SysUserService extends BaseService<SysUser> {
 
 
     public Page<UserResponse> findAll(String orgId, String roleId, String searchText, Pageable pageable) throws SQLException {
-        JpaQuery<SysUser> query = new JpaQuery<>();
+        Spec<SysUser> query = spec();
 
         if (StrUtil.isNotEmpty(orgId)) {
-            query.addSubOr(q -> {
-                q.eq(SysUser.Fields.unitId, orgId);
-                q.eq(SysUser.Fields.deptId, orgId);
-
-            });
+            query.or(Spec.<SysUser>of().eq(SysUser.Fields.unitId, orgId), Spec.<SysUser>of().eq(SysUser.Fields.deptId, orgId));
         }
         if (StrUtil.isNotEmpty(roleId)) {
             query.isMember(SysUser.Fields.roles, new SysRole(roleId));
         }
 
         if (StrUtil.isNotEmpty(searchText)) {
-            query.addSubOr(q -> {
-                q.like(SysUser.Fields.name, searchText);
-                q.like(SysUser.Fields.phone, searchText);
-                q.like(SysUser.Fields.account, searchText);
-                q.like(SysUser.Fields.email, searchText);
-            });
+            query.or(
+                    Spec.<SysUser>of().like(SysUser.Fields.name, searchText),
+                    Spec.<SysUser>of().like(SysUser.Fields.phone, searchText),
+                    Spec.<SysUser>of().like(SysUser.Fields.account, searchText),
+                    Spec.<SysUser>of().like(SysUser.Fields.email, searchText)
+            );
         }
 
         Page<SysUser> page = sysUserDao.findAll(query, pageable);

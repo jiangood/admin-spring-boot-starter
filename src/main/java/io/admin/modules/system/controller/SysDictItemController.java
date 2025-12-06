@@ -4,6 +4,7 @@ package io.admin.modules.system.controller;
 import cn.hutool.core.util.StrUtil;
 import io.admin.framework.config.argument.RequestBodyKeys;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysDict;
 import io.admin.modules.system.entity.SysDictItem;
 import io.admin.modules.system.service.SysDictItemService;
@@ -34,8 +35,8 @@ public class SysDictItemController  {
     @HasPermission("sysDict:view")
     @RequestMapping("page")
     public AjaxResult page( String sysDictId, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) {
-        JpaQuery<SysDictItem> q = new JpaQuery<>();
         if(StrUtil.isNotEmpty(sysDictId)){
+            Spec<SysDictItem> q = service.spec();
             q.eq(SysDictItem.Fields.sysDict + ".id",  sysDictId);
             Page<SysDictItem> page = service.findPageByRequest(q, pageable);
             return AjaxResult.ok().data(page);
@@ -48,9 +49,6 @@ public class SysDictItemController  {
     @HasPermission("sysDict:save")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysDictItem param, RequestBodyKeys updateFields) throws Exception {
-        SysDict dict = sysDictService.findByRequest(param.getSysDict().getId());
-
-        param.setBuiltin(false);
         SysDictItem result = service.saveOrUpdateByRequest(param,updateFields);
         return AjaxResult.ok().data( result.getId()).msg("保存成功");
     }

@@ -3,6 +3,7 @@ package io.admin.modules.job.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.job.entity.SysJob;
 import io.admin.modules.job.entity.SysJobExecuteRecord;
 import io.admin.modules.job.quartz.QuartzManager;
@@ -156,7 +157,7 @@ public class SysJobController {
 
     @RequestMapping("executeRecord")
     public AjaxResult executeRecordPage(@RequestParam String jobId, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) {
-        JpaQuery<SysJobExecuteRecord> q = new JpaQuery<>();
+        Spec<SysJobExecuteRecord> q = Spec.of();
         q.eq(SysJobExecuteRecord.Fields.sysJob + ".id", jobId);
 
         Page<SysJobExecuteRecord> page = service.findAllExecuteRecord(q, pageable);

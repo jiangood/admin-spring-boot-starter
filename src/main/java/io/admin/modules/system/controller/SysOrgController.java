@@ -12,6 +12,7 @@ import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.framework.log.Log;
 import io.admin.modules.common.LoginUtils;
 import io.admin.modules.system.enums.OrgType;
@@ -47,7 +48,7 @@ public class SysOrgController {
     @HasPermission("sysOrg:view")
     @RequestMapping("tree")
     public AjaxResult tree(boolean onlyShowEnabled, boolean onlyShowUnit, String searchText) {
-        JpaQuery<SysOrg> q = new JpaQuery<>();
+        Spec<SysOrg> q = Spec.of();
 
         if (onlyShowEnabled) {
             q.eq(SysOrg.Fields.enabled, true);
@@ -56,7 +57,7 @@ public class SysOrgController {
         if (onlyShowUnit) {
             q.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT.getCode());
         }
-        q.searchText(searchText, SysOrg.Fields.name);
+        q.orLike(searchText, SysOrg.Fields.name);
 
         // 权限过滤
         q.in("id", LoginUtils.getOrgPermissions());

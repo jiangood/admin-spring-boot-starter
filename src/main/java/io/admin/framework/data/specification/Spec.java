@@ -22,18 +22,11 @@ public class Spec<T> implements Specification<T> {
     // 存储所有查询条件
     private final List<Specification<T>> specifications = new ArrayList<>();
 
-    public enum Fuc {
-        SUM,
-        COUNT,
+    public void betweenIsoDateRange(String createTime, String dateRange, boolean b) {
 
-        /**
-         * 平均
-         */
-        AVG,
-
-        MIN,
-        MAX
     }
+
+
     public Spec<T> selectFnc(Fuc fn, String field) {
         return this.add((Specification<T>) (root, query, cb) -> {
 

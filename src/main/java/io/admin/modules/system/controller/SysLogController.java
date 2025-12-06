@@ -3,6 +3,7 @@ package io.admin.modules.system.controller;
 
 
 import io.admin.common.dto.AjaxResult;
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysLog;
 import io.admin.modules.system.service.SysLogService;
 import io.admin.framework.config.security.HasPermission;
@@ -30,7 +31,7 @@ public class SysLogController {
     @HasPermission("sysLog:view")
     @RequestMapping("page")
     public AjaxResult page( String dateRange ,String operation, @PageableDefault(sort = "operationTime", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
-        JpaQuery<SysLog> q = new JpaQuery<>();
+        Spec<SysLog> q = Spec.of();
         q.betweenIsoDateRange(SysLog.Fields.operationTime, dateRange,true);
         q.like(SysLog.Fields.operation, operation);
 

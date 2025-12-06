@@ -1,5 +1,6 @@
 package io.admin.modules.job.dao;
 
+import io.admin.framework.data.specification.Spec;
 import io.admin.modules.job.entity.SysJob;
 import io.admin.framework.data.repository.BaseDao;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public class SysJobDao extends BaseDao<SysJob> {
 
     public List<SysJob> findAllEnabled() {
-        JpaQuery<SysJob> q = new JpaQuery<>();
+        Spec<SysJob> q = spec();
         q.eq(SysJob.Fields.enabled, true);
 
 
@@ -23,7 +24,7 @@ public class SysJobDao extends BaseDao<SysJob> {
     }
 
     public SysJob findByName(String name) {
-        JpaQuery<SysJob> q = new JpaQuery<>();
+        Spec<SysJob> q = spec();
         q.eq(SysJob.Fields.name, name);
 
 
@@ -31,7 +32,7 @@ public class SysJobDao extends BaseDao<SysJob> {
     }
 
     public SysJob findByNameAndGroup(String name) {
-        JpaQuery<SysJob> q = new JpaQuery<>();
+        Spec<SysJob> q = spec();
         q.eq(SysJob.Fields.name, name);
 
         return this.findOne(q);
