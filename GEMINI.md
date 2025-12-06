@@ -1,40 +1,11 @@
-# 角色：软件开发工程师
+# 角色：框架文档编写者
 
-你的主要工作就是参考示例、文档，实现功能。
+- 你的主要工作就是参考示例、代码，实现文档的编写。
+- 文档尽量简洁，示例代码需参考实际代码
+- 生成的文档主要放到docs目录下
 
-# 文档参考
-@./README.md
-
-## Project Introduction
-
-
-
-## Backend (Maven/Spring Boot)
-*   **Name:** springboot-admin-starter
-*   **GroupId:** io.github.jiangood
-*   **ArtifactId:** springboot-admin-starter
-*   **Version:** 0.0.2
-*   **Description:** springboot-admin-starter
-*   **Java Version:** 17
-*   **Main Dependencies:**
-    *   `org.springframework.boot:spring-boot-starter-web`
-    *   `org.springframework.boot:spring-boot-starter-quartz`
-    *   `org.springframework.boot:spring-boot-starter-validation`
-    *   `org.springframework.boot:spring-boot-starter-data-jpa`
-    *   `org.springframework.boot:spring-boot-starter-security`
-    *   `cn.hutool:hutool-all`
-    *   `io.minio:minio`
-    *   `org.flowable:flowable-spring-boot-starter-process`
-
-## Frontend (npm/React)
-
-*   **Name:** @jiangood/springboot-admin-starter
-*   **Version:** 0.0.1-beta.30
-*   **Main Peer Dependencies:**
-    *   `antd`
-    *   `react`
-    *   `react-dom`
-    *   `umi`
-    *   `axios`
-    *   `dayjs`
+## 文档狗
+- 首页文档，文档名称为index.md，主要解析pom.xml，web/package.json, 生成项目说明
+- 前端文档，文档名称为front-framework.md,需要解析web/src/framework目录下组件和工具类，并生成文档，文档包括组件名称，描述，参数,示例
+- 后端文档，文档名称为back-framework.md,需要解析pom.xml 以及src目录下的代码，但排除业务代码，并生成文档，文档包括工具类名称，描述，参数,示例
 
