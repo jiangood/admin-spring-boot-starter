@@ -13,7 +13,7 @@
     <!--<version>0.0.1-SNAPSHOT</version>-->
     <version>${revision}</version>
     <name>springboot-admin-starter</name>
-    <description>springboot-admin-starter</description>
+    <description>小型管理系统框架</description>
     <url>https://github.com/jiangood/springboot-admin-starter</url>
     <licenses>
         <license>
