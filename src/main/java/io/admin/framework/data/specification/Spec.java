@@ -38,7 +38,6 @@ public class Spec<T> implements Specification<T> {
     public Spec<T> selectFnc(Fuc fn, String field) {
         return this.add((Specification<T>) (root, query, cb) -> {
 
-            List<Selection<?>> newSections = new ArrayList<>(query.getSelection().getCompoundSelectionItems());
             Path<Number> x = root.get(field);
 
            Expression<? extends Number> sel = switch (fn) {
@@ -50,7 +49,7 @@ public class Spec<T> implements Specification<T> {
             };
            sel.alias(fn.name().toLowerCase() + "_" + field);
 
-
+            List<Selection<?>> newSections = new ArrayList<>(query.getSelection().getCompoundSelectionItems());
             newSections.add(sel);
 
             query.multiselect(newSections);
