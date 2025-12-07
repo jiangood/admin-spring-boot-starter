@@ -1,22 +1,14 @@
-# springboot-admin-starter
+# SpringBoot Admin Starter
 
 ## 1 介绍
 
-本文档介绍了 `springboot-admin-starter` 框架，这是一个为业务项目提供后端管理系统基础功能的框架。该框架提供了完整的后端管理功能，包括用户管理、权限控制、系统配置、作业调度、流程引擎等核心功能，业务项目可以基于该框架快速搭建管理系统。
-
-### 目录
-- [1 介绍](#1-介绍)
-- [2 前端](#2-前端)
-- [3 后端](#3-后端)
-- [4 模板代码](#4-模板代码)
+本项目是一个小型管理系统框架，为业务项目提供快速开发能力。它集成了常用的系统管理功能，如用户管理、角色管理、权限管理、作业调度、流程引擎等功能，并提供了完整的前后端解决方案。
 
 ### 开发环境
 
-- **Java版本**: 17
-- **Spring Boot版本**: 3.5.8
-- **数据库**: MySQL
-- **前端框架**: React 19.0.0
-- **UI组件库**: Ant Design 6.x
+- **Java**: 17+
+- **Node.js**: 19+
+- **数据库**: MySQL 8.0+
 
 ### 版本信息
 
@@ -26,327 +18,418 @@
 
 ### 后端依赖
 
-| 依赖项 | 版本 | 描述 |
-|--------|------|------|
-| `org.springframework.boot:spring-boot-starter-web` | - | Spring Boot Web模块 |
-| `org.springframework.boot:spring-boot-starter-quartz` | - | 作业调度模块 |
-| `org.springframework.boot:spring-boot-starter-validation` | - | 参数验证模块 |
-| `org.springframework.boot:spring-boot-starter-aop` | - | AOP模块 |
-| `org.springframework.boot:spring-boot-starter-data-jpa` | - | JPA数据访问模块 |
-| `org.springframework.boot:spring-boot-starter-cache` | - | 缓存模块 |
-| `org.springframework.boot:spring-boot-starter-security` | - | 安全模块 |
-| `org.mapstruct:mapstruct` | 1.6.3 | MapStruct映射工具 |
-| `org.mapstruct:mapstruct-processor` | 1.6.3 | MapStruct注解处理器 |
-| `com.jhlabs:filters` | 2.0.235-1 | 图像处理滤镜 |
-| `io.minio:minio` | 8.6.0 | MinIO对象存储 |
-| `javax.mail:mail` | 1.4.7 | 邮件发送 |
-| `org.apache.poi:poi-ooxml` | 5.5.0 | Excel导入导出 |
-| `org.apache.poi:poi-scratchpad` | 5.5.0 | POI文档处理 |
-| `com.itextpdf:itextpdf` | 5.5.13.4 | PDF处理 |
-| `com.github.f4b6a3:uuid-creator` | 6.1.1 | UUID生成器 |
-| `commons-dbutils:commons-dbutils` | 1.8.1 | DBUtils工具库 |
-| `cn.hutool:hutool-all` | 5.8.41 | Hutool工具包 |
-| `org.apache.commons:commons-lang3` | - | Commons Lang3 |
-| `com.google.guava:guava` | 33.5.0-jre | Google Guava工具库 |
-| `commons-io:commons-io` | 2.21.0 | Commons IO工具库 |
-| `org.flowable:flowable-spring-boot-starter-process` | 7.2.0 | Flowable流程引擎 |
+- **Spring Boot**: 3.5.8 - 核心框架
+- **Spring Web**: 3.5.8 - Web开发支持
+- **Spring Data JPA**: 3.5.8 - 数据持久化
+- **Spring Security**: 3.5.8 - 安全框架
+- **Spring Quartz**: 3.5.8 - 作业调度
+- **MapStruct**: 1.6.3 - 对象映射
+- **Hutool**: 5.8.41 - 工具类库
+- **POI**: 5.5.0 - Excel处理
+- **Guava**: 33.5.0-jre - Google工具库
+- **Commons IO**: 2.21.0 - IO工具
+- **Lombok**: 1.18.30 - 代码简化
+- **Flowable**: 7.2.0 - 工作流引擎
+- **MinIO**: 8.6.0 - 对象存储
+- **iTextPDF**: 5.5.13.4 - PDF处理
+- **UUID Creator**: 6.1.1 - UUID生成器
+- **Hibernate**: 内置 - JPA实现
 
 ### 前端依赖
 
-| 依赖项 | 版本 | 描述 |
-|--------|------|------|
-| `@ant-design/icons` | ^5.4.0 | Ant Design图标库 |
-| `antd` | ^6.0.0 | Ant Design UI组件库 |
-| `axios` | ^1.13.2 | HTTP客户端 |
-| `bpmn-js` | ^18.7.0 | BPMN流程图引擎 |
-| `bpmn-js-properties-panel` | ^5.43.0 | BPMN属性面板 |
-| `dayjs` | ^1.11.13 | 时间处理库 |
-| `jsencrypt` | ^3.5.4 | 加密库 |
-| `lodash` | ^4.17.21 | 工具函数库 |
-| `qs` | ^6.14.0 | 查询字符串处理 |
-| `react` | ^19.0.0 | React框架 |
-| `react-dom` | ^19.0.0 | React DOM渲染 |
-| `umi` | ^4.0.0 | 前端框架 |
-| `antd-img-crop` | ^4.23.0 | 图片裁剪组件 |
-| `@tinymce/tinymce-react` | ^6.0.0 | 富文本编辑器 |
-
----
+- **React**: 19.0.0 - 前端框架
+- **Ant Design**: 6.0.0 - UI组件库
+- **Umi**: 4.0.0 - 前端构建工具
+- **Axios**: 1.13.2 - HTTP客户端
+- **Lodash**: 4.17.21 - 实用工具库
+- **Day.js**: 1.11.13 - 时间处理库
+- **BPMN-js**: 18.7.0 - 流程图编辑器
+- **TinyMCE**: 6.0.0 - 富文本编辑器
+- **Typescript**: 5.0.0 - 类型检查
 
 ## 2 前端
 
-### 目录
-- [组件](#组件)
-- [工具函数](#工具函数)
-- [字段组件](#字段组件)
-- [视图组件](#视图组件)
-- [页面组件](#页面组件)
+前端框架提供了一套完整的组件库和工具类，帮助业务项目快速搭建用户界面。
 
-### 组件
+### 组件库
 
-框架提供了丰富的前端组件，用于快速构建管理界面。
+#### 2.1 公共组件
 
-#### ProModal
-**ProModal** 是一个高级弹窗组件，支持表单验证、数据提交等功能。
+框架提供了丰富的公共组件，包括：
 
-#### ProTable
-**ProTable** 是一个高级表格组件，支持分页、搜索、排序等功能。
+- **Page**: 页面容器组件，用于设置页面样式和背景色
+- **ProTable**: 高级表格组件，支持分页、搜索、排序等功能
+- **ProModal**: 高级模态框组件，支持显示和隐藏控制
+- **Ellipsis**: 文本省略组件
+- **LinkButton**: 链接按钮组件
+- **DownloadFileButton**: 文件下载按钮组件
+- **NamedIcon**: 图标组件
+- **PageLoading**: 页面加载组件
+- **ButtonList**: 按钮列表组件，用于管理按钮间距
+- **Gap**: 间距组件
 
-#### Page
-**Page** 是页面布局组件，提供标准的页面结构。
+#### 2.2 字段组件
 
-#### Gap
-**Gap** 是间距组件，用于控制元素之间的间距。
+框架提供了多种字段组件，用于表单输入：
 
-#### DownloadFileButton
-**DownloadFileButton** 是下载文件按钮组件，支持文件下载功能。
+- **FieldBoolean**: 布尔值字段
+- **FieldDate**: 日期字段
+- **FieldDateRange**: 日期范围字段
+- **FieldDictSelect**: 数据字典选择器
+- **FieldEditor**: 富文本编辑器
+- **FieldPercent**: 百分比字段
+- **FieldRemoteSelect**: 远程选择器
+- **FieldRemoteSelectMultiple**: 远程多选器
+- **FieldRemoteSelectMultipleInline**: 远程内联多选器
+- **FieldRemoteTree**: 远程树选择器
+- **FieldRemoteTreeCascader**: 远程树级联选择器
+- **FieldRemoteTreeSelect**: 远程树选择器
+- **FieldRemoteTreeSelectMultiple**: 远程树多选器
+- **FieldSysOrgTree**: 系统组织树选择器
+- **FieldSysOrgTreeSelect**: 系统组织树选择器
+- **FieldTable**: 表格字段
+- **FieldTableSelect**: 表格选择器
+- **FieldUploadFile**: 文件上传组件，支持多种文件类型和裁剪功能
 
-#### Ellipsis
-**Ellipsis** 是省略号组件，用于文本过长时显示省略号。
+#### 2.3 视图组件
 
-#### LinkButton
-**LinkButton** 是链接按钮组件，支持跳转功能。
+框架提供了视图组件，用于数据显示：
 
-#### NamedIcon
-**NamedIcon** 是命名图标组件，支持动态图标显示。
+- **ViewBoolean**: 布尔值视图
+- **ViewPassword**: 密码视图
 
-#### PageLoading
-**PageLoading** 是页面加载组件，提供加载状态显示。
+#### 2.4 工具函数
 
-### 工具函数
+框架提供了丰富的工具函数：
 
-框架提供了一些常用的工具函数。
+- **ArrUtils**: 数组工具类
+- **ColorsUtils**: 颜色工具类
+- **DateUtils**: 日期工具类
+- **DeviceUtils**: 设备工具类
+- **DomUtils**: DOM工具类
+- **EventBusUtils**: 事件总线工具类
+- **MessageUtils**: 消息工具类
+- **ObjectUtils**: 对象工具类
+- **StorageUtils**: 存储工具类
+- **StringUtils**: 字符串工具类
+- **TreeUtils**: 树结构工具类
+- **UrlUtils**: URL工具类
+- **UuidUtils**: UUID工具类
+- **ValidateUtils**: 验证工具类
+- **system**: 系统相关工具
 
-### 字段组件
+#### 2.5 系统组件
 
-字段组件用于表单中的各种输入字段。
+框架还提供了一些系统专用组件，用于处理系统管理相关的功能。
 
-### 视图组件
+### 2.6 页面组件
 
-视图组件用于数据显示和展示。
+框架提供了预设的页面组件：
 
-### 页面组件
+- **LoginPage**: 登录页面
 
-页面组件用于构建完整页面。
+### 2.7 ProTable 参数说明
 
----
+`ProTable` 组件提供了以下参数：
+
+- **request**: 数据请求函数
+- **columns**: 表格列定义
+- **actionRef**: 操作引用，用于调用组件内部方法
+- **toolBarRender**: 工具栏渲染函数
+- **rowKey**: 行键，用于标识每一行，默认为 "id"
+- **defaultPageSize**: 默认每页显示数量
+- **scrollY**: 表格垂直滚动高度
+- **bordered**: 是否显示边框
+- **toolbarOptions**: 工具栏选项，设置为 false 可隐藏工具栏
+- **searchFormItemsRender**: 搜索表单项渲染（已废弃，请直接放置到 ProTable 的子节点）
+
+### 2.8 FieldUploadFile 参数说明
+
+`FieldUploadFile` 组件提供了以下参数：
+
+- **maxCount**: 最大上传文件数量，默认为 1
+- **accept**: 允许上传的文件类型
+- **listType**: 文件列表样式，默认为 'picture-card'
+- **cropImage**: 是否开启图片裁剪
+- **onFileChange**: 文件变化时的回调函数
+- **cropperProps**: 裁剪组件属性（在开启图片裁剪时使用）
 
 ## 3 后端
 
-### 目录
-- [菜单列表](#菜单列表)
-- [业务项目配置](#业务项目配置)
-- [数据规范](#数据规范)
-- [树工具](#树工具)
-- [注解工具](#注解工具)
-- [Excel工具](#excel工具)
-- [JDBC工具](#jdbc工具)
-- [ID生成器](#id生成器)
-- [数据转换器](#数据转换器)
-- [验证器](#验证器)
-- [登录工具](#登录工具)
-- [作业调度](#作业调度)
-- [流程引擎](#流程引擎)
-- [系统配置](#系统配置)
+后端框架提供了丰富的功能组件和工具类，帮助业务项目快速实现数据管理、权限控制等功能。
 
-### 菜单列表
+### 3.1 规范化查询
 
-框架提供了完整的菜单列表配置，包括：
+框架提供了 `Spec` 类，用于构建动态查询条件：
 
-- **我的任务**
-  - 路径: `/flowable/task`
-  - 权限: `myFlowableTask:manage`
+```java
+public class Spec<T> implements Specification<T> {
+    // 构建查询条件的链式API
+    public Spec<T> eq(String field, Object value) // 等于
+    public Spec<T> ne(String field, Object value) // 不等于
+    public Spec<T> like(String field, String value) // 模糊匹配
+    public Spec<T> in(String field, Collection<?> values) // 包含
+    public Spec<T> between(String field, C value1, C value2) // 范围查询
+    public Spec<T> isNotNull(String field) // 非空
+    public Spec<T> isNull(String field) // 为空
+    public Spec<T> distinct(boolean distinct) // 去重
+    public Spec<T> or(Specification<T>... orSpecifications) // 或条件
+    public Spec<T> not(Specification<T> spec) // 非条件
+}
+```
 
-- **系统管理**
-  - **机构管理**: `/system/org` - 权限: `sysOrg:save`, `sysOrg:view`, `sysOrg:delete`
-  - **用户管理**: `/system/user` - 权限: `sysUser:view`, `sysUser:save`, `sysUser:delete`, `sysUser:resetPwd`, `sysUser:grantPerm`
-  - **角色管理**: `/system/role` - 权限: `sysRole:save`
-  - **操作手册**: `/system/sysManual` - 权限: `sysManual:view`, `sysManual:delete`, `sysManual:save`
-  - **系统设置**: `/system/config` - 权限: `sysConfig:view`, `sysConfig:save`
-  - **数据字典**: `/system/dict` - 权限: `sysDict:view`, `sysDict:save`, `sysDict:delete`
-  - **存储文件**: `/system/file` - 权限: `sysFile:view`, `sysFile:delete`
-  - **作业调度**: `/system/job` - 权限: `job:view`, `job:save`, `job:triggerJob`, `job:jobLogClean`
-  - **操作日志**: `/system/log` - 权限: `sysLog:view`
-  - **接口管理**: `/system/api` - 权限: `api`
-  - **流程引擎**: `/flowable` - 权限: `flowableModel:design`, `flowableModel:deploy`, `flowableTask:setAssignee`, `flowableInstance:close`
-  - **报表管理**: `/ureport` - 权限: `ureport:view`, `ureport:design`
+### 3.2 树形结构处理
 
-### 业务项目配置
+框架提供了 `TreeUtils` 工具类，用于处理树形结构数据：
 
-业务项目可以通过 `application-data-biz.yml` 文件进行配置。
+```java
+public class TreeUtils {
+    // 构建树结构
+    public static List<TreeOption> buildTree(List<TreeOption> list)
+    // 将树转换为Map
+    public static Map<String, TreeOption> treeToMap(List<TreeOption> tree)
+    // 遍历树节点
+    public static <E> void walk(List<E> list, Function<E, List<E>> getChildren, Consumer<E> consumer)
+    // 获取树的叶子节点
+    public static <E> List<E> getLeafs(List<E> list, Function<E, List<E>> getChildren)
+    // 将树转换为列表
+    public static <E> List<E> treeToList(List<E> tree, Function<E, List<E>> getChildren)
+}
+```
 
-### 数据规范
+### 3.3 注解处理
 
-**Spec.java** 提供了简洁、动态、支持关联字段查询的 JPA Specification 构建器。
+框架提供了 `RemarkUtils` 工具类，用于获取注解信息：
 
-#### 主要功能
-- **基础查询**: `eq` (等于), `ne` (不等于), `gt` (大于), `lt` (小于), `like` (模糊查询), `in` (包含)
-- **高级查询**: `between` (范围查询), `isNotNull` (非空), `isNull` (为空), `or` (或条件)
-- **聚合函数**: `selectFnc` (支持 AVG, SUM, MIN, MAX, COUNT)
-- **分组查询**: `groupBy` (分组), `having` (分组后条件)
-- **集合操作**: `isMember` (成员判断), `isNotMember` (非成员判断)
+```java
+public class RemarkUtils {
+    // 获取字段注解信息
+    public static String getRemark(Field field)
+    // 获取类注解信息
+    public static String getRemark(Class<?> t)
+    // 获取枚举注解信息
+    public static String getRemark(Enum<?> t)
+    // 获取方法注解信息
+    public static String getRemark(Method method)
+}
+```
 
-### 树工具
+### 3.4 Excel导入导出
 
-**TreeUtils.java** 提供了将列表转换为树结构的功能。
+框架提供了 `ExcelUtils` 工具类，支持Excel的导入导出功能：
 
-#### 主要方法
-- `buildTree`: 构建树结构
-- `treeToMap`: 将树转换为Map
-- `buildTreeByDict`: 基于Dict构建树
-- `walk`: 递归遍历树
-- `getLeafs`: 获取叶子节点
-- `treeToList`: 将树转换为列表
-- `getPids`: 获取节点父ID路径
+```java
+public class ExcelUtils {
+    // 导入Excel
+    public static <T> List<T> importExcel(Class<T> cls, InputStream is) throws Exception
+    // 导出Excel
+    public static <T> void exportExcel(Class<T> cls, List<T> list, OutputStream os) throws Exception
+}
+```
 
-### 注解工具
+### 3.5 JDBC工具
 
-**RemarkUtils.java** 提供了获取注解信息的工具方法。
+框架提供了 `JdbcUtils` 工具类，用于执行原生SQL查询：
 
-#### 主要方法
-- `getRemark(Field)`: 获取字段注解信息
-- `getRemark(Class)`: 获取类注解信息
-- `getRemark(Enum)`: 获取枚举注解信息
-- `getRemark(Method)`: 获取方法注解信息
+```java
+@Component
+public class JdbcUtils {
+    // 执行更新、插入或删除操作
+    public int update(String sql, Object... params)
+    // 查询单条记录
+    public <T> T findOne(Class<T> cls, String sql, Object... params)
+    // 查询多条记录
+    public <T> List<T> findAll(Class<T> cls, String sql, Object... params)
+    // 分页查询
+    public <T> Page<T> findAll(Class<T> cls, Pageable pageable, String sql, Object... params)
+    // 动态插入
+    public int insert(String tableName, Object bean)
+    // 动态更新
+    public int updateById(String table, Object bean)
+}
+```
 
-### Excel工具
+### 3.6 ID生成策略
 
-**ExcelUtils.java** 提供了Excel文件的导入导出功能。
+框架提供了多种ID生成策略：
 
-#### 主要方法
-- `importExcel`: Excel导入
-- `exportExcel`: Excel导出
+- **GenerateUuidV7**: 基于UUID Version 7的ID生成策略
+- **GeneratePrefixedSequence**: 带前缀的序列ID生成策略
+- **UuidV7IdGenerator**: UUID V7 ID生成器实现
+- **PrefixedSequenceGenerator**: 前缀序列生成器实现
+- **DailyTableGenerator**: 每日表生成器
 
-### JDBC工具
-
-**JdbcUtils.java** 提供了原生SQL的操作工具。
-
-#### 主要方法
-- `update`: 执行更新操作
-- `batchUpdate`: 批量更新操作
-- `findOne`: 查询单条记录
-- `findAll`: 查询多条记录
-- `findScalar`: 查询标量值
-- `findLong`: 查询长整型值
-- `findInteger`: 查询整型值
-- `findColumnList`: 查询列列表
-- `exists`: 检查记录是否存在
-- `findMapDict`: 查询字典Map
-- `findBeanMap`: 查询Bean映射
-- `findAll` (分页): 分页查询
-- `insert`: 插入记录
-- `updateById`: 按ID更新
-- `tableExists`: 检查表是否存在
-- `columnExists`: 检查列是否存在
-- `generateCreateTableSql`: 生成建表SQL
-
-### ID生成器
-
-框架提供了ID生成器功能，用于生成唯一的ID。
-
-### 数据转换器
+### 3.7 数据转换器
 
 框架提供了多种数据转换器：
 
-| 转换器 | 描述 |
-|--------|------|
-| `BaseCodeEnumConverter` | 枚举转换器 |
-| `BaseConverter` | 基础转换器 |
-| `BaseToListConverter` | 转换为列表 |
-| `ToBigDecimalListConverter` | 转换为BigDecimal列表 |
-| `ToEntryListConverter` | 转换为Entry列表 |
-| `ToIntListConverter` | 转换为整型列表 |
-| `ToListBracketConverter` | 转换为带括号的列表 |
-| `ToListComplexConverter` | 复杂列表转换器 |
-| `ToListConverter` | 列表转换器 |
-| `ToLongListConverter` | 转换为长整型列表 |
-| `ToMapConverter` | 转换为Map |
-| `ToMapStringObjectConverter` | 转换为Map<String,Object> |
-| `ToPositionConverter` | 转换为位置 |
-| `ToQueryStringMapConverter` | 转换为查询字符串Map |
-| `ToSetComplexConverter` | 复杂集合转换器 |
-| `ToSetConverter` | 集合转换器 |
+- **BaseConverter**: 基础转换器
+- **BaseToListConverter**: 转换为列表
+- **ToIntListConverter**: 转换为整数列表
+- **ToLongListConverter**: 转换为长整数列表
+- **ToBigDecimalListConverter**: 转换为大整数列表
+- **ToListConverter**: 列表转换器
+- **ToMapConverter**: 转换为Map
+- **ToPositionConverter**: 位置转换器
+- **ToQueryStringMapConverter**: 查询字符串Map转换器
 
-### 验证器
+### 3.8 验证器
 
-框架提供了多种验证器：
+框架提供了丰富的验证器：
 
-| 验证器 | 描述 |
-|--------|------|
-| `ValidateCarDrivingLicence` | 验证驾驶证 |
-| `ValidateChineseName` | 验证中文姓名 |
-| `ValidateContainsChinese` | 验证包含中文 |
-| `ValidateCreditCode` | 验证信用代码 |
-| `ValidateDate` | 验证日期 |
-| `ValidateGeneral` | 通用验证 |
-| `ValidateHex` | 验证十六进制 |
-| `ValidateIdNum` | 验证身份证号 |
-| `ValidateIp` | 验证IP地址 |
-| `ValidateIpv4` | 验证IPv4地址 |
-| `ValidateMobile` | 验证手机号 |
-| `ValidateNotContainsChinese` | 验证不包含中文 |
-| `ValidatePassword` | 验证密码 |
-| `ValidatePlateNumber` | 验证车牌号 |
-| `ValidateStartWithLetter` | 验证以字母开头 |
-| `ValidateYearMonth` | 验证年月 |
-| `ValidateYearQuarter` | 验证年季度 |
-| `ValidateZipCode` | 验证邮编 |
+- **ValidateCarDrivingLicence**: 验证驾驶证
+- **ValidateChineseName**: 验证中文姓名
+- **ValidateContainsChinese**: 验证包含中文
+- **ValidateCreditCode**: 验证统一社会信用代码
+- **ValidateDate**: 验证日期
+- **ValidateGeneral**: 通用验证
+- **ValidateHex**: 验证十六进制
+- **ValidateIdNum**: 验证身份证号
+- **ValidateIp**: 验证IP地址
+- **ValidateIpv4**: 验证IPv4地址
+- **ValidateMobile**: 验证手机号
+- **ValidateNotContainsChinese**: 验证不包含中文
+- **ValidatePassword**: 验证密码
+- **ValidatePlateNumber**: 验证车牌号
+- **ValidateStartWithLetter**: 验证以字母开头
+- **ValidateYearMonth**: 验证年月
+- **ValidateYearQuarter**: 验证年季度
+- **ValidateZipCode**: 验证邮编
 
-### 登录工具
+### 3.9 登录工具
 
-**LoginUtils.java** 提供了获取当前登录用户信息的工具方法。
+框架提供了 `LoginUtils` 工具类，用于获取当前登录用户信息：
 
-#### 主要方法
-- `getUserId`: 获取当前用户ID
-- `getUser`: 获取当前用户对象
-- `getOrgPermissions`: 获取组织权限
-- `getPermissions`: 获取用户权限
-- `getRoles`: 获取用户角色
-- `isAdmin`: 检查是否为管理员
+```java
+public class LoginUtils {
+    // 获取当前登录用户ID
+    public static String getUserId()
+    // 获取当前登录用户
+    public static LoginUser getUser()
+    // 获取组织权限
+    public static List<String> getOrgPermissions()
+    // 获取权限
+    public static List<String> getPermissions()
+    // 获取角色
+    public static List<String> getRoles()
+    // 是否为管理员
+    public static boolean isAdmin()
+}
+```
 
-### 作业调度
+### 3.10 作业调度
 
-框架提供了作业调度功能，支持定时任务。
+框架提供了作业调度功能：
 
-#### BaseJob
-**BaseJob.java** 是所有作业任务的基类，提供了统一的日志记录和异常处理。
+- **BaseJob**: 作业基类，所有作业需要继承此类
+- **JobDescription**: 作业描述注解，用于定义作业参数
+- **HelloWorldJob**: 示例作业实现
 
-#### JobDescription
-**JobDescription.java** 是作业描述注解，用于配置作业任务参数。
+```java
+@JobDescription(label = "你好世界",  params = {@FieldDescription(name = "name", label = "姓名")})
+public class HelloWorldJob extends BaseJob {
+    @Override
+    public String execute(JobDataMap data, Logger logger) throws Exception {
+        System.out.printf("你好世界, 欢迎您%s!%n", data.get("name"));
+        logger.info("运行你好世界");
+        return "OK";
+    }
+}
+```
 
-#### 示例作业
-**HelloWorldJob.java** 是一个作业调度的示例任务。
+### 3.11 流程引擎
 
-### 流程引擎
+框架集成了Flowable工作流引擎，并提供了示例流程监听器：
 
-框架集成了Flowable流程引擎，支持工作流程管理。
+```java
+@Component
+public class LeaveProcessListener implements ProcessListener {
+    @Override
+    public void onProcessEvent(FlowableEventType type, String initiator, String businessKey, Map<String, Object> variables) {
+        // 处理流程事件
+    }
+}
+```
 
-#### 示例流程监听器
-**LeaveProcessListener.java** 是请假流程的示例监听器。
+### 3.12 菜单列表
 
-### 系统配置
+系统预设了以下菜单项：
 
-框架提供了系统配置功能，支持在运行时修改系统参数。
+- 我的任务
+  - 路径: /flowable/task
+  - 权限: myFlowableTask:manage
+- 系统管理
+  - 机构管理: /system/org
+  - 用户管理: /system/user  
+  - 角色管理: /system/role
+  - 操作手册: /system/sysManual
+  - 系统设置: /system/config
+  - 数据字典: /system/dict
+  - 存储文件: /system/file
+  - 作业调度: /system/job
+  - 操作日志: /system/log
+  - 接口管理: /system/api
+  - 流程引擎: /flowable
+  - 报表管理: /ureport
 
-#### 配置项
-- **邮件配置**: 邮件发送账号、密码
-- **网站配置**: 版权信息、登录背景图、登录框提示、站点标题、水印开关
-- **系统配置**: 请求基础地址、JWT密码
+业务项目可以在 `application-data-biz.yml` 文件中进行自定义配置。
 
-#### 流程配置
-`application-process.yml` 文件定义了流程引擎的配置。
+## 4 系统设置参考
 
----
+系统配置项定义在 `application-data-framework.yml` 文件中，包括：
 
-## 4 模板代码
+### 4.1 邮件配置
 
-### 目录
-- [实体类模板](#实体类模板)
-- [数据访问对象模板](#数据访问对象模板)
-- [服务类模板](#服务类模板)
-- [控制器模板](#控制器模板)
-- [前端页面模板](#前端页面模板)
+- **email.from**: 邮件发送账号
+- **email.pass**: 邮件发送密码
 
-### 实体类模板
+### 4.2 网站配置
+
+- **sys.copyright**: 版权信息
+- **sys.loginBackground**: 登录背景图
+- **sys.loginBoxBottomTip**: 登录框下面的提示
+- **sys.title**: 站点标题
+- **sys.waterMark**: 开启水印（布尔类型），在所有页面增加水印
+
+### 4.3 系统配置
+
+- **sys.baseUrl**: 请求基础地址，用于拼接完整请求地址
+- **sys.jwtSecret**: JWT密码
+
+## 5 流程配置
+
+流程定义配置在 `application-process.yml` 文件中：
+
+```yaml
+# 流程定义列表
+process:
+  list:
+    - key: "leave_request"
+      name: "请假流程"
+      listener: io.admin.modules.flowable.example.LeaveProcessListener
+      variables:
+        - name: "days"
+          label: "请假天数"
+          value-type: number
+          required: true
+        - name: "reason"
+          label: "请假原因"
+          required: true
+      # 流程中各个节点对应的表单定义
+      forms:
+        - key: "start_form"
+          label: "请假申请表"
+        - key: "manager_approve_form"
+          label: "经理审批表"
+        - key: "finish_view"
+          label: "流程结果查看"
+```
+
+## 6 模板代码
+
+下面以学生管理为例，展示通用代码模板：
+
+### 6.1 学生实体类 (Student.java)
 
 ```java
 package io.admin.modules.system.entity;
@@ -364,97 +447,89 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 
-/**
- * ${entity_name}实体类
- * 注意：(${unique_fields}) 必须全局唯一
- */
-@Remark("${entity_remark}")
+@Remark("学生")
 @Entity
 @Getter
 @Setter
-@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_${table_name}", columnNames = {"${field1}", "${field2}"})})
+@Table(uniqueConstraints = {@UniqueConstraint(name = "uk_student", columnNames = {"studentNo", "version"})})
 @FieldNameConstants
-public class ${EntityName} extends BaseEntity {
+public class Student extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * ${field1_name}，最大长度100字符，不能为空
-     */
     @NotNull
-    @Remark("${field1_remark}")
+    @Remark("学号")
     @Column(length = 100)
-    @Size(max = 100, message = "${field1_name}长度不能超过100个字符")
-    private String ${field1};
+    @Size(max = 100, message = "学号长度不能超过100个字符")
+    private String studentNo;
 
-    /**
-     * ${field2_name}，必须为正整数，不能为空
-     */
     @NotNull
-    @Remark("${field2_remark}")
-    @Positive(message = "${field2_name}必须为正整数")
-    private Integer ${field2};
+    @Remark("姓名")
+    @Column(length = 100)
+    @Size(max = 100, message = "姓名长度不能超过100个字符")
+    private String name;
 
-    /**
-     * ${field3_name}，最大长度32字符
-     */
-    @Remark("${field3_remark}")
-    @Column(length = 32)
-    @Size(max = 32, message = "${field3_name}长度不能超过32个字符")
-    private String ${field3};
+    @Remark("年龄")
+    @Positive(message = "年龄必须为正整数")
+    private Integer age;
+
+    @Remark("班级")
+    @Column(length = 100)
+    @Size(max = 100, message = "班级长度不能超过100个字符")
+    private String className;
 
 }
 ```
 
-### 数据访问对象模板
+### 6.2 学生DAO类 (StudentDao.java)
 
 ```java
 package io.admin.modules.system.dao;
 
 import io.admin.framework.data.repository.BaseDao;
 import io.admin.framework.data.specification.Spec;
-import io.admin.modules.system.entity.${EntityName};
+import io.admin.modules.system.entity.Student;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ${EntityName}Dao extends BaseDao<${EntityName}> {
+public class StudentDao extends BaseDao<Student> {
 
-    public int findMax${Field2}(String ${field1}){
-        Spec<${EntityName}> q = Spec.<${EntityName}>of().eq(${EntityName}.Fields.${field1}, ${field1});
+    public int findMaxVersion(String studentNo){
+        Spec<Student> q = Spec.<Student>of().eq(Student.Fields.studentNo, studentNo);
 
-        ${EntityName} e = this.findTop1(q, Sort.by(Sort.Direction.DESC, ${EntityName}.Fields.${field2}));
+        Student e = this.findTop1(q, Sort.by(Sort.Direction.DESC, Student.Fields.version));
 
-        return e == null ? 0 : e.get${Field2}();
+        return e == null ? 0 : e.getVersion();
     }
 
 }
 ```
 
-### 服务类模板
+### 6.3 学生Service类 (StudentService.java)
 
 ```java
 package io.admin.modules.system.service;
 
 import io.admin.framework.data.service.BaseService;
-import io.admin.modules.system.dao.${EntityName}Dao;
-import io.admin.modules.system.entity.${EntityName};
+import io.admin.modules.system.dao.StudentDao;
+import io.admin.modules.system.entity.Student;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ${EntityName}Service extends BaseService<${EntityName}> {
+public class StudentService extends BaseService<Student> {
 
     @Resource
-    ${EntityName}Dao dao;
+    StudentDao dao;
 
     @Override
-    public ${EntityName} saveOrUpdateByRequest(${EntityName} input, List<String> updateKeys) throws Exception {
+    public Student saveOrUpdateByRequest(Student input, List<String> updateKeys) throws Exception {
         if(input.isNew()){
-            int max${Field2} = dao.findMax${Field2}(input.get${Field1}());
-            input.set${Field2}(max${Field2}+1);
+            int maxVersion = dao.findMaxVersion(input.getStudentNo());
+            input.setVersion(maxVersion+1);
         }
 
         return super.saveOrUpdateByRequest(input, updateKeys);
@@ -462,7 +537,7 @@ public class ${EntityName}Service extends BaseService<${EntityName}> {
 }
 ```
 
-### 控制器模板
+### 6.4 学生Controller类 (StudentController.java)
 
 ```java
 package io.admin.modules.system.controller;
@@ -471,8 +546,8 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.specification.Spec;
-import io.admin.modules.system.entity.${EntityName};
-import io.admin.modules.system.service.${EntityName}Service;
+import io.admin.modules.system.entity.Student;
+import io.admin.modules.system.service.StudentService;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -484,31 +559,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("admin/${entity_name}")
-public class ${EntityName}Controller {
+@RequestMapping("admin/student")
+public class StudentController {
 
     @Resource
-    ${EntityName}Service service;
+    StudentService service;
 
-    @HasPermission("${entity_perm}:view")
+    @HasPermission("student:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
-        Spec<${EntityName}> q = Spec.of();
-        q.orLike(searchText, ${EntityName}.Fields.${field1});
+        Spec<Student> q = Spec.of();
+        q.orLike(searchText, Student.Fields.name, Student.Fields.studentNo);
 
-        Page<${EntityName}> page = service.findPageByRequest(q, pageable);
+        Page<Student> page = service.findPageByRequest(q, pageable);
 
         return AjaxResult.ok().data(page);
     }
 
-    @HasPermission("${entity_perm}:save")
+    @HasPermission("student:save")
     @PostMapping("save")
-    public AjaxResult save(@RequestBody ${EntityName} input, RequestBodyKeys updateFields) throws Exception {
+    public AjaxResult save(@RequestBody Student input, RequestBodyKeys updateFields) throws Exception {
         service.saveOrUpdateByRequest(input, updateFields);
         return AjaxResult.ok().msg("保存成功");
     }
 
-    @HasPermission("${entity_perm}:delete")
+    @HasPermission("student:delete")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
         service.deleteByRequest(id);
@@ -518,13 +593,13 @@ public class ${EntityName}Controller {
 }
 ```
 
-### 前端页面模板
+### 6.5 前端页面 (index.jsx)
 
-```jsx
+```javascript
 import {PlusOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Modal, Popconfirm} from 'antd'
 import React from 'react'
-import {ButtonList, FieldUploadFile, HttpUtils, Page, ProTable} from "../../../framework";
+import {ButtonList, HttpUtils, Page, ProTable} from "../../framework";
 
 export default class extends React.Component {
 
@@ -538,31 +613,28 @@ export default class extends React.Component {
 
     columns = [
         {
-            title: '${field1_remark}',
-            dataIndex: '${field1}',
+            title: '学号',
+            dataIndex: 'studentNo',
         },
         {
-            title: '${field2_remark}',
-            dataIndex: '${field2}',
-            render(${field2}) {
-                return 'v' + ${field2};
-            }
+            title: '姓名',
+            dataIndex: 'name',
         },
         {
-            title: '${field3_remark}',
-            dataIndex: '${field3}',
-            render(id){
-               const url = 'admin/sysFile/preview/' + id;
-                return <a href={url} target='_blank'>查看文件</a>
-            }
+            title: '年龄',
+            dataIndex: 'age',
+        },
+        {
+            title: '班级',
+            dataIndex: 'className',
         },
         {
             title: '操作',
             dataIndex: 'option',
             render: (_, record) => (
                 <ButtonList>
-                    <Button size='small' perm='${entity_perm}:save' onClick={() => this.handleEdit(record)}>编辑</Button>
-                    <Popconfirm perm='${entity_perm}:delete' title='是否确定删除${entity_remark}'  onConfirm={() => this.handleDelete(record)}>
+                    <Button size='small' perm='student:save' onClick={() => this.handleEdit(record)}>编辑</Button>
+                    <Popconfirm perm='student:delete' title='是否确定删除学生'  onConfirm={() => this.handleDelete(record)}>
                         <Button size='small'>删除</Button>
                     </Popconfirm>
                 </ButtonList>
@@ -579,14 +651,14 @@ export default class extends React.Component {
     }
 
     onFinish = values => {
-        HttpUtils.post('admin/${entity_name}/save', values).then(rs => {
+        HttpUtils.post('admin/student/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
     }
 
     handleDelete = record => {
-        HttpUtils.get('admin/${entity_name}/delete', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/student/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -597,16 +669,16 @@ export default class extends React.Component {
                 actionRef={this.tableRef}
                 toolBarRender={(params, {selectedRows, selectedRowKeys}) => {
                     return <ButtonList>
-                        <Button perm='${entity_perm}:save' type='primary' onClick={this.handleAdd}>
+                        <Button perm='student:save' type='primary' onClick={this.handleAdd}>
                             <PlusOutlined/> 新增
                         </Button>
                     </ButtonList>
                 }}
-                request={(params) => HttpUtils.get('admin/${entity_name}/page', params)}
+                request={(params) => HttpUtils.get('admin/student/page', params)}
                 columns={this.columns}
             />
 
-            <Modal title='${entity_remark}'
+            <Modal title='学生'
                    open={this.state.formOpen}
                    onOk={() => this.formRef.current.submit()}
                    onCancel={() => this.setState({formOpen: false})}
@@ -619,12 +691,20 @@ export default class extends React.Component {
                 >
                     <Form.Item name='id' noStyle></Form.Item>
 
-                    <Form.Item label='${field1_remark}' name='${field1}' rules={[{required: true}]}>
+                    <Form.Item label='学号' name='studentNo' rules={[{required: true}]}>
                         <Input/>
                     </Form.Item>
 
-                    <Form.Item label='${field3_remark}' name='${field3}' rules={[{required: true}]}>
-                        <FieldUploadFile accept=".pdf" maxCount={1} />
+                    <Form.Item label='姓名' name='name' rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+
+                    <Form.Item label='年龄' name='age'>
+                        <Input type='number'/>
+                    </Form.Item>
+
+                    <Form.Item label='班级' name='className'>
+                        <Input/>
                     </Form.Item>
 
                 </Form>
@@ -632,4 +712,24 @@ export default class extends React.Component {
         </Page>
     }
 }
+```
+
+### 6.6 配置文件示例
+
+在 `application-data-framework.yml` 中添加学生管理的菜单配置：
+
+```yaml
+data:
+  menus:
+    - id: student
+      name: 学生管理
+      path: /system/student
+      icon: UserOutlined
+      perms:
+        - name: 查看
+          perm: student:view
+        - name: 保存
+          perm: student:save
+        - name: 删除
+          perm: student:delete
 ```
