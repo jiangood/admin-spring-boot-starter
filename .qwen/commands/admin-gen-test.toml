@@ -5,6 +5,7 @@ prompt = """
 ## 项目介绍
 测试阶段，用的h2内存数据库
 如果遇到需要数据库，可使用注解@DataJpaTest
+根目录有mvn包装命令,mvnw.cmd,可执行mvn命令
 
 ## 执行步骤
 忽略实体，和controller
