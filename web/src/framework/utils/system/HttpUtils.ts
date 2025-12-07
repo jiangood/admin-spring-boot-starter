@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse, Method} from "axios";
-import {message as messageUtil, Modal} from "antd";
+import { Modal} from "antd";
 import qs from 'qs';
 import {PageUtils} from "./PageUtils";
 import {MessageUtils} from "../MessageUtils";
@@ -44,14 +44,14 @@ export class HttpUtils {
                 }
 
                 if (!success) {
-                    messageUtil.error(message || '操作失败');
+                    MessageUtils.error(message || '操作失败');
                     reject('操作失败');
                     return
                 }
 
                 // 自动消息提示
                 if (message) {
-                    messageUtil.success(message);
+                    MessageUtils.success(message);
                 }
                 resolve(transformData ? data : response);
             }).catch((e: unknown) => {
@@ -83,7 +83,7 @@ export class HttpUtils {
                     msg = e.message;
                 }
 
-                messageUtil.error(msg);
+                MessageUtils.error(msg);
 
                 // 将原始错误或处理后的错误信息向外抛出
                 reject(e);
