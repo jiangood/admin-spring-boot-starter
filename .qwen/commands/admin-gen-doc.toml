@@ -22,6 +22,7 @@ prompt = """
 
 ### 介绍
 保留原始文件（docs/index.md）的介绍部分
+增加README.md的部分
 
 
 
@@ -32,13 +33,14 @@ prompt = """
 组件文档包含名称，参数，说明
 工具文档包含名称，说明，举例
 确保不要遗漏任何文件，业务项目开发人员需要全部文档
+增加注意事项：HttpUtils请求返回的数据，自动处理了成功标志，.then接收到参数为实际响应后的data字段
 
 ### 后端
 
 描述菜单列表
 描述业务项目如何配置
 
-读取如下文件或文件夹，生成完整文档,不要有遗漏任何文件，都要写道文档中。
+读取如下文件或文件夹，生成完整文档,不要有遗漏任何文件，都要写入文档中，需要列出完整的类名（包含包名）。
 - src/main/java/io/admin/framework/data/specification/Spec.java
 - src/main/java/io/admin/common/utils/tree/TreeUtils.java
 - src/main/java/io/admin/common/utils/annotation/RemarkUtils.java

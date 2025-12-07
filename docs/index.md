@@ -1,20 +1,5 @@
 # 介绍
 
-`springboot-admin-starter` 是一个小型管理系统框架，为业务项目提供开箱即用的管理后台解决方案。项目集成了后端管理和前端组件，支持快速构建企业级管理系统。
-
-后端： ![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/springboot-admin-starter)
-```xml
-<dependency>
-  <groupId>io.github.jiangood</groupId>
-  <artifactId>springboot-admin-starter</artifactId>
-</dependency>
-```
-
-前端： ![NPM Version](https://img.shields.io/npm/v/@jiangood/springboot-admin-starter)
-```
-npm install @jiangood/springboot-admin-starter
-```
-
 - [编码规范](编码规范.md)
 - [使用说明书](index.md)
 - [模板代码](template.md)
