@@ -27,7 +27,7 @@ public class BaseConverter<T> implements AttributeConverter<T, String>, Serializ
         }
 
         // 兼容性处理
-        if (dbData.equals("[]")) {
+        if ("[]".equals(dbData)) {
             return null;
         }
 
