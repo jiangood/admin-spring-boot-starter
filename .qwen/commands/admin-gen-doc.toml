@@ -67,7 +67,7 @@ prompt = """
 - src/main/java/io/admin/modules/flowable/example/LeaveProcessListener.java
 
 4 模板代码
-读取如下文件，以学生为例生成通用代码模板，代码去掉注释，去掉多余空格、换行。
+读取以下文件，生成通用代码模板，代码去掉注释，去掉多余空格、换行，并适当简化。
 - src/main/java/io/admin/modules/system/entity/SysManual.java
 - src/main/java/io/admin/modules/system/dao/SysManualDao.java
 - src/main/java/io/admin/modules/system/service/SysManualService.java
