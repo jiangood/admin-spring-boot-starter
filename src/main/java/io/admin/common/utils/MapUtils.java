@@ -15,7 +15,7 @@ public class MapUtils {
         Iterator iter = map.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry<K, V> entry = (Map.Entry) iter.next();
-            if (entry.getValue() == null || entry.getValue().toString().equals("")) {
+            if (entry.getValue() == null || "".equals(entry.getValue().toString())) {
                 iter.remove();
             }
         }

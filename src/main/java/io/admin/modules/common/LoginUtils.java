@@ -33,7 +33,7 @@ public class LoginUtils {
         String account = authentication.getName();
         log.debug("获取当前登录用户 {}", account);
         boolean authenticated = authentication.isAuthenticated();
-        if (!authenticated || account.equals("anonymousUser")) {
+        if (!authenticated || "anonymousUser".equals(account)) {
             return null;
         }
 

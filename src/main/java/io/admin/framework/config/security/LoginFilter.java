@@ -33,7 +33,7 @@ public class LoginFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
         String method = request.getMethod();
-        boolean isLoginUrl = uri.equals("/admin/auth/login") && method.equals("POST");
+        boolean isLoginUrl = "/admin/auth/login".equals(uri) && "POST".equals(method);
         if (!isLoginUrl) {
             filterChain.doFilter(request, response);
             return;
