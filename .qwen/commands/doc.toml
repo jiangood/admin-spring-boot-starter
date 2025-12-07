@@ -68,7 +68,7 @@ prompt = """
 - src/main/java/io/admin/modules/system/entity/SysManual.java
 - src/main/java/io/admin/modules/system/dao/SysManualDao.java
 - src/main/java/io/admin/modules/system/service/SysManualService.java
-- src/main/java/io/admin/modules/system/controller/SysManualController.java
+- src/main/java/io/admin/modules/system/controller/SysManualController.java (忽略pageForUser)
 - src/main/resources/application-data-framework.yml，
 - web/src/pages/system/sysManual/index.jsx
 
