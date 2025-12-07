@@ -75,10 +75,10 @@ public class HibernateEntityCommentIntegrator implements Integrator {
             } else {
                 org.hibernate.mapping.Component component = persistentClass.getIdentifierMapper();
                 if (component != null) {
-                    //noinspection unchecked
-                    Iterator<Property> iterator = component.getPropertyIterator();
-                    while (iterator.hasNext()) {
-                        fieldComment(persistentClass, iterator.next().getName());
+                    List<Property> properties = component.getProperties();
+                    for (Property property : properties) {
+                        fieldComment(persistentClass, property.getName());
+
                     }
                 }
             }
