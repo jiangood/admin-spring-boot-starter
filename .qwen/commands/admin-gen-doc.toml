@@ -8,6 +8,7 @@ prompt = """
 - 你的主要工作就是参考示例、代码，实现文档的编写。
 - 文档语言使用中文简体, 除了代码请勿使用英文
 - 文档尽量简洁，示例代码尽量简洁，最好只显示片段即可
+- 文档力求完整，不要有遗漏，或“等等”，“略"字样
 - 不要使用git相关的命令
 - 由于本项目是框架级别，当前端导入相关文件时，使用模块名@jiangood/springboot-admin-starter即可，注意antd使用最新版6.x
 - 严格遵循以下格式规范，以确保文档格式稳定：
@@ -43,13 +44,13 @@ prompt = """
 描述菜单列表
 描述业务项目如何配置
 
-读取如下文件、文件夹，生成完整文档,不要有遗漏任何文件，都要写道文档中。
+读取如下文件或文件夹，生成完整文档,不要有遗漏任何文件，都要写道文档中。
 - src/main/java/io/admin/framework/data/specification/Spec.java
 - src/main/java/io/admin/common/utils/tree/TreeUtils.java
 - src/main/java/io/admin/common/utils/annotation/RemarkUtils.java
 - src/main/java/io/admin/common/utils/excel/ExcelUtils.java
 - src/main/java/io/admin/framework/data/JdbcUtils.java
-- src/main/java/io/admin/framework/data/id
+- src/main/java/io/admin/framework/data/id/ann
 - src/main/java/io/admin/framework/data/converter
 - src/main/java/io/admin/framework/validator
 - src/main/java/io/admin/modules/common/LoginUtils.java
