@@ -362,7 +362,9 @@ public class JdbcUtils {
      * 根据 Map 数据动态构建 SQL，向指定表插入一条记录。
      */
     public int insert(String tableName, Map<String, Object> map) {
-        if (map == null || map.isEmpty()) return 0;
+        if (map == null || map.isEmpty()) {
+            return 0;
+        }
 
         // 过滤掉值为 null 的字段
         Map<String, Object> filteredMap = map.entrySet().stream()

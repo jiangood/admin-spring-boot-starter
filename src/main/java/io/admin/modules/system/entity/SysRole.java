@@ -5,6 +5,8 @@ import io.admin.common.utils.annotation.Remark;
 import io.admin.framework.data.converter.ToListConverter;
 import io.admin.framework.data.domain.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
@@ -20,8 +22,8 @@ import java.util.Set;
  */
 @Remark("系统角色")
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 @FieldNameConstants
 public class SysRole extends BaseEntity {
 
