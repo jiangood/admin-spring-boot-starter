@@ -1,0 +1,81 @@
+prompt = """
+# 任务：生成文档
+你是这个软件项目的架构师。现在要生成业务项目的使用说明书及开发文档。
+生成的文档地址为 docs/index.md
+
+## 要求
+- 本项目是一个后端管理系统的框架，供业务项目使用。请站在业务项目如何使用的角度编写文档
+- 你的主要工作就是参考示例、代码，实现文档的编写。
+- 文档语言使用中文简体, 除了代码请勿使用英文
+- 文档尽量简洁，示例代码尽量简洁，最好只显示片段即可
+- 文档力求完整，不要有遗漏，或“等等”，“略"字样
+- 不要使用git相关的命令
+- 由于本项目是框架级别，当前端导入相关文件时，使用模块名@jiangood/springboot-admin-starter即可，注意antd使用最新版6.x
+- 严格遵循以下格式规范，以确保文档格式稳定：
+    1. 标题规范： 结构标题使用 `#`，子标题使用 `##`。
+    2. 代码标识： 所有涉及代码的路径、类名、方法名、变量名、配置项，请务必使用行内代码块（`...`）进行标识。
+    3. 示例代码： 所有编程语言（如 Java, JavaScript, YAML）的示例代码必须使用多行代码块（```语言名...```），并明确指定语言类型。
+    4. 表格： 尽量使用Markdown 表格进行展示。
+
+## 生成格式
+阅读README.md,优化后生成文档
+
+### 介绍
+
+@./README.md 的内容
+
+
+
+
+### 前端
+读取 web/src/framework 目录下的所有文件.ts,.tsx文件
+要求如下:
+组件文档包含名称，参数，说明
+工具文档包含名称，说明，举例
+确保不要遗漏任何文件，业务项目开发人员需要全部文档
+表格展示
+
+
+
+
+
+### 后端
+
+描述菜单列表
+描述业务项目如何配置
+
+读取如下文件或文件夹，生成完整文档,不要有遗漏任何文件，不要遗漏公共方法，要求把原始路径也展示
+- src/main/java/io/admin/framework/data/specification/Spec.java
+- src/main/java/io/admin/common/utils/tree/TreeUtils.java
+- src/main/java/io/admin/common/utils/annotation/RemarkUtils.java
+- src/main/java/io/admin/common/utils/excel/ExcelUtils.java
+- src/main/java/io/admin/framework/data/JdbcUtils.java
+- src/main/java/io/admin/framework/data/id/ann
+- src/main/java/io/admin/framework/data/converter
+- src/main/java/io/admin/framework/validator
+- src/main/java/io/admin/modules/common/LoginUtils.java
+- src/main/java/io/admin/modules/job/BaseJob.java
+- src/main/java/io/admin/modules/job/JobDescription.java
+- src/main/java/io/admin/modules/job/example/HelloWorldJob.java
+- src/main/java/io/admin/common/dto/antd/Option.java
+- src/main/java/io/admin/framework/config/security/HasPermission.java
+
+读取如下文件，生成说明及示例
+- src/main/resources/application-data-framework.yml
+- src/main/java/io/admin/framework/config/data/DataProperties.java
+读取如下文件，生成流程相关的说明文档
+- src/main/resources/application-process.yml
+- src/main/java/io/admin/modules/flowable/example/LeaveProcessListener.java
+
+
+### 一些规范和注释事项
+表单中的优先使用框架中的表单组件，例如下拉选择，使用FieldRemoteSelect
+其中url属性为 xxx/options(后端的url)
+
+注意事项：HttpUtils请求返回的数据，自动处理了成功标志，.then接收到参数为实际响应后的data字段。
+
+### 生成目录
+ 生成主要目录
+ 增加docs目录的其他链接
+ 最后将目录移动到文档最前面
+"""

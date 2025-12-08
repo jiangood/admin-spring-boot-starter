@@ -1,0 +1,42 @@
+server:
+  port: 8002
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    locale: zh_CN
+    serialization:
+      indent-output: true # json美化，方便查看
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${db_ip}:${db_port}/${db_database}?allowPublicKeyRetrieval=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&nullCatalogMeansCurrent=true
+    username: ${db_username}
+    password: ${db_password}
+    hikari:
+      minimum-idle: 20
+      maximum-pool-size: 200
+
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: false
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  session:
+    timeout: 1H
+  servlet:
+    multipart:
+      max-file-size: 900MB
+      max-request-size: 900MB
+  cache:
+    type: simple
+logging:
+  charset:
+    console: UTF-8
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+  file:
+    name: /data/logs/info.log
+    path: /data/logs/
+

@@ -1,0 +1,40 @@
+{
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.0.0",
+    "@types/react-lazylog": "^4.5.1",
+    "@umijs/plugins": "^4.3.17",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@bpmn-io/properties-panel": "^3.34.0",
+    "@tinymce/tinymce-react": "^6.0.0",
+    "@umijs/types": "^3.5.43",
+    "antd": "^6.0.0",
+    "antd-img-crop": "^4.23.0",
+    "axios": "^1.13.2",
+    "bpmn-js": "^18.7.0",
+    "bpmn-js-properties-panel": "^5.43.0",
+    "preact": "^10.27.2",
+    "dayjs": "^1.11.13",
+    "jsencrypt": "^3.5.4",
+    "lodash": "^4.17.21",
+    "qs": "^6.14.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "umi": "^4.0.0"
+  },
+  "name": "@jiangood/springboot-admin-starter",
+  "description": "springboot-admin-starter",
+  "files": [
+    "src/*",
+    "config/dist/*"
+  ],
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "tsc --outDir config/dist --skipLibCheck --noEmitOnError false config/index.ts"
+  },
+  "version": "0.0.1-beta.30"
+}

@@ -1,0 +1,12 @@
+Spring Boot  ${spring-boot.formatted-version}
+应用名称 ${spring.application.name}
+配置文件 ${spring.profiles.active}
+端口号 ${server.port}
+数据库连接 ${spring.datasource.url}
+数据库账号 ${spring.datasource.username}
+hibernate.ddl-auto: ${spring.jpa.hibernate.ddl-auto}
+test-message: ${test-message}
+日志文件目录 ${logging.file.path}
+
+Writing to the console can be very slow. Avoid logging to the  console in production environments, especially in high volume systems.
+日志文件打印到控制台会很慢，应避免在生产环境打印控制台日志

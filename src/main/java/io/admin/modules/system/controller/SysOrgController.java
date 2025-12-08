@@ -1,0 +1,180 @@
+package io.admin.modules.system.controller;
+
+import cn.hutool.core.util.StrUtil;
+import io.admin.common.dto.AjaxResult;
+import io.admin.common.dto.antd.DropEvent;
+import io.admin.common.dto.antd.TreeOption;
+import io.admin.common.utils.tree.TreeUtils;
+import io.admin.common.utils.tree.drop.DropResult;
+import io.admin.common.utils.tree.drop.TreeDropUtils;
+import io.admin.framework.config.argument.RequestBodyKeys;
+import io.admin.framework.config.security.HasPermission;
+import io.admin.framework.config.security.refresh.PermissionStaleService;
+import io.admin.framework.data.specification.Spec;
+import io.admin.framework.log.Log;
+import io.admin.modules.common.LoginUtils;
+import io.admin.modules.system.entity.SysOrg;
+import io.admin.modules.system.enums.OrgType;
+import io.admin.modules.system.service.SysOrgService;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * 组织机构控制器
+ */
+@RestController
+@RequestMapping("admin/sysOrg")
+@Slf4j
+public class SysOrgController {
+
+    @Resource
+    private SysOrgService sysOrgService;
+
+    @Resource
+    private PermissionStaleService permissionStaleService;
+
+    /**
+     * 管理页面的树，包含禁用的
+     *
+     * @return
+     */
+    @HasPermission("sysOrg:view")
+    @RequestMapping("tree")
+    public AjaxResult tree(boolean onlyShowEnabled, boolean onlyShowUnit, String searchText) {
+        Spec<SysOrg> q = Spec.of();
+
+        if (onlyShowEnabled) {
+            q.eq(SysOrg.Fields.enabled, true);
+        }
+
+        if (onlyShowUnit) {
+            q.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT.getCode());
+        }
+        q.orLike(searchText, SysOrg.Fields.name);
+
+        // 权限过滤
+        q.in("id", LoginUtils.getOrgPermissions());
+
+        List<SysOrg> list = sysOrgService.findAll(q, Sort.by("seq"));
+
+
+        return AjaxResult.ok().data(list2Tree(list));
+    }
+
+
+    @Log("机构-保存")
+    @HasPermission("sysOrg:save")
+    @PostMapping("save")
+    public AjaxResult saveOrUpdate(@RequestBody SysOrg input, RequestBodyKeys requestBodyKeys) throws Exception {
+        if (input.getLeader() != null) {
+            if (StrUtil.isEmpty(input.getLeader().getId())) {
+                input.setLeader(null);
+            }
+        }
+        sysOrgService.saveOrUpdateByRequest(input, requestBodyKeys);
+
+        permissionStaleService.markUserStale(LoginUtils.getUser().getUsername());
+
+        return AjaxResult.ok().msg("保存机构成功");
+    }
+
+    @Log("机构-删除")
+    @HasPermission("sysOrg:delete")
+    @RequestMapping("delete")
+    public AjaxResult delete(String id) {
+        sysOrgService.deleteByRequest(id);
+        permissionStaleService.markUserStale(LoginUtils.getUser().getUsername());
+        return AjaxResult.ok().msg("删除机构成功");
+    }
+
+    @HasPermission("sysOrg:view")
+    @GetMapping("detail")
+    public AjaxResult detail(String id) {
+        SysOrg org = sysOrgService.findByRequest(id);
+        return AjaxResult.ok().data(org);
+    }
+
+
+    private String getIconByType(int type) {
+        OrgType orgType = OrgType.valueOf(type);
+        switch (orgType) {
+            case TYPE_UNIT -> {
+                return "ApartmentOutlined";
+            }
+            case TYPE_DEPT -> {
+                return "HomeOutlined";
+            }
+
+        }
+        return "";
+    }
+
+
+    @PostMapping("sort")
+    @HasPermission("sysOrg:save")
+    public AjaxResult sort(@RequestBody DropEvent e) {
+        List<SysOrg> nodes = sysOrgService.findAll();
+        List<TreeOption> tree = list2Tree(nodes);
+
+        DropResult dropResult = TreeDropUtils.onDrop(e, tree);
+
+        sysOrgService.sort(e.getDragKey(), dropResult);
+
+
+        return AjaxResult.ok().msg("排序成功");
+    }
+
+
+    @GetMapping("allTree")
+    public AjaxResult allTree() {
+        List<SysOrg> list = this.sysOrgService.findByLoginUser(true, true);
+
+        return AjaxResult.ok().data(list2Tree(list));
+    }
+
+
+    @GetMapping("unitTree")
+    public AjaxResult unitTree() throws Exception {
+        List<SysOrg> list = this.sysOrgService.findByLoginUser(false, false);
+
+        list = list.stream().filter((o) -> !o.isDept()).collect(Collectors.toList());
+
+
+        return AjaxResult.ok().data(list2Tree(list));
+    }
+
+    @GetMapping("deptTree")
+    public AjaxResult deptTree() {
+        List<SysOrg> list = this.sysOrgService.findByLoginUser(true, false);
+
+        return AjaxResult.ok().data(list2Tree(list));
+    }
+
+
+    public List<TreeOption> list2Tree(List<SysOrg> orgList) {
+        List<TreeOption> list = orgList.stream().map(o -> {
+            String title = o.getName();
+            if (!o.getEnabled()) {
+                title = title + " [禁用]";
+            }
+
+            TreeOption item = new TreeOption();
+            item.setTitle(title);
+            item.setKey(o.getId());
+            item.setParentKey(o.getPid());
+            item.setIconName(getIconByType(o.getType()));
+
+            return item;
+        }).toList();
+
+        List<TreeOption> tree = TreeUtils.buildTree(list, TreeOption::getKey, TreeOption::getParentKey, TreeOption::getChildren, TreeOption::setChildren);
+
+        return tree;
+    }
+
+}
