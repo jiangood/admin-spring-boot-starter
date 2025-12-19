@@ -1,12 +1,10 @@
 package io.admin.modules.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import io.admin.framework.data.converter.ToListConverter;
 import io.admin.framework.data.domain.BaseEntity;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;

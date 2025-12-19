@@ -1,6 +1,6 @@
 package io.admin.modules.api.entity;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import lombok.Getter;
 import lombok.Setter;
 

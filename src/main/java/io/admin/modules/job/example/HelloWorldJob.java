@@ -1,6 +1,6 @@
 package io.admin.modules.job.example;
 
-import io.admin.common.utils.field.FieldDescription;
+import io.admin.common.tools.field.FieldDescription;
 import io.admin.modules.job.BaseJob;
 import io.admin.modules.job.JobDescription;
 import org.quartz.JobDataMap;

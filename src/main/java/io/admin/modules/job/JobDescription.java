@@ -1,7 +1,7 @@
 package io.admin.modules.job;
 
 
-import io.admin.common.utils.field.FieldDescription;
+import io.admin.common.tools.field.FieldDescription;
 
 import java.lang.annotation.*;
 

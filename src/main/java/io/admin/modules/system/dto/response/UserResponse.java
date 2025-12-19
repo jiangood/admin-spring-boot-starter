@@ -1,6 +1,6 @@
 package io.admin.modules.system.dto.response;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import io.admin.framework.data.domain.BaseDto;
 import lombok.Data;
 

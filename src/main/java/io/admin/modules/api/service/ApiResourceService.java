@@ -1,8 +1,8 @@
 package io.admin.modules.api.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.admin.common.utils.annotation.Remark;
-import io.admin.common.utils.field.FieldDescription;
+import io.admin.common.tools.annotation.Remark;
+import io.admin.common.tools.field.FieldDescription;
 import io.admin.modules.api.ApiMapping;
 import io.admin.modules.api.entity.ApiResource;
 import io.admin.modules.api.entity.ApiResourceArgument;

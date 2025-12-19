@@ -1,8 +1,8 @@
 package io.admin.modules.flowable.core.impl;
 
-import io.admin.common.utils.datetime.DateFormatUtils;
+import io.admin.common.tools.datetime.DateFormatTool;
 import io.admin.framework.config.security.LoginUser;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.flowable.core.FlowableManager;
 import io.admin.modules.flowable.core.config.ProcessMetaCfg;
 import io.admin.modules.flowable.core.config.meta.ProcessVariable;
@@ -49,7 +49,7 @@ public class FlowableManagerImpl implements FlowableManager {
             variables = new HashMap<>();
         }
 
-        LoginUser loginUser = LoginUtils.getUser();
+        LoginUser loginUser = LoginTool.getUser();
 
 
         // 添加一些发起人的相关信息
@@ -64,7 +64,7 @@ public class FlowableManagerImpl implements FlowableManager {
 
 
         if (title == null) {
-            String day = DateFormatUtils.formatDayCn(new Date());
+            String day = DateFormatTool.formatDayCn(new Date());
             title = loginUser.getName() + day + "发起的【" + def.getName() + "】";
         }
 

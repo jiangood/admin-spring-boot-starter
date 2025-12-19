@@ -1,6 +1,6 @@
 package io.admin.framework.data.domain;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import lombok.Data;
 
 import java.util.Date;

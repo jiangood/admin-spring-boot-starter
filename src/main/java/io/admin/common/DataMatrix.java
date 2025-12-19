@@ -2,7 +2,7 @@ package io.admin.common;
 
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.admin.common.utils.excel.ExcelOptUtils;
+import io.admin.common.tools.excel.ExcelOperateTool;
 
 import java.util.*;
 
@@ -130,8 +130,8 @@ public class DataMatrix extends LinkedList<List<Object>> {
             String key = e.getKey();
             Object value = e.getValue();
 
-            int colIndex = ExcelOptUtils.coordsToColIndex(key);
-            int rowIndex = ExcelOptUtils.coordsToRowIndex(key);
+            int colIndex = ExcelOperateTool.coordsToColIndex(key);
+            int rowIndex = ExcelOperateTool.coordsToRowIndex(key);
             this.setValue(rowIndex, colIndex, value);
         }
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.ArrayUtils;
+import io.admin.common.tools.ArrayTool;
 import io.admin.modules.system.service.SysLogService;
 import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
@@ -81,7 +81,7 @@ public class LogAspect {
         Parameter[] parameters = method.getParameters();
 
 
-        int requestBodyIndex = ArrayUtils.findIndex(parameters, t -> t.getAnnotation(RequestBody.class) != null);
+        int requestBodyIndex = ArrayTool.findIndex(parameters, t -> t.getAnnotation(RequestBody.class) != null);
         if (requestBodyIndex != -1) {
             Object requestBody = args[requestBodyIndex];
             return toJson(requestBody);

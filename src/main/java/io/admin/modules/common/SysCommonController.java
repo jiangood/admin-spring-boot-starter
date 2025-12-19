@@ -4,7 +4,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.MenuItem;
-import io.admin.common.utils.tree.TreeUtils;
+import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import io.admin.framework.config.security.LoginUser;
@@ -104,7 +104,7 @@ public class SysCommonController {
             return AjaxResult.err("未登录");
         }
 
-        LoginUser user = LoginUtils.getUser();
+        LoginUser user = LoginTool.getUser();
         boolean login = user != null;
         if (!login) {
             return AjaxResult.err("未登录");
@@ -114,8 +114,8 @@ public class SysCommonController {
         r.setDictMap(sysDictService.dictMap());
 
 
-        List<String> permissions = LoginUtils.getPermissions();
-        List<String> roles = LoginUtils.getRoles();
+        List<String> permissions = LoginTool.getPermissions();
+        List<String> roles = LoginTool.getRoles();
         List<SysRole> roleList = roleService.findAllByCode(roles);
         String roleNames = roleList.stream().map(SysRole::getName).collect(Collectors.joining(","));
 
@@ -138,7 +138,7 @@ public class SysCommonController {
      */
     @GetMapping("menuInfo")
     public AjaxResult menuInfo() {
-        String account = LoginUtils.getUser().getUsername();
+        String account = LoginTool.getUser().getUsername();
 
         SysUser user = sysUserService.findByAccount(account);
         Set<SysRole> roles = user.getRoles();
@@ -167,7 +167,7 @@ public class SysCommonController {
                 }).toList();
 
         // ======== 开始转换 ===========
-        List<MenuItem> tree = TreeUtils.buildTree(list, MenuItem::getKey, MenuItem::getParentKey, MenuItem::getChildren, MenuItem::setChildren);
+        List<MenuItem> tree = TreeTool.buildTree(list, MenuItem::getKey, MenuItem::getParentKey, MenuItem::getChildren, MenuItem::setChildren);
         Dict data = new Dict();
         data.put("menuTree", tree);
         data.put("menuMap", menuMap);

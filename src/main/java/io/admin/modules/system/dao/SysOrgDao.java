@@ -1,7 +1,7 @@
 package io.admin.modules.system.dao;
 
 import cn.hutool.core.collection.CollectionUtil;
-import io.admin.common.utils.tree.TreeManager;
+import io.admin.common.tools.tree.TreeManager;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.framework.data.repository.BaseDao;
 import io.admin.framework.data.specification.Spec;

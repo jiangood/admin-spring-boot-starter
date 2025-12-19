@@ -4,10 +4,10 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.SpringUtils;
+import io.admin.common.tools.SpringTool;
 import io.admin.framework.CodeException;
 import io.admin.modules.api.ApiErrorCode;
-import io.admin.modules.api.ApiSignUtils;
+import io.admin.modules.api.ApiSignTool;
 import io.admin.modules.api.entity.ApiAccount;
 import io.admin.modules.api.entity.ApiResource;
 import io.admin.modules.api.service.ApiAccessLogService;
@@ -74,7 +74,7 @@ public class ApiGatewayController {
 
         // 校验签名
         String appSecret = account.getAppSecret();
-        String calcSign = ApiSignUtils.sign(appId, appSecret, timestamp);
+        String calcSign = ApiSignTool.sign(appId, appSecret, timestamp);
         this.check(sign.equals(calcSign), ApiErrorCode.SIGN_ERROR);
 
 
@@ -102,7 +102,7 @@ public class ApiGatewayController {
         Object[] paramValues = ArgumentResolver.resolve(method, params, request, response);
 
         Class<?> declaringClass = method.getDeclaringClass();
-        Object bean = SpringUtils.getBean(declaringClass);
+        Object bean = SpringTool.getBean(declaringClass);
 
         Object retValue = method.invoke(bean, paramValues);
 

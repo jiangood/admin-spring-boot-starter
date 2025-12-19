@@ -2,7 +2,7 @@ package io.admin.framework.config.argument.resolver;
 
 import cn.hutool.core.collection.IterUtil;
 import com.fasterxml.jackson.databind.JsonNode;
-import io.admin.common.utils.JsonUtils;
+import io.admin.common.tools.JsonTool;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -55,7 +55,7 @@ public class RequestBodyKeysArgumentResolver implements HandlerMethodArgumentRes
         ContentCachingRequestWrapper req = webRequest.getNativeRequest(ContentCachingRequestWrapper.class);
 
         String content = req.getContentAsString();
-        JsonNode tree = JsonUtils.readTree(content);
+        JsonNode tree = JsonTool.readTree(content);
         List<String> fieldNames = IterUtil.toList(tree.fieldNames());
 
         return new RequestBodyKeys(fieldNames);

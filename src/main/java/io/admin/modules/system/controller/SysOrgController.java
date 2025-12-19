@@ -4,15 +4,15 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.DropEvent;
 import io.admin.common.dto.antd.TreeOption;
-import io.admin.common.utils.tree.TreeUtils;
-import io.admin.common.utils.tree.drop.DropResult;
-import io.admin.common.utils.tree.drop.TreeDropUtils;
+import io.admin.common.tools.tree.TreeTool;
+import io.admin.common.tools.tree.drop.DropResult;
+import io.admin.common.tools.tree.drop.TreeDropTool;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.specification.Spec;
 import io.admin.framework.log.Log;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.entity.SysOrg;
 import io.admin.modules.system.enums.OrgType;
 import io.admin.modules.system.service.SysOrgService;
@@ -58,7 +58,7 @@ public class SysOrgController {
         q.orLike(searchText, SysOrg.Fields.name);
 
         // 权限过滤
-        q.in("id", LoginUtils.getOrgPermissions());
+        q.in("id", LoginTool.getOrgPermissions());
 
         List<SysOrg> list = sysOrgService.findAll(q, Sort.by("seq"));
 
@@ -78,7 +78,7 @@ public class SysOrgController {
         }
         sysOrgService.saveOrUpdateByRequest(input, requestBodyKeys);
 
-        permissionStaleService.markUserStale(LoginUtils.getUser().getUsername());
+        permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
 
         return AjaxResult.ok().msg("保存机构成功");
     }
@@ -88,7 +88,7 @@ public class SysOrgController {
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
         sysOrgService.deleteByRequest(id);
-        permissionStaleService.markUserStale(LoginUtils.getUser().getUsername());
+        permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
         return AjaxResult.ok().msg("删除机构成功");
     }
 
@@ -121,7 +121,7 @@ public class SysOrgController {
         List<SysOrg> nodes = sysOrgService.findAll();
         List<TreeOption> tree = list2Tree(nodes);
 
-        DropResult dropResult = TreeDropUtils.onDrop(e, tree);
+        DropResult dropResult = TreeDropTool.onDrop(e, tree);
 
         sysOrgService.sort(e.getDragKey(), dropResult);
 
@@ -172,7 +172,7 @@ public class SysOrgController {
             return item;
         }).toList();
 
-        List<TreeOption> tree = TreeUtils.buildTree(list, TreeOption::getKey, TreeOption::getParentKey, TreeOption::getChildren, TreeOption::setChildren);
+        List<TreeOption> tree = TreeTool.buildTree(list, TreeOption::getKey, TreeOption::getParentKey, TreeOption::getChildren, TreeOption::setChildren);
 
         return tree;
     }

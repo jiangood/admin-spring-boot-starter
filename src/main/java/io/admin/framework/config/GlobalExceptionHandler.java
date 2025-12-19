@@ -2,8 +2,8 @@ package io.admin.framework.config;
 
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.ExceptionToMessageUtils;
-import io.admin.common.utils.HttpServletUtils;
+import io.admin.common.tools.ExceptionToMessageTool;
+import io.admin.common.tools.HttpServletTool;
 import io.admin.framework.CodeException;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
     public AjaxResult throwable(Throwable e, HttpServletRequest request) {
         log.error(">>> 服务器运行异常 ", e);
         log.info("请求地址 {}", request.getRequestURI());
-        return AjaxResult.err().msg(ExceptionToMessageUtils.convert(e));
+        return AjaxResult.err().msg(ExceptionToMessageTool.convert(e));
     }
 
 
@@ -91,15 +91,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public AjaxResult notFound(NoHandlerFoundException e) {
-        log.error(">>> 资源不存在异常，具体信息为：{}", e.getMessage() + "，请求地址为:" + HttpServletUtils.getRequest().getRequestURI());
-        return AjaxResult.err().code(404).msg("资源路径不存在，请检查请求地址，请求地址为:" + HttpServletUtils.getRequest().getRequestURI());
+        log.error(">>> 资源不存在异常，具体信息为：{}", e.getMessage() + "，请求地址为:" + HttpServletTool.getRequest().getRequestURI());
+        return AjaxResult.err().code(404).msg("资源路径不存在，请检查请求地址，请求地址为:" + HttpServletTool.getRequest().getRequestURI());
     }
 
 
     @ExceptionHandler(FileNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public AjaxResult fileNotFoundException(FileNotFoundException e) {
-        String uri = HttpServletUtils.getRequest().getRequestURI();
+        String uri = HttpServletTool.getRequest().getRequestURI();
         log.error("文件不存在：{} ,请求地址为 {}", e.getMessage(), uri);
         return AjaxResult.err().code(404).msg(e.getMessage()).data("请求路径：" + uri);
     }
@@ -128,21 +128,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public AjaxResult constraintViolationException(ConstraintViolationException e) {
         log.warn("约束异常:{}", e.getMessage());
-        return AjaxResult.err().msg(ExceptionToMessageUtils.convert(e));
+        return AjaxResult.err().msg(ExceptionToMessageTool.convert(e));
     }
 
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public AjaxResult dataIntegrityViolationException(DataIntegrityViolationException e) {
         log.error("数据处理异常", e);
-        return AjaxResult.err().msg(ExceptionToMessageUtils.convert(e));
+        return AjaxResult.err().msg(ExceptionToMessageTool.convert(e));
     }
 
 
     @ExceptionHandler(TransactionSystemException.class)
     public AjaxResult TransactionSystemException(TransactionSystemException e) {
         log.error("事务异常", e);
-        return AjaxResult.err().msg(ExceptionToMessageUtils.convert(e));
+        return AjaxResult.err().msg(ExceptionToMessageTool.convert(e));
     }
 
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
@@ -159,7 +159,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SQLException.class)
     public AjaxResult sqlException(SQLException e) {
         log.error("SQL异常", e);
-        return AjaxResult.err().msg(ExceptionToMessageUtils.convert(e));
+        return AjaxResult.err().msg(ExceptionToMessageTool.convert(e));
     }
 
 

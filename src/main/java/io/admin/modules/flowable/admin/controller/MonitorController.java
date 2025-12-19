@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.log.Log;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.flowable.core.dto.response.MonitorTaskResponse;
 import io.admin.modules.flowable.core.service.FlowableService;
 import io.admin.modules.system.service.SysUserService;
@@ -120,7 +120,7 @@ public class MonitorController {
     @HasPermission("flowableInstance:close")
     @GetMapping("processInstance/close")
     public AjaxResult processInstanceClose(String id) {
-        String name = LoginUtils.getUser().getName();
+        String name = LoginTool.getUser().getName();
         runtimeService.deleteProcessInstance(id, name + "手动关闭");
 
         return AjaxResult.ok();

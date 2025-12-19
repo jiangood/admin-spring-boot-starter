@@ -8,10 +8,10 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
-import io.admin.common.utils.DownloadUtils;
-import io.admin.common.utils.IdUtils;
-import io.admin.common.utils.ImgUtils;
-import io.admin.common.utils.enums.MaterialType;
+import io.admin.common.tools.DownloadTool;
+import io.admin.common.tools.IdTool;
+import io.admin.common.tools.ImgTool;
+import io.admin.common.tools.enums.MaterialType;
 import io.admin.framework.config.SysProperties;
 import io.admin.modules.system.dao.SysFileDao;
 import io.admin.modules.system.entity.SysFile;
@@ -176,7 +176,7 @@ public class SysFileService {
         Assert.hasText(suffix, "解析后缀失败");
         Assert.state(sysProperties.getAllowUploadFiles().contains(suffix), "文件格式" + suffix + "不允许上传");
 
-        String id = IdUtils.uuidV7();
+        String id = IdTool.uuidV7();
 
         // 生成文件的最终名称
         String objectName = genObjectName(id, suffix, null);
@@ -205,7 +205,7 @@ public class SysFileService {
         if (sysFile.getType() == MaterialType.IMAGE) {
             for (int i = 0; i < IMAGE_SIZE.length; i++) {
                 int imageSize = IMAGE_SIZE[i];
-                File tempImageFile = ImgUtils.scale(tempFile, imageSize);
+                File tempImageFile = ImgTool.scale(tempFile, imageSize);
                 if (tempImageFile != null) {
                     String imageObjectName = genObjectName(id, suffix, imageSize);
                     fileOperator.saveFile(imageObjectName, tempImageFile);
@@ -249,7 +249,7 @@ public class SysFileService {
         // 获取文件信息结果集
         SysFile f = this.getFileAndStream(id, null);
         String fileName = f.getOriginName();
-        DownloadUtils.download(fileName, f.getInputStream(), f.getSize(), response);
+        DownloadTool.download(fileName, f.getInputStream(), f.getSize(), response);
     }
 
     /**

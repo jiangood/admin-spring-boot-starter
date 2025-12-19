@@ -1,7 +1,7 @@
 package io.admin.modules.api.service;
 
 
-import io.admin.common.utils.JsonUtils;
+import io.admin.common.tools.JsonTool;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.api.dao.ApiAccessLogDao;
 import io.admin.modules.api.entity.ApiAccessLog;
@@ -23,8 +23,8 @@ public class ApiAccessLogService extends BaseService<ApiAccessLog> {
         a.setTimestamp(timestamp);
         a.setName(resource.getName());
         a.setAction(resource.getAction());
-        a.setRequestData(JsonUtils.toJsonQuietly(params));
-        a.setResponseData(JsonUtils.toJsonQuietly(retValue));
+        a.setRequestData(JsonTool.toJsonQuietly(params));
+        a.setResponseData(JsonTool.toJsonQuietly(retValue));
         a.setIp(ip);
 
 

@@ -1,7 +1,7 @@
 package io.admin.modules.system.controller;
 
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.enums.MaterialType;
+import io.admin.common.tools.enums.MaterialType;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.specification.Spec;
 import io.admin.modules.system.entity.SysFile;

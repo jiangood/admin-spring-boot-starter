@@ -1,7 +1,9 @@
 package io.admin.modules.system.entity;
 
-import io.admin.common.utils.annotation.Remark;
-import io.admin.common.utils.tree.TreeNode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.admin.common.tools.annotation.Remark;
+import io.admin.common.tools.tree.TreeNode;
+import io.admin.framework.data.DBConstants;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.modules.system.enums.OrgType;
 import jakarta.persistence.*;
@@ -49,6 +51,22 @@ public class SysOrg extends BaseEntity implements TreeNode<SysOrg> {
     private String extra1;
     private String extra2;
     private String extra3;
+
+
+    /**
+     * 第三方系统的唯一标识符，常用于OAuth集成，统一认证等
+     */
+    @JsonIgnore
+    @Column(length = DBConstants.LEN_ID)
+    private String thirdId;
+
+    @JsonIgnore
+    @Column(length = DBConstants.LEN_ID)
+    private String thirdPid;
+
+    @JsonIgnore
+    @Column(length = DBConstants.LEN_NAME)
+    private String thirdAccount;
 
     @Transient
     public boolean isDept() {

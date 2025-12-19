@@ -2,7 +2,7 @@ package io.admin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import io.admin.common.utils.PasswordUtils;
+import io.admin.common.tools.PasswordTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import io.admin.framework.config.data.sysmenu.MenuPermission;
@@ -120,7 +120,7 @@ public class SysUserService extends BaseService<SysUser> {
         boolean isNew = input.isNew();
         if (isNew) {
             String password = sysProperties.getDefaultPassword();
-            input.setPassword(PasswordUtils.encode(password));
+            input.setPassword(PasswordTool.encode(password));
         }
 
         return super.saveOrUpdateByRequest(input, updateKeys);
@@ -144,9 +144,9 @@ public class SysUserService extends BaseService<SysUser> {
         SysUser sysUser = sysUserDao.findOne(userId);
 
 
-        PasswordUtils.validateStrength(newPassword);
+        PasswordTool.validateStrength(newPassword);
 
-        sysUser.setPassword(PasswordUtils.encode(newPassword));
+        sysUser.setPassword(PasswordTool.encode(newPassword));
         sysUserDao.save(sysUser);
     }
 
@@ -169,9 +169,9 @@ public class SysUserService extends BaseService<SysUser> {
     @Transactional
     public void resetPwd(String id, String plainPassword) {
         SysUser sysUser = sysUserDao.findOne(id);
-        PasswordUtils.validateStrength(plainPassword);
+        PasswordTool.validateStrength(plainPassword);
 
-        sysUser.setPassword(PasswordUtils.encode(plainPassword));
+        sysUser.setPassword(PasswordTool.encode(plainPassword));
         sysUserDao.save(sysUser);
     }
 

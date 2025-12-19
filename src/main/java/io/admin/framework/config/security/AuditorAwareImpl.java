@@ -1,6 +1,6 @@
 package io.admin.framework.config.security;
 
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     @NotNull
     @Override
     public Optional<String> getCurrentAuditor() {
-        LoginUser user = LoginUtils.getUser();
+        LoginUser user = LoginTool.getUser();
         if (user != null && user.getId() != null) {
             return Optional.of(user.getId());
         }

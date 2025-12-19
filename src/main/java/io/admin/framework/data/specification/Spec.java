@@ -265,7 +265,7 @@ public class Spec<T> implements Specification<T> {
             if (query.getGroupList().isEmpty()) {
                 List<Expression<?>> groups = new ArrayList<>();
                 for (String field : fields) {
-                    groups.add(ExpressionUtils.getPath(root, field));
+                    groups.add(ExpressionTool.getPath(root, field));
                 }
                 // 设置分组字段
                 query.groupBy(groups);
@@ -382,7 +382,7 @@ public class Spec<T> implements Specification<T> {
         @SuppressWarnings({"unchecked", "rawtypes"})
         public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
             // 使用更新后的 getPath 方法，支持点操作
-            Expression path = ExpressionUtils.getPath(root, field);
+            Expression path = ExpressionTool.getPath(root, field);
 
             return switch (op) {
                 case EQUAL -> cb.equal(path, value);

@@ -1,6 +1,6 @@
 package io.admin.framework.enums;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import lombok.Getter;
 
 

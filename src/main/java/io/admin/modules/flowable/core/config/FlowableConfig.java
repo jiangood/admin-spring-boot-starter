@@ -1,6 +1,6 @@
 package io.admin.modules.flowable.core.config;
 
-import io.admin.common.utils.IdUtils;
+import io.admin.common.tools.IdTool;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.spring.SpringProcessEngineConfiguration;
@@ -21,7 +21,7 @@ public class FlowableConfig implements EngineConfigurationConfigurer<SpringProce
     @Override
     public void configure(SpringProcessEngineConfiguration cfg) {
         // 主键生成器，注意：不会影响act_de开头的表主键生成，因为这是流程设计器的，不是工作流引擎的
-        cfg.setIdGenerator(IdUtils::uuidV7);
+        cfg.setIdGenerator(IdTool::uuidV7);
         if (cfg.getEventListeners() == null) {
             cfg.setEventListeners(new ArrayList<>());
         }

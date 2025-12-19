@@ -5,7 +5,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
-import io.admin.common.utils.PasswordUtils;
+import io.admin.common.tools.PasswordTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.modules.system.ConfigConsts;
 import jakarta.annotation.Resource;
@@ -75,7 +75,7 @@ public class AuthService {
             throw new IllegalStateException("密码未加密");
         }
 
-        boolean strengthOk = PasswordUtils.isStrengthOk(password);
+        boolean strengthOk = PasswordTool.isStrengthOk(password);
         Assert.state(strengthOk, "密码强度不够，请联系管理员重置");
         return password;
     }

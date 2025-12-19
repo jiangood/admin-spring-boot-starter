@@ -1,7 +1,7 @@
 package io.admin.framework.config.data.sysconfig;
 
 
-import io.admin.common.utils.field.ValueType;
+import io.admin.common.tools.field.ValueType;
 import lombok.Data;
 
 @Data

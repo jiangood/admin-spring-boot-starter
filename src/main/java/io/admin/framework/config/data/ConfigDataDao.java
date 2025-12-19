@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import io.admin.common.utils.YmlUtils;
-import io.admin.common.utils.tree.TreeUtils;
+import io.admin.common.tools.YmlTool;
+import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import jakarta.annotation.PostConstruct;
@@ -37,7 +37,7 @@ public class ConfigDataDao {
 
             // 菜单打平，方便后续合并
             List<MenuDefinition> flatList = new ArrayList<>();
-            TreeUtils.walk(cur.getMenus(), MenuDefinition::getChildren, (node, parent) -> {
+            TreeTool.walk(cur.getMenus(), MenuDefinition::getChildren, (node, parent) -> {
                 if (parent != null) {
                     node.setPid(parent.getId());
                 }
@@ -116,7 +116,7 @@ public class ConfigDataDao {
 
     @SneakyThrows
     private DataProperties parseResource(Resource resource) {
-        return YmlUtils.parseYml(resource.getInputStream(), DataProperties.class, "data");
+        return YmlTool.parseYml(resource.getInputStream(), DataProperties.class, "data");
     }
 
 

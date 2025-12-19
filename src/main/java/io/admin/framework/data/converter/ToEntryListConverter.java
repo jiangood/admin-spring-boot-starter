@@ -2,7 +2,7 @@ package io.admin.framework.data.converter;
 
 
 import io.admin.common.Entry;
-import io.admin.common.utils.JsonUtils;
+import io.admin.common.tools.JsonTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.Serializable;
@@ -26,7 +26,7 @@ public class ToEntryListConverter implements AttributeConverter<List<Entry>, Str
             return null;
         }
 
-        return JsonUtils.toJsonQuietly(list);
+        return JsonTool.toJsonQuietly(list);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ToEntryListConverter implements AttributeConverter<List<Entry>, Str
             return Collections.emptyList();
         }
 
-        return JsonUtils.jsonToBeanListQuietly(dbData, Entry.class);
+        return JsonTool.jsonToBeanListQuietly(dbData, Entry.class);
     }
 
 }

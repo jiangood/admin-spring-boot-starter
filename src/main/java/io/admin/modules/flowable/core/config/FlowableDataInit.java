@@ -3,7 +3,7 @@ package io.admin.modules.flowable.core.config;
 import io.admin.framework.config.init.SystemHookEventType;
 import io.admin.framework.config.init.SystemHookService;
 import io.admin.modules.flowable.core.config.meta.ProcessMeta;
-import io.admin.modules.flowable.utils.ModelUtils;
+import io.admin.modules.flowable.utils.ModelTool;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.BpmnModel;
@@ -73,7 +73,7 @@ public class FlowableDataInit implements CommandLineRunner {
 
         model.addGraphicInfo(startEvent.getId(), new GraphicInfo(200, 200, 30, 30));
 
-        String xml = ModelUtils.modelToXml(model);
+        String xml = ModelTool.modelToXml(model);
 
         repositoryService.addModelEditorSource(m.getId(), xml.getBytes(StandardCharsets.UTF_8));
     }

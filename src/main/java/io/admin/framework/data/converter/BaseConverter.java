@@ -2,7 +2,7 @@ package io.admin.framework.data.converter;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import io.admin.common.utils.JsonUtils;
+import io.admin.common.tools.JsonTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class BaseConverter<T> implements AttributeConverter<T, String>, Serializ
     @Override
     public String convertToDatabaseColumn(T input) {
         // hutool的数组有bug
-        return JsonUtils.toJsonQuietly(input);
+        return JsonTool.toJsonQuietly(input);
     }
 
 
@@ -35,7 +35,7 @@ public class BaseConverter<T> implements AttributeConverter<T, String>, Serializ
         TypeReference<T> reference = new TypeReference<T>() {
         };
         try {
-            return JsonUtils.jsonToBean(dbData, reference);
+            return JsonTool.jsonToBean(dbData, reference);
         } catch (IOException e) {
             e.printStackTrace();
         }

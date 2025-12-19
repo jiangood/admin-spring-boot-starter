@@ -5,9 +5,9 @@ import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
-import io.admin.common.utils.SpringUtils;
-import io.admin.common.utils.field.Field;
-import io.admin.common.utils.field.FieldDescription;
+import io.admin.common.tools.SpringTool;
+import io.admin.common.tools.field.Field;
+import io.admin.common.tools.field.FieldDescription;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.specification.Spec;
@@ -80,7 +80,7 @@ public class SysJobController {
 
     @GetMapping("jobClassOptions")
     public AjaxResult jobClassList() {
-        Collection<String> basePackages = SpringUtils.getBasePackageClasses().stream().map(Class::getPackageName).toList();
+        Collection<String> basePackages = SpringTool.getBasePackageClasses().stream().map(Class::getPackageName).toList();
 
         Set<Class<?>> list = new HashSet<>();
         for (String basePackage : basePackages) {
@@ -141,7 +141,7 @@ public class SysJobController {
                 int mod = provider.getModifiers();
                 boolean isInterface = Modifier.isInterface(mod);
                 if (!isInterface) {
-                    JobParamFieldProvider bean = SpringUtils.getBean(provider);
+                    JobParamFieldProvider bean = SpringTool.getBean(provider);
                     List<Field> fields = bean.getFields(jobDesc, jobData);
                     result.addAll(fields);
                 }

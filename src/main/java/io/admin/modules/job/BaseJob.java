@@ -4,7 +4,7 @@ import io.admin.modules.job.dao.SysJobDao;
 import io.admin.modules.job.dao.SysJobExecuteRecordDao;
 import io.admin.modules.job.entity.SysJob;
 import io.admin.modules.job.entity.SysJobExecuteRecord;
-import io.admin.modules.log.file.FileLogUtils;
+import io.admin.modules.log.file.FileLogTool;
 import jakarta.annotation.Resource;
 import org.quartz.*;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public abstract class BaseJob implements Job {
 
 
         // 2. 设置日志
-        Logger logger = FileLogUtils.getLogger(jobLog.getId());
+        Logger logger = FileLogTool.getLogger(jobLog.getId());
         logger.info("开始执行作物");
 
         String result;
@@ -56,7 +56,7 @@ public abstract class BaseJob implements Job {
         jobLog.setEndTime(new Date());
         sysJobLogDao.save(jobLog);
         logger.info("执行结束 返回值{}", result);
-        FileLogUtils.clear();
+        FileLogTool.clear();
     }
 
     public abstract String execute(JobDataMap data, Logger logger) throws Exception;

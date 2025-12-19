@@ -2,8 +2,8 @@ package io.admin.framework.dict;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
-import io.admin.common.utils.SpringUtils;
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.SpringTool;
+import io.admin.common.tools.annotation.Remark;
 import io.admin.framework.enums.CodeEnum;
 import io.admin.modules.system.dao.SysDictDao;
 import io.admin.modules.system.dao.SysDictItemDao;
@@ -29,7 +29,7 @@ public class DictAnnHandler {
 
     private static Set<Class<?>> scanEnum() {
         Set<Class<?>> result = new HashSet<>();
-        Set<Class<?>> all = SpringUtils.getBasePackageClasses();
+        Set<Class<?>> all = SpringTool.getBasePackageClasses();
 
         for (Class<?> superClass : all) {
             Set<Class<?>> set = ClassUtil.scanPackageByAnnotation(superClass.getPackageName(), Remark.class);

@@ -29,7 +29,7 @@ public class ApiClient {
         String url = baseUrl + "/api/gateway/" + action;
 
 
-        String sign = ApiSignUtils.sign(appId, appSecret, timestamp);
+        String sign = ApiSignTool.sign(appId, appSecret, timestamp);
 
 
         HttpResponse response = HttpUtil.createPost(url)

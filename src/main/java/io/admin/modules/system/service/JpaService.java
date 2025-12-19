@@ -2,7 +2,7 @@ package io.admin.modules.system.service;
 
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
-import io.admin.common.utils.SpringUtils;
+import io.admin.common.tools.SpringTool;
 import jakarta.persistence.Entity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -78,7 +78,7 @@ public class JpaService {
         if (cache.containsKey(key)) {
             return cache.get(key);
         }
-        Set<Class<?>> basePackageClasses = SpringUtils.getBasePackageClasses();
+        Set<Class<?>> basePackageClasses = SpringTool.getBasePackageClasses();
         List<String> entityList = new LinkedList<>();
         for (Class<?> cls : basePackageClasses) {
             List<String> pkgEntityList = findBySuperClass(cls);

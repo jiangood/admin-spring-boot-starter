@@ -3,11 +3,11 @@ package io.admin.modules.flowable.admin.controller;
 
 import cn.hutool.core.lang.Dict;
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.BeanUtils;
-import io.admin.common.utils.ImgUtils;
-import io.admin.common.utils.datetime.DateFormatUtils;
+import io.admin.common.tools.BeanTool;
+import io.admin.common.tools.ImgTool;
+import io.admin.common.tools.datetime.DateFormatTool;
 import io.admin.framework.config.security.LoginUser;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.flowable.core.dto.request.HandleTaskRequest;
 import io.admin.modules.flowable.core.dto.response.CommentResponse;
 import io.admin.modules.flowable.core.dto.response.TaskResponse;
@@ -49,14 +49,14 @@ public class MyFlowableController {
 
     @GetMapping("todoCount")
     public AjaxResult todo() {
-        String userId = LoginUtils.getUserId();
+        String userId = LoginTool.getUserId();
         long userTaskCount = flowableService.findUserTaskCount(userId);
         return AjaxResult.ok().data(userTaskCount);
     }
 
     @RequestMapping("todoTaskPage")
     public AjaxResult todo(Pageable pageable) {
-        String userId = LoginUtils.getUserId();
+        String userId = LoginTool.getUserId();
         Page<TaskResponse> page = flowableService.findUserTaskList(pageable, userId);
 
         return AjaxResult.ok().data(page);
@@ -64,7 +64,7 @@ public class MyFlowableController {
 
     @RequestMapping("doneTaskPage")
     public AjaxResult doneTaskPage(Pageable pageable) {
-        String userId = LoginUtils.getUserId();
+        String userId = LoginTool.getUserId();
 
         Page<TaskResponse> page = flowableService.findUserTaskDoneList(pageable, userId);
         return AjaxResult.ok().data(page);
@@ -74,7 +74,7 @@ public class MyFlowableController {
     // 我发起的
     @GetMapping("myInstance")
     public AjaxResult myInstance(Pageable pageable) {
-        LoginUser loginUser = LoginUtils.getUser();
+        LoginUser loginUser = LoginTool.getUser();
 
 
         HistoricProcessInstanceQuery query = historyService.createHistoricProcessInstanceQuery();
@@ -86,7 +86,7 @@ public class MyFlowableController {
 
         long count = query.count();
         List<HistoricProcessInstance> list = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        List<Map<String, Object>> mapList = BeanUtils.copyToListMap(list, HistoricProcessInstance.class);
+        List<Map<String, Object>> mapList = BeanTool.copyToListMap(list, HistoricProcessInstance.class);
 
         for (Map<String, Object> map : mapList) {
             String startUserId = (String) map.get("startUserId");
@@ -101,7 +101,7 @@ public class MyFlowableController {
 
     @PostMapping("handleTask")
     public AjaxResult handle(@RequestBody HandleTaskRequest param) {
-        String user = LoginUtils.getUserId();
+        String user = LoginTool.getUserId();
         flowableService.handle(user, param.getResult(), param.getTaskId(), param.getComment());
         return AjaxResult.ok().msg("处理成功");
     }
@@ -158,7 +158,7 @@ public class MyFlowableController {
         HistoricProcessInstance instance = list.get(0);
 
 
-        Map<String, Object> data = BeanUtils.copyToMap(HistoricProcessInstance.class, instance);
+        Map<String, Object> data = BeanTool.copyToMap(HistoricProcessInstance.class, instance);
 
         // 处理意见
         {
@@ -172,7 +172,7 @@ public class MyFlowableController {
         {
             BufferedImage image = flowableService.drawImage(instance.getId());
 
-            String base64 = ImgUtils.toBase64DataUri(image);
+            String base64 = ImgTool.toBase64DataUri(image);
 
             data.put("img", base64);
         }
@@ -183,7 +183,7 @@ public class MyFlowableController {
             if (instanceName == null) {
                 instanceName = instance.getProcessDefinitionName();
             }
-            data.put("startTime", DateFormatUtils.format(instance.getStartTime()));
+            data.put("startTime", DateFormatTool.format(instance.getStartTime()));
             data.put("starter", flowableService.getUserName(instance.getStartUserId()));
             data.put("name", instanceName);
             data.put("id", instance.getId());

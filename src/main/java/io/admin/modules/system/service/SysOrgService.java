@@ -1,10 +1,10 @@
 package io.admin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
-import io.admin.common.utils.tree.drop.DropResult;
+import io.admin.common.tools.tree.drop.DropResult;
 import io.admin.framework.data.service.BaseService;
 import io.admin.framework.data.specification.Spec;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.dao.SysOrgDao;
 import io.admin.modules.system.dao.SysUserDao;
 import io.admin.modules.system.entity.SysOrg;
@@ -50,7 +50,7 @@ public class SysOrgService extends BaseService<SysOrg> {
      * @param showDisabled 是否显示禁用
      */
     public List<SysOrg> findByLoginUser(boolean showDept, boolean showDisabled) {
-        List<String> orgPermissions = LoginUtils.getOrgPermissions();
+        List<String> orgPermissions = LoginTool.getOrgPermissions();
         if (CollUtil.isEmpty(orgPermissions)) {
             return Collections.emptyList();
         }

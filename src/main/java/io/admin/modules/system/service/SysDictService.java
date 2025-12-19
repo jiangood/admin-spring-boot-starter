@@ -2,7 +2,7 @@ package io.admin.modules.system.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Multimap;
-import io.admin.common.utils.GoogleUtils;
+import io.admin.common.tools.GoogleTool;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.system.dao.SysDictDao;
 import io.admin.modules.system.dao.SysDictItemDao;
@@ -60,7 +60,7 @@ public class SysDictService extends BaseService<SysDict> {
     public Map<String, Collection<SimpleDictItem>> dictMap() {
         List<SysDictItem> list = sysDictItemDao.findAll(Sort.by(SysDictItem.Fields.seq));
 
-        Multimap<String, SimpleDictItem> map = GoogleUtils.newMultimap();
+        Multimap<String, SimpleDictItem> map = GoogleTool.newMultimap();
 
         for (SysDictItem item : list) {
             SysDict sysDict = item.getSysDict();

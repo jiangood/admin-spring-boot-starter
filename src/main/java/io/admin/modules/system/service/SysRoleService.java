@@ -1,6 +1,6 @@
 package io.admin.modules.system.service;
 
-import io.admin.common.utils.tree.TreeUtils;
+import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.system.dao.SysMenuDao;
@@ -129,7 +129,7 @@ public class SysRoleService extends BaseService<SysRole> {
         List<MenuDefinition> list = sysMenuDao.findAll();
         List<String> finalMenus = new ArrayList<>();
         for (String menu : menus) {
-            List<String> pids = TreeUtils.getPids(menu, list, MenuDefinition::getId, MenuDefinition::getPid);
+            List<String> pids = TreeTool.getPids(menu, list, MenuDefinition::getId, MenuDefinition::getPid);
             finalMenus.add(menu);
             finalMenus.addAll(pids);
         }

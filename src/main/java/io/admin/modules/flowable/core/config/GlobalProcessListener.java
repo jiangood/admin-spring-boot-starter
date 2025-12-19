@@ -1,6 +1,6 @@
 package io.admin.modules.flowable.core.config;
 
-import io.admin.common.utils.SpringUtils;
+import io.admin.common.tools.SpringTool;
 import io.admin.modules.flowable.core.FlowableEventType;
 import io.admin.modules.flowable.core.config.meta.ProcessListener;
 import io.admin.modules.flowable.core.config.meta.ProcessMeta;
@@ -72,7 +72,7 @@ public class GlobalProcessListener implements FlowableEventListener {
         if (meta != null) {
             Class<? extends ProcessListener> listener = meta.getListener();
             if (listener != null) {
-                ProcessListener bean = SpringUtils.getBean(listener);
+                ProcessListener bean = SpringTool.getBean(listener);
                 if (bean != null) {
                     bean.onProcessEvent(eventType, initiator, businessKey, variables);
                 }

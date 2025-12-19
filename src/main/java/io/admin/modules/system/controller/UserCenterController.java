@@ -2,7 +2,7 @@ package io.admin.modules.system.controller;
 
 import io.admin.common.dto.AjaxResult;
 import io.admin.framework.config.security.LoginUser;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.dto.request.UpdatePwdRequest;
 import io.admin.modules.system.dto.response.UserCenterInfo;
 import io.admin.modules.system.dto.response.UserResponse;
@@ -23,7 +23,7 @@ public class UserCenterController {
 
     @RequestMapping("info")
     public AjaxResult info() {
-        LoginUser sysUser = LoginUtils.getUser();
+        LoginUser sysUser = LoginTool.getUser();
 
         UserResponse user = sysUserService.findOneDto(sysUser.getId());
 
@@ -44,7 +44,7 @@ public class UserCenterController {
     @PostMapping("updatePwd")
     public AjaxResult updatePwd(@RequestBody UpdatePwdRequest request) {
         String newPassword = request.getNewPassword();
-        sysUserService.updatePwd(LoginUtils.getUserId(), newPassword);
+        sysUserService.updatePwd(LoginTool.getUserId(), newPassword);
         return AjaxResult.ok();
     }
 }

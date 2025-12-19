@@ -1,9 +1,9 @@
 package io.admin.framework.config.security;
 
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.ArrayUtils;
-import io.admin.common.utils.PasswordUtils;
-import io.admin.common.utils.ResponseUtils;
+import io.admin.common.tools.ArrayTool;
+import io.admin.common.tools.PasswordTool;
+import io.admin.common.tools.ResponseTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.init.SystemHookService;
 import io.admin.framework.config.security.refresh.PermissionRefreshFilter;
@@ -37,7 +37,7 @@ public class SecurityConfig {
     // 配置 HTTP 安全
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, LoginFilter loginFilter, PermissionRefreshFilter permissionRefreshFilter) throws Exception {
-        String[] loginExclude = ArrayUtils.toStrArr(sysProperties.getXssExcludePathList());
+        String[] loginExclude = ArrayTool.toStrArr(sysProperties.getXssExcludePathList());
 
         systemHookService.beforeConfigSecurity(http);
         // 前后端分离项目，关闭csrf
@@ -54,10 +54,10 @@ public class SecurityConfig {
         http.formLogin(cfg -> {
             cfg.loginProcessingUrl("/admin/auth/login").defaultSuccessUrl("/admin/auth/success").successHandler((request, response, authentication) -> {
                 AjaxResult rs = AjaxResult.ok("登录成功");
-                ResponseUtils.response(response, rs);
+                ResponseTool.response(response, rs);
             }).failureHandler((request, response, exception) -> {
                 AjaxResult rs = AjaxResult.err("登录失败" + exception.getMessage());
-                ResponseUtils.response(response, rs);
+                ResponseTool.response(response, rs);
             });
         });
 
@@ -79,11 +79,11 @@ public class SecurityConfig {
         http.exceptionHandling(cfg -> {
             cfg.accessDeniedHandler((request, response, e) -> {
                 AjaxResult err = AjaxResult.err(e.getMessage());
-                ResponseUtils.response(response, err);
+                ResponseTool.response(response, err);
             }).authenticationEntryPoint((request, response, e) -> {
                 AjaxResult err = AjaxResult.err(401, "认证信息已失效或未登录，请重新登录。" + e.getMessage());
                 response.setStatus(401);
-                ResponseUtils.response(response, err);
+                ResponseTool.response(response, err);
             });
 
         });
@@ -97,7 +97,7 @@ public class SecurityConfig {
     // 密码编码器
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordUtils.getPasswordEncoder();
+        return PasswordTool.getPasswordEncoder();
     }
 
 

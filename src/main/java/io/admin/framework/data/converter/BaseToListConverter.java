@@ -1,8 +1,8 @@
 package io.admin.framework.data.converter;
 
 
-import io.admin.common.utils.JsonUtils;
-import io.admin.common.utils.ReflectUtils;
+import io.admin.common.tools.JsonTool;
+import io.admin.common.tools.ReflectTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ public class BaseToListConverter<T> implements AttributeConverter<List<T>, Strin
 
     @Override
     public String convertToDatabaseColumn(List<T> input) {
-        return JsonUtils.toJsonQuietly(input);
+        return JsonTool.toJsonQuietly(input);
     }
 
     @Override
@@ -26,9 +26,9 @@ public class BaseToListConverter<T> implements AttributeConverter<List<T>, Strin
             return new ArrayList<>();
         }
 
-        Class<T> cls = ReflectUtils.getClassGenricType(getClass());
+        Class<T> cls = ReflectTool.getClassGenricType(getClass());
 
-        return JsonUtils.jsonToBeanListQuietly(dbData, cls);
+        return JsonTool.jsonToBeanListQuietly(dbData, cls);
     }
 
 

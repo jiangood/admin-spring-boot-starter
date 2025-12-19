@@ -2,12 +2,11 @@ package io.admin.modules.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
+import io.admin.framework.data.DBConstants;
 import io.admin.framework.data.domain.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
@@ -72,6 +71,17 @@ public class SysUser extends BaseEntity {
     private String extra1;
     private String extra2;
     private String extra3;
+
+    /**
+     * 第三方系统的唯一标识符，常用于OAuth集成，统一认证等
+     */
+    @JsonIgnore
+    @Column(length = DBConstants.LEN_ID)
+    private String thirdId;
+
+    @JsonIgnore
+    @Column(length = DBConstants.LEN_NAME)
+    private String thirdAccount;
 
 
     public SysUser() {

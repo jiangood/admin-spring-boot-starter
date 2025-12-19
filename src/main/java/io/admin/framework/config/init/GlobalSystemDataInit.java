@@ -3,7 +3,7 @@ package io.admin.framework.config.init;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
-import io.admin.common.utils.PasswordUtils;
+import io.admin.common.tools.PasswordTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.framework.dict.DictAnnHandler;
 import io.admin.modules.system.ConfigConsts;
@@ -93,14 +93,14 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
         SysUser admin = sysUserDao.findByAccount(account);
         if (admin == null) {
-            String pwd = PasswordUtils.random();
+            String pwd = PasswordTool.random();
             admin = new SysUser();
             admin.setAccount(account);
             admin.setName("管理员");
             admin.setEnabled(true);
             admin.getRoles().add(adminRole);
             admin.setDataPermType(DataPermType.ALL);
-            admin.setPassword(PasswordUtils.encode(pwd));
+            admin.setPassword(PasswordTool.encode(pwd));
             admin = sysUserDao.save(admin);
             log.info("创建默认管理员 {}", admin.getAccount());
         }
@@ -108,7 +108,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
         String pwd = sysProperties.getResetAdminPwd();
         if (StrUtil.isNotEmpty(pwd)) {
-            admin.setPassword(PasswordUtils.encode(pwd));
+            admin.setPassword(PasswordTool.encode(pwd));
             log.info("管理员密码重置为 {}", pwd);
             sysUserDao.save(admin);
         }

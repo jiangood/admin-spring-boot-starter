@@ -1,6 +1,6 @@
 package io.admin.modules.system.entity;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 
 @Remark("数据权限类型")
 public enum DataPermType {

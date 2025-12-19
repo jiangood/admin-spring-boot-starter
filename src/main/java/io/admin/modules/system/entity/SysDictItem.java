@@ -1,7 +1,7 @@
 package io.admin.modules.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import io.admin.framework.data.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

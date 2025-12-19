@@ -1,7 +1,7 @@
 package io.admin.modules.flowable.core.service;
 
 
-import io.admin.common.utils.FontUtils;
+import io.admin.common.tools.FontTool;
 import jakarta.annotation.Resource;
 import org.flowable.bpmn.model.*;
 import org.flowable.engine.HistoryService;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 public class FlowableModelService {
 
-    public static final String FONT_NAME = FontUtils.getDefaultFontName();
+    public static final String FONT_NAME = FontTool.getDefaultFontName();
 
     @Resource
     private RuntimeService runtimeService;

@@ -3,15 +3,15 @@ package io.admin.modules.flowable.admin.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.Option;
-import io.admin.common.utils.SpringUtils;
-import io.admin.common.utils.annotation.RemarkUtils;
+import io.admin.common.tools.SpringTool;
+import io.admin.common.tools.annotation.RemarkTool;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.data.specification.Spec;
 import io.admin.framework.log.Log;
 import io.admin.modules.flowable.core.config.ProcessMetaCfg;
 import io.admin.modules.flowable.core.config.meta.FormDefinition;
 import io.admin.modules.flowable.core.config.meta.ProcessMeta;
-import io.admin.modules.flowable.utils.ModelUtils;
+import io.admin.modules.flowable.utils.ModelTool;
 import io.admin.modules.system.entity.SysRole;
 import io.admin.modules.system.entity.SysUser;
 import io.admin.modules.system.service.SysRoleService;
@@ -126,7 +126,7 @@ public class ModelController {
         log.info("保存成功，准备部署");
 
         Model m = repositoryService.getModel(id);
-        BpmnModel bpmnModel = ModelUtils.xmlToModel(xml);
+        BpmnModel bpmnModel = ModelTool.xmlToModel(xml);
 
 
         Process mainProcess = bpmnModel.getMainProcess();
@@ -136,7 +136,7 @@ public class ModelController {
         mainProcess.setName(m.getName());
 
         // 校验模型
-        ModelUtils.validateModel(bpmnModel);
+        ModelTool.validateModel(bpmnModel);
 
         String resourceName = m.getName() + ".bpmn20.xml";
 
@@ -152,14 +152,14 @@ public class ModelController {
 
     @GetMapping("javaDelegateOptions")
     public AjaxResult javaDelegateOptions() {
-        Map<String, JavaDelegate> beans = SpringUtils.getBeansOfType(JavaDelegate.class);
+        Map<String, JavaDelegate> beans = SpringTool.getBeansOfType(JavaDelegate.class);
         List<Option> options = new ArrayList<>();
         for (Map.Entry<String, JavaDelegate> e : beans.entrySet()) {
             String beanName = e.getKey();
             JavaDelegate value = e.getValue();
             Class<? extends JavaDelegate> cls = value.getClass();
             log.info("{}: {}", beanName, cls);
-            String remark = RemarkUtils.getRemark(cls);
+            String remark = RemarkTool.getRemark(cls);
 
             String label = remark == null ? beanName : remark;
             String key = "${" + beanName + "}";

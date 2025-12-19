@@ -1,6 +1,6 @@
 package io.admin.modules.system.enums;
 
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import io.admin.framework.enums.CodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

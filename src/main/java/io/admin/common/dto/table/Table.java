@@ -5,7 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.admin.common.DataMatrix;
-import io.admin.common.utils.annotation.Remark;
+import io.admin.common.tools.annotation.Remark;
 import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

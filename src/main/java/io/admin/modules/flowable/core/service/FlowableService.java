@@ -3,7 +3,7 @@ package io.admin.modules.flowable.core.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import io.admin.common.utils.FriendlyUtils;
+import io.admin.common.tools.FriendlyTool;
 import io.admin.modules.flowable.core.FlowableProperties;
 import io.admin.modules.flowable.core.dto.TaskHandleType;
 import io.admin.modules.flowable.core.dto.response.TaskResponse;
@@ -76,7 +76,7 @@ public class FlowableService {
             TaskResponse r = new TaskResponse();
             convert(r, task);
             r.setInstanceName(instance.getName());
-            r.setInstanceStartTime(FriendlyUtils.getPastTime(instance.getStartTime()));
+            r.setInstanceStartTime(FriendlyTool.getPastTime(instance.getStartTime()));
             r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
             return r;
         }).collect(Collectors.toList());
@@ -109,9 +109,9 @@ public class FlowableService {
             TaskResponse r = new TaskResponse();
             this.convert(r, task);
             r.setInstanceName(instance.getName());
-            r.setInstanceStartTime(FriendlyUtils.getPastTime(instance.getStartTime()));
+            r.setInstanceStartTime(FriendlyTool.getPastTime(instance.getStartTime()));
             r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
-            r.setDurationInfo(FriendlyUtils.getTimeDiff(task.getCreateTime(), task.getEndTime()));
+            r.setDurationInfo(FriendlyTool.getTimeDiff(task.getCreateTime(), task.getEndTime()));
             return r;
         }).toList();
 
@@ -232,7 +232,7 @@ public class FlowableService {
     private void convert(TaskResponse r, TaskInfo task) {
         r.setId(task.getId());
         r.setTaskName(task.getName());
-        r.setCreateTime(FriendlyUtils.getPastTime(task.getCreateTime()));
+        r.setCreateTime(FriendlyTool.getPastTime(task.getCreateTime()));
         r.setAssigneeInfo(sysUserService.getNameById(task.getAssignee()));
         r.setFormKey(task.getFormKey());
         r.setInstanceId(task.getProcessInstanceId());

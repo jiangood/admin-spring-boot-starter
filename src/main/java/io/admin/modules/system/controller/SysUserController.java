@@ -7,7 +7,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.DropdownRequest;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.dto.antd.TreeOption;
-import io.admin.common.utils.tree.TreeUtils;
+import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.SysProperties;
 import io.admin.framework.config.argument.RequestBodyKeys;
 import io.admin.framework.config.security.HasPermission;
@@ -15,7 +15,7 @@ import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.framework.data.specification.Spec;
 import io.admin.framework.log.Log;
-import io.admin.modules.common.LoginUtils;
+import io.admin.modules.common.LoginTool;
 import io.admin.modules.system.dto.request.GrantUserPermRequest;
 import io.admin.modules.system.dto.response.UserResponse;
 import io.admin.modules.system.entity.SysOrg;
@@ -152,7 +152,7 @@ public class SysUserController {
         }
 
         // 权限过滤
-        Collection<String> orgIds = LoginUtils.getOrgPermissions();
+        Collection<String> orgIds = LoginTool.getOrgPermissions();
         if (CollUtil.isNotEmpty(orgIds)) {
             query.or(
                     Spec.<SysUser>of().in(SysUser.Fields.unitId, orgIds),
@@ -219,14 +219,14 @@ public class SysUserController {
             return AjaxResult.ok().data(Collections.emptyList());
         }
 
-        Collection<String> orgPermissions = LoginUtils.getOrgPermissions();
+        Collection<String> orgPermissions = LoginTool.getOrgPermissions();
         List<SysUser> userList = sysUserService.findByUnit(orgPermissions);
 
         List<TreeOption> orgOptions = orgList.stream().map(o -> new TreeOption(o.getName(), o.getId(), o.getPid())).toList();
         List<TreeOption> userOptions = userList.stream().map(u -> new TreeOption(u.getName(), u.getId(), StrUtil.emptyToDefault(u.getDeptId(), u.getUnitId()))).toList();
         List<TreeOption> allOptions = ListUtils.union(orgOptions, userOptions);
 
-        List<TreeOption> tree = TreeUtils.buildTree(allOptions);
+        List<TreeOption> tree = TreeTool.buildTree(allOptions);
         return AjaxResult.ok().data(tree);
     }
 

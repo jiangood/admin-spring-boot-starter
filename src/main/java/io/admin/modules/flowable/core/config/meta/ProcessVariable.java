@@ -1,6 +1,6 @@
 package io.admin.modules.flowable.core.config.meta;
 
-import io.admin.common.utils.field.ValueType;
+import io.admin.common.tools.field.ValueType;
 import lombok.Data;
 
 @Data

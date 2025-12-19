@@ -3,7 +3,7 @@ package io.admin.modules.flowable.core.config;
 // ... imports
 
 import cn.hutool.core.io.resource.ResourceUtil;
-import io.admin.common.utils.YmlUtils;
+import io.admin.common.tools.YmlTool;
 import io.admin.modules.flowable.core.config.meta.ProcessMeta;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class ProcessMetaCfg {
     @PostConstruct
     void init() throws IOException {
         InputStream is = ResourceUtil.getStream("application-process.yml");
-        ProcessMetaCfg cfg = YmlUtils.parseYml(is, ProcessMetaCfg.class, "process");
+        ProcessMetaCfg cfg = YmlTool.parseYml(is, ProcessMetaCfg.class, "process");
         this.list = cfg.getList();
     }
 

@@ -2,7 +2,7 @@ package io.admin.framework.config.security;
 
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.ResponseUtils;
+import io.admin.common.tools.ResponseTool;
 import io.admin.framework.servlet.ReplaceParameterRequestWrapper;
 import io.admin.modules.common.AuthService;
 import jakarta.servlet.FilterChain;
@@ -55,7 +55,7 @@ public class LoginFilter extends OncePerRequestFilter {
             request = newRequest;
         } catch (Exception e) {
             log.error("用户[{}]认证失败： {}", username, e.getMessage());
-            ResponseUtils.response(response, AjaxResult.err(e.getMessage()));
+            ResponseTool.response(response, AjaxResult.err(e.getMessage()));
             return;
         }
 
@@ -64,7 +64,7 @@ public class LoginFilter extends OncePerRequestFilter {
             authService.onSuccess(username);
         } catch (Exception e) {
             authService.onFail(username);
-            ResponseUtils.response(response, AjaxResult.err(e.getMessage()));
+            ResponseTool.response(response, AjaxResult.err(e.getMessage()));
         }
     }
 

@@ -2,7 +2,7 @@ package io.admin.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import io.admin.common.utils.JsonUtils;
+import io.admin.common.tools.JsonTool;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -111,7 +111,7 @@ public class AjaxResult {
             this.data = new HashMap<>();
         } else {
             if (!(data instanceof Map)) {
-                data = JsonUtils.jsonToMapQuietly(JsonUtils.toJsonQuietly(data));
+                data = JsonTool.jsonToMapQuietly(JsonTool.toJsonQuietly(data));
             }
         }
         Map<String, Object> map = (Map<String, Object>) data;

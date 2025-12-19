@@ -1,7 +1,7 @@
 package io.admin.framework.config.security.refresh;
 
 import io.admin.common.dto.AjaxResult;
-import io.admin.common.utils.ResponseUtils;
+import io.admin.common.tools.ResponseTool;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,7 +68,7 @@ public class PermissionRefreshFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             logger.error("处理失败" + e.getMessage());
-            ResponseUtils.response(response, AjaxResult.err(e.getMessage()));
+            ResponseTool.response(response, AjaxResult.err(e.getMessage()));
         }
 
     }
