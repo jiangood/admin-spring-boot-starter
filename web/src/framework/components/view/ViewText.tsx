@@ -2,7 +2,7 @@ import React from "react";
 import {Typography} from "antd";
 
 interface ViewTextProps {
-    value: string | null | undefined;
+    value?: string;
 }
 
 export class ViewText extends React.Component<ViewTextProps, any>{
