@@ -6,7 +6,6 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.admin.common.tools.YmlTool;
 import io.admin.common.tools.tree.TreeTool;
-import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
 import io.admin.framework.config.data.sysmenu.MenuDefinition;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
@@ -22,7 +21,6 @@ import java.util.*;
 @Configuration
 public class SysMenuYmlDao {
     private static final String MENU_CONFIG_PATTERN = "classpath*:config/application-data*.yml";
-    private final List<ConfigGroupDefinition> configs = new ArrayList<>();
 
     private List<MenuDefinition> menus = new ArrayList<>();
 
@@ -37,7 +35,6 @@ public class SysMenuYmlDao {
         for (Resource configFile : this.getConfigFiles()) {
             log.info("处理数据文件 {}", configFile.getFilename());
             DataProperties cur = this.parseResource(configFile);
-            configs.addAll(cur.getConfigs());
 
 
             // 菜单打平，方便后续合并
