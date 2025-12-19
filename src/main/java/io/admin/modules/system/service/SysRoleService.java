@@ -1,7 +1,7 @@
 package io.admin.modules.system.service;
 
 import io.admin.common.tools.tree.TreeTool;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import io.admin.framework.data.service.BaseService;
 import io.admin.modules.system.dao.SysMenuDao;
 import io.admin.modules.system.dao.SysRoleDao;

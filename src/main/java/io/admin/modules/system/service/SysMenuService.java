@@ -1,7 +1,7 @@
 package io.admin.modules.system.service;
 
 import io.admin.common.tools.tree.TreeTool;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import io.admin.modules.system.dao.SysMenuDao;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package io.admin.framework.config.data;
 
-import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.ConfigGroupDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

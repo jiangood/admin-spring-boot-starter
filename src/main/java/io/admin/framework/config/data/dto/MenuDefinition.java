@@ -1,4 +1,4 @@
-package io.admin.framework.config.data.sysmenu;
+package io.admin.framework.config.data.dto;
 
 import io.admin.common.dto.antd.AntDesignIcon;
 import lombok.Data;

@@ -6,7 +6,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.admin.common.tools.YmlTool;
 import io.admin.common.tools.tree.TreeTool;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

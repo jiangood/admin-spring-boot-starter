@@ -6,7 +6,7 @@ import io.admin.common.dto.AjaxResult;
 import io.admin.common.dto.antd.MenuItem;
 import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.SysProperties;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import io.admin.framework.config.security.LoginUser;
 import io.admin.modules.common.dto.response.LoginDataResponse;
 import io.admin.modules.common.dto.response.LoginInfoResponse;

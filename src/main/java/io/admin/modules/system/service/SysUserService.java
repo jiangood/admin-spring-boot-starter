@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.admin.common.tools.PasswordTool;
 import io.admin.framework.config.SysProperties;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import io.admin.framework.data.domain.BaseEntity;
 import io.admin.framework.data.service.BaseService;
 import io.admin.framework.data.specification.Spec;

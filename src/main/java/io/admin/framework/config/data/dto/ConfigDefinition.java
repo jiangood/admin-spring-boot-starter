@@ -1,4 +1,4 @@
-package io.admin.framework.config.data.sysconfig;
+package io.admin.framework.config.data.dto;
 
 
 import io.admin.common.tools.field.ValueType;

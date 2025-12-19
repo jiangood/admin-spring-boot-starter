@@ -1,7 +1,7 @@
 package io.admin.framework.config.data;
 
 import io.admin.common.tools.YmlTool;
-import io.admin.framework.config.data.sysconfig.ConfigGroupDefinition;
+import io.admin.framework.config.data.dto.ConfigGroupDefinition;
 import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

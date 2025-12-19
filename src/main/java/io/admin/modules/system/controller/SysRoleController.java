@@ -7,7 +7,7 @@ import io.admin.common.dto.DropdownRequest;
 import io.admin.common.dto.antd.Option;
 import io.admin.common.tools.CollectionTool;
 import io.admin.framework.config.argument.RequestBodyKeys;
-import io.admin.framework.config.data.sysmenu.MenuDefinition;
+import io.admin.framework.config.data.dto.MenuDefinition;
 import io.admin.framework.config.security.HasPermission;
 import io.admin.framework.config.security.refresh.PermissionStaleService;
 import io.admin.framework.data.domain.BaseEntity;
