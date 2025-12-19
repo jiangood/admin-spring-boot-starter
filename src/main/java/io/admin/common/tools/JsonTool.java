@@ -1,6 +1,7 @@
 package io.admin.common.tools;
 
 
+import cn.hutool.core.collection.CollUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
@@ -28,6 +29,30 @@ public class JsonTool {
     public static <T> T convert(Object fromValue, Class<T> toValueType) {
         ObjectMapper om = new ObjectMapper();
         return om.convertValue(fromValue, toValueType);
+    }
+
+    /**
+     * 通过转换json实现对象拷贝
+     *
+     * @param bean
+     * @param <T>
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T clone(T bean) {
+        String json = toJsonQuietly(bean);
+        Class<T> cls = (Class<T>) bean.getClass();
+        return jsonToBeanQuietly(json, cls);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> clone(List<T> list) {
+        if (CollUtil.isEmpty(list)) {
+            return new ArrayList<>();
+        }
+        String json = toJsonQuietly(list);
+        Class<T> cls = (Class<T>) list.get(0).getClass();
+        return jsonToBeanListQuietly(json, cls);
     }
 
     public static String toJson(Object o) throws JsonProcessingException {

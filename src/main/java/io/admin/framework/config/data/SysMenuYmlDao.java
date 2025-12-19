@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import io.admin.common.tools.JsonTool;
 import io.admin.common.tools.YmlTool;
 import io.admin.common.tools.tree.TreeTool;
 import io.admin.framework.config.data.dto.MenuDefinition;
@@ -26,7 +27,7 @@ public class SysMenuYmlDao {
 
 
     public List<MenuDefinition> findAll() {
-        return Collections.unmodifiableList(menus);
+        return JsonTool.clone(menus);
     }
 
 
