@@ -125,7 +125,7 @@ export default class InstanceInfo extends React.Component {
         if (!ExForm) {
             return <div>
                 <p>
-                    未注册表单，请注册表单 {formName}。
+                    未创建表单 {formName}。
                 </p>
                 <Typography.Text>
                     表单路径：src/forms/{formName}.jsx
