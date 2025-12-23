@@ -16,14 +16,17 @@ public class RangeTool {
         String[] arr = StrUtil.splitToArray(str, SPLITTER);
         Assert.state(arr.length <= 2, "参数格式错误");
 
-        String a = arr[0];
-        String b = arr.length > 1 ? arr[1] : null;
-        a = StrUtil.emptyToNull(a);
-        b = StrUtil.emptyToNull(b);
-
         Range<String> range = new Range<>();
-        range.setBegin(a);
-        range.setEnd(b);
+        if (arr.length > 0) {
+            String a = arr[0];
+            String b = arr.length > 1 ? arr[1] : null;
+            a = StrUtil.emptyToNull(a);
+            b = StrUtil.emptyToNull(b);
+
+            range.setBegin(a);
+            range.setEnd(b);
+        }
+
         return range;
     }
 
