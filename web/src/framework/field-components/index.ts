@@ -11,6 +11,7 @@ export * from './FieldRemoteTreeSelectMultiple'
 export * from './FieldBoolean';
 export * from './FieldDate';
 export * from './FieldDateRange';
+export * from './FieldNumberRange';
 export * from './FieldTable'
 export * from './FieldTableSelect'
 export * from './FieldSysOrgTreeSelect'
