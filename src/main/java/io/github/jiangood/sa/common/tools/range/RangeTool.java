@@ -20,6 +20,7 @@ public class RangeTool {
         if (arr.length > 0) {
             String a = arr[0];
             String b = arr.length > 1 ? arr[1] : null;
+
             a = StrUtil.emptyToNull(a);
             b = StrUtil.emptyToNull(b);
 
