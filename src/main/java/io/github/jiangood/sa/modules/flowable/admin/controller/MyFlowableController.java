@@ -93,8 +93,7 @@ public class MyFlowableController {
             map.put("startTime", instance.getStartTime());
             map.put("endTime", instance.getEndTime());
             map.put("businessKey", instance.getBusinessKey());
-
-            String startUserId = (String) map.get("startUserId");
+            String startUserId = instance.getStartUserId();
             if (startUserId != null) {
                 map.put("startUserName", flowableService.getUserName(startUserId));
             }
