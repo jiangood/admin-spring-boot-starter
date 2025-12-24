@@ -1,10 +1,13 @@
 package io.github.jiangood.sa.common.tools;
 
 
+import io.github.jiangood.sa.framework.data.domain.PageExt;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class PageTool {
@@ -17,4 +20,26 @@ public class PageTool {
         return new PageImpl<>(resultList, page.getPageable(), page.getTotalElements());
     }
 
+    /**
+     * 添加额外的数据
+     *
+     * @param page
+     * @param <T>
+     * @return
+     */
+    public static <T> Page<T> addExtraData(Page<T> page, Map<String,Object> extraData) {
+        PageExt<T> ext = getExt(page);
+        ext.setExtData(extraData);
+        return ext;
+    }
+
+    public static <T> Page<T> addExtraData(Page<T> page, String key, Object value) {
+        PageExt<T> ext = page instanceof PageExt<T> pageExt ? pageExt : PageExt.of(page);
+        ext.putExtData(key, value);
+        return ext;
+    }
+
+    public static <T>  PageExt<T> getExt(Page<T> page) {
+        return page instanceof PageExt<T> pageExt ? pageExt : PageExt.of(page);
+    }
 }
