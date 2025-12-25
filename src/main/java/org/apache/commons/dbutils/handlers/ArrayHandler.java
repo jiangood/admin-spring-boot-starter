@@ -19,9 +19,8 @@ package org.apache.commons.dbutils.handlers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.tmgg.dbtool.dbutil.MyBeanProcessor;
-import io.tmgg.dbtool.dbutil.MyRowProcessor;
-import org.apache.commons.dbutils.BasicRowProcessor;
+import io.github.jiangood.sa.common.tools.jdbc.impl.MyBeanProcessor;
+import io.github.jiangood.sa.common.tools.jdbc.impl.MyRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
 
