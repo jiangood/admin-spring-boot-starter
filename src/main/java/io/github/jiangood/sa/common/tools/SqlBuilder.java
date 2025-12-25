@@ -13,6 +13,13 @@ public class SqlBuilder {
     @Getter
     private List<Object> params = new ArrayList<>();
 
+    public SqlBuilder() {
+    }
+
+    public SqlBuilder(String sql) {
+        sb.append(sql);
+    }
+
     public void append(String sql) {
         sb.append(sql);
     }
