@@ -5,6 +5,7 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.github.jiangood.sa.common.tools.JsonTool;
+import io.github.jiangood.sa.common.tools.ResourceTool;
 import io.github.jiangood.sa.common.tools.YmlTool;
 import io.github.jiangood.sa.common.tools.tree.TreeTool;
 import io.github.jiangood.sa.framework.config.data.dto.MenuDefinition;
@@ -13,15 +14,14 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
 
+import java.io.IOException;
 import java.util.*;
 
 @Slf4j
 @Configuration
 public class SysMenuYmlDao {
-    private static final String MENU_CONFIG_PATTERN = "classpath*:config/application-data*.yml";
+    private static final String MENU_CONFIG_PATTERN = "config/application-data*.yml";
 
     private List<MenuDefinition> menus = new ArrayList<>();
 
@@ -32,8 +32,10 @@ public class SysMenuYmlDao {
 
 
     @PostConstruct
-    public void init() {
-        for (Resource configFile : this.getConfigFiles()) {
+    public void init() throws IOException {
+        Resource[] resources = ResourceTool.findAll(MENU_CONFIG_PATTERN);
+        ResourceTool.sort(resources);
+        for (Resource configFile : resources) {
             log.info("处理数据文件 {}", configFile.getFilename());
             DataProperties cur = this.parseResource(configFile);
 
@@ -90,24 +92,6 @@ public class SysMenuYmlDao {
         this.menus = Collections.unmodifiableList(targetList);
     }
 
-
-    @SneakyThrows
-    private Resource[] getConfigFiles() {
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        // 1. 查找所有匹配的文件
-        Resource[] resources = resolver.getResources(MENU_CONFIG_PATTERN);
-
-        // 2. 排序，将包含framework的文件放在前面
-        Arrays.sort(resources, (o1, o2) -> {
-            String f1 = o1.getFilename();
-            String f2 = o2.getFilename();
-            return f1.compareTo(f2);
-        });
-        log.info("找到 {} 个数据文件", resources.length);
-        log.info("数据文件列表: {}", Arrays.toString(resources));
-
-        return resources;
-    }
 
     @SneakyThrows
     private DataProperties parseResource(Resource resource) {
