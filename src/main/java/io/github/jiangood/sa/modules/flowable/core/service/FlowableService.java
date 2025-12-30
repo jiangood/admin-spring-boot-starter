@@ -4,9 +4,11 @@ package io.github.jiangood.sa.modules.flowable.core.service;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.sa.common.tools.FriendlyTool;
+import io.github.jiangood.sa.common.tools.PageTool;
 import io.github.jiangood.sa.modules.flowable.core.FlowableProperties;
 import io.github.jiangood.sa.modules.flowable.core.dto.TaskHandleType;
 import io.github.jiangood.sa.modules.flowable.core.dto.response.TaskResponse;
+import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
 import io.github.jiangood.sa.modules.system.entity.SysRole;
 import io.github.jiangood.sa.modules.system.entity.SysUser;
 import io.github.jiangood.sa.modules.system.service.SysUserService;
@@ -59,19 +61,16 @@ public class FlowableService {
 
     public Page<TaskResponse> findUserTaskList(Pageable pageable, String userId) {
         TaskQuery query = buildUserTodoTaskQuery(userId);
-        long count = query.count();
-        if (count == 0) {
-            return new PageImpl<>(new ArrayList<>(), pageable, 0);
-        }
-        List<Task> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
+
+        Page<Task> page = FlowablePageTool.page(query, pageable);
+
 
 
         // 填充流程信息
-        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
+        Set<String> instanceIds = page.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
         Map<String, ProcessInstance> instanceMap = runtimeService.createProcessInstanceQuery().processInstanceIds(instanceIds).list().stream().collect(Collectors.toMap(Execution::getId, t -> t));
 
-
-        List<TaskResponse> infoList = taskList.stream().map(task -> {
+        Page<TaskResponse> page2 = PageTool.convert(page, task -> {
             ProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
             TaskResponse r = new TaskResponse();
             convert(r, task);
@@ -79,9 +78,9 @@ public class FlowableService {
             r.setInstanceStartTime(FriendlyTool.getPastTime(instance.getStartTime()));
             r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
             return r;
-        }).collect(Collectors.toList());
+        });
 
-        return new PageImpl<>(infoList, pageable, count);
+        return page2;
     }
 
     public Page<TaskResponse> findUserTaskDoneList(Pageable pageable, String userId) {
@@ -92,18 +91,15 @@ public class FlowableService {
                 .orderByHistoricTaskInstanceEndTime().desc();
 
 
-        List<HistoricTaskInstance> taskList = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        long count = query.count();
-        if (count == 0) {
-            return new PageImpl<>(new ArrayList<>(), pageable, 0);
-        }
+        Page<HistoricTaskInstance> page = FlowablePageTool.page(query, pageable);
 
-        Set<String> instanceIds = taskList.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
+
+        Set<String> instanceIds = page.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
         Map<String, HistoricProcessInstance> instanceMap = historyService.createHistoricProcessInstanceQuery().processInstanceIds(instanceIds).list()
                 .stream().collect(Collectors.toMap(HistoricProcessInstance::getId, t -> t));
 
 
-        List<TaskResponse> infoList = taskList.stream().map(task -> {
+        Page<TaskResponse> page2 = PageTool.convert(page, task -> {
             HistoricProcessInstance instance = instanceMap.get(task.getProcessInstanceId());
 
             TaskResponse r = new TaskResponse();
@@ -113,9 +109,9 @@ public class FlowableService {
             r.setInstanceStarter(sysUserService.getNameById(instance.getStartUserId()));
             r.setDurationInfo(FriendlyTool.getTimeDiff(task.getCreateTime(), task.getEndTime()));
             return r;
-        }).toList();
+        });
 
-        return new PageImpl<>(infoList, pageable, count);
+        return page2;
     }
 
     public void handle(String userId, TaskHandleType result, String taskId, String comment) {

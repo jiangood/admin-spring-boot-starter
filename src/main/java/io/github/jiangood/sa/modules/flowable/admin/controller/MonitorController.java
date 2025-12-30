@@ -3,11 +3,13 @@ package io.github.jiangood.sa.modules.flowable.admin.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.sa.common.dto.AjaxResult;
+import io.github.jiangood.sa.common.tools.PageTool;
 import io.github.jiangood.sa.framework.config.security.HasPermission;
 import io.github.jiangood.sa.framework.log.Log;
 import io.github.jiangood.sa.modules.common.LoginTool;
 import io.github.jiangood.sa.modules.flowable.core.dto.response.MonitorTaskResponse;
 import io.github.jiangood.sa.modules.flowable.core.service.FlowableService;
+import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
 import io.github.jiangood.sa.modules.system.service.SysUserService;
 import lombok.AllArgsConstructor;
 import org.flowable.engine.RepositoryService;
@@ -21,6 +23,7 @@ import org.flowable.engine.runtime.ProcessInstanceQuery;
 import org.flowable.task.api.Task;
 import org.flowable.task.api.TaskInfo;
 import org.flowable.task.api.TaskQuery;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +52,9 @@ public class MonitorController {
     public AjaxResult processDefinition(Pageable pageable) {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
-        long count = query.count();
-        List<ProcessDefinition> list = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
+        Page<ProcessDefinition> page = FlowablePageTool.page(query, pageable);
 
-        List<Map<String, Object>> mapList = list.stream().map(processDefinition -> {
+        Page<Map<String, Object>> page2 = PageTool.convert(page, processDefinition -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", processDefinition.getId());
             map.put("category", processDefinition.getCategory());
@@ -71,19 +73,18 @@ public class MonitorController {
             map.put("derivedFromRoot", processDefinition.getDerivedFromRoot());
             map.put("derivedVersion", processDefinition.getDerivedVersion());
             return map;
-        }).toList();
+        });
 
 
-        return AjaxResult.ok().data(new PageImpl<>(mapList, pageable, count));
+        return AjaxResult.ok().data(page2);
     }
 
     @GetMapping("instancePage")
     public AjaxResult instancePage(Pageable pageable) {
         ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery();
+        Page<ProcessInstance> page = FlowablePageTool.page(query, pageable);
 
-        long count = query.count();
-        List<ProcessInstance> list = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        List<Map<String, Object>> mapList = list.stream().map(processInstance -> {
+        Page<Map<String, Object>> page2 = PageTool.convert(page, processInstance -> {
             Map<String, Object> map = new HashMap<>();
 
             map.put("id", processInstance.getId());
@@ -111,9 +112,9 @@ public class MonitorController {
             map.put("superExecutionId", processInstance.getSuperExecutionId());
             map.put("activityId", processInstance.getActivityId());
             return map;
-        }).toList();
+        });
 
-        return AjaxResult.ok().data(new PageImpl<>(mapList, pageable, count));
+        return AjaxResult.ok().data(page2);
     }
 
     @Log("关闭流程实例")

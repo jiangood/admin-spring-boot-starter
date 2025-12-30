@@ -11,6 +11,7 @@ import io.github.jiangood.sa.framework.log.Log;
 import io.github.jiangood.sa.modules.flowable.core.config.ProcessMetaCfg;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.FormDefinition;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
 import io.github.jiangood.sa.modules.flowable.utils.ModelTool;
 import io.github.jiangood.sa.modules.system.entity.SysRole;
 import io.github.jiangood.sa.modules.system.entity.SysUser;
@@ -24,6 +25,9 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.delegate.JavaDelegate;
 import org.flowable.engine.repository.Model;
 import org.flowable.engine.repository.ModelQuery;
+import org.flowable.engine.repository.ProcessDefinition;
+import org.flowable.engine.repository.ProcessDefinitionQuery;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -236,6 +240,15 @@ public class ModelController {
         ProcessMeta meta = metaCfg.getMeta(code);
         return AjaxResult.ok().data(meta.getVariables());
     }
+    @GetMapping("definationPage")
+    public AjaxResult definationPage(String code,Pageable pageable) {
+        ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery().processDefinitionKey(code).orderByProcessDefinitionVersion();
+
+        Page<ProcessDefinition> page = FlowablePageTool.page(query, pageable);
+
+        return AjaxResult.ok().data(page);
+    }
+
 
     public record ModelRequest(String id, String content) {
     }

@@ -5,6 +5,7 @@ import cn.hutool.core.lang.Dict;
 import io.github.jiangood.sa.common.dto.AjaxResult;
 import io.github.jiangood.sa.common.tools.BeanTool;
 import io.github.jiangood.sa.common.tools.ImgTool;
+import io.github.jiangood.sa.common.tools.PageTool;
 import io.github.jiangood.sa.common.tools.datetime.DateFormatTool;
 import io.github.jiangood.sa.framework.config.security.LoginUser;
 import io.github.jiangood.sa.modules.common.LoginTool;
@@ -12,6 +13,7 @@ import io.github.jiangood.sa.modules.flowable.core.dto.request.HandleTaskRequest
 import io.github.jiangood.sa.modules.flowable.core.dto.response.CommentResponse;
 import io.github.jiangood.sa.modules.flowable.core.dto.response.TaskResponse;
 import io.github.jiangood.sa.modules.flowable.core.service.FlowableService;
+import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
 import lombok.AllArgsConstructor;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.TaskService;
@@ -82,11 +84,8 @@ public class MyFlowableController {
         query.orderByProcessInstanceStartTime().desc();
         query.includeProcessVariables();
 
-        long count = query.count();
-        List<HistoricProcessInstance> list = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
-        List<Map<String, Object>> mapList = new ArrayList<>();
-
-        for (HistoricProcessInstance instance : list) {
+        Page<HistoricProcessInstance> page = FlowablePageTool.page(query, pageable);
+        Page<Map<String, Object>> page2 = PageTool.convert(page, instance -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", instance.getId());
             map.put("processDefinitionName", instance.getProcessDefinitionName());
@@ -98,10 +97,10 @@ public class MyFlowableController {
             if (startUserId != null) {
                 map.put("startUserName", flowableService.getUserName(startUserId));
             }
-            mapList.add(map);
-        }
+            return map;
+        });
 
-        return AjaxResult.ok().data(new PageImpl<>(mapList, pageable, count));
+        return AjaxResult.ok().data(page2);
     }
 
 
