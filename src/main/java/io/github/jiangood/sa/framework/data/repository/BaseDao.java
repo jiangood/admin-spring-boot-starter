@@ -426,6 +426,11 @@ public abstract class BaseDao<T extends Persistable<String>> {
             return map;
         }).toList();
     }
+    public Dict statsSingleResult(Specification<T> spec) {
+        List<Dict> list = stats(spec);
+        Assert.state(list.size() == 1,"结果个数错误，期望1个，实际" + list.size() +"个");
+        return list.get(0);
+    }
 
 
 
