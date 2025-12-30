@@ -79,6 +79,9 @@ public class SysUser extends BaseEntity {
     @Column(length = DBConstants.LEN_ID)
     private String thirdId;
 
+    /**
+     * 第三方系统的账号
+     */
     @JsonIgnore
     @Column(length = DBConstants.LEN_NAME)
     private String thirdAccount;
