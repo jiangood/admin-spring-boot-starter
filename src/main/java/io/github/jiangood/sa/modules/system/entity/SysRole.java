@@ -48,10 +48,12 @@ public class SysRole extends BaseEntity {
     @Remark("启用")
     @Column(nullable = false)
     private Boolean enabled;
+
     @Remark("权限码")
     @Convert(converter = ToListConverter.class)
     @Lob
     private List<String> perms;
+
     @Remark("菜单")
     @Convert(converter = ToListConverter.class)
     @Lob
