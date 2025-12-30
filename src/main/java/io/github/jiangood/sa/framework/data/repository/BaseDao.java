@@ -428,6 +428,8 @@ public abstract class BaseDao<T extends Persistable<String>> {
     }
 
 
+
+
     // --- 7. 结果集映射 (Dictionary Mapping) ---
 
     public Map<String, T> findKeyed(Iterable<String> ids) {
