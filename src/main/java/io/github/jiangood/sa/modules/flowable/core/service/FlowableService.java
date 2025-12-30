@@ -63,6 +63,9 @@ public class FlowableService {
         TaskQuery query = buildUserTodoTaskQuery(userId);
 
         Page<Task> page = FlowablePageTool.page(query, pageable);
+        if(page.isEmpty()){
+            return Page.empty();
+        }
 
 
 
@@ -92,6 +95,9 @@ public class FlowableService {
 
 
         Page<HistoricTaskInstance> page = FlowablePageTool.page(query, pageable);
+        if(page.isEmpty()){
+            return Page.empty();
+        }
 
 
         Set<String> instanceIds = page.stream().map(TaskInfo::getProcessInstanceId).collect(Collectors.toSet());
