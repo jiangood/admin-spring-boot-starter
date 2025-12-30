@@ -1,6 +1,7 @@
 package io.github.jiangood.sa.framework.data.repository;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Dict;
 import io.github.jiangood.sa.framework.data.specification.Spec;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -403,7 +404,7 @@ public abstract class BaseDao<T extends Persistable<String>> {
      * @param spec
      * @return 列表，
      */
-    public List<Map<String, Object>> stats(Specification<T> spec) {
+    public List<Dict> stats(Specification<T> spec) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
         Root<T> root = query.from(domainClass);
@@ -417,7 +418,7 @@ public abstract class BaseDao<T extends Persistable<String>> {
 
         // 转换为map
         return resultList.stream().map(record -> {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Dict map = Dict.create();
             for (int i = 0; i < selections.size(); i++) {
                 Selection<?> selection = selections.get(i);
                 map.put(selection.getAlias(), record[i]);
