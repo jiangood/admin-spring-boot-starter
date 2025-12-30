@@ -1,6 +1,7 @@
 package io.github.jiangood.sa.common.tools.jdbc;
 
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.map.CaseInsensitiveLinkedMap;
 import cn.hutool.core.util.StrUtil;
 import lombok.Getter;
@@ -142,7 +143,7 @@ public class DbTool {
     }
 
     /**
-     * 返回字典
+     * 返回字典， 大小写不敏感
      * 先查询列表，将前两个字段组装成map
      * <p>
      * 如 select id, name from user
@@ -154,9 +155,10 @@ public class DbTool {
      * @param params
      * @return
      */
-    public Map<String, Object> findDict(String sql, Object... params) {
+    public Map<String, Object> findTwoFieldListToDict(String sql, Object... params) {
         List<Map<String, Object>> list = this.findAll(sql, params);
 
+        // 大小写不敏感
         CaseInsensitiveLinkedMap<String, Object> dict = new CaseInsensitiveLinkedMap<>();
 
         for (Map<String, Object> row : list) {
