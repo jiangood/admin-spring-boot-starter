@@ -51,6 +51,7 @@ public class SysMenuYmlDao {
         }
 
         List<MenuDefinition> result = this.mergeMenu(menus);
+
         this.menuJson = JsonTool.toJson(result);
     }
 
@@ -86,6 +87,9 @@ public class SysMenuYmlDao {
                 menuDefinition.setSeq(i);
             }
         }
+
+        log.info("排序合并后的菜单...");
+        targetList.sort(Comparator.comparing(MenuDefinition::getSeq));
 
         return targetList;
     }
