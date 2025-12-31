@@ -100,15 +100,15 @@ export default class extends React.Component {
 
                 return (
                     <ButtonList>
-                        <Button size='small' perm='sysRole:save'
+                        <Button size='small' perm='sysRole:manage'
                                 onClick={() => this.handleEditUser(record)}>用户设置</Button>
 
-                        <Button size='small' perm='sysRole:save' disabled={record.builtin}
+                        <Button size='small' perm='sysRole:manage' disabled={record.builtin}
                                 onClick={() => PageUtils.open('/system/role/perm?id='+record.id, '角色权限设置')}>权限设置</Button>
 
-                        <Button size='small' perm='sysRole:save' disabled={record.builtin}
+                        <Button size='small' perm='sysRole:manage' disabled={record.builtin}
                                 onClick={() => this.handleEdit(record)}>编辑</Button>
-                        <Popconfirm perm='sysRole:delete' disabled={record.builtin} title='是否确定删除系统角色'
+                        <Popconfirm perm='sysRole:manage' disabled={record.builtin} title='是否确定删除系统角色'
                                     onConfirm={() => this.handleDelete(record)}>
                             <Button size='small'>删除</Button>
                         </Popconfirm>
@@ -188,7 +188,7 @@ export default class extends React.Component {
                 actionRef={this.tableRef}
                 toolBarRender={() => {
                     return <ButtonList>
-                        <Button perm='sysRole:save' type='primary' onClick={this.handleAdd}>
+                        <Button perm='sysRole:manage' type='primary' onClick={this.handleAdd}>
                             <PlusOutlined/> 新增
                         </Button>
                     </ButtonList>
