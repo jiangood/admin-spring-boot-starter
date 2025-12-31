@@ -215,7 +215,7 @@ public class SysUserService extends BaseService<SysUser> {
         Set<String> result = new TreeSet<>();
         for (SysRole role : user.getRoles()) {
             // 添加角色，格式必须以 ROLE_ 开头，如 ROLE_ADMIN
-            result.add("ROLE_" + role.getName());
+            result.add("ROLE_" + role.getCode());
 
             if(role.isAdmin()){
                 List<MenuDefinition> menus = sysMenuDao.findAll();
