@@ -43,7 +43,7 @@ public class SysDictItemController {
     }
 
 
-    @PreAuthorize("hasAuthority('sysDict:save")
+    @PreAuthorize("hasAuthority('sysDict:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysDictItem param, RequestBodyKeys updateFields) throws Exception {
         SysDictItem result = service.saveOrUpdateByRequest(param, updateFields);
@@ -51,7 +51,7 @@ public class SysDictItemController {
     }
 
 
-    @PreAuthorize("hasAuthority('sysDict:delete")
+    @PreAuthorize("hasAuthority('sysDict:delete')")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
         service.deleteByRequest(id);
