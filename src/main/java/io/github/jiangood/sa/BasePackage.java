@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EntityScan(basePackages = "io.github.jiangood.sa.modules")
 @EnableCaching
 @EnableScheduling
-@EnableWebSecurity
+
 public class BasePackage {
 
     @Bean
