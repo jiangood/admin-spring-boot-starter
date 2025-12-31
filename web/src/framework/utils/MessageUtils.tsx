@@ -21,8 +21,8 @@ export class MessageUtils {
                 title: '提示',
                 content,
                 okText: '确定',
-                onOk: () => resolve(),
-                onCancel: () => resolve(),
+                onOk: resolve,
+                onCancel: resolve,
                 icon: null,
                 ...config,
             });
