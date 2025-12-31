@@ -22,7 +22,6 @@ export class MessageUtils {
                 content,
                 okText: '确定',
                 onOk: resolve,
-                onCancel: resolve,
                 icon: null,
                 ...config,
             });
