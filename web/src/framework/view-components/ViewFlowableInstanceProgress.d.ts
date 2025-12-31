@@ -10,5 +10,3 @@ import {ViewProps, ViewStringProps} from "./ViewProps";
 export class ViewFlowableInstanceProgress extends React.Component<ViewStringProps, any> {
 }
 
-export class ViewFlowableInstanceProgressButton extends React.Component<ViewStringProps, any> {
-}

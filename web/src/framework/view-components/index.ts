@@ -3,3 +3,4 @@ export * from './ViewPassword';
 export * from './ViewBoolean';
 export * from './ViewApproveStatus'
 export * from './ViewFlowableInstanceProgress'
+export * from './ViewFlowableInstanceProgressButton'
