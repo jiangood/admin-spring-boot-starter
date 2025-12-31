@@ -146,16 +146,16 @@ export class StringUtils {
 
     /**
      * 截取字符串，返回子字符串前面的部分。如果不包含，则原样返回
-     * @param s 原始字符串
+     * @param str 原始字符串
      * @param sub 分隔符
      * @returns 分隔符前面的字符串，或原字符串
      */
-    static subBefore(s: string | null | undefined, sub: string): string | null | undefined {
-        if (s == null) {
-            return s;
+    static subBefore(str: string | null | undefined, sub: string): string {
+        if (str == null) {
+            return "";
         }
-        const index = s.indexOf(sub);
-        return index === -1 ? s : s.substring(0, index);
+        const index = str.indexOf(sub);
+        return index === -1 ? str : str.substring(0, index);
     }
 
     /**
@@ -382,7 +382,7 @@ export class StringUtils {
      * @param str
      * @param sp
      */
-    static split(str: any, sp: string):null|string[] {
+    static split(str: any, sp: string):null|string[]|undefined {
         if(str == null || str.length === 0){
             return undefined
         }

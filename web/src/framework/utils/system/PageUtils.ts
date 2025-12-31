@@ -1,4 +1,4 @@
-import { history } from "umi";
+import {history} from "umi";
 import {StringUtils} from "../StringUtils";
 import {UrlUtils} from "../UrlUtils";
 
@@ -111,43 +111,51 @@ export class PageUtils {
      * @param path 要跳转的路径。
      * @param label 可选，用于在 URL 中添加一个 '_label' 参数。
      */
-    static open(path: string, label: string ='临时'): void {
-    let targetPath = path;
-    if(label) {
-        // 假设 UrlUtil.setParam(url, key, value) 存在并返回设置参数后的 URL
-        targetPath = UrlUtils.setParam(targetPath, '_label', label);
+    static open(path: string, label: string = '临时'): void {
+        let targetPath = path;
+        if (label) {
+            // 假设 UrlUtil.setParam(url, key, value) 存在并返回设置参数后的 URL
+            targetPath = UrlUtils.setParam(targetPath, '_label', label);
+        }
+        history.push(targetPath);
     }
-    history.push(targetPath);
-}
 
-/**
- * 打开一个不带菜单、Header 等布局元素的页面。
- * 通过在 URL 中添加 '_noLayout=true' 参数实现。
- * @param path 要跳转的路径。
- */
-static openNoLayout(path: string): void {
-    // 假设 UrlUtil.setParam(url, key, value) 存在
-    const targetPath = UrlUtils.setParam(path, '_noLayout', true);
-    history.push(targetPath);
-}
 
-/**
- * 获取当前 URL 参数中名为 '_label' 的值。
- * @returns {string | undefined} '_label' 参数的值。
- */
-static currentLabel(): string | undefined {
-    // currentParams 返回 Record<string, string | undefined>
-    return this.currentParams()['_label'];
-}
+    /**
+     * 打开一个不带菜单、Header 等布局元素的页面。
+     * 通过在 URL 中添加 '_noLayout=true' 参数实现。
+     * @param path 要跳转的路径。
+     */
+    static openNoLayout(path: string): void {
+        // 假设 UrlUtil.setParam(url, key, value) 存在
+        const targetPath = UrlUtils.setParam(path, '_noLayout', true);
+        history.push(targetPath);
+    }
 
-/**
- * 发送一个自定义事件来关闭当前页面。
- * 依赖外部监听 'close-page-event' 事件的处理机制。
- */
-static closeCurrent(): void {
-    const event = new CustomEvent<{ url: string }>('close-page-event', {
-        detail: { url: PageUtils.currentUrl() }
-    });
-    document.dispatchEvent(event);
-}
+    /**
+     * 获取当前 URL 参数中名为 '_label' 的值。
+     * @returns {string | undefined} '_label' 参数的值。
+     */
+    static currentLabel(): string | undefined {
+        // currentParams 返回 Record<string, string | undefined>
+        return this.currentParams()['_label'];
+    }
+
+    /**
+     * 发送一个自定义事件来关闭当前页面。
+     * 依赖外部监听 'close-page-event' 事件的处理机制。
+     */
+    static closeCurrent() {
+        const event = new CustomEvent<{ url: string }>('close-page-event', {
+            detail: {url: PageUtils.currentUrl()}
+        });
+        document.dispatchEvent(event);
+    }
+
+    static closeCurrentAndOpenMenu(path:string,label:string){
+        this.closeCurrent()
+        this.open(path,label)
+    }
+
+
 }
