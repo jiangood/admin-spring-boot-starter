@@ -4,11 +4,13 @@ package io.github.jiangood.sa.common.tools.tree;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Dict;
 import io.github.jiangood.sa.common.dto.antd.TreeOption;
+import io.github.jiangood.sa.framework.config.data.dto.MenuDefinition;
 
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * 将列表转换为树,请使用TreeManager
@@ -185,4 +187,11 @@ public class TreeTool {
 
     }
 
+    public static <E> void removeIf(List<E> list,  Function<E, List<E>> getChildren,Predicate<? super E> filter) {
+        list.removeIf(filter);
+        walk(list, getChildren, t->{
+            List<E> children = getChildren.apply(t);
+            removeIf(children, getChildren, filter);
+        });
+    }
 }

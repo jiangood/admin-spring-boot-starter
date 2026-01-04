@@ -9,6 +9,7 @@ import io.github.jiangood.sa.common.tools.ResourceTool;
 import io.github.jiangood.sa.common.tools.YmlTool;
 import io.github.jiangood.sa.common.tools.tree.TreeTool;
 import io.github.jiangood.sa.framework.config.data.dto.MenuDefinition;
+import io.github.jiangood.sa.modules.system.dao.SysMenuDao;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -21,17 +22,37 @@ import java.util.List;
 
 @Slf4j
 @Configuration
-public class SysMenuYmlDao {
+public class SysMenuYmlDao implements SysMenuDao {
     private static final String MENU_CONFIG_PATTERN = "config/application-data*.yml";
 
 
     // 缓存解析结果json，节省空间的同时，方便反序列化
     private String menuJson = null;
 
+    /**
+     * 获取菜单列表
+     *
+     * 注意：需保证每次获取的都是新的引用，以免被外部调用修改
+     * @return
+     */
+    @Override
     public List<MenuDefinition> findAll() {
         return JsonTool.jsonToBeanListQuietly(menuJson, MenuDefinition.class);
     }
 
+    @Override
+    public List<MenuDefinition> findAllEnabled() {
+        List<MenuDefinition> list = this.findAll();
+        TreeTool.removeIf(list,MenuDefinition::getChildren, MenuDefinition::isDisabled);
+        return list;
+    }
+
+
+    @Override
+    public List<MenuDefinition> findAllById(List<String> ids) {
+        List<MenuDefinition> list = this.findAll();
+        return list.stream().filter(t -> ids.contains(t.getId())).toList();
+    }
 
     @PostConstruct
     public void init() throws IOException {

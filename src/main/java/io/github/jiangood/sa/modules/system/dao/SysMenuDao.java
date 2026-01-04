@@ -10,27 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
-@Slf4j
-@Repository
-public class SysMenuDao {
-
-    @jakarta.annotation.Resource
-    private SysMenuYmlDao configDataDao;
+public interface SysMenuDao {
 
 
-    /**
-     * 扁平的列表
-     *
-     * @return
-     */
-    @SneakyThrows
-    public List<MenuDefinition> findAll() {
-        return configDataDao.findAll();
-    }
+    List<MenuDefinition> findAll();
 
+    List<MenuDefinition> findAllEnabled();
 
-    public List<MenuDefinition> findAllById(List<String> ids) {
-        List<MenuDefinition> list = this.findAll();
-        return list.stream().filter(t -> ids.contains(t.getId())).toList();
-    }
+    List<MenuDefinition> findAllById(List<String> ids);
 }
