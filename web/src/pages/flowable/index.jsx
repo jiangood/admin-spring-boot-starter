@@ -10,11 +10,11 @@ export default class extends React.Component {
 
     columns = [
         {
-            title: '模型名称',
+            title: '名称',
             dataIndex: 'name',
         },
         {
-            title: '唯一编码',
+            title: '代码',
             dataIndex: 'key'
         },
 
