@@ -1,19 +1,21 @@
 package io.github.jiangood.sa.modules.system.enums;
 
 import io.github.jiangood.sa.common.tools.annotation.Remark;
-import io.github.jiangood.sa.framework.enums.CodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Remark("机构类型")
 @AllArgsConstructor
 @Getter
-public enum OrgType implements CodeEnum {
-    TYPE_UNIT(10, "单位"),
-    TYPE_DEPT(20, "部门");
+public enum OrgType {
+    @Remark("单位")
+    TYPE_UNIT(10),
+    @Remark("部门")
+    TYPE_DEPT(20);
 
     private final int code;
-    private final String msg;
+
+
 
     public static OrgType valueOf(int code) {
         for (OrgType type : OrgType.values()) {

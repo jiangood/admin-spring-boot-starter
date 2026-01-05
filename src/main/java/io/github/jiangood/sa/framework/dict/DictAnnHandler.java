@@ -4,7 +4,6 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.sa.common.tools.SpringTool;
 import io.github.jiangood.sa.common.tools.annotation.Remark;
-import io.github.jiangood.sa.framework.enums.CodeEnum;
 import io.github.jiangood.sa.modules.system.dao.SysDictDao;
 import io.github.jiangood.sa.modules.system.dao.SysDictItemDao;
 import io.github.jiangood.sa.modules.system.entity.SysDict;
@@ -59,27 +58,19 @@ public class DictAnnHandler {
             }
 
 
-            boolean isCodeEnum = CodeEnum.class.isAssignableFrom(cls);
 
 
-            SysDict sysDict = sysDictDao.saveOrUpdate(code, label, isCodeEnum);
+            SysDict sysDict = sysDictDao.saveOrUpdate(code, label, false);
 
             boolean buildin = true;
             Field[] fields = cls.getFields();
-            if (isCodeEnum) {
-                Object[] enumConstants = cls.getEnumConstants();
-                for (int i = 0; i < enumConstants.length; i++) {
-                    CodeEnum codeEnum = (CodeEnum) enumConstants[i];
-                    sysDictItemDao.saveOrUpdate(sysDict, String.valueOf(codeEnum.getCode()), codeEnum.getMsg(), i, buildin);
-                }
-
-            } else {
+           {
                 for (int i = 0; i < fields.length; i++) {
                     Field field = fields[i];
 
                     String key = field.getName();
                     Remark fieldAnnotation = field.getAnnotation(Remark.class);
-                    Assert.notNull(fieldAnnotation, "需要有" + Remark.class.getName() + "注解");
+                    Assert.notNull(fieldAnnotation, "字段需要有" + Remark.class.getName() + "注解");
 
                     String text = fieldAnnotation.value();
                     sysDictItemDao.saveOrUpdate(sysDict, key, text, i, buildin);
