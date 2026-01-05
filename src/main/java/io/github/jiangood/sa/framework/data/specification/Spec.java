@@ -177,7 +177,12 @@ public class Spec<T> implements Specification<T> {
         return this.add(new ConditionSpec<>(Operator.NOT_LIKE, field, "%" + value.toLowerCase() + "%"));
     }
 
-    public Spec<T> in(String field, Collection<?> values) {
+    public <I> Spec<T> in(String field, I... values) {
+        List<I> list = List.of(values);
+        return this.in(field,list);
+    }
+
+    public <I> Spec<T> in(String field, Collection<I> values) {
         if (!CollectionUtils.isEmpty(values)) {
             this.add(new ConditionSpec<>(Operator.IN, field, values));
         }
