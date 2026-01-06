@@ -68,17 +68,18 @@ public class ProcessService {
 
     /**
      * 初始化流程模型， 保存到数据库中
+     *
      * @param meta
      * @return 模型ID
      */
-    public String initModel(ProcessMeta meta) {
+    public Model initModel(ProcessMeta meta) {
         String key = meta.getKey();
         String name = meta.getName();
         log.info("初始化流程定义 {} {}  ", key, name);
 
         Model model = repositoryService.createModelQuery().modelKey(key).singleResult();
         if (model != null) {
-            return model.getId();
+            return model;
         }
 
         Model m = repositoryService.newModel();
@@ -90,7 +91,7 @@ public class ProcessService {
         String xml = createDefaultModelXml(key, name);
         log.info("生成流程默认xml内容\n{}", xml);
         repositoryService.addModelEditorSource(m.getId(), xml.getBytes(StandardCharsets.UTF_8));
-        return m.getId();
+        return m;
     }
 
     @NotNull
