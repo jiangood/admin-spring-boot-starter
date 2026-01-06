@@ -104,6 +104,7 @@ public class ProcessService {
 
     @NotNull
     private  String createDefaultModelXml(String key, String name) {
+        Assert.state(key.length() <= 16, "流程key长度不能超过16个字符");
         // create default model xml
         BpmnModel bpmnModel = new BpmnModel();
         Process proc = new Process();
