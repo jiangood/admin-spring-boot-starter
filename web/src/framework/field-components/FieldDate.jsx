@@ -4,6 +4,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import {DatePicker, TimePicker} from "antd";
+import {DateUtils} from "../utils";
 
 
 export class FieldDate extends React.Component {
@@ -11,18 +12,11 @@ export class FieldDate extends React.Component {
         type: 'YYYY-MM-DD'
     }
 
+
+
     render() {
         let {type, value, onChange, ...rest} = this.props;
-
-        if(type === 'YEAR'){
-            type = 'YYYY'
-        }else if(type === 'YEAR_MONTH'){
-            type = 'YYYY-MM'
-        }else if(type === 'YEAR_QUARTER'){
-            type = 'YYYY-QQ'
-        }else if(type === 'DAY'){
-            type = 'YYYY-MM-DD'
-        }
+        type = DateUtils.convertTypeToFormat(type)
 
         switch (type) {
             case 'YYYY':

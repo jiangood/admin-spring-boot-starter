@@ -25,10 +25,6 @@ public class SysDictItemController {
     @Resource
     private SysDictItemService service;
 
-    @Resource
-    private SysDictService sysDictService;
-
-
     @PreAuthorize("hasAuthority('sysDict:view')")
     @RequestMapping("page")
     public AjaxResult page(String sysDictId, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) {

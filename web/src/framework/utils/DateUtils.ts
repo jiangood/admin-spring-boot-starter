@@ -1,7 +1,21 @@
-import { StringUtils } from './StringUtils';
+import {StringUtils} from './StringUtils';
 
-export class DateUtils  {
-  public static year(date: Date): number {
+export class DateUtils {
+
+    public static convertTypeToFormat(type) {
+        if (type === 'YEAR') {
+            type = 'YYYY'
+        } else if (type === 'YEAR_MONTH') {
+            type = 'YYYY-MM'
+        } else if (type === 'YEAR_QUARTER') {
+            type = 'YYYY-QQ'
+        } else if (type === 'DAY') {
+            type = 'YYYY-MM-DD'
+        }
+        return type;
+    }
+
+    public static year(date: Date): number {
         return date.getFullYear();
     }
 
@@ -28,19 +42,19 @@ export class DateUtils  {
      * @param date
      * @returns {string}
      */
-    public static  hour(date: Date): string {
+    public static hour(date: Date): string {
         return StringUtils.pad(date.getHours(), 2);
     }
 
-    public static  minute(date: Date): string {
+    public static minute(date: Date): string {
         return StringUtils.pad(date.getMinutes(), 2);
     }
 
-    public static  second(date: Date): string {
+    public static second(date: Date): string {
         return StringUtils.pad(date.getSeconds(), 2);
     }
 
-    public static  formatDate(d: Date): string {
+    public static formatDate(d: Date): string {
         return this.year(d) + '-' + this.month(d) + '-' + this.date(d);
     }
 
@@ -57,7 +71,7 @@ export class DateUtils  {
      * @param d
      * @returns {string} 2020年1月30日
      */
-    public static  formatDateCn(d: Date): string {
+    public static formatDateCn(d: Date): string {
         return this.year(d) + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日';
     }
 
@@ -76,11 +90,11 @@ export class DateUtils  {
         return this.formatDate(new Date());
     }
 
-    public static  thisYear(): number {
+    public static thisYear(): number {
         return this.year(new Date());
     }
 
-    public static  thisMonth(): string {
+    public static thisMonth(): string {
         return this.month(new Date());
     }
 
@@ -88,7 +102,7 @@ export class DateUtils  {
      * 显示友好时间，如 2小时前，1周前
      * @param pastDate 日期, 支持Date，String，Number
      */
-    public static  friendlyTime(pastDate: Date | string | number): string | undefined {
+    public static friendlyTime(pastDate: Date | string | number): string | undefined {
         if (pastDate == null) {
             return undefined;
         }
@@ -165,7 +179,7 @@ export class DateUtils  {
         return min + '分' + seconds + '秒';
     }
 
-    public static  beginOfMonth(): string {
+    public static beginOfMonth(): string {
         const d = new Date();
         d.setDate(1);
         return this.formatDate(d);

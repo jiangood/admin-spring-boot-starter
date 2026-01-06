@@ -4,7 +4,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import {DatePicker, TimePicker} from "antd";
-import {StringUtils} from "../utils";
+import {DateUtils, StringUtils} from "../utils";
 
 const SP = StringUtils.ISO_SPLITTER;
 
@@ -15,6 +15,7 @@ export class FieldDateRange extends React.Component {
 
     render() {
         let {type, value, onChange, ...rest} = this.props;
+        type = DateUtils.convertTypeToFormat(type)
         switch (type) {
             case 'YYYY':
                 return <DatePicker.RangePicker
