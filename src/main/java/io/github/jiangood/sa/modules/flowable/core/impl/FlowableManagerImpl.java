@@ -105,7 +105,7 @@ public class FlowableManagerImpl implements FlowableManager {
         for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
             if (flowElement instanceof org.flowable.bpmn.model.UserTask ut) {
                 if (ut.getAssignee() != null && ut.getAssignee().contains(VAR_DEPT_LEADER)) {
-                    Assert.notNull(variables.get(VAR_DEPT_LEADER), "必填变量缺失：部门领导");
+                    Assert.notNull(variables.get(VAR_DEPT_LEADER), "操作失败：发起用户的部门领导为空");
                 }
             }
         }
