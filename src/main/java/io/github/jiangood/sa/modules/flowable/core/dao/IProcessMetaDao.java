@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProcessMetaDao {
 
-    List<ProcessMeta> findAll();
+    List<ProcessMeta> findProcessMetaList();
 
 
 

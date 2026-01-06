@@ -16,7 +16,7 @@ import java.util.List;
 public class ProcessMetaDaoYmlImpl implements IProcessMetaDao {
 
     @Override
-    public List<ProcessMeta> findAll() {
+    public List<ProcessMeta> findProcessMetaList() {
         InputStream is = ResourceUtil.getStream("config/application-process.yml");
         ProcessMetaConfiguration cfg = YmlTool.parseYml(is, ProcessMetaConfiguration.class, "process");
         return cfg.getList();
