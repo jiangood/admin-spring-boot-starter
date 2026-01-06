@@ -4,8 +4,8 @@ import io.github.jiangood.sa.common.tools.datetime.DateFormatTool;
 import io.github.jiangood.sa.framework.config.security.LoginUser;
 import io.github.jiangood.sa.modules.common.LoginTool;
 import io.github.jiangood.sa.modules.flowable.core.FlowableManager;
-import io.github.jiangood.sa.modules.flowable.core.config.ProcessMetaCfg;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessVariable;
+import io.github.jiangood.sa.modules.flowable.core.service.ProcessMetaService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.BpmnModel;
@@ -35,7 +35,7 @@ public class FlowableManagerImpl implements FlowableManager {
     private RepositoryService repositoryService;
     private IdentityService identityService;
 
-    private ProcessMetaCfg metaCfg;
+    private ProcessMetaService processMetaService;
 
     @Override
     public void start(String processDefinitionKey, String bizKey, Map<String, Object> variables) {
@@ -90,7 +90,7 @@ public class FlowableManagerImpl implements FlowableManager {
 
 
         // 判断必填流程变量
-        List<ProcessVariable> variableList = metaCfg.getMeta(definition.getKey()).getVariables();
+        List<ProcessVariable> variableList = processMetaService.findOne(definition.getKey()).getVariables();
         if (!CollectionUtils.isEmpty(variableList)) {
             for (ProcessVariable formItem : variableList) {
                 String name = formItem.getName();

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class FlowableDataInit implements CommandLineRunner {
 
 
-    private ProcessMetaCfg processConfiguration;
+    private ProcessMetaConfiguration processConfiguration;
 
     private SystemHookService systemHookService;
     private ProcessService processService;

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,13 +14,14 @@ import java.util.List;
 
 public class YmlTool {
 
-    public static <T> T parseYml(InputStream is, Class<T> beanClass, String prefix) throws IOException {
+    @SneakyThrows
+    public static <T> T parseYml(InputStream is, Class<T> beanClass, String prefix) {
         String yml = IoUtil.readUtf8(is);
         return parseYml(yml, beanClass, prefix);
     }
 
-
-    public static <T> T parseYml(String yml, Class<T> beanClass, String prefix) throws IOException {
+    @SneakyThrows
+    public static <T> T parseYml(String yml, Class<T> beanClass, String prefix) {
         yml = removePrefix(yml, prefix);
 
         JsonMapper mapper = JsonMapper.builder(new YAMLFactory())

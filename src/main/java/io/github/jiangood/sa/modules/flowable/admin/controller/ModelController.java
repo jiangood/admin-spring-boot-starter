@@ -9,9 +9,9 @@ import io.github.jiangood.sa.common.tools.SpringTool;
 import io.github.jiangood.sa.common.tools.annotation.RemarkTool;
 import io.github.jiangood.sa.framework.data.specification.Spec;
 import io.github.jiangood.sa.framework.log.Log;
-import io.github.jiangood.sa.modules.flowable.core.config.ProcessMetaCfg;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.FormDefinition;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.sa.modules.flowable.core.service.ProcessMetaService;
 import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
 import io.github.jiangood.sa.modules.flowable.utils.ModelTool;
 import io.github.jiangood.sa.modules.system.entity.SysRole;
@@ -58,7 +58,7 @@ public class ModelController {
 
     private RepositoryService repositoryService;
 
-    private ProcessMetaCfg metaCfg;
+    private ProcessMetaService processMetaService;
 
     @PreAuthorize("hasAuthority('flowableModel:design')")
     @RequestMapping("page")
@@ -178,7 +178,7 @@ public class ModelController {
 
     @GetMapping("formOptions")
     public AjaxResult formOptions(String code) {
-        ProcessMeta meta = metaCfg.getMeta(code);
+        ProcessMeta meta = processMetaService.findOne(code);
         List<FormDefinition> formList = meta.getForms();
         if (formList == null) {
             formList = new ArrayList<>();
@@ -240,7 +240,7 @@ public class ModelController {
 
     @GetMapping("varList")
     public AjaxResult varOptions(String code) {
-        ProcessMeta meta = metaCfg.getMeta(code);
+        ProcessMeta meta = processMetaService.findOne(code);
         return AjaxResult.ok().data(meta.getVariables());
     }
 

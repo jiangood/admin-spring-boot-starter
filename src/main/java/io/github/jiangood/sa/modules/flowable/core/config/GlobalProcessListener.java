@@ -4,6 +4,7 @@ import io.github.jiangood.sa.common.tools.SpringTool;
 import io.github.jiangood.sa.modules.flowable.core.FlowableEventType;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessListener;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.sa.modules.flowable.core.service.ProcessMetaService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.common.engine.api.delegate.event.FlowableEvent;
@@ -27,7 +28,7 @@ public class GlobalProcessListener implements FlowableEventListener {
     HistoryService historyService;
 
     @Resource
-    ProcessMetaCfg metaCfg;
+    ProcessMetaService processMetaService;
 
 
     @Override
@@ -68,7 +69,7 @@ public class GlobalProcessListener implements FlowableEventListener {
 
 
         // 触发
-        ProcessMeta meta = metaCfg.getMeta(definitionKey);
+        ProcessMeta meta = processMetaService.findOne(definitionKey);
         if (meta != null) {
             Class<? extends ProcessListener> listener = meta.getListener();
             if (listener != null) {

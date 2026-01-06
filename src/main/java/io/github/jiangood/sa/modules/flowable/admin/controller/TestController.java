@@ -2,8 +2,8 @@ package io.github.jiangood.sa.modules.flowable.admin.controller;
 
 import io.github.jiangood.sa.common.dto.AjaxResult;
 import io.github.jiangood.sa.modules.flowable.core.FlowableManager;
-import io.github.jiangood.sa.modules.flowable.core.config.ProcessMetaCfg;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.sa.modules.flowable.core.service.ProcessMetaService;
 import lombok.AllArgsConstructor;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Model;
@@ -18,14 +18,14 @@ import java.util.Map;
 public class TestController {
 
     private FlowableManager flowableManager;
-    private ProcessMetaCfg metaCfg;
+    private ProcessMetaService processMetaService;
     private RepositoryService repositoryService;
 
     @GetMapping("get")
     public AjaxResult get(String id) {
         Assert.hasText(id, "id不能为空");
         Model model = repositoryService.getModel(id);
-        ProcessMeta meta = metaCfg.getMeta(model.getKey());
+        ProcessMeta meta = processMetaService.findOne(model.getKey());
         return AjaxResult.ok().data(meta);
     }
 
