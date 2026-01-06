@@ -52,7 +52,7 @@ public class MonitorController {
     public AjaxResult processDefinition(Pageable pageable) {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 
-        Page<ProcessDefinition> page = FlowablePageTool.page(query, pageable);
+        Page<ProcessDefinition> page = FlowablePageTool.queryPage(query, pageable);
 
         Page<Map<String, Object>> page2 = PageTool.convert(page, processDefinition -> {
             Map<String, Object> map = new HashMap<>();
@@ -82,7 +82,7 @@ public class MonitorController {
     @GetMapping("instancePage")
     public AjaxResult instancePage(Pageable pageable) {
         ProcessInstanceQuery query = runtimeService.createProcessInstanceQuery();
-        Page<ProcessInstance> page = FlowablePageTool.page(query, pageable);
+        Page<ProcessInstance> page = FlowablePageTool.queryPage(query, pageable);
 
         Page<Map<String, Object>> page2 = PageTool.convert(page, processInstance -> {
             Map<String, Object> map = new HashMap<>();

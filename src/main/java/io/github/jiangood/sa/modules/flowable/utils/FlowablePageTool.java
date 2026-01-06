@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FlowablePageTool {
 
-    public static <T extends Query<?, ?>, U> Page<U> page(Query<T, U> query, Pageable pageable) {
+    public static <T extends Query<?, ?>, U> Page<U> queryPage(Query<T, U> query, Pageable pageable) {
         long count = query.count();
         List<U> list = query.listPage((int) pageable.getOffset(), pageable.getPageSize());
 

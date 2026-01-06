@@ -85,7 +85,7 @@ public class MyFlowableController {
         query.orderByProcessInstanceStartTime().desc();
         query.includeProcessVariables();
 
-        Page<HistoricProcessInstance> page = FlowablePageTool.page(query, pageable);
+        Page<HistoricProcessInstance> page = FlowablePageTool.queryPage(query, pageable);
         Page<Map<String, Object>> page2 = PageTool.convert(page, instance -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", instance.getId());

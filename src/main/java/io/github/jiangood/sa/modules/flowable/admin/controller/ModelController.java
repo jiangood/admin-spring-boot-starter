@@ -29,7 +29,6 @@ import org.flowable.engine.repository.ModelQuery;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.repository.ProcessDefinitionQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,9 +66,8 @@ public class ModelController {
         if (searchText != null) {
             query.modelNameLike(searchText);
         }
-        List<Model> list = query.list();
-
-        List<Map<String, Object>> mapList = list.stream().map(model -> {
+        Page<Model> page = FlowablePageTool.queryPage(query, pageable);
+        Page<Map<String, Object>> page2 = PageTool.convert(page, model -> {
             // 将model转换为map
             Map<String, Object> map = new HashMap<>();
             map.put("id", model.getId());
@@ -85,10 +83,10 @@ public class ModelController {
             map.put("hasEditorSource", model.hasEditorSource());
             map.put("hasEditorSourceExtra", model.hasEditorSourceExtra());
             return map;
-        }).toList();
+        });
 
 
-        return AjaxResult.ok().data(new PageImpl<>(mapList, pageable, query.count()));
+        return AjaxResult.ok().data(page2);
     }
 
     @GetMapping("detail")
@@ -252,7 +250,7 @@ public class ModelController {
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery().processDefinitionKey(key)
                 .orderByProcessDefinitionVersion().desc();
 
-        Page<ProcessDefinition> page = FlowablePageTool.page(query, pageable);
+        Page<ProcessDefinition> page = FlowablePageTool.queryPage(query, pageable);
         Page<Dict> page2 = PageTool.convert(page, d -> Dict.create()
                 .set("id", d.getId())
                 .set("key", d.getKey())

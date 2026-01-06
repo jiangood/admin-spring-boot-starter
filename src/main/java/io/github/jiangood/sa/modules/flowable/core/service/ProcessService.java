@@ -1,7 +1,6 @@
 package io.github.jiangood.sa.modules.flowable.core.service;
 
 
-import ch.qos.logback.core.Layout;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.sa.common.tools.FriendlyTool;
@@ -143,7 +142,7 @@ public class ProcessService {
     public Page<TaskResponse> findUserTaskList(Pageable pageable, String userId) {
         TaskQuery query = buildUserTodoTaskQuery(userId);
 
-        Page<Task> page = FlowablePageTool.page(query, pageable);
+        Page<Task> page = FlowablePageTool.queryPage(query, pageable);
         if (page.isEmpty()) {
             return Page.empty();
         }
@@ -174,7 +173,7 @@ public class ProcessService {
                 .orderByHistoricTaskInstanceEndTime().desc();
 
 
-        Page<HistoricTaskInstance> page = FlowablePageTool.page(query, pageable);
+        Page<HistoricTaskInstance> page = FlowablePageTool.queryPage(query, pageable);
         if (page.isEmpty()) {
             return Page.empty();
         }
