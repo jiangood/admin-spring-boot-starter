@@ -113,11 +113,14 @@ export class TreeUtils {
     }
 
     /**
-     * 🚶 深度优先遍历树节点。
+     * 深度优先遍历树节点。
      * @param tree 树节点数组
      * @param callback 对每个节点执行的回调函数
      */
     public static walk<T extends TreeNode>(tree: T[], callback: (node: T) => void): void {
+        if(tree == null){
+            return
+        }
         for (const node of tree) {
             callback(node); // 执行回调函数
 
@@ -129,7 +132,7 @@ export class TreeUtils {
     }
 
     /**
-     * 🔑 根据键值深度查找单个节点。
+     * 根据键值深度查找单个节点。
      * @param key 要查找的键值 (例如: 节点的 id)
      * @param list 树节点数组
      * @param keyName 要匹配的字段名，默认为 'id'
