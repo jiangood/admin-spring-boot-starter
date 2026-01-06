@@ -30,7 +30,7 @@ public class FlowableDataInit implements CommandLineRunner {
         List<ProcessMeta> list = processMetaService.findAll();
         for (ProcessMeta meta : list) {
             String key = meta.getKey();
-            processService.createProcessDefinition(meta);
+            processService.initModel(meta);
 
             log.info("注册流程定义类 {} {}", key, meta.getClass().getName());
             systemHookService.trigger(SystemHookEventType.AFTER_FLOWABLE_DEFINITION_INIT);

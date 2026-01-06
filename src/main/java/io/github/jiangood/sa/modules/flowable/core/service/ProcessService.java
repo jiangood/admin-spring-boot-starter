@@ -34,6 +34,7 @@ import org.flowable.task.api.TaskInfo;
 import org.flowable.task.api.TaskQuery;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -65,14 +66,19 @@ public class ProcessService {
     }
 
 
-    public void createProcessDefinition(ProcessMeta meta) {
+    /**
+     * 初始化流程模型， 保存到数据库中
+     * @param meta
+     * @return 模型ID
+     */
+    public String initModel(ProcessMeta meta) {
         String key = meta.getKey();
         String name = meta.getName();
         log.info("初始化流程定义 {} {}  ", key, name);
 
-        long count = repositoryService.createModelQuery().modelKey(key).count();
-        if (count > 0) {
-            return;
+        Model model = repositoryService.createModelQuery().modelKey(key).singleResult();
+        if (model != null) {
+            return model.getId();
         }
 
         Model m = repositoryService.newModel();
@@ -81,6 +87,14 @@ public class ProcessService {
         repositoryService.saveModel(m);
 
 
+        String xml = createDefaultModelXml(key, name);
+        log.info("生成流程默认xml内容\n{}", xml);
+        repositoryService.addModelEditorSource(m.getId(), xml.getBytes(StandardCharsets.UTF_8));
+        return m.getId();
+    }
+
+    @NotNull
+    private  String createDefaultModelXml(String key, String name) {
         // create default model xml
         BpmnModel bpmnModel = new BpmnModel();
         Process proc = new Process();
@@ -95,9 +109,7 @@ public class ProcessService {
         bpmnModel.addGraphicInfo(startEvent.getId(), new GraphicInfo(150, 100, 36, 36));
 
 
-        String xml = ModelTool.modelToXml(bpmnModel);
-        log.info("生成流程默认xml内容\n{}", xml);
-        repositoryService.addModelEditorSource(m.getId(), xml.getBytes(StandardCharsets.UTF_8));
+        return ModelTool.modelToXml(bpmnModel);
     }
 
     public static void main(String[] args) {
