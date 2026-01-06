@@ -14,7 +14,7 @@ public class MathTool {
         double percent = n.doubleValue() / total.doubleValue();
         double v = percent * 100;
 
-        return NumberTool.formatNumber(v, decimalPlaces);
+        return NumberTool.formatNumber(v, decimalPlaces) + "%";
     }
 
 
