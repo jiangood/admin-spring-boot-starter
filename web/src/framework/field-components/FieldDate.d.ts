@@ -2,14 +2,14 @@ import React from 'react';
 
 export interface FieldDateProps {
 
-    type: 'YYYY-MM-DD' |
+    type: 'YYYY-MM-DD' | 'DAY'|
         'YYYY-MM-DD HH:mm:ss' |
         // 年
-        'YYYY' |
+        'YYYY' | 'YEAR' |
         // 年月
-        'YYYY-MM' |
+        'YYYY-MM' | 'YEAR_MONTH'|
         // 季度
-        'YYYY-QQ' |
+        'YYYY-QQ' | 'YEAR_QUARTER'|
 
         'YYYY-MM-DD HH:mm' |
 
