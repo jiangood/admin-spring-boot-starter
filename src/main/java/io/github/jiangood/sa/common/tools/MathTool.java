@@ -28,10 +28,6 @@ public class MathTool {
             throw new IllegalArgumentException("小数位数不能为负数: " + decimalPlaces);
         }
 
-        if (decimalPlaces < 0) {
-            throw new IllegalArgumentException("小数位数不能为负数: " + decimalPlaces);
-        }
-
         // 先四舍五入到最大小数位数
         BigDecimal bd = BigDecimal.valueOf(number);
         bd = bd.setScale(decimalPlaces, RoundingMode.HALF_UP);
