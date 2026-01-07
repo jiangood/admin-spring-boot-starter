@@ -88,7 +88,6 @@ public class FlowableManagerImpl implements FlowableManager {
         long instanceCount = runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(bizKey).active().count();
         Assert.state(instanceCount == 0, "流程审批中，请勿重复提交");
 
-
         // 判断必填流程变量
         List<ProcessVariable> variableList = processMetaService.findOne(definition.getKey()).getVariables();
         if (!CollectionUtils.isEmpty(variableList)) {
