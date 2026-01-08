@@ -1,9 +1,9 @@
 package io.github.jiangood.sa.modules.flowable.admin.controller;
 
 import io.github.jiangood.sa.common.dto.AjaxResult;
-import io.github.jiangood.sa.modules.flowable.core.FlowableManager;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
 import io.github.jiangood.sa.modules.flowable.core.service.ProcessMetaService;
+import io.github.jiangood.sa.modules.flowable.core.service.ProcessService;
 import lombok.AllArgsConstructor;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Model;
@@ -17,7 +17,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class TestController {
 
-    private FlowableManager flowableManager;
+    private ProcessService processService;
     private ProcessMetaService processMetaService;
     private RepositoryService repositoryService;
 
@@ -35,7 +35,7 @@ public class TestController {
         String bizKey = params.get("id").toString();
         String key = (String) params.get("key");
 
-        flowableManager.start(key, bizKey, params);
+        processService.start(key, bizKey, params);
 
         return AjaxResult.ok().msg("提交测试流程成功");
     }

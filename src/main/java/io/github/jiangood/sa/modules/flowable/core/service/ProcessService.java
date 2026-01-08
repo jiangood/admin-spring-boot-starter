@@ -5,8 +5,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.sa.common.tools.FriendlyTool;
 import io.github.jiangood.sa.common.tools.PageTool;
+import io.github.jiangood.sa.common.tools.datetime.DateFormatTool;
+import io.github.jiangood.sa.framework.config.security.LoginUser;
+import io.github.jiangood.sa.modules.common.LoginTool;
 import io.github.jiangood.sa.modules.flowable.core.FlowableProperties;
 import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.sa.modules.flowable.core.config.meta.ProcessVariable;
 import io.github.jiangood.sa.modules.flowable.core.dto.TaskHandleType;
 import io.github.jiangood.sa.modules.flowable.core.dto.response.TaskResponse;
 import io.github.jiangood.sa.modules.flowable.utils.FlowablePageTool;
@@ -18,10 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.*;
 import org.flowable.bpmn.model.Process;
-import org.flowable.engine.HistoryService;
-import org.flowable.engine.RepositoryService;
-import org.flowable.engine.RuntimeService;
-import org.flowable.engine.TaskService;
+import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.Model;
@@ -39,13 +40,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import java.awt.image.BufferedImage;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static io.github.jiangood.sa.modules.flowable.FlowableConsts.*;
+import static io.github.jiangood.sa.modules.flowable.FlowableConsts.VAR_DEPT_LEADER;
 
 @Slf4j
 @Component
@@ -59,8 +62,86 @@ public class ProcessService {
     private FlowableModelService myBpmnModelService;
     private FlowableProperties flowableProperties;
     private RepositoryService repositoryService;
+    private IdentityService identityService;
+    private ProcessMetaService processMetaService;
+    public void start(String processDefinitionKey, String bizKey, Map<String, Object> variables) {
+        start(processDefinitionKey, bizKey, null, variables);
+    }
+
+    public void start(String key, String bizKey, String title, Map<String, Object> variables) {
+        Assert.notNull(key, "key不能为空");
+        if (variables == null) {
+            variables = new HashMap<>();
+        }
+
+        LoginUser user = LoginTool.getUser();
+        ProcessMeta meta = processMetaService.findOne(key);
+        Assert.notNull(meta, "流程元数据定义不存在：" + key);
+
+        // 添加一些发起人的相关信息
+        String startUserId = user.getId();
+        Assert.hasText(startUserId, "当前登录人员ID不能为空");
+        variables.put(VAR_USER_ID, startUserId);
+        variables.put(VAR_USER_NAME, user.getName());
+        variables.put(VAR_UNIT_ID, user.getUnitId());
+        variables.put(VAR_UNIT_NAME, user.getUnitName());
+        variables.put(VAR_DEPT_ID, user.getDeptId());
+        variables.put(VAR_DEPT_NAME, user.getDeptName());
+        variables.put(VAR_DEPT_LEADER, user.getDeptLeaderId());   // 部门领导
+        variables.put("BUSINESS_KEY", bizKey);
+        variables.put("GLOBAL_FORM_KEY", meta.getGlobalFormKey() != null ? meta.getGlobalFormKey() : meta.getKey()); // 全局表单key
 
 
+        // 流程名称
+        ProcessDefinition definition = repositoryService.createProcessDefinitionQuery()
+                .processDefinitionKey(key).active()
+                .latestVersion()
+                .singleResult();
+        Assert.notNull(definition, "流程尚未部署，请设计后部署。编码：" + key);
+
+
+        if (title == null) {
+            String day = DateFormatTool.formatDayCn(new Date());
+            title = user.getName() + day + "发起的【" + definition.getName() + "】";
+        }
+
+        long instanceCount = runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(bizKey).active().count();
+        Assert.state(instanceCount == 0, "流程审批中，请勿重复提交");
+
+        // 判断必填流程变量
+
+        List<ProcessVariable> variableList = meta.getVariables();
+        if (!CollectionUtils.isEmpty(variableList)) {
+            for (ProcessVariable formItem : variableList) {
+                String name = formItem.getName();
+                Assert.state(variables.containsKey(name), "流程异常, 必填变量未设置：" + formItem.getLabel() + ":" + name);
+                Object v = variables.get(name);
+                Assert.notNull(v, "流程异常, 必填变量未设置：" + formItem.getLabel() + ":" + name);
+            }
+        }
+
+        // 判断相对变量，如部门领导
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(definition.getId());
+        for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+            if (flowElement instanceof org.flowable.bpmn.model.UserTask ut) {
+                if (ut.getAssignee() != null && ut.getAssignee().contains(VAR_DEPT_LEADER)) {
+                    Assert.notNull(variables.get(VAR_DEPT_LEADER), "操作失败：发起用户的部门领导为空");
+                }
+            }
+        }
+
+
+        // 设置发起人, 该方法会自动设置流程变量 INITIATOR -> startUserId
+        identityService.setAuthenticatedUserId(startUserId);
+
+        // 启动
+        runtimeService.createProcessInstanceBuilder()
+                .processDefinitionKey(key)
+                .businessKey(bizKey)
+                .variables(variables)
+                .name(title)
+                .start();
+    }
 
 
     public void deleteModel(String modelId){
