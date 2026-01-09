@@ -4,7 +4,7 @@ import io.github.jiangood.sa.common.dto.AjaxResult;
 import io.github.jiangood.sa.common.tools.ArrayTool;
 import io.github.jiangood.sa.common.tools.PasswordTool;
 import io.github.jiangood.sa.common.tools.ResponseTool;
-import io.github.jiangood.sa.framework.config.SysProperties;
+import io.github.jiangood.sa.properties.SysProperties;
 import io.github.jiangood.sa.framework.config.init.SystemHookService;
 import io.github.jiangood.sa.framework.config.security.refresh.PermissionRefreshFilter;
 import lombok.AllArgsConstructor;
@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -29,10 +31,10 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SecurityContextRepository;
 
 @Slf4j
-@Configuration
 @AllArgsConstructor
+@Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)  // 必须启用这个注解
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final SysProperties sysProperties;

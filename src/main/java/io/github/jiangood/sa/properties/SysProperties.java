@@ -1,4 +1,4 @@
-package io.github.jiangood.sa.framework.config;
+package io.github.jiangood.sa.properties;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
