@@ -52,8 +52,6 @@ public class MyFlowableController {
     private TaskService taskService;
     private HistoryService historyService;
     private ProcessService processService;
-    private RuntimeService runtimeService;
-    private ProcessMetaService processMetaService;
     @GetMapping("todoCount")
     public AjaxResult todo() {
         String userId = LoginTool.getUserId();
@@ -187,6 +185,7 @@ public class MyFlowableController {
 
         // 增加表单key
         data.put("formKey", formKey);
+        data.put("taskId", taskId);
 
 
         return AjaxResult.ok().data(data);

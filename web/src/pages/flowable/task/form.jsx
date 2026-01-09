@@ -10,7 +10,6 @@ export default class extends React.Component {
     state = {
         submitLoading: false,
 
-        taskInfo: null,
 
         instanceCommentList: [],
         vars: {},
@@ -31,10 +30,7 @@ export default class extends React.Component {
 
     componentDidMount() {
         const {taskId} = PageUtils.currentParams()
-        HttpUtils.get('admin/flowable/my/taskInfo', {id: taskId}).then(rs=>{
-            console.log('任务信息',rs)
-            this.setState({taskInfo:rs})
-        })
+
 
         HttpUtils.get("admin/flowable/my/getInstanceInfoByTaskId", {taskId}).then(rs => {
             this.setState({data: rs})
@@ -80,14 +76,11 @@ export default class extends React.Component {
     }
 
     render() {
-        const {submitLoading,taskInfo} = this.state
+        const {submitLoading} = this.state
 
         const {data, loading} = this.state
         const {commentList, img} = data
         if(loading){
-            return <Spin/>
-        }
-        if ( !taskInfo) {
             return <Spin/>
         }
         return <Page padding>
@@ -122,6 +115,8 @@ export default class extends React.Component {
                             onFinish={this.handleTask}
                             disabled={submitLoading}
                         >
+
+                            <Form.Item noStyle name='id' initialValue={this.state.data.taskId}></Form.Item>
                             <Form.Item label='审批结果' name='result' rules={[{required: true, message: '请选择'}]}
                                        initialValue={'APPROVE'}>
                                 <Radio.Group>
@@ -188,6 +183,6 @@ export default class extends React.Component {
             </div>
         }
 
-        return <ExForm id={businessKey} formKey={formKey} ref={this.externalFormRef} taskInfo={this.state.taskInfo}></ExForm>
+        return <ExForm id={businessKey} formKey={formKey} ref={this.externalFormRef} ></ExForm>
     }
 }

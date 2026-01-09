@@ -120,7 +120,6 @@ export default class InstanceInfo extends React.Component {
         const formKey = this.props.formKey || processDefinitionKey;
         const formName = formKey + 'Form'
 
-        // let formKey = this.props.formKey || processDefinitionKey + 'Form';
         let ExForm = FormRegistryUtils.get(formName);
         if (!ExForm) {
             return <div>
