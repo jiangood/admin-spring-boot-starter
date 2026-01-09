@@ -112,6 +112,11 @@ public class SysRoleService extends BaseService<SysRole> {
         return roleDao.save(sysRole);
     }
 
+    public SysRole getAdminRole() {
+        String roleCode = "admin";
+        return roleDao.findByCode(roleCode);
+    }
+
     @Transactional
     public SysRole grantUsers(String id, List<String> userIdList) {
         SysRole role = roleDao.findOne(id);

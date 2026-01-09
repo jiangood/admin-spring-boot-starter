@@ -5,6 +5,7 @@ import "./LoginPage.less"
 import {history} from 'umi';
 import {EventBusUtils, HttpUtils, MessageUtils, PageUtils, SysUtils} from "../utils";
 import {JSEncrypt} from "jsencrypt";
+import {LoginPageUtils} from "./LoginPageUtils";
 
 
 export class LoginPage extends React.Component {
@@ -16,15 +17,10 @@ export class LoginPage extends React.Component {
         siteInfo: {},
         random: Math.random()
     }
-    redirect = '/';
 
     async componentDidMount() {
         console.log('渲染登录页面')
-        const redirect = PageUtils.currentParams()['redirect']
-        if (redirect) {
-            console.log('重定向参数', redirect)
-            this.redirect = decodeURIComponent(redirect)
-        }
+
 
         if (localStorage.length === 0) {
             MessageUtils.alert('站点数据缺失，刷新当前页面...')
@@ -50,15 +46,7 @@ export class LoginPage extends React.Component {
         crypt.setPublicKey(pubkey);
         values.password = crypt.encrypt(values.password)
 
-
-        HttpUtils.postForm('/admin/auth/login', values).then(rs => {
-            console.log('登录结果', rs)
-            EventBusUtils.emit('loginSuccess')
-            history.push(this.redirect)
-        }).catch(e => {
-            console.log('登录错误', e)
-        })
-        .finally(() => {
+        LoginPageUtils.postLogin(values).finally(()=>{
             this.setState({logging: false})
         })
     }
