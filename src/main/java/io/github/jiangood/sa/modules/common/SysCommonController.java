@@ -69,8 +69,8 @@ public class SysCommonController {
         Dict data = new Dict();
         data.put("captcha", sysConfigService.getMixed("sys.captcha", Boolean.class));
         data.put("captchaType", sysConfigService.getMixed("sys.captchaType", String.class));
-        data.put("copyright", sysConfigService.getMixed("sys.copyright", String.class));
-        data.put("loginBoxBottomTip", sysConfigService.getMixed("sys.loginBoxBottomTip", String.class));
+        data.put("copyright", sysProperties.getCopyright());
+        data.put("loginBoxBottomTip", sysProperties.getLoginBoxBottomTip());
         data.put("logoUrl", sysProperties.getLogoUrl());
         data.put("title", sysProperties.getTitle());
 

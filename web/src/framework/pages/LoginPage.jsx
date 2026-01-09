@@ -77,45 +77,7 @@ export class LoginPage extends React.Component {
             <section className='login-page' style={pageStyle}>
                 <div className="login-content">
                     <h1>{siteInfo.title}</h1>
-                    <Form
-                        name="normal_login"
-                        className="login-form"
-                        initialValues={{remember: true}}
-                        onFinish={this.submit}
-                        requiredMark={false}
-                        colon={false}
-                    >
-
-                        <Form.Item name="username" rules={[{required: true, message: '请输入用户名!'}]}>
-                            <Input size='large' prefix={<UserOutlined/>} placeholder="用户名" autoComplete="off"/>
-                        </Form.Item>
-                        <Form.Item name="password" rules={[{required: true, message: '请输入密码!'}]}>
-                            <Input autoComplete="off" prefix={<LockOutlined/>} type="password" placeholder="密码"
-                                   size='large'
-                            />
-                        </Form.Item>
-
-
-                        {siteInfo.captcha && <Form.Item name='captchaCode' rules={[{required: true}]}>
-                            <Space style={{alignItems: 'center'}}>
-                                <Input size='large' placeholder='验证码' prefix={<SafetyCertificateOutlined/>}/>
-                                <img height={36}
-                                     width={100}
-                                     src={"/admin/auth/captchaImage?_random=" + this.state.random}
-                                     onClick={() => {
-                                         this.setState({random: Math.random()})
-                                     }}></img>
-                            </Space>
-                        </Form.Item>}
-
-
-                        <Form.Item style={{marginTop: 10}}>
-                            <Button loading={this.state.logging} type="primary" htmlType="submit"
-                                    block size='large'>
-                                登录
-                            </Button>
-                        </Form.Item>
-                    </Form>
+                    {this.getForm(siteInfo)}
 
                     {this.renderFormBottom()}
 
@@ -124,6 +86,52 @@ export class LoginPage extends React.Component {
         );
     }
 
+
+    getForm(siteInfo) {
+        if(this.props.form){
+            return this.props.form;
+        }
+
+        return <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{remember: true}}
+            onFinish={this.submit}
+            requiredMark={false}
+            colon={false}
+        >
+
+            <Form.Item name="username" rules={[{required: true, message: '请输入用户名!'}]}>
+                <Input size='large' prefix={<UserOutlined/>} placeholder="用户名" autoComplete="off"/>
+            </Form.Item>
+            <Form.Item name="password" rules={[{required: true, message: '请输入密码!'}]}>
+                <Input autoComplete="off" prefix={<LockOutlined/>} type="password" placeholder="密码"
+                       size='large'
+                />
+            </Form.Item>
+
+
+            {siteInfo.captcha && <Form.Item name='captchaCode' rules={[{required: true}]}>
+                <Space style={{alignItems: 'center'}}>
+                    <Input size='large' placeholder='验证码' prefix={<SafetyCertificateOutlined/>}/>
+                    <img height={36}
+                         width={100}
+                         src={"/admin/auth/captchaImage?_random=" + this.state.random}
+                         onClick={() => {
+                             this.setState({random: Math.random()})
+                         }}></img>
+                </Space>
+            </Form.Item>}
+
+
+            <Form.Item style={{marginTop: 10}}>
+                <Button loading={this.state.logging} type="primary" htmlType="submit"
+                        block size='large'>
+                    登录
+                </Button>
+            </Form.Item>
+        </Form>;
+    }
 
     renderFormBottom() {
         let siteInfo = this.state.siteInfo;

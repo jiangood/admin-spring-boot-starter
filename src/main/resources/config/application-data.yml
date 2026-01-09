@@ -10,8 +10,6 @@ data:
           name: 邮件发送密码
     - group-name: 网站配置
       children:
-        - code: sys.copyright
-          name: 版权信息
         - code: sys.loginBackground
           name: 登录背景图
         - code: sys.loginBoxBottomTip

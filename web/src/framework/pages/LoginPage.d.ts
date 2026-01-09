@@ -1,7 +1,11 @@
-import React from "react";
+import React, {ReactNode} from "react";
 
 export interface LoginPageProps {
 
+    /**
+     * 覆盖表单
+     */
+    form?: ReactNode
 
 
 }

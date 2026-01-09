@@ -43,6 +43,7 @@ public class SysProperties {
      */
     private String logoUrl = "/admin/public/logo.jpg";
     private String loginBoxBottomTip = "当前非涉密网络，严禁传输处理涉密信息";
+    private String copyright = "Copyright © 2023-2024  All Rights Reserved";
     /**
      * 不经过xss的路径, 如 /aa/*
      */
