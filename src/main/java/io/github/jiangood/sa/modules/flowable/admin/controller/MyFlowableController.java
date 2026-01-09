@@ -116,28 +116,6 @@ public class MyFlowableController {
         return AjaxResult.ok().msg("处理成功");
     }
 
-    /**
-     * 任务信息
-     *
-     * @param id
-     * @return
-     */
-    @GetMapping("taskInfo")
-    @Transactional
-    public AjaxResult taskInfo(String id) {
-        Assert.hasText(id, "任务id不能为空");
-        Map<String, Object> variables = taskService.getVariables(id);
-        Task task = taskService.createTaskQuery()
-                .taskId(id)
-                .singleResult();
-
-        Dict data = Dict.of("id", task.getId(),
-                "formKey", task.getFormKey(),
-                "variables", variables
-        );
-
-        return AjaxResult.ok().data(data);
-    }
 
 
     /**
