@@ -1,5 +1,5 @@
-import {EventBusUtils, HttpUtils, PageUtils} from "@/framework";
 import {history} from 'umi';
+import {EventBusUtils, HttpUtils, PageUtils} from "../utils";
 /**
  * 将登录页面的公共方法提取出来，方便自定义登录页面时使用
  */

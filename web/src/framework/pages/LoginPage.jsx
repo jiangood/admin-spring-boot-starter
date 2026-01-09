@@ -2,8 +2,7 @@ import React from 'react';
 import {Button, Form, Input, message, Space} from 'antd';
 import {LockOutlined, SafetyCertificateOutlined, UserOutlined, WarningOutlined} from '@ant-design/icons';
 import "./LoginPage.less"
-import {history} from 'umi';
-import {EventBusUtils, HttpUtils, MessageUtils, PageUtils, SysUtils} from "../utils";
+import {MessageUtils, SysUtils} from "../utils";
 import {JSEncrypt} from "jsencrypt";
 import {LoginPageUtils} from "./LoginPageUtils";
 
