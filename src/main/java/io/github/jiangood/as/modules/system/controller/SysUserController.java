@@ -108,7 +108,7 @@ public class SysUserController {
         sysUserService.delete(id);
         permissionStaleService.markUserStale(user.getAccount());
 
-        return AjaxResult.ok();
+        return AjaxResult.ok().msg("删除用户成功");
     }
 
 
