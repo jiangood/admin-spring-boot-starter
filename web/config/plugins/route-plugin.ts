@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 // 自动注册src/forms下的表单
-const pkgName = '@jiangood/springboot-admin-starter';
+const pkgName = '@jiangood/admin-spring-boot-starter';
 export default (api: IApi) => {
 
     api.describe({
@@ -20,6 +20,7 @@ export default (api: IApi) => {
 
     const frameworkRoutes = []
     parseDir(pageDir, frameworkRoutes)
+    api.logger.info('frameworkRoutes ',frameworkRoutes)
     api.modifyRoutes((routes) => {
         // routes 代表用户项目的路由，umi已经自动解析过pages目录
         // 接下来加入加入框架的路由，确保用户项目路由优先级高
@@ -52,12 +53,10 @@ function parseDir(pageDir, fileRoutes) {
 function addRoute(file, fileRoutes) {
     let routePath = file.substring(file.indexOf('pages') + 6, file.length - 4)
     routePath = routePath.replaceAll('\\', '/')
-
-    let parentId = "@@/global-layout";
-
     // 文件$开头的会替换为路径变量 如$id 变为 :id
     routePath = routePath.replaceAll("\$", ":")
 
+    let parentId = "@@/global-layout";
     fileRoutes.push({
         absPath: file,
         id: routePath,
@@ -65,6 +64,7 @@ function addRoute(file, fileRoutes) {
         file,
         parentId
     })
+
     if (routePath.endsWith("/index")) {
         routePath = routePath.substring(0, routePath.length - 6)
         fileRoutes.push({

@@ -25,8 +25,8 @@
     "react-dom": "^19.0.0",
     "umi": "^4.0.0"
   },
-  "name": "@jiangood/springboot-admin-starter",
-  "description": "springboot-admin-starter",
+  "name": "@jiangood/admin-spring-boot-starter",
+  "description": "admin-spring-boot-starter",
   "files": [
     "src/*",
     "config/dist/*",
@@ -37,5 +37,5 @@
     "dev": "umi dev",
     "build": "tsc --outDir config/dist --skipLibCheck --noEmitOnError false config/index.ts"
   },
-  "version": "0.1.4-beta.29"
+  "version": "0.1.4-beta.31"
 }

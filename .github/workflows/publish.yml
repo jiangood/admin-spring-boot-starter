@@ -72,7 +72,7 @@ jobs:
       - name: 同步阿里云镜像仓库
         run: |
           npm install -g cnpm --registry=https://registry.npmmirror.com 
-          cnpm sync @jiangood/springboot-admin-starter
+          cnpm sync @jiangood/admin-spring-boot-starter
 
 
 

@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.github.jiangood</groupId>
-    <artifactId>springboot-admin-starter</artifactId>
+    <artifactId>admin-spring-boot-starter</artifactId>
     <!--<version>0.0.1-SNAPSHOT</version>-->
     <version>${revision}</version>
-    <name>springboot-admin-starter</name>
+    <name>admin-spring-boot-starter</name>
     <description>小型管理系统框架</description>
-    <url>https://github.com/jiangood/springboot-admin-starter</url>
+    <url>https://github.com/jiangood/admin-spring-boot-starter</url>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -28,9 +28,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git:github.com/jiangood/springboot-admin-starter.git</connection>
-        <developerConnection>scm:git@github.com:jiangood/springboot-admin-starter.git</developerConnection>
-        <url>https://github.com/jiangood/springboot-admin-starter/tree/master</url>
+        <connection>scm:git:git:github.com/jiangood/admin-spring-boot-starter.git</connection>
+        <developerConnection>scm:git@github.com:jiangood/admin-spring-boot-starter.git</developerConnection>
+        <url>https://github.com/jiangood/admin-spring-boot-starter/tree/master</url>
     </scm>
     <properties>
         <!-- 这个表示版本号，构建时动态指定参数即可 如 mvn package -Drevision=1.1.1-->

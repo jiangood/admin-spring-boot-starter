@@ -149,7 +149,7 @@ public class UserController {
 import {PlusOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Modal, Popconfirm} from 'antd'
 import React from 'react'
-import {ButtonList, FieldUploadFile, HttpUtils, Page, ProTable} from "@jiangood/springboot-admin-starter";
+import {ButtonList, FieldUploadFile, HttpUtils, Page, ProTable} from "@jiangood/admin-spring-boot-starter";
 
 export default class extends React.Component {
 

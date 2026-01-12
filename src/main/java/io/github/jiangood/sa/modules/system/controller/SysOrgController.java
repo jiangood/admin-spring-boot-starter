@@ -64,6 +64,7 @@ public class SysOrgController {
         q.orLike(searchText, SysOrg.Fields.name);
 
         // 权限过滤
+
         q.in("id", LoginTool.getOrgPermissions());
 
         List<SysOrg> list = sysOrgService.findAll(q, Sort.by("seq"));

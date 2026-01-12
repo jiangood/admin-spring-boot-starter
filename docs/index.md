@@ -1,6 +1,6 @@
 # 目录
 
-- [springboot-admin-starter 使用说明书](#springboot-admin-starter-使用说明书)
+- [admin-spring-boot-starter 使用说明书](#admin-spring-boot-starter-使用说明书)
 - [介绍](#介绍)
   - [项目依赖](#项目依赖)
   - [核心功能](#核心功能)

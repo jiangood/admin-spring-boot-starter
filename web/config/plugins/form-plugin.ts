@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 // 自动注册src/forms下的表单
-const pkgName = '@jiangood/springboot-admin-starter';
+const pkgName = '@jiangood/admin-spring-boot-starter';
 
 
 export default (api: IApi) => {
