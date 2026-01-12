@@ -14,7 +14,7 @@
 </dependency>
 ```
 ## 快照版本（可选）
-- **GitHub Packages**: [查看所有版本](https://github.com/用户名/仓库名/packages)
+- **GitHub Packages**: [查看所有版本](https://github.com/jiangood/admin-spring-boot-starter/packages)
 
 ## 前端
 ![NPM Version](https://img.shields.io/npm/v/@jiangood/admin-spring-boot-starter)
