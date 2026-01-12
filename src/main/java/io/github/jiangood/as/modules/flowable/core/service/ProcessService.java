@@ -143,7 +143,15 @@ public class ProcessService {
                 .start();
     }
 
-
+    /**
+     * 获取最新的历史流程实例
+     * 根据业务键查询历史流程实例，并按开始时间降序排列，返回最近的一个流程实例
+     *
+     * 为什么不直接使用单个结果，因为可能存在多个结果
+     *
+     * @param bizKey 业务键，用于标识特定业务流程的唯一标识符
+     * @return 最新的历史流程实例，如果未找到则返回null
+     */
     public HistoricProcessInstance getLatestProcessInstance(String bizKey) {
         List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
                 .processInstanceBusinessKey(bizKey)
