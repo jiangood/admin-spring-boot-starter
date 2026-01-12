@@ -14,7 +14,7 @@
 </dependency>
 ```
 ## 快照版本（可选,测试或紧急修复）
-```
+```xml
        <repository>
           <id>github</id>
           <url>https://maven.pkg.github.com/OWNER/REPOSITORY</url>
