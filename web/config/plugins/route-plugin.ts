@@ -20,7 +20,7 @@ export default (api: IApi) => {
 
     const frameworkRoutes = []
     parseDir(pageDir, frameworkRoutes)
-    api.logger.info('frameworkRoutes ',frameworkRoutes)
+    api.logger.info('框架路由数量： ',frameworkRoutes.length)
     api.modifyRoutes((routes) => {
         // routes 代表用户项目的路由，umi已经自动解析过pages目录
         // 接下来加入加入框架的路由，确保用户项目路由优先级高
