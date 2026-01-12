@@ -144,6 +144,18 @@ public class ProcessService {
     }
 
 
+    public HistoricProcessInstance getLatestProcessInstance(String bizKey) {
+        List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery()
+                .processInstanceBusinessKey(bizKey)
+                .notDeleted()
+                .orderByProcessInstanceStartTime().desc()
+                .list();
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.get(0);
+    }
+
     public void deleteModel(String modelId){
         repositoryService.deleteModel(modelId);
     }

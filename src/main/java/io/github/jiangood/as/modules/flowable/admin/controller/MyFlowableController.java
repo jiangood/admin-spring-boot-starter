@@ -121,10 +121,7 @@ public class MyFlowableController {
         Assert.state(businessKey != null || id != null, "id或businessKey不能同时为空");
 
         if (id == null) {
-            HistoricProcessInstance instance = historyService.createHistoricProcessInstanceQuery()
-                    .processInstanceBusinessKey(businessKey)
-                    .notDeleted()
-                    .singleResult();
+            HistoricProcessInstance instance = processService.getLatestProcessInstance(businessKey);
             id = instance.getId();
         }
         Map<String, Object> data = queryInstanceInfo(id);
