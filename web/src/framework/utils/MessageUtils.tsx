@@ -135,12 +135,15 @@ export class MessageUtils {
  * antd6 推荐使用这个hooks，这里统一设置， 供公共layout使用
  * @constructor
  */
-export function MessageHolder(){
+export function MessageHolder(props){
     const [modalApi, modalContextHolder] = Modal.useModal();
     const [messageApi, messageContextHolder] = message.useMessage();
     MessageUtils.config(messageApi,modalApi);
 
-
+    React.useEffect(()=>{
+        console.log('MessageHolder Rendered')
+        props.onFinish()
+    },[])
     return <>
         {modalContextHolder} {messageContextHolder}
     </>
