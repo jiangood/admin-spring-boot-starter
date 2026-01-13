@@ -23,10 +23,10 @@ jobs:
 
 
       - name: 打包
-        run: mvn package  -q -DskipTests -s $GITHUB_WORKSPACE/settings.xml
+        run: mvn package  -q -DskipTests
       - name: 上传
-        uses: actions/upload-artifact@v4
+        uses: JasonEtco/upload-to-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: "target/*.jar"
+          args: "target/*.jar"
