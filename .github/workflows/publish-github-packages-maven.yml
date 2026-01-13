@@ -25,8 +25,8 @@ jobs:
       - name: 打包
         run: mvn package  -q -DskipTests -s $GITHUB_WORKSPACE/settings.xml
       - name: 上传
-        uses: xresloader/upload-to-github-release@v1
+        uses: actions/upload-artifact@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "target/*.jar"
+          path: "target/*.jar"
