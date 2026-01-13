@@ -6,7 +6,7 @@ export interface LoginPageProps {
      * 表单渲染
      * @param origForm 原始表单
      */
-    formRender: (origForm: ReactNode) => {}
+    formRender?: (originalForm: ReactNode) => ReactNode
 
 
 }
