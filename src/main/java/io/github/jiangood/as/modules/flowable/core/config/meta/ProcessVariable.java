@@ -10,10 +10,16 @@ public class ProcessVariable {
     private String name;
     private String label;
     private ValueType valueType;
-    private boolean required = false;
+    private boolean required;
 
     public ProcessVariable(String name, String label) {
+        this(name, label, ValueType.STRING, false);
+    }
+
+    public ProcessVariable(String name, String label, ValueType valueType, boolean required) {
         this.name = name;
         this.label = label;
+        this.valueType = valueType;
+        this.required = required;
     }
 }

@@ -11,6 +11,7 @@ import io.github.jiangood.as.framework.data.specification.Spec;
 import io.github.jiangood.as.framework.log.Log;
 import io.github.jiangood.as.modules.flowable.core.config.meta.FormDefinition;
 import io.github.jiangood.as.modules.flowable.core.config.meta.ProcessMeta;
+import io.github.jiangood.as.modules.flowable.core.config.meta.ProcessVariable;
 import io.github.jiangood.as.modules.flowable.core.service.ProcessMetaService;
 import io.github.jiangood.as.modules.flowable.utils.FlowablePageTool;
 import io.github.jiangood.as.modules.flowable.utils.ModelTool;
@@ -241,7 +242,10 @@ public class ModelController {
     @GetMapping("varList")
     public AjaxResult varOptions(String code) {
         ProcessMeta meta = processMetaService.findOne(code);
-        return AjaxResult.ok().data(meta.getVariables());
+        List<ProcessVariable> variables = meta.getVariables();
+
+
+        return AjaxResult.ok().data(variables);
     }
 
     @GetMapping("definitionPage")
