@@ -20,12 +20,6 @@ jobs:
           cd web
           pnpm install 
           pnpm run build
-          pnpm publish -r --access public --no-git-checks
+          pnpm publish -r --access public --no-git-checks --tag beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
-
-
-
-
-
-
