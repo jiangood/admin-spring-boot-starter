@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 @Repository
 public class SysOrgDao extends BaseDao<SysOrg> {
 
+    public SysOrg findByThirdId(String thirdId) {
+        return this.findByField(SysOrg.Fields.thirdId, thirdId);
+    }
+
     @Override
     public SysOrg save(SysOrg entity) {
         SysOrg org = super.save(entity);

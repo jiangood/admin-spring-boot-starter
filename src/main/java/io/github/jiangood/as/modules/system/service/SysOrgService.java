@@ -38,7 +38,21 @@ public class SysOrgService extends BaseService<SysOrg> {
 
 
     public SysOrg findByThirdId(String thirdId) {
-        return sysOrgDao.findByField(SysOrg.Fields.thirdId, thirdId);
+        return sysOrgDao.findByThirdId(thirdId);
+    }
+
+    @Transactional
+    public void resetPidByThird(String id){
+        SysOrg db = sysOrgDao.findOne(id);
+        String thirdPid = db.getThirdPid();
+        if(thirdPid != null){
+            SysOrg parent = sysOrgDao.findByThirdId(thirdPid);
+            if(parent != null){
+                db.setPid(parent.getId());
+                sysOrgDao.save(db);
+                log.info("设置机构{}的pid为{} ({})", db.getName(), db.getPid(),parent.getName());
+            }
+        }
     }
 
     @Override
