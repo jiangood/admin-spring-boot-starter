@@ -53,7 +53,6 @@ data:
         - id: ureport
           name: 报表管理
           icon: TableOutlined
-          seq: 101
           path: /ureport
           perm-names: [ 查看,设计 ]
           perm-codes: [ ureport:view,ureport:design ]
@@ -70,7 +69,7 @@ data:
           perm-names: [ 查看 ]
           perm-codes: [ sysLog:view ]
         - id: sysFile
-          name: 存储文件
+          name: 文件列表
           path: /system/file
           icon: FolderOpenOutlined
           perm-names: [ 查看,删除 ]
