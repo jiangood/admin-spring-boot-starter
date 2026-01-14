@@ -48,7 +48,7 @@
         <poi.version>5.5.0</poi.version>
         <guava.version>33.5.0-jre</guava.version>
         <commons-io.version>2.21.0</commons-io.version>
-        <ureport.version>1.0.9</ureport.version>
+        <ureport.version>1.0.10</ureport.version>
     </properties>
     <dependencies>
         <dependency>
