@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 转换为 a=1&b=2这种格式
- */
+// 转换为 a=1&b=2这种格式
 public class ToQueryStringMapConverter implements AttributeConverter<Map<String, Object>, String>, Serializable {
 
 
