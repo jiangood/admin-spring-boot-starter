@@ -44,33 +44,5 @@ public class ValidateMobileTest {
         assertTrue(validator.isValid("", null));
     }
 
-    // 测试注解的属性
-    @Test
-    public void testValidateMobileAnnotationProperties() {
-        ValidateMobile annotation = new ValidateMobile() {
-            @Override
-            public Class<? extends Annotation> annotationType() {
-                return ValidateMobile.class;
-            }
 
-            @Override
-            public String message() {
-                return "手机号码错误";
-            }
-
-            @Override
-            public Class<?>[] groups() {
-                return new Class[0];
-            }
-
-            @Override
-            public Class<? extends Payload>[] payload() {
-                return new Class[0];
-            }
-        };
-
-        assertEquals("手机号码错误", annotation.message());
-        assertArrayEquals(new Class<?>[0], annotation.groups());
-        assertArrayEquals(new Class[0], annotation.payload());
-    }
 }

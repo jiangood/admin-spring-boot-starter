@@ -7,6 +7,7 @@ import io.github.jiangood.as.common.dto.antd.Option;
 import io.github.jiangood.as.common.tools.PageTool;
 import io.github.jiangood.as.common.tools.SpringTool;
 import io.github.jiangood.as.common.tools.annotation.RemarkTool;
+import io.github.jiangood.as.common.tools.field.ValueType;
 import io.github.jiangood.as.framework.data.specification.Spec;
 import io.github.jiangood.as.framework.log.Log;
 import io.github.jiangood.as.modules.flowable.core.config.meta.FormDefinition;
@@ -243,7 +244,6 @@ public class ModelController {
     public AjaxResult varOptions(String code) {
         ProcessMeta meta = processMetaService.findOne(code);
         List<ProcessVariable> variables = meta.getVariables();
-
 
         return AjaxResult.ok().data(variables);
     }

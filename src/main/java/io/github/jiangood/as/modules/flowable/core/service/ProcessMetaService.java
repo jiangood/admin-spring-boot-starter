@@ -24,6 +24,8 @@ public class ProcessMetaService {
     }
 
     public ProcessMeta findOne(String key) {
-        return this.findAll().stream().filter(item -> item.getKey().equals(key)).findFirst().orElse(null);
+        ProcessMeta meta = this.findAll().stream().filter(item -> item.getKey().equals(key)).findFirst().orElse(null);
+
+        return meta;
     }
 }
