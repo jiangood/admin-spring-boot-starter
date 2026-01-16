@@ -16,6 +16,9 @@ public class PermissionActions {
     /** 删除 */
     public static final String DELETE = "delete";
 
+    /** 新增或修改 */
+    public static final String CREATE_OR_UPDATE = "save";
+
     // =============== 扩展操作 ===============
     /** 导出数据 */
     public static final String EXPORT = "export";
@@ -71,8 +74,6 @@ public class PermissionActions {
     // =============== 特殊业务操作 ===============
     /** 打印 */
     public static final String PRINT = "print";
-    /** 搜索 */
-    public static final String SEARCH = "search";
     /** 复制 */
     public static final String COPY = "copy";
     /** 移动 */

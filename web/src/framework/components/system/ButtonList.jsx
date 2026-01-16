@@ -13,23 +13,30 @@ export class ButtonList extends React.Component {
 
     render() {
         let {children} = this.props;
-        const menus = [];
 
-        // 判断是否数组
-        if (Array.isArray(children)) {
-            for (let child of children) {
-                if (child === null || child === undefined) {
-                    continue;
-                }
-                if (child.props == null || child.props.perm == null || PermUtils.hasPermission(child.props.perm)) {
-                    menus.push(child);
-                }
+        // 单节点的情况
+        if (!Array.isArray(children)) {
+            if (this.checkPerm(children)) {
+                return children;
             }
-        } else {
-            menus.push(children)
+            return null
         }
 
-
+        const menus = [];
+        for (let child of children) {
+            if (child === null || child === undefined) {
+                continue;
+            }
+            if (this.checkPerm(child)) {
+                menus.push(child);
+            }
+        }
         return <Space>{menus}</Space>;
     }
+
+    checkPerm = element => {
+        let props = element.props;
+        return props == null || props.perm == null || PermUtils.hasPermission(props.perm);
+
+    };
 }
