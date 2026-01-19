@@ -48,7 +48,7 @@
         <poi.version>5.5.0</poi.version>
         <guava.version>33.5.0-jre</guava.version>
         <commons-io.version>2.21.0</commons-io.version>
-        <ureport.version>1.0.12</ureport.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -243,12 +243,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>io.github.jiangood</groupId>
-            <artifactId>ureport-console</artifactId>
-            <version>${ureport.version}</version>
-        </dependency>
-
 
 
         <dependency>
@@ -261,11 +255,7 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+
     </dependencies>
 
     <profiles>

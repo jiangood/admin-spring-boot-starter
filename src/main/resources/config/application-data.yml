@@ -36,12 +36,6 @@ data:
           icon: FileSearchOutlined
           perm-names: [ 查看,保存,删除 ]
           perm-codes: [ sysDict:view,sysDict:save,sysDict:delete ]
-        - id: ureport
-          name: 报表管理
-          icon: TableOutlined
-          path: /ureport
-          perm-names: [ 查看,设计 ]
-          perm-codes: [ ureport:view,ureport:design ]
         - id: job
           name: 作业管理
           path: /system/job
