@@ -25,7 +25,6 @@ export default class extends React.Component {
     }
 
 
-
     externalFormRef = React.createRef()
 
     componentDidMount() {
@@ -66,7 +65,8 @@ export default class extends React.Component {
 
             value.taskId = this.state.data.taskId
             await HttpUtils.post("admin/flowable/my/handleTask", value)
-            history.replace('/flowable/task')
+
+            PageUtils.closeCurrent()
         } catch (error) {
             message.error(error)
         } finally {
@@ -80,7 +80,7 @@ export default class extends React.Component {
 
         const {data, loading} = this.state
         const {commentList, img} = data
-        if(loading){
+        if (loading) {
             return <Spin/>
         }
         return <Page padding>
@@ -144,8 +144,8 @@ export default class extends React.Component {
     }
 
     renderProcess = (img, commentList) => <Card title='处理记录'>
-       <img src={img} style={{maxWidth: '100%'}}
-                     onClick={this.onImgClick}/>
+        <img src={img} style={{maxWidth: '100%'}}
+             onClick={this.onImgClick}/>
         <Gap></Gap>
         <Table dataSource={commentList}
 
@@ -177,10 +177,10 @@ export default class extends React.Component {
 
         let ExForm = FormRegistryUtils.get(formName);
         if (!ExForm) {
-            console.error(" 表单不存在： "+formName+"。 请检查表单源代码：src/forms/"+formName+".jsx")
+            console.error(" 表单不存在： " + formName + "。 请检查表单源代码：src/forms/" + formName + ".jsx")
             return <Empty description={"表单不存在： " + formName}></Empty>
         }
 
-        return <ExForm id={businessKey} formKey={formKey} ref={this.externalFormRef} ></ExForm>
+        return <ExForm id={businessKey} formKey={formKey} ref={this.externalFormRef}></ExForm>
     }
 }
