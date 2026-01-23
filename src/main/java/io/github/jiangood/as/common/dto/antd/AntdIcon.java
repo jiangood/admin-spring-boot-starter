@@ -1,6 +1,6 @@
 package io.github.jiangood.as.common.dto.antd;
 
-public enum AntDesignIcon {
+public enum AntdIcon {
     AccountBookFilled,
     AccountBookOutlined,
     AccountBookTwoTone,

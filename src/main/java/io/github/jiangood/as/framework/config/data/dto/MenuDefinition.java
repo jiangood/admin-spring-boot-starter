@@ -1,6 +1,6 @@
 package io.github.jiangood.as.framework.config.data.dto;
 
-import io.github.jiangood.as.common.dto.antd.AntDesignIcon;
+import io.github.jiangood.as.common.dto.antd.AntdIcon;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class MenuDefinition {
 
 
     // 图标
-    private AntDesignIcon icon;
+    private AntdIcon icon;
 
     // 路由
     private String path;

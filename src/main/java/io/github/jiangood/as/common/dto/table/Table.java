@@ -4,7 +4,7 @@ package io.github.jiangood.as.common.dto.table;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.jiangood.as.common.DataMatrix;
+import io.github.jiangood.as.common.Array2D;
 import io.github.jiangood.as.common.tools.annotation.Remark;
 import jakarta.persistence.Lob;
 import lombok.Getter;
@@ -133,19 +133,20 @@ public class Table<T> {
     }
 
     /**
-     * 获得用于渲染的二维数组
+     * 获得二维数组
      *
      * @return
      */
-    public DataMatrix getRenderMatrix() {
-        DataMatrix m = new DataMatrix(dataSource.size() + 1, columns.size());
+    public Array2D toArray2D() {
+        Array2D data = new Array2D(dataSource.size() + 1, columns.size());
 
+        // 包含标题
         for (int i = 0; i < columns.size(); i++) {
             TableColumn<T> column = columns.get(i);
-            m.setValue(0, i, column.getTitle());
+            data.setValue(0, i, column.getTitle());
         }
 
-
+        // 数据
         for (int i = 0; i < dataSource.size(); i++) {
             T dataRow = dataSource.get(i);
             for (int j = 0; j < columns.size(); j++) {
@@ -153,11 +154,11 @@ public class Table<T> {
                 String columnValue = getColumnValueFormatted(column, dataRow);
 
                 if (columnValue != null) {
-                    m.setValue(i + 1, j, columnValue);
+                    data.setValue(i + 1, j, columnValue);
                 }
             }
         }
-        return m;
+        return data;
     }
 
 
