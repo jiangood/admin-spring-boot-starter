@@ -88,10 +88,27 @@ public class Array2DTool {
     }
 
 
+    /**
+     *
+     * @param array
+     * @param from
+     * @param length
+     * @return
+     */
     public static Object[][] removeRows(Object[][] array, int from, int length) {
+        // 检查数组是否为null
+        if (array == null) {
+            throw new NullPointerException("数组不能为null");
+        }
         // 验证参数有效性
-        if (from < 0 || length < 0 || from >= array.length) {
-            throw new IllegalArgumentException("起始位置或长度无效");
+        if (from < 0 || length < 0) {
+            throw new IllegalArgumentException("起始位置和长度不能为负数");
+        }
+        if (from > array.length) {
+            throw new IllegalArgumentException("起始位置超出数组范围");
+        }
+        if (from + length > array.length) {
+            throw new IllegalArgumentException("删除范围超出数组范围");
         }
 
         // 计算实际要删除的行数，防止越界
