@@ -1,5 +1,7 @@
 package io.github.jiangood.as.common.tools;
 
+import io.github.jiangood.as.common.Array2DCoords;
+
 import java.util.*;
 
 
@@ -89,7 +91,6 @@ public class Array2DTool {
 
 
     /**
-     *
      * @param array
      * @param from
      * @param length
@@ -145,58 +146,6 @@ public class Array2DTool {
         }
 
         array[row][col] = value;
-        return array;
-    }
-
-    /**
-     * 通过Excel坐标设置值
-     *
-     * @param array           二维数组
-     * @param excelCoordinate Excel坐标，如"A1", "B2"等
-     * @param value           要设置的值
-     * @return 修改后的数组（原数组被修改）
-     */
-    public static Object[][] setValueByExcelCoordinate(Object[][] array, String excelCoordinate, Object value) {
-        if (array == null || excelCoordinate == null || excelCoordinate.isEmpty()) {
-            throw new IllegalArgumentException("参数不能为null或空");
-        }
-
-        int[] indices = coordsToIndex(excelCoordinate);
-        return setValue(array, indices[0], indices[1], value);
-    }
-
-    /**
-     * 批量设置值
-     *
-     * @param array     二维数组
-     * @param positions 位置和值的映射
-     * @return 修改后的数组（原数组被修改）
-     */
-    public static Object[][] setValues(Object[][] array, Map<String, Object> positions) {
-        if (array == null || positions == null) {
-            throw new NullPointerException("参数不能为null");
-        }
-
-        for (Map.Entry<String, Object> entry : positions.entrySet()) {
-            String key = entry.getKey();
-            try {
-                // 尝试解析为坐标对，如"1,2"
-                if (key.contains(",")) {
-                    String[] parts = key.split(",");
-                    if (parts.length == 2) {
-                        int row = Integer.parseInt(parts[0].trim());
-                        int col = Integer.parseInt(parts[1].trim());
-                        setValue(array, row, col, entry.getValue());
-                    }
-                } else {
-                    // 尝试解析为Excel坐标
-                    setValueByExcelCoordinate(array, key, entry.getValue());
-                }
-            } catch (Exception e) {
-                System.err.println("无法设置位置 " + key + " 的值: " + e.getMessage());
-            }
-        }
-
         return array;
     }
 
@@ -510,7 +459,7 @@ public class Array2DTool {
 
     /**
      * 将二维数组转换为Excel坐标的MapList
-     *
+     * <p>
      * 坐标格式示例：A->list, B->list等
      */
     public static List<Map<String, Object>> toCoordsMapList(Object[][] data) {
@@ -569,7 +518,7 @@ public class Array2DTool {
      * @param coordinate Excel坐标，如"A1"
      * @return 包含行列索引的数组 [row, col]
      */
-    public static int[] coordsToIndex(String coordinate) {
+    public static Array2DCoords coordsToIndex(String coordinate) {
         if (coordinate == null || coordinate.isEmpty()) {
             throw new IllegalArgumentException("坐标不能为空");
         }
@@ -593,7 +542,7 @@ public class Array2DTool {
         int col = coordsColToIndex(colPart);
         int row = coordsRowToIndex(rowPart); // Excel是1-based，转换为0-based
 
-        return new int[]{row, col};
+        return new Array2DCoords(row, col);
     }
 
     private static int coordsRowToIndex(String rowPart) {
@@ -609,12 +558,6 @@ public class Array2DTool {
             result = result * 26 + (c - 'A' + 1);
         }
         return result - 1; // 转换为0-based索引
-    }
-
-    public static void main(String[] args) {
-        System.out.println(coordsColToIndex("B2"));
-        System.out.println(coordsRowToIndex("B2"));
-
     }
 
     public static String toString(Object[][] array) {
