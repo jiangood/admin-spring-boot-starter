@@ -16,7 +16,7 @@ public class ArrayTool {
             return false;
         }
         for (Object o : arr) {
-            if (o.getClass() == clazz) {
+            if (o != null &&o.getClass() == clazz) {
                 return true;
             }
         }
@@ -28,7 +28,7 @@ public class ArrayTool {
             return false;
         }
         for (Object o : arr) {
-            if (o.getClass() != clazz) {
+            if (o == null || o.getClass() != clazz) {
                 return false;
             }
         }
@@ -57,7 +57,7 @@ public class ArrayTool {
             }
 
             int end = i - 1;
-            if(start != end){
+            if (start != end) {
                 list.add(new Pair<>(currentElement, new IntRange(start, end)));
             }
         }
