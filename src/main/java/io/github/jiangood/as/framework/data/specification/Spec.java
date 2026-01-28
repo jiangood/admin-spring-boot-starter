@@ -11,7 +11,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -42,17 +41,17 @@ public class Spec<T> implements Specification<T> {
 
         if (convertToJavaDate) {
             Range<Date> range = RangeTool.toDateRange(isoRange);
-            return this.between(field, range.getBegin(), range.getEnd());
+            return this.between(field, range.getStart(), range.getEnd());
         }
         Range<String> range = RangeTool.toStrRange(isoRange);
-        return this.between(field, range.getBegin(), range.getEnd());
+        return this.between(field, range.getStart(), range.getEnd());
     }
 
     public <V extends Comparable<V>> Spec<T> between(String field, Range<V> range) {
         if (range == null || range.isEmpty()) {
             return this;
         }
-        return this.between(field, range.getBegin(), range.getEnd());
+        return this.between(field, range.getStart(), range.getEnd());
     }
 
     public <C extends Comparable<C>> Spec<T> between(String field, C begin, C end) {

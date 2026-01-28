@@ -8,6 +8,19 @@ import java.util.UUID;
 
 public class StrTool {
 
+    public static String joinIgnoreEmpty(char conjunction,  String... list){
+        StringBuilder sb = new StringBuilder();
+        for (String s : list) {
+            if (s != null && !s.isEmpty()) {
+                sb.append(s).append(conjunction);
+            }
+        }
+        if (sb.isEmpty()) {
+            return "";
+        }
+        return sb.deleteCharAt(sb.length() - 1).toString();
+    }
+
 
     /**
      * 查找字符串中最后一个大写字母的位置

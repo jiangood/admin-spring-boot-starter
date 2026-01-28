@@ -14,7 +14,7 @@ public class StrRange extends Range<String> {
 
     public StrRange(String str) {
         Range<String> dateRange = RangeTool.toStrRange(str);
-        this.begin = dateRange.begin;
+        this.start = dateRange.start;
         this.end = dateRange.end;
     }
 

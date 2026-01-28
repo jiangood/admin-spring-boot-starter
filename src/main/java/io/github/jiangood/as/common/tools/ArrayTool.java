@@ -1,10 +1,68 @@
 package io.github.jiangood.as.common.tools;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.hutool.core.lang.Pair;
+import io.github.jiangood.as.common.Point;
+import io.github.jiangood.as.common.tools.range.IntRange;
+import io.github.jiangood.as.common.tools.range.PointRange;
+import io.github.jiangood.as.common.tools.range.Range;
+
+import java.util.*;
 import java.util.function.Function;
 
 public class ArrayTool {
+
+    public static boolean containsType(Object[] arr, Class<?> clazz) {
+        if (arr == null) {
+            return false;
+        }
+        for (Object o : arr) {
+            if (o.getClass() == clazz) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isAllType(Object[] arr, Class<?> clazz) {
+        if (arr == null) {
+            return false;
+        }
+        for (Object o : arr) {
+            if (o.getClass() != clazz) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 查找数组中连续相同的元素
+     *
+     * @return 元素及对应的range
+     */
+    public static List<Pair<Object, IntRange>> findContinuousSame(Object[] arr) {
+        List<Pair<Object, IntRange>> list = new ArrayList<>();
+        if (arr == null || arr.length == 0) {
+            return list;
+        }
+
+        for (int i = 0; i < arr.length; ) {
+            Object currentElement = arr[i];
+            int start = i;
+
+            // 找到当前元素连续出现的结束位置
+            while (i < arr.length && Objects.equals(arr[i], currentElement)) {
+                i++;
+            }
+
+            int end = i - 1;
+
+            list.add(new Pair<>(currentElement, new IntRange(start, end)));
+        }
+
+        return list;
+    }
+
 
     public static String[] toStrArr(List<String> list) {
         if (list == null) {

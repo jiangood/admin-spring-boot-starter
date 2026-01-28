@@ -24,7 +24,7 @@ public class RangeTool {
             a = StrUtil.emptyToNull(a);
             b = StrUtil.emptyToNull(b);
 
-            range.setBegin(a);
+            range.setStart(a);
             range.setEnd(b);
         }
 
@@ -36,7 +36,7 @@ public class RangeTool {
         Range<String> range = toStrRange(str);
         Range<BigDecimal> r = new Range<>();
 
-        r.setBegin(range.getBegin() == null ? null : new BigDecimal(range.getBegin()));
+        r.setStart(range.getStart() == null ? null : new BigDecimal(range.getStart()));
         r.setEnd(range.getEnd() == null ? null : new BigDecimal(range.getEnd()));
         return r;
     }
@@ -45,7 +45,7 @@ public class RangeTool {
         Range<String> range = toStrRange(str);
         Range<Long> r = new Range<>();
 
-        r.setBegin(range.getBegin() == null ? null : Long.parseLong(range.getBegin()));
+        r.setStart(range.getStart() == null ? null : Long.parseLong(range.getStart()));
         r.setEnd(range.getEnd() == null ? null : Long.parseLong(range.getEnd()));
         return r;
     }
@@ -54,7 +54,7 @@ public class RangeTool {
         Range<String> range = toStrRange(str);
         Range<Integer> r = new Range<>();
 
-        r.setBegin(range.getBegin() == null ? null : Integer.parseInt(range.getBegin()));
+        r.setStart(range.getStart() == null ? null : Integer.parseInt(range.getStart()));
         r.setEnd(range.getEnd() == null ? null : Integer.parseInt(range.getEnd()));
         return r;
     }
@@ -63,7 +63,7 @@ public class RangeTool {
     public static Range<java.util.Date> toDateRange(String str) {
         Range<String> range = toStrRange(str);
         Range<java.util.Date> r = new Range<>();
-        r.setBegin(range.getBegin() == null ? null : DateUtil.parse(range.getBegin()));
+        r.setStart(range.getStart() == null ? null : DateUtil.parse(range.getStart()));
         r.setEnd(range.getEnd() == null ? null : DateUtil.parse(range.getEnd()));
 
         if (r.getEnd() != null) {

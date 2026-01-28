@@ -11,14 +11,19 @@ import lombok.Setter;
 @Setter
 public class Range<T extends Comparable<T>> {
 
-    T begin;
+    T start;
     T end;
 
     public Range() {
     }
 
+    public Range(T start, T end) {
+        this.start = start;
+        this.end = end;
+    }
+
 
     public boolean isEmpty() {
-        return begin == null && end == null;
+        return start == null && end == null;
     }
 }

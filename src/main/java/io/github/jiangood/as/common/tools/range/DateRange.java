@@ -17,7 +17,7 @@ public class DateRange extends Range<Date> {
     public DateRange(String str) {
         Range<Date> dateRange = RangeTool.toDateRange(str);
 
-        this.begin = dateRange.begin;
+        this.start = dateRange.start;
         this.end = dateRange.end;
     }
 

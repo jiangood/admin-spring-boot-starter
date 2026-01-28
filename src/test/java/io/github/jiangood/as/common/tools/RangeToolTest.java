@@ -11,27 +11,27 @@ class RangeToolTest {
     @Test
     void toRange() {
         Range range = RangeTool.toStrRange("2022-10-11/2022-10-12");
-        assertEquals("2022-10-11", range.getBegin());
+        assertEquals("2022-10-11", range.getStart());
         assertEquals("2022-10-12", range.getEnd());
         assertFalse(range.isEmpty());
 
         range = RangeTool.toStrRange("");
         assertTrue(range.isEmpty());
-        assertNull(range.getBegin());
+        assertNull(range.getStart());
         assertNull(range.getEnd());
 
         range = RangeTool.toStrRange("2022-10-11");
-        assertEquals("2022-10-11", range.getBegin());
+        assertEquals("2022-10-11", range.getStart());
         assertNull(range.getEnd());
         assertFalse(range.isEmpty());
 
         range = RangeTool.toStrRange("/2022-10-12");
-        assertNull(range.getBegin());
+        assertNull(range.getStart());
         assertEquals("2022-10-12", range.getEnd());
         assertFalse(range.isEmpty());
 
         range = RangeTool.toStrRange("2022-10-11/");
-        assertEquals("2022-10-11", range.getBegin());
+        assertEquals("2022-10-11", range.getStart());
         assertNull(range.getEnd());
         assertFalse(range.isEmpty());
 

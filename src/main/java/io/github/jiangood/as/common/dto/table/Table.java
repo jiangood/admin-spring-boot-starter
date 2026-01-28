@@ -4,10 +4,10 @@ package io.github.jiangood.as.common.dto.table;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.jiangood.as.common.Array2D;
 import io.github.jiangood.as.common.tools.annotation.Remark;
 import jakarta.persistence.Lob;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 
@@ -25,6 +25,7 @@ import java.util.function.Function;
  *
  * @param <T>
  */
+@ToString
 @Getter
 @Slf4j
 public class Table<T> {
@@ -132,34 +133,7 @@ public class Table<T> {
         return v.toString();
     }
 
-    /**
-     * 获得二维数组
-     *
-     * @return
-     */
-    public Array2D toArray2D() {
-        Array2D data = new Array2D(dataSource.size() + 1, columns.size());
 
-        // 包含标题
-        for (int i = 0; i < columns.size(); i++) {
-            TableColumn<T> column = columns.get(i);
-            data.setValue(0, i, column.getTitle());
-        }
-
-        // 数据
-        for (int i = 0; i < dataSource.size(); i++) {
-            T dataRow = dataSource.get(i);
-            for (int j = 0; j < columns.size(); j++) {
-                TableColumn<T> column = columns.get(j);
-                String columnValue = getColumnValueFormatted(column, dataRow);
-
-                if (columnValue != null) {
-                    data.setValue(i + 1, j, columnValue);
-                }
-            }
-        }
-        return data;
-    }
 
 
 }
