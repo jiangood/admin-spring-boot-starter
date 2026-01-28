@@ -46,7 +46,8 @@ public class ArrayTool {
             return list;
         }
 
-        for (int i = 0; i < arr.length; ) {
+        int i = 0;
+        while (i < arr.length) {
             Object currentElement = arr[i];
             int start = i;
 
@@ -56,8 +57,9 @@ public class ArrayTool {
             }
 
             int end = i - 1;
-
-            list.add(new Pair<>(currentElement, new IntRange(start, end)));
+            if(start != end){
+                list.add(new Pair<>(currentElement, new IntRange(start, end)));
+            }
         }
 
         return list;

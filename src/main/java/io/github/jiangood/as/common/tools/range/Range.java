@@ -3,6 +3,8 @@ package io.github.jiangood.as.common.tools.range;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 
 /**
  * 区间，如开始日期，结束日期
@@ -25,5 +27,9 @@ public class Range<T extends Comparable<T>> {
 
     public boolean isEmpty() {
         return start == null && end == null;
+    }
+
+    public boolean isSame(){
+        return Objects.equals(start, end);
     }
 }
