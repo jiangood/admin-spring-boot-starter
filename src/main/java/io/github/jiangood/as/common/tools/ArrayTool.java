@@ -1,12 +1,11 @@
 package io.github.jiangood.as.common.tools;
 
 import cn.hutool.core.lang.Pair;
-import io.github.jiangood.as.common.Point;
 import io.github.jiangood.as.common.tools.range.IntRange;
-import io.github.jiangood.as.common.tools.range.PointRange;
-import io.github.jiangood.as.common.tools.range.Range;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class ArrayTool {

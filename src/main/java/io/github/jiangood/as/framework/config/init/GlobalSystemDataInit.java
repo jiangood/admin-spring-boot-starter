@@ -1,8 +1,6 @@
 package io.github.jiangood.as.framework.config.init;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.asymmetric.RSA;
 import io.github.jiangood.as.common.tools.PasswordTool;
 import io.github.jiangood.as.framework.config.SysProperties;
 import io.github.jiangood.as.framework.dict.DictAnnHandler;

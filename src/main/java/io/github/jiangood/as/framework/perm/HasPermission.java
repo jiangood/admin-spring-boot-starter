@@ -1,6 +1,9 @@
 package io.github.jiangood.as.framework.perm;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /***
  *  简化 security 的权限注解

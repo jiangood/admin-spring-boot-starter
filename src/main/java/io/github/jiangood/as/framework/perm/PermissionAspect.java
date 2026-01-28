@@ -1,8 +1,5 @@
 package io.github.jiangood.as.framework.perm;
 
-import io.github.jiangood.as.common.dto.AjaxResult;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.security.access.AccessDeniedException;

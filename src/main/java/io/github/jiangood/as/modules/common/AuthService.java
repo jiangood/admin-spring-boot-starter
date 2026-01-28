@@ -2,7 +2,6 @@ package io.github.jiangood.as.modules.common;// 文件名: CustomLoginFilter.jav
 
 import cn.hutool.captcha.generator.CodeGenerator;
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import io.github.jiangood.as.common.tools.PasswordTool;

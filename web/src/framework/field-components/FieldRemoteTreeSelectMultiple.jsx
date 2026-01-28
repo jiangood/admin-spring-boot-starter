@@ -7,6 +7,10 @@ export class FieldRemoteTreeSelectMultiple extends React.Component {
 
     static defaultProps = {
         treeDefaultExpandAll: true,
+        style: {
+            width: '100%',
+            minWidth: 200,
+        },
     }
 
     state = {
@@ -44,10 +48,9 @@ export class FieldRemoteTreeSelectMultiple extends React.Component {
 
 
 
-
         return (
             <TreeSelect
-                style={{width: '100%', minWidth: 200}}
+                style={this.props.style}
                 allowClear={true}
                 dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                 treeData={data}
@@ -62,6 +65,7 @@ export class FieldRemoteTreeSelectMultiple extends React.Component {
                 }}
                 treeLine={{showLeafIcon: true}}
                 treeDefaultExpandAll={this.props.treeDefaultExpandAll}
+
             />
         );
     }

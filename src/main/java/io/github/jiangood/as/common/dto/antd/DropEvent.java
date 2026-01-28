@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
  * dropPosition	-1	放置在目标节点的 前面 (作为兄弟节点)。
  * dropPosition	0	放置在目标节点的 内部 (作为子节点)。
  * dropPosition	1	放置在目标节点的 后面 (作为兄弟节点)。
- * <p>
  * dropToGap	true	放置在两个兄弟节点之间的 空隙 (Gap) 中。
  * dropToGap	false	放置在目标节点 内部 (作为子节点)。
  */

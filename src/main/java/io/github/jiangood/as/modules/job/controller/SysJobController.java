@@ -12,7 +12,6 @@ import io.github.jiangood.as.framework.config.argument.RequestBodyKeys;
 import io.github.jiangood.as.framework.data.specification.Spec;
 import io.github.jiangood.as.framework.log.Log;
 import io.github.jiangood.as.framework.perm.HasPermission;
-import io.github.jiangood.as.framework.perm.PermissionActions;
 import io.github.jiangood.as.modules.job.JobDescription;
 import io.github.jiangood.as.modules.job.JobParamFieldProvider;
 import io.github.jiangood.as.modules.job.entity.SysJob;
