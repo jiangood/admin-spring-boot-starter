@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class ResourceTool {
-
     /**
      * @param path , 支持通配符 如database/*.xml
      * @return 资源
@@ -32,8 +31,8 @@ public class ResourceTool {
     }
 
     @SneakyThrows
-    public static String[] readAll(String path) {
-        Resource[] resources = findAll(path);
+    public static String[] readAllUtf8(String classPath) {
+        Resource[] resources = findAll(classPath);
         sort(resources);
         String[] arr = new String[resources.length];
         for (int i = 0; i < resources.length; i++) {
@@ -47,6 +46,23 @@ public class ResourceTool {
 
         return arr;
     }
+
+
+    /**
+     * 读取classpath下的单个文件内容
+     */
+    public static String readUtf8(String classPath) {
+        try {
+            Resource resource = findOne(classPath);
+            return IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+
+
+
 
     /**
      * 按依赖程度排序， 本框架排前，因为项目排后

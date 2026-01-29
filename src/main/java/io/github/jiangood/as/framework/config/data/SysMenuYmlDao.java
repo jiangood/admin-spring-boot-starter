@@ -57,7 +57,7 @@ public class SysMenuYmlDao implements SysMenuDao {
 
     @PostConstruct
     public void init() throws IOException {
-        String[] resources = ResourceTool.readAll(MENU_CONFIG_PATTERN);
+        String[] resources = ResourceTool.readAllUtf8(MENU_CONFIG_PATTERN);
         List<MenuDefinition> menus = new ArrayList<>();
         for (String configFile : resources) {
             DataProperties cur = YmlTool.parseYml(configFile, DataProperties.class, "data");

@@ -1,78 +1,65 @@
 import {IApi} from 'umi';
-import * as fs from "fs";
-import * as path from "path";
+import Utils from "./Utils";
 
-// 自动注册src/forms下的表单
-const pkgName = '@jiangood/admin-spring-boot-starter';
-export default (api: IApi) => {
 
-    api.describe({
-        key: 'addDependenceRoutes',
-    });
+function convertFileToRoute(file) {
+    const absPath = file;
+    const mainName = Utils.getFileMainName(file)
 
-    const pageDir = api.paths.absNodeModulesPath + "/" + pkgName + "/src/pages"
-    api.logger.info('scan dir is', pageDir);
-    const exist = fs.existsSync(pageDir)
-    if(!exist){
-        api.logger.info('dir not exist, return ')
+    // 只添加小写开头的文件页面，大写的默认为组件
+    if (mainName.charAt(0) !== mainName.charAt(0).toLowerCase()) {
         return
     }
 
-    const frameworkRoutes = []
-    parseDir(pageDir, frameworkRoutes)
-    api.logger.info('框架路由数量： ',frameworkRoutes.length)
-    api.modifyRoutes((routes) => {
-        // routes 代表用户项目的路由，umi已经自动解析过pages目录
-        // 接下来加入加入框架的路由，确保用户项目路由优先级高
-        for (let route of frameworkRoutes) {
-            if (routes[route.id] == null) { //  如果用户项目没有这个路由，则加入。否则以用户项目为准
-                routes[route.id] = route
-            }
-        }
-        return routes;
-    })
-};
-
-function parseDir(pageDir, fileRoutes) {
-    const list = fs.readdirSync(pageDir)
-
-    for (let fileName of list) {
-        const fullPath = path.join(pageDir, fileName)
-        const stats = fs.statSync(fullPath)
-        if (stats.isFile()) {
-            if (fileName.endsWith(".jsx")) {
-                addRoute(fullPath, fileRoutes)
-            }
-        } else if (stats.isDirectory()) {
-            parseDir(fullPath, fileRoutes)
-        }
-
-    }
-}
-
-function addRoute(file, fileRoutes) {
     let routePath = file.substring(file.indexOf('pages') + 6, file.length - 4)
-    routePath = routePath.replaceAll('\\', '/')
-    // 文件$开头的会替换为路径变量 如$id 变为 :id
-    routePath = routePath.replaceAll("\$", ":")
+    routePath = routePath.replaceAll("\$", ":")    // 文件$开头的会替换为路径变量 如$id 变为 :id
 
     let parentId = "@@/global-layout";
-    fileRoutes.push({
-        absPath: file,
+
+    if (routePath.endsWith("/index")) {
+        routePath = routePath.substring(0, routePath.length - 6)
+    }
+    return {
+        absPath,
         id: routePath,
         path: routePath,
         file,
         parentId
-    })
-
-    if (routePath.endsWith("/index")) {
-        routePath = routePath.substring(0, routePath.length - 6)
-        fileRoutes.push({
-            absPath: file,
-            id: routePath,
-            path: routePath,
-            file,
-            parentId: parentId
-        })
     }
 }
+
+
+
+
+export default (api: IApi) => {
+
+    api.describe({
+        key: 'admin-spring-boot-stater-route',
+    });
+
+    api.logger.info('plugin starting... ')
+
+    const frameworkDirs = Utils.getDirs(api.paths.absNodeModulesPath + "/@jiangood");
+    api.logger.info('依赖的框架：', frameworkDirs)
+
+    for (let frameworkDir of frameworkDirs) {
+        api.logger.info("正在解析文件夹", frameworkDir)
+
+        // 处理路由
+        const routeFiles = Utils.findFilesSync(frameworkDir, /src\/pages\/.*\.jsx$/) // src/pages/**
+        api.logger.info("找到的页面文件：", routeFiles)
+        api.modifyRoutes((routes) => {
+            for (let file of routeFiles) {
+                const route = convertFileToRoute(file)
+                if(route){
+                    if (routes[route.id] == null) { //  如果用户项目没有这个路由，则加入。否则以用户项目为准
+                        api.logger.info("加入路由:", route.id, "路径:",route.absPath)
+                        routes[route.id] = route
+                    }
+                }
+            }
+            api.logger.info("路由修改完成")
+            return routes;
+        })
+    }
+};

@@ -1,6 +1,7 @@
 import {IApi} from 'umi';
 import * as fs from "fs";
 import * as path from "path";
+import Utils from "./Utils";
 
 // 自动注册src/forms下的表单
 const pkgName = '@jiangood/admin-spring-boot-starter';
@@ -11,51 +12,41 @@ export default (api: IApi) => {
     api.logger.info('info', JSON.stringify(api.env))
 
     api.describe({
-        key: 'form-register-by-dir',
+        key: 'admin-spring-boot-stater-route-form',
     });
     const isFramework = api.pkg.name === pkgName;
     api.logger.info('current pkgName', api.pkg.name)
     api.logger.info('is framework ?', isFramework)
 
-    let formRegistryPath = path.join(api.paths.absSrcPath, 'framework')
-    if (!isFramework) {
-        formRegistryPath = path.join(api.paths.absNodeModulesPath, pkgName)
-    }
-    api.logger.info('formRegistryPath', formRegistryPath)
-    api.addEntryImports(() => ({
-        source: formRegistryPath,
-        specifier: '{FormRegistryUtils}'
-    }))
+    // 导入工具类 FormRegistryUtils
+    {
+        let importFrom = path.join(api.paths.absSrcPath, 'framework')
+        if (!isFramework) {
+            importFrom = path.join(api.paths.absNodeModulesPath, pkgName)
+        }
 
-    parseDir(api, path.join(api.paths.absSrcPath, 'forms'))
-    if (!isFramework) {
-        parseDir(api, path.join(api.paths.absNodeModulesPath, pkgName, 'src', 'forms'))
+        api.logger.info('formRegistryPath', importFrom)
+        api.addEntryImports(() => ({
+            source: importFrom,
+            specifier: '{FormRegistryUtils}'
+        }))
     }
+
+
+    Utils.findFilesSync(api.paths.absSrcPath, /forms\/.*\.jsx$/).forEach(file => {
+       importForm(api, file)
+    })
 
 };
+function importForm(api: IApi, file: string) {
+    const name =  Utils.getFileMainName(file)
 
-function parseDir(api: IApi, dir: string) {
-    api.logger.info('scan dir', dir)
-    if (!fs.existsSync(dir)) {
-        api.logger.info('dir not exist, return ')
-        return
-    }
-    fs.readdirSync(dir).forEach(file => {
-        if (!file.endsWith(".jsx")) {
-            return;
-        }
-        let source = path.join(dir, file);
-        let name = file.replace(".jsx", "");
+    api.addEntryImports(() => ({
+        source: file,
+        specifier: name
+    }))
 
-
-        // import form
-        api.addEntryImports(() => ({
-            source: source,
-            specifier: name
-        }))
-
-        // register form
-        api.addEntryCodeAhead(() => `FormRegistryUtils.register("${name}",${name} );`)
-        api.logger.info('formRegistry.register: ', name, source)
-    });
+    // register form
+    api.addEntryCodeAhead(() => `FormRegistryUtils.register("${name}",${name} );`)
+    api.logger.info('新版本 formRegistry.register: ', name, file)
 }
