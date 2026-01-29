@@ -9,7 +9,7 @@ console.log('i am config.ts')
 console.log('__dirname', __dirname)
 console.log('process.cwd()',process.cwd())
 
-const isFramework = fs.existsSync(path.join(process.cwd(), 'config/plugins/route-plugin.ts'));
+const isFramework = fs.existsSync(path.join(process.cwd(), 'config/plugins/common-plugin.ts'));
 console.log('isFramework', isFramework)
 const pluginDir = isFramework ? './config/plugins' : '@jiangood/admin-spring-boot-starter/config/dist/plugins';
 console.log('pluginDir', pluginDir)
@@ -26,7 +26,6 @@ export default defineConfig({
 
 
     plugins: [
-        pluginDir +'/form-plugin',
         pluginDir +'/route-plugin',
      ],
 

@@ -1,3 +1,2 @@
 export   * from './config';
-export   * from './plugins/route-plugin';
-export   * from './plugins/form-plugin';
+export   * from './common-plugin';
