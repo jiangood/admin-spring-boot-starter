@@ -1,6 +1,6 @@
 import {IApi} from 'umi';
-import fs from "fs";
-import path from "path";
+import * as fs from "fs";
+import * as path from "path";
 
 const pkgName = '@jiangood/admin-spring-boot-starter';
 
