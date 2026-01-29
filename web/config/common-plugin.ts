@@ -1,9 +1,8 @@
 import {IApi} from 'umi';
 import fs from "fs";
 import path from "path";
+
 const pkgName = '@jiangood/admin-spring-boot-starter';
-
-
 
 
 export default (api: IApi) => {
@@ -17,9 +16,11 @@ export default (api: IApi) => {
     const isFramework = api.pkg.name === pkgName;
 
 
+
     const frameworkDirs = Utils.getDirs(api.paths.absNodeModulesPath + "/@jiangood");
     api.logger.info('依赖的框架：', frameworkDirs)
 
+    // ==================== 处理路由 ========================
     for (let frameworkDir of frameworkDirs) {
         api.logger.info("正在解析文件夹", frameworkDir)
 
@@ -29,9 +30,9 @@ export default (api: IApi) => {
         api.modifyRoutes((routes) => {
             for (let file of routeFiles) {
                 const route = convertFileToRoute(file)
-                if(route){
+                if (route) {
                     if (routes[route.id] == null) { //  如果用户项目没有这个路由，则加入。否则以用户项目为准
-                        api.logger.info("加入路由:", route.id, "路径:",route.absPath)
+                        api.logger.info("加入路由:", route.id, "路径:", route.absPath)
                         routes[route.id] = route
                     }
                 }
@@ -42,8 +43,9 @@ export default (api: IApi) => {
     }
 
 
-// 导入工具类 FormRegistryUtils
-    {
+    // =============== 处理表单 ========================
+
+    {// 导入工具类 FormRegistryUtils
         let importFrom = path.join(api.paths.absSrcPath, 'framework')
         if (!isFramework) {
             importFrom = path.join(api.paths.absNodeModulesPath, pkgName)
@@ -58,7 +60,16 @@ export default (api: IApi) => {
 
 
     Utils.findFilesSync(api.paths.absSrcPath, /forms\/.*\.jsx$/).forEach(file => {
-        importForm(api, file)
+        const name = Utils.getFileMainName(file)
+
+        api.addEntryImports(() => ({
+            source: file,
+            specifier: name
+        }))
+
+        // register form
+        api.addEntryCodeAhead(() => `FormRegistryUtils.register("${name}",${name} );`)
+        api.logger.info('新版本 formRegistry.register: ', name, file)
     })
 
 };
@@ -88,20 +99,6 @@ function convertFileToRoute(file) {
         file,
         parentId
     }
-}
-
-
-function importForm(api: IApi, file: string) {
-    const name =  Utils.getFileMainName(file)
-
-    api.addEntryImports(() => ({
-        source: file,
-        specifier: name
-    }))
-
-    // register form
-    api.addEntryCodeAhead(() => `FormRegistryUtils.register("${name}",${name} );`)
-    api.logger.info('新版本 formRegistry.register: ', name, file)
 }
 
 class Utils {
