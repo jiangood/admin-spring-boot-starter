@@ -8,19 +8,24 @@ const pkgName = '@jiangood/open-admin';
 export default (api: IApi) => {
 
     api.describe({
-        key: 'admin-spring-boot-stater',
+        key: 'open-admin',
     });
 
-    api.logger.info('plugin starting... ')
+
 
     const isFramework = api.pkg.name === pkgName;
 
 
 
-    const frameworkDirs = Utils.getDirs(api.paths.absNodeModulesPath + "/@jiangood");
-    api.logger.info('依赖的框架：', frameworkDirs)
+    let frameworkDirs = Utils.getDirs(api.paths.absNodeModulesPath + "/@jiangood");
 
     // ==================== 处理路由 ========================
+
+    // 让名字长的在最前面，插件名称通常时open-admin-xxx, 这样就能保证先解析插件的路由
+    frameworkDirs = frameworkDirs.reverse()
+
+    api.logger.info('依赖的框架：', frameworkDirs)
+
     for (let frameworkDir of frameworkDirs) {
         api.logger.info("正在解析文件夹", frameworkDir)
 

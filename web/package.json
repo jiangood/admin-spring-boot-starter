@@ -2,7 +2,6 @@
   "devDependencies": {
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.0.0",
-    "@types/react-lazylog": "^4.5.1",
     "@umijs/plugins": "^4.3.17",
     "typescript": "^5.0.0"
   },
@@ -25,6 +24,11 @@
     "react-dom": "^19.0.0",
     "umi": "^4.0.0"
   },
+  "peerDependenciesMeta": {
+    "@ant-design/icons": {
+      "optional": false
+    }
+  },
   "name": "@jiangood/open-admin",
   "description": "open-admin",
   "files": [
@@ -37,5 +41,5 @@
     "dev": "umi dev",
     "build": "tsc --outDir config/dist --skipLibCheck --noEmitOnError false config/index.ts"
   },
-  "version": "0.2.8-beta.4"
+  "version": "1.0.0-beta.5"
 }
