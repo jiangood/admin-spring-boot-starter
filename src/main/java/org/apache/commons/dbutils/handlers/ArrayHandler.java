@@ -16,8 +16,8 @@
  */
 package org.apache.commons.dbutils.handlers;
 
-import io.github.jiangood.as.common.tools.jdbc.impl.MyBeanProcessor;
-import io.github.jiangood.as.common.tools.jdbc.impl.MyRowProcessor;
+import io.github.jiangood.openadmin.common.tools.jdbc.impl.MyBeanProcessor;
+import io.github.jiangood.openadmin.common.tools.jdbc.impl.MyRowProcessor;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.RowProcessor;
 

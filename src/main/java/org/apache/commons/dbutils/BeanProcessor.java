@@ -258,7 +258,7 @@ public class BeanProcessor {
     }
 
     /**
-     * Check whether a value is of the same primitive type as {@code targetType}.
+     * Check whether a value is of the same primitive type openadmin {@code targetType}.
      *
      * @param targetType The primitive type to target.
      * @param valueType The value to match to the primitive type.
@@ -436,7 +436,7 @@ public class BeanProcessor {
      * &lt;br/&gt;
      * &lt;ol&gt;
      *     &lt;li&gt;
-     *     The class has a writable property with the same name as a column.
+     *     The class has a writable property with the same name openadmin a column.
      *     The name comparison is case insensitive.
      *     &lt;/li&gt;
      *
@@ -453,7 +453,7 @@ public class BeanProcessor {
      * returned from the {@code ResultSet}.  Numeric fields are set to 0
      * and booleans are set to false.  Object bean properties are set to
      * {@code null} when SQL NULL is returned.  This is the same behavior
-     * as the {@code ResultSet} get* methods.
+     * openadmin the {@code ResultSet} get* methods.
      * &lt;/p&gt;
      * @param <T> The type of bean to create
      * @param rs ResultSet that supplies the bean data
@@ -474,7 +474,7 @@ public class BeanProcessor {
      * &lt;br/&gt;
      * &lt;ol&gt;
      *     &lt;li&gt;
-     *     The class has a writable property with the same name as a column.
+     *     The class has a writable property with the same name openadmin a column.
      *     The name comparison is case insensitive.
      *     &lt;/li&gt;
      *
@@ -491,7 +491,7 @@ public class BeanProcessor {
      * returned from the {@code ResultSet}.  Numeric fields are set to 0
      * and booleans are set to false.  Object bean properties are set to
      * {@code null} when SQL NULL is returned.  This is the same behavior
-     * as the {@code ResultSet} get* methods.
+     * openadmin the {@code ResultSet} get* methods.
      * &lt;/p&gt;
      * @param <T> The type of bean to create
      * @param resultSet ResultSet that supplies the bean data
