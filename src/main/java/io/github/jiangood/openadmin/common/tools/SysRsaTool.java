@@ -4,7 +4,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 
 public class SysRsaTool {
-    private static final  RSA rsa = SecureUtil.rsa();
+    private static final RSA rsa = SecureUtil.rsa();
 
     public static RSA getRsa() {
         return rsa;
@@ -17,7 +17,6 @@ public class SysRsaTool {
     public static String getPrivateKey() {
         return rsa.getPrivateKeyBase64();
     }
-
 
 
 }

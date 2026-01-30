@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = {"x", "y"})
 @NoArgsConstructor
 @AllArgsConstructor
-public class Point implements Comparable<Point>{
+public class Point implements Comparable<Point> {
     int x;
     int y;
 

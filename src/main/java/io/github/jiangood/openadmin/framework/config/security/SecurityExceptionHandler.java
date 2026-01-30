@@ -21,8 +21,8 @@ public class SecurityExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public AjaxResult handleAccessDeniedException(AccessDeniedException ex) {
         String msg = ex.getMessage();
-        if(msg.startsWith(FORBIDDEN_MESSAGE)){
-            return  AjaxResult.err(HttpStatus.FORBIDDEN.value(), msg);
+        if (msg.startsWith(FORBIDDEN_MESSAGE)) {
+            return AjaxResult.err(HttpStatus.FORBIDDEN.value(), msg);
         }
         return AjaxResult.FORBIDDEN;
     }

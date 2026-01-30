@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class StrTool {
 
-    public static String joinIgnoreEmpty(char conjunction,  String... list){
+    public static String joinIgnoreEmpty(char conjunction, String... list) {
         StringBuilder sb = new StringBuilder();
         for (String s : list) {
             if (s != null && !s.isEmpty()) {

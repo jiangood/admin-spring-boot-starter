@@ -34,9 +34,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
     SysUserDao sysUserDao;
 
 
-
-
-
     @Resource
     DictAnnHandler dictAnnHandler;
 
@@ -70,8 +67,6 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
         systemHookService.trigger(SystemHookEventType.AFTER_DATA_INIT);
     }
-
-
 
 
     private void initUser(SysRole adminRole) {

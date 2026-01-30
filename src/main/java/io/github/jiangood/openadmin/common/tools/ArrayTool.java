@@ -15,7 +15,7 @@ public class ArrayTool {
             return false;
         }
         for (Object o : arr) {
-            if (o != null &&o.getClass() == clazz) {
+            if (o != null && o.getClass() == clazz) {
                 return true;
             }
         }

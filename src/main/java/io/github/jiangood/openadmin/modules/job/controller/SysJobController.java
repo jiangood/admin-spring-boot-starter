@@ -46,7 +46,7 @@ public class SysJobController {
     private QuartzManager quartzService;
 
 
-    @HasPermission("job:view" )
+    @HasPermission("job:view")
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws SchedulerException {
         return AjaxResult.ok().data(service.page(searchText, pageable));

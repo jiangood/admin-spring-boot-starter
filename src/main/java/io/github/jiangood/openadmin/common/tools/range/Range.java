@@ -29,7 +29,7 @@ public class Range<T extends Comparable<T>> {
         return start == null && end == null;
     }
 
-    public boolean isSame(){
+    public boolean isSame() {
         return Objects.equals(start, end);
     }
 }
