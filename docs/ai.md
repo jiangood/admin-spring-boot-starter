@@ -1,5 +1,5 @@
 # 使用ai生成业务代码的步骤
-- 阅读框架文档 https://jiangood.github.io/admin-spring-boot-starter
+- 阅读框架文档 https://jiangood.github.io/open-admin
 - 分析需求，分析出需要的实体
 - 参考框架文档生成业务代码,严格按照模板代码，确保java代码中的import和模板一致
 - 检查代码，确保没有问题，确保代码简洁

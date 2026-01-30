@@ -6,8 +6,8 @@
 ```java
 package io.admin.modules.system.entity;
 
-import annotation.tools.common.io.github.jiangood.as.Remark;
-import domain.data.framework.io.github.jiangood.as.BaseEntity;
+import annotation.tools.common.io.github.jiangood.openadmin.Remark;
+import domain.data.framework.io.github.jiangood.openadmin.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -42,7 +42,7 @@ public class User extends BaseEntity {
 ```java
 package io.admin.modules.system.dao;
 
-import repository.data.framework.io.github.jiangood.as.BaseDao;
+import repository.data.framework.io.github.jiangood.openadmin.BaseDao;
 import io.admin.modules.system.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +58,7 @@ public class UserDao extends BaseDao<User> {
 ```java
 package io.admin.modules.system.service;
 
-import service.data.framework.io.github.jiangood.as.BaseService;
+import service.data.framework.io.github.jiangood.openadmin.BaseService;
 import io.admin.modules.system.dao.UserDao;
 import io.admin.modules.system.entity.User;
 import jakarta.annotation.Resource;
@@ -79,10 +79,10 @@ public class UserService extends BaseService<User> {
 ```java
 package io.admin.modules.system.controller;
 
-import dto.common.io.github.jiangood.as.AjaxResult;
-import argument.config.framework.io.github.jiangood.as.RequestBodyKeys;
-import security.config.framework.io.github.jiangood.as.HasPermission;
-import specification.data.framework.io.github.jiangood.as.Spec;
+import dto.common.io.github.jiangood.openadmin.AjaxResult;
+import argument.config.framework.io.github.jiangood.openadmin.RequestBodyKeys;
+import security.config.framework.io.github.jiangood.openadmin.HasPermission;
+import specification.data.framework.io.github.jiangood.openadmin.Spec;
 import io.admin.modules.system.entity.User;
 import io.admin.modules.system.service.UserService;
 import jakarta.annotation.Resource;
@@ -149,7 +149,7 @@ public class UserController {
 import {PlusOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Modal, Popconfirm} from 'antd'
 import React from 'react'
-import {ButtonList, FieldUploadFile, HttpUtils, Page, ProTable} from "@jiangood/admin-spring-boot-starter";
+import {ButtonList, FieldUploadFile, HttpUtils, Page, ProTable} from "@jiangood/open-admin";
 
 export default class extends React.Component {
 

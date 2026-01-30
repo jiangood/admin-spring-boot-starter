@@ -1,6 +1,6 @@
 # 目录
 
-- [admin-spring-boot-starter 使用说明书](#admin-spring-boot-starter-使用说明书)
+- [open-admin 使用说明书](#open-admin-使用说明书)
 - [介绍](#介绍)
   - [项目依赖](#项目依赖)
   - [核心功能](#核心功能)
@@ -1174,7 +1174,7 @@ process:
   list:
     - key: "leave_request"
       name: "请假流程"
-      listener: example.flowable.modules.io.github.jiangood.as.LeaveProcessListener
+      listener: example.flowable.modules.io.github.jiangood.openadminenadmin.LeaveProcessListener
       variables:
         - name: "days"
           label: "请假天数"
