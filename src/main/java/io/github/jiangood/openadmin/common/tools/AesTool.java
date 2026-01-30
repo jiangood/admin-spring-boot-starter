@@ -1,4 +1,4 @@
-package io.github.jiangood.as.common.tools;
+package io.github.jiangood.openadmin.common.tools;
 
 import cn.hutool.crypto.SecureUtil;
 
