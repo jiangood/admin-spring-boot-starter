@@ -1153,14 +1153,7 @@ data:
           perm: sysUser:delete
 ```
 
-#### DataProperties
 
-数据配置属性类，用于加载application.yml中的data配置。
-
-| 属性 | 说明 | 类型 |
-|------|------|------|
-| `menus` | 菜单定义列表 | `List<MenuDefinition>` |
-| `configs` | 配置组定义列表 | `List<ConfigGroupDefinition>` |
 
 ### 流程引擎
 
