@@ -1,130 +1,64 @@
-# Open Admin
+# open-admin
 
-## 项目简介
+## 项目介绍
 
-Open Admin 是一个功能强大的前后端一体化管理系统框架，基于 Spring Boot + React + Ant Design + Umi 技术栈，为企业级应用提供快速开发解决方案。
+open-admin 是一个小型管理系统框架，提供了一整套前后端开箱即用的解决方案，包括用户管理、角色权限、数据字典、作业调度、流程引擎等功能。
 
-## 技术栈
-
-### 后端
-- Spring Boot
-- Hibernate/JPA
-- Maven
-
-### 前端
-- React
-- Ant Design
-- Umi
-- TypeScript
+本框架旨在简化企业级管理系统开发，提供了完整的权限体系、数据管理、作业调度和工作流引擎，支持快速构建各类管理后台系统。
 
 ## 核心功能
 
-### 后端核心功能
-- 基础数据模型和服务
-- 权限管理系统
-- 日志管理
-- 数据验证
-- 字典管理
-- 定时任务
-- 丰富的工具类库
+1. **用户权限管理**：完整的用户、角色、权限体系
+2. **数据字典管理**：统一的数据字典维护和使用
+3. **作业调度**：基于Quartz的定时任务管理
+4. **文件管理**：统一的文件上传、存储和管理
+5. **系统配置**：灵活的系统参数配置
+6. **操作日志**：完整的操作日志记录
+7. **报表管理**：集成UReport报表引擎
+8. **流程引擎**：内置工作流引擎，支持自定义流程
 
-### 前端核心功能
-- 响应式布局
-- 表单组件
-- 表格组件
-- 权限控制
-- 字典选择器
-- 文件上传
-- 富文本编辑器
-- 系统管理页面
+## 技术栈
+
+- **前端**：React、Ant Design、UmiJS
+- **后端**：Java、Spring Boot、JPA、Quartz
+- **数据库**：MySQL
+- **流程引擎**：内置工作流引擎
+- **报表引擎**：UReport
+
+## 文档导航
+
+- **[快速开始](./docs/quick-start.md)**：项目环境搭建和基础使用
+- **[架构设计](./docs/architecture.md)**：系统架构和设计理念
+- **[前端文档](./docs/frontend/)**：前端组件和工具类使用指南
+  - [组件库](./docs/frontend/components.md)
+  - [工具类](./docs/frontend/utils.md)
+  - [字段组件](./docs/frontend/field-components.md)
+- **[后端文档](./docs/backend/)**：后端模块和工具使用指南
+  - [数据规范](./docs/backend/data-spec.md)
+  - [工具类](./docs/backend/utils.md)
+  - [注解](./docs/backend/annotations.md)
+  - [验证器](./docs/backend/validators.md)
+- **[开发指南](./docs/guide/)**：开发规范和最佳实践
+  - [编码规范](./docs/guide/coding-standard.md)
+  - [智能体使用](./docs/guide/agent.md)
+- **[配置说明](./docs/config/)**：系统配置和环境变量
+- **[功能模块](./docs/modules/)**：核心功能模块详细说明
+
+## 系统要求
+
+- JDK 17+
+- MySQL 8.0+
+- Node.js 16+
+- npm 7+
 
 ## 快速开始
 
-### 使用示例项目
-
-```bash
-git clone https://github.com/jiangood/open-admin-example.git
-cd open-admin-example
-# 后端启动
-mvn spring-boot:run
-# 前端启动
-cd web
-npm install
-npm run dev
-```
-
-## 安装和使用
-
-### 后端依赖
-
-![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/open-admin)
-
-```xml
-<dependency>
-  <groupId>io.github.jiangood</groupId>
-  <artifactId>open-admin</artifactId>
-  <version>最新版本</version>
-</dependency>
-```
-
-### 前端依赖
-
-![NPM Version](https://img.shields.io/npm/v/@jiangood/open-admin)
-
-```bash
-npm install @jiangood/open-admin
-```
-
-## 目录结构
-
-```
-├── src/             # 后端源码
-│   ├── main/java/io/github/jiangood/openadmin/
-│   │   ├── dto/     # 数据传输对象
-│   │   ├── framework/  # 框架核心
-│   │   ├── lang/    # 工具类库
-│   │   └── modules/  # 功能模块
-│   └── main/resources/  # 后端资源
-├── web/             # 前端源码
-│   ├── src/         # 前端源码
-│   │   ├── components/  # 组件
-│   │   ├── pages/    # 页面
-│   │   └── utils/    # 工具类
-│   └── package.json  # 前端依赖
-├── docs/            # 文档
-└── README.md        # 项目说明
-```
-
-## 文档
-
-- [智能体](docs/智能体.md)
-- [编码规范](docs/编码规范.md)
-
-## 快照版本
-
-```xml
-<repository>
-    <name>Central Portal Snapshots</name>
-    <id>central-portal-snapshots</id>
-    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-    <releases>
-        <enabled>false</enabled>
-    </releases>
-    <snapshots>
-        <enabled>true</enabled>
-    </snapshots>
-</repository>
-```
-
-## 贡献指南
-
-欢迎贡献代码和提出问题！请遵循以下步骤：
-
-1. Fork 项目
-2. 创建分支
-3. 提交更改
-4. 发起 Pull Request
+请参考 [快速开始](./docs/quick-start.md) 文档，了解如何搭建项目环境和开始使用。
 
 ## 许可证
 
-本项目采用 MIT 许可证。
+MIT License
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request 来帮助改进这个项目！

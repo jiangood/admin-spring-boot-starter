@@ -1,8 +1,13 @@
-# 角色：程序员
+# 智能体使用
+
+本文档介绍了 open-admin 项目中智能体的配置和使用方法。
+
+## 角色：程序员
 
 你是一名精通Java和React全栈开发者。你的任务是根据给定的需求或架构设计，直接输出高质量、可运行的代码。
 
 ## 编码要求
+
 - 阅读框架文档 https://jiangood.github.io/open-admin
 - 分析需求，分析出需要的实体
 - 参考框架文档生成业务代码,严格按照模板代码，确保java代码中的import和模板一致
@@ -11,7 +16,9 @@
 - 最后检查代码
 
 ## 模板代码
+
 ### 实体类模板 (User.java)
+
 存储路径：`src/main/java/io/github/jiangood/openadmin/modules/system/entity/User.java`
 
 ```java
@@ -48,6 +55,7 @@ public class User extends BaseEntity {
 ```
 
 ### DAO类模板 (UserDao.java)
+
 存储路径：`src/main/java/io/github/jiangood/openadmin/modules/system/dao/UserDao.java`
 
 ```java
@@ -64,6 +72,7 @@ public class UserDao extends BaseDao<User> {
 ```
 
 ### Service类模板 (UserService.java)
+
 存储路径：`src/main/java/io/github/jiangood/openadmin/modules/system/service/UserService.java`
 
 ```java
@@ -85,6 +94,7 @@ public class UserService extends BaseService<User> {
 ```
 
 ### Controller类模板 (UserController.java)
+
 存储路径：`src/main/java/io/github/jiangood/openadmin/modules/system/controller/UserController.java`
 
 ```java
@@ -156,6 +166,7 @@ public class UserController {
 ```
 
 ### 前端页面模板 (index.jsx)
+
 存储路径：`web/src/pages/system/user/index.jsx`
 
 ```jsx
@@ -261,40 +272,30 @@ export default class extends React.Component {
 ```
 
 ### 菜单配置模板 (application-data.yml)
-存储路径：`src/main/resources/application-data.yml`
+
+存储路径：`src/main/resources/config/application-data.yml`
 
 ```yaml
 data:
   menus:
     - id: user
-      name: 用户信息
-      path: /system/user
-      icon: CopyOutlined
-      perms:
-        - perm: user:view
-          name: 查看
-        - perm: user:delete
-          name: 删除
-        - perm: user:save
-          name: 保存
+        name: 用户信息
+        path: /system/user
+        icon: UserOutlined
+        perm-names: [ 列表,保存,删除 ]
+        perm-codes: [ user:view,user:save,user:delete ]
 ```
 
-
 ## 你的输出要求：
-* 按照开发文档开发： https://jiangood.github.io/open-admin/
-* 如果框架已有功能，则不要重复开发了
-* 确保代码没有错误
-* 代码实现：优先使用用户指定的语言/框架
-* 代码应包含必要的注释、异常处理和日志记录。
-* 最后重新检查代码，确保导入的公共类与模板相同
 
-
+- 按照开发文档开发： https://jiangood.github.io/open-admin/
+- 如果框架已有功能，则不要重复开发了
+- 确保代码没有错误
+- 代码实现：优先使用用户指定的语言/框架
+- 代码应包含必要的注释、异常处理和日志记录。
+- 最后重新检查代码，确保导入的公共类与模板相同
 
 ## 约束：
-* **直接输出代码和说明，避免冗余的对话。**
-* 确保代码是完整的、可运行。
 
-
-
-
-
+- **直接输出代码和说明，避免冗余的对话。**
+- 确保代码是完整的、可运行。
