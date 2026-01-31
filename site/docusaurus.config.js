@@ -77,14 +77,14 @@ const config = {
   /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
       ({
         // Replace with your project's social card
-        image: 'img/docusaurus-social-card.jpg',
+        image: 'img/logo.svg',
         colorMode: {
           respectPrefersColorScheme: true,
         },
         navbar: {
-          title: 'My Site',
+          title: 'open-admin',
           logo: {
-            alt: 'My Site Logo',
+            alt: 'open-admin Logo',
             src: 'img/logo.svg',
           },
           items: [
@@ -92,7 +92,7 @@ const config = {
               type: 'docSidebar',
               sidebarId: 'tutorialSidebar',
               position: 'left',
-              label: 'Tutorial',
+              label: '文档',
             },
             {to: '/blog', label: 'Blog', position: 'left'},
             {
@@ -109,8 +109,8 @@ const config = {
               title: 'Docs',
               items: [
                 {
-                  label: 'Tutorial',
-                  to: '/docs/intro',
+                  label: '快速开始',
+                  to: '/docs/index',
                 },
               ],
             },
