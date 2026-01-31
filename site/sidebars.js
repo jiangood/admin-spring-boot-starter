@@ -2,6 +2,11 @@
 const sidebars = {
   tutorialSidebar: [
     {
+      type: 'doc',
+      label: '首页',
+      id: 'index',
+    },
+    {
       type: 'category',
       label: '项目概述',
       items: [
@@ -15,6 +20,7 @@ const sidebars = {
       items: [
         'frontend/components',
         'frontend/field-components',
+        'frontend/system-components',
         'frontend/utils',
       ],
     },
@@ -26,6 +32,7 @@ const sidebars = {
         'backend/utils',
         'backend/annotations',
         'backend/validators',
+        'backend/job',
       ],
     },
     {
@@ -33,6 +40,7 @@ const sidebars = {
       label: '开发指南',
       items: [
         'guide/coding-standard',
+        'guide/best-practices',
         'guide/agent',
       ],
     },
