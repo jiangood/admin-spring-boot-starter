@@ -29,7 +29,7 @@ public class SysManualController {
         Spec<SysManual> q = Spec.of();
         q.orLike(searchText, SysManual.Fields.name);
 
-        Page<SysManual> page = service.findPageByRequest(q, pageable);
+        Page<SysManual> page = service.findAllByUserAction(q, pageable);
 
 
         return AjaxResult.ok().data(page);
@@ -39,14 +39,14 @@ public class SysManualController {
     @PreAuthorize("hasAuthority('sysManual:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysManual input, RequestBodyKeys updateFields) throws Exception {
-        service.saveOrUpdateByRequest(input, updateFields);
+        service.saveOrUpdateByUserAction(input, updateFields);
         return AjaxResult.ok().msg("保存成功");
     }
 
     @PreAuthorize("hasAuthority('sysManual:delete')")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
-        service.deleteByRequest(id);
+        service.deleteByUserAction(id);
         return AjaxResult.ok().msg("删除成功");
     }
 

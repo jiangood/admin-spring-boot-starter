@@ -34,8 +34,8 @@ public class SysJobService extends BaseService<SysJob> {
 
 
     @Override
-    public SysJob saveOrUpdateByRequest(SysJob input, List<String> updateKeys) throws Exception {
-        SysJob db = super.saveOrUpdateByRequest(input, updateKeys);
+    public SysJob saveOrUpdateByUserAction(SysJob input, List<String> updateKeys) throws Exception {
+        SysJob db = super.saveOrUpdateByUserAction(input, updateKeys);
 
         quartzService.deleteJob(db);
         if (db.getEnabled()) {

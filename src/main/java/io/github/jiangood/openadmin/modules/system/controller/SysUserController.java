@@ -87,7 +87,7 @@ public class SysUserController {
 
 
         updateFields.add("unitId");
-        sysUserService.saveOrUpdateByRequest(input, updateFields);
+        sysUserService.saveOrUpdateByUserAction(input, updateFields);
 
         if (isNew) {
 
@@ -163,7 +163,7 @@ public class SysUserController {
 
         }
 
-        Page<SysUser> page = sysUserService.findPageByRequest(query, PageRequest.of(0, 200));
+        Page<SysUser> page = sysUserService.findAllByUserAction(query, PageRequest.of(0, 200));
 
 
         Map<String, SysOrg> dict = sysOrgService.dict();

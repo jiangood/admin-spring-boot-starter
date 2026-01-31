@@ -27,7 +27,7 @@ public abstract class BaseService<T extends Persistable<String>> {
      * 防止了全字段更新，以免有些字段非前端输入的情况
      */
     @Transactional
-    public T saveOrUpdateByRequest(T input, List<String> updateKeys) throws Exception {
+    public T saveOrUpdateByUserAction(T input, List<String> updateKeys) throws Exception {
         if (input.isNew()) {
             return baseDao.save(input);
         }
@@ -38,11 +38,11 @@ public abstract class BaseService<T extends Persistable<String>> {
 
 
     @Transactional
-    public void deleteByRequest(String id) {
+    public void deleteByUserAction(String id) {
         baseDao.deleteById(id);
     }
 
-    public Page<T> findPageByRequest(Specification<T> spec, Pageable pageable) {
+    public Page<T> findAllByUserAction(Specification<T> spec, Pageable pageable) {
         return baseDao.findAll(spec, pageable);
     }
 

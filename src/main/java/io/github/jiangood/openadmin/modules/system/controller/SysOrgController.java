@@ -81,7 +81,7 @@ public class SysOrgController {
         SysOrg input2 = BeanTool.copy(input, new SysOrg());
         input2.setType(input.getType().getCode());
 
-        sysOrgService.saveOrUpdateByRequest(input2, requestBodyKeys);
+        sysOrgService.saveOrUpdateByUserAction(input2, requestBodyKeys);
 
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
 
@@ -92,7 +92,7 @@ public class SysOrgController {
     @PreAuthorize("hasAuthority('sysOrg:delete')")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
-        sysOrgService.deleteByRequest(id);
+        sysOrgService.deleteByUserAction(id);
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
         return AjaxResult.ok().msg("删除机构成功");
     }

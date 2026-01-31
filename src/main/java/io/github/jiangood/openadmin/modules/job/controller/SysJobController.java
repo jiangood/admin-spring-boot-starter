@@ -56,7 +56,7 @@ public class SysJobController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysJob param, RequestBodyKeys updateFields) throws Exception {
         Class.forName(param.getJobClass());
-        service.saveOrUpdateByRequest(param, updateFields);
+        service.saveOrUpdateByUserAction(param, updateFields);
         return AjaxResult.ok().msg("操作成功");
     }
 

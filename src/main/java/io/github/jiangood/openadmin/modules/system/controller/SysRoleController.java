@@ -52,7 +52,7 @@ public class SysRoleController {
     @RequestMapping("page")
     public AjaxResult page(@PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
         Spec<SysRole> q = Spec.of();
-        Page<SysRole> page = sysRoleService.findPageByRequest(q, pageable);
+        Page<SysRole> page = sysRoleService.findAllByUserAction(q, pageable);
         return AjaxResult.ok().data(page);
     }
 
@@ -60,7 +60,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
-        sysRoleService.deleteByRequest(id);
+        sysRoleService.deleteByUserAction(id);
         return AjaxResult.ok().msg("删除成功");
     }
 
@@ -72,7 +72,7 @@ public class SysRoleController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysRole role, RequestBodyKeys updateFields) throws Exception {
         role.setBuiltin(false);
-        role = sysRoleService.saveOrUpdateByRequest(role, updateFields);
+        role = sysRoleService.saveOrUpdateByUserAction(role, updateFields);
 
         for (SysUser user : role.getUsers()) {
             permissionStaleService.markUserStale(user.getAccount());

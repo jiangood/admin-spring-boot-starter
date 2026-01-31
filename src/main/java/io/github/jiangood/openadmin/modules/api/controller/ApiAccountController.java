@@ -63,21 +63,21 @@ public class ApiAccountController {
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
         Spec<ApiAccount> q = service.spec().orLike(searchText, "name");
-        Page<ApiAccount> page = service.findPageByRequest(q, pageable);
+        Page<ApiAccount> page = service.findAllByUserAction(q, pageable);
         return AjaxResult.ok().data(page);
     }
 
     @PreAuthorize("hasAuthority('apiAccount:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody ApiAccount input, RequestBodyKeys updateFields) throws Exception {
-        service.saveOrUpdateByRequest(input, updateFields);
+        service.saveOrUpdateByUserAction(input, updateFields);
         return AjaxResult.ok().msg("保存成功");
     }
 
     @PreAuthorize("hasAuthority('api')")
     @RequestMapping("delete")
     public AjaxResult delete(String id) {
-        service.deleteByRequest(id);
+        service.deleteByUserAction(id);
         return AjaxResult.ok().msg("删除成功");
     }
 

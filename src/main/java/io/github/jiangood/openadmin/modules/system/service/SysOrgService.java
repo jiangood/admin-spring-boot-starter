@@ -56,7 +56,7 @@ public class SysOrgService extends BaseService<SysOrg> {
     }
 
     @Override
-    public void deleteByRequest(String id) {
+    public void deleteByUserAction(String id) {
         long count = sysOrgDao.count(Spec.<SysOrg>of().eq(SysOrg.Fields.pid, id));
         Assert.state(count == 0, "请先删除子节点");
 
@@ -102,7 +102,7 @@ public class SysOrgService extends BaseService<SysOrg> {
 
     @Override
     @Transactional
-    public SysOrg saveOrUpdateByRequest(SysOrg input, List<String> updateKeys) throws Exception {
+    public SysOrg saveOrUpdateByUserAction(SysOrg input, List<String> updateKeys) throws Exception {
         boolean isNew = input.isNew();
 
         if (!isNew) {
@@ -111,7 +111,7 @@ public class SysOrgService extends BaseService<SysOrg> {
             Assert.state(!childIdListById.contains(input.getId()), "父节点不能为本节点的子节点，请重新选择父节点");
         }
 
-        return super.saveOrUpdateByRequest(input, updateKeys);
+        return super.saveOrUpdateByUserAction(input, updateKeys);
     }
 
 

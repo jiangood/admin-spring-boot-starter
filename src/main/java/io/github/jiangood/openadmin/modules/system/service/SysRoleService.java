@@ -40,7 +40,7 @@ public class SysRoleService extends BaseService<SysRole> {
 
 
     @Override
-    public void deleteByRequest(String id) {
+    public void deleteByUserAction(String id) {
         Assert.hasText(id, "id不能为空");
 
         SysRole db = baseDao.findOne(id);
