@@ -46,26 +46,6 @@ public class Order {
 
 ## 数据类型转换器
 
-### BaseCodeEnumConverter
-
-枚举值与数据库存储值之间的转换器，用于将实现了`CodeEnum`接口的枚举类型转换为数据库中的整数值。
-
-**使用方式**：
-
-```java
-import io.github.jiangood.openadmin.converter.BaseCodeEnumConverter;
-
-public class UserTypeConverter extends BaseCodeEnumConverter<UserType> {
-}
-```
-
-**方法列表**：
-
-| 方法 | 说明 | 参数 | 返回值 |
-|------|------|------|--------|
-| `convertToDatabaseColumn(attribute)` | 将枚举值转换为数据库存储值 | `(E)` | `Integer` |
-| `convertToEntityAttribute(dbData)` | 将数据库存储值转换为枚举值 | `(Integer)` | `E` |
-
 ### BaseConverter
 
 基础转换器，用于将Java对象与数据库字符串字段之间进行转换，使用JSON格式进行序列化和反序列化。

@@ -21,6 +21,9 @@
 | `defaultPageSize` | 默认每页条数 | `number` | 10 |
 | `scrollY` | 表格垂直滚动区域高度 | `number` | - |
 | `bordered` | 是否显示边框 | `boolean` | - |
+| `toolbarOptions` | 是否显示工具栏 | `boolean` | `true` |
+| `showToolbarSearch` | 是否显示工具栏搜索 | `boolean` | - |
+| `formRef` | 表单引用 | `ref` | - |
 
 **示例**：
 
