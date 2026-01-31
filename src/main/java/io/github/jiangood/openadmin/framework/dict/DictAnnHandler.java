@@ -2,8 +2,8 @@ package io.github.jiangood.openadmin.framework.dict;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.tools.SpringTool;
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
+import io.github.jiangood.openadmin.lang.SpringTool;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
 import io.github.jiangood.openadmin.modules.system.dao.SysDictDao;
 import io.github.jiangood.openadmin.modules.system.dao.SysDictItemDao;
 import io.github.jiangood.openadmin.modules.system.entity.SysDict;

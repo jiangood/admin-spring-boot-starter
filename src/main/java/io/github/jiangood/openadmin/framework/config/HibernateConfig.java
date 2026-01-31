@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.config;
 
-import io.github.jiangood.openadmin.framework.data.config.HibernateEntityCommentIntegrator;
+import io.github.jiangood.openadmin.framework.data.HibernateEntityCommentIntegrator;
 import org.hibernate.jpa.boot.spi.IntegratorProvider;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.stereotype.Component;

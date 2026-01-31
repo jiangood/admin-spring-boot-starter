@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.api.service;
 
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.modules.api.dao.ApiAccountDao;
 import io.github.jiangood.openadmin.modules.api.entity.ApiAccount;
 import jakarta.annotation.Resource;

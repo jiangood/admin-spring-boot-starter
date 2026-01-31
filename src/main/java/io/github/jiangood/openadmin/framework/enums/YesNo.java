@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.enums;
 
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
 
 /**
  * 是或否的枚举

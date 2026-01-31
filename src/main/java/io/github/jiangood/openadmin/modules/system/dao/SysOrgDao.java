@@ -1,9 +1,9 @@
 package io.github.jiangood.openadmin.modules.system.dao;
 
 import cn.hutool.core.collection.CollectionUtil;
-import io.github.jiangood.openadmin.common.tools.tree.TreeManager;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.lang.tree.TreeManager;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysOrg;
 import io.github.jiangood.openadmin.modules.system.enums.OrgType;

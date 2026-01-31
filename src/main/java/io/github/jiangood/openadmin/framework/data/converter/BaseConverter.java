@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.framework.data.converter;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import io.github.jiangood.openadmin.common.tools.JsonTool;
+import io.github.jiangood.openadmin.lang.JsonTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.IOException;

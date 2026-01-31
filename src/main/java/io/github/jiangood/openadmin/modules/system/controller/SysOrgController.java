@@ -1,13 +1,13 @@
 package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.dto.AjaxResult;
-import io.github.jiangood.openadmin.common.dto.antd.DropEvent;
-import io.github.jiangood.openadmin.common.dto.antd.TreeOption;
-import io.github.jiangood.openadmin.common.tools.BeanTool;
-import io.github.jiangood.openadmin.common.tools.tree.TreeTool;
-import io.github.jiangood.openadmin.common.tools.tree.drop.DropResult;
-import io.github.jiangood.openadmin.common.tools.tree.drop.TreeDropTool;
+import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.dto.antd.DropEvent;
+import io.github.jiangood.openadmin.dto.antd.TreeOption;
+import io.github.jiangood.openadmin.lang.BeanTool;
+import io.github.jiangood.openadmin.lang.tree.TreeTool;
+import io.github.jiangood.openadmin.lang.tree.drop.DropResult;
+import io.github.jiangood.openadmin.lang.tree.drop.TreeDropTool;
 import io.github.jiangood.openadmin.framework.config.argument.RequestBodyKeys;
 import io.github.jiangood.openadmin.framework.config.security.refresh.PermissionStaleService;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;

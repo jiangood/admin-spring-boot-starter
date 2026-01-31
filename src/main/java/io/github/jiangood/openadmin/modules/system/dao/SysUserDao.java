@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.modules.system.dao;
 
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysRole;
 import io.github.jiangood.openadmin.modules.system.entity.SysUser;

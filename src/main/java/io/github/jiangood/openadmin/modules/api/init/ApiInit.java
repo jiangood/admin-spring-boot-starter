@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.modules.api.init;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.tools.SpringTool;
+import io.github.jiangood.openadmin.lang.SpringTool;
 import io.github.jiangood.openadmin.modules.api.defaults.MathApi;
 import io.github.jiangood.openadmin.modules.api.service.ApiResourceService;
 import jakarta.annotation.Resource;

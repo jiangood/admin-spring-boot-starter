@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.system.dao;
 
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysDict;
 import lombok.extern.slf4j.Slf4j;

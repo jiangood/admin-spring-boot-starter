@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.config.init;
 
-import io.github.jiangood.openadmin.common.tools.SpringTool;
+import io.github.jiangood.openadmin.lang.SpringTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.modules.job.entity;
 
 import cn.hutool.core.date.BetweenFormatter;
 import cn.hutool.core.date.DateUtil;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

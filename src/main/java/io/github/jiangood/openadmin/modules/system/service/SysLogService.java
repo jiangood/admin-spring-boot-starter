@@ -1,10 +1,10 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
-import io.github.jiangood.openadmin.common.dto.AjaxResult;
-import io.github.jiangood.openadmin.common.tools.IpTool;
-import io.github.jiangood.openadmin.common.tools.RequestTool;
+import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.IpTool;
+import io.github.jiangood.openadmin.lang.RequestTool;
 import io.github.jiangood.openadmin.framework.config.security.LoginUser;
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.framework.log.Log;
 import io.github.jiangood.openadmin.modules.common.LoginTool;
 import io.github.jiangood.openadmin.modules.system.dao.SysOpLogDao;

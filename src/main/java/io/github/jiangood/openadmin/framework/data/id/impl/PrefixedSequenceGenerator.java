@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.framework.data.id.impl;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.framework.data.id.ann.GeneratePrefixedSequence;
+import io.github.jiangood.openadmin.framework.data.id.GeneratePrefixedSequence;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.OptimizableGenerator;

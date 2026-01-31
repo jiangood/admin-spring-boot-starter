@@ -1,8 +1,8 @@
 package io.github.jiangood.openadmin.modules.api.entity;
 
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
 import io.github.jiangood.openadmin.framework.data.converter.ToListConverter;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import io.github.jiangood.openadmin.framework.validator.ValidateIpv4;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

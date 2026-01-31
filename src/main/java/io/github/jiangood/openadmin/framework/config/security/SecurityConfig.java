@@ -1,9 +1,9 @@
 package io.github.jiangood.openadmin.framework.config.security;
 
-import io.github.jiangood.openadmin.common.dto.AjaxResult;
-import io.github.jiangood.openadmin.common.tools.ArrayTool;
-import io.github.jiangood.openadmin.common.tools.PasswordTool;
-import io.github.jiangood.openadmin.common.tools.ResponseTool;
+import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.ArrayTool;
+import io.github.jiangood.openadmin.lang.PasswordTool;
+import io.github.jiangood.openadmin.lang.ResponseTool;
 import io.github.jiangood.openadmin.framework.config.SysProperties;
 import io.github.jiangood.openadmin.framework.config.init.SystemHookService;
 import io.github.jiangood.openadmin.framework.config.security.refresh.PermissionRefreshFilter;

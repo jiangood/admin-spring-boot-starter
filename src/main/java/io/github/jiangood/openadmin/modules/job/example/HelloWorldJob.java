@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.job.example;
 
-import io.github.jiangood.openadmin.common.tools.field.FieldDescription;
+import io.github.jiangood.openadmin.lang.field.FieldDescription;
 import io.github.jiangood.openadmin.modules.job.BaseJob;
 import io.github.jiangood.openadmin.modules.job.JobDescription;
 import org.quartz.JobDataMap;

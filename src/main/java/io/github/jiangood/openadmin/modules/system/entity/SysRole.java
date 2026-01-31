@@ -1,9 +1,9 @@
 package io.github.jiangood.openadmin.modules.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
 import io.github.jiangood.openadmin.framework.data.converter.ToListConverter;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

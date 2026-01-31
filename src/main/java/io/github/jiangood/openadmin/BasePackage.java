@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin;
 
-import io.github.jiangood.openadmin.common.tools.SpringTool;
+import io.github.jiangood.openadmin.lang.SpringTool;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

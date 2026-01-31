@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.URLUtil;
-import io.github.jiangood.openadmin.common.tools.ContentTypeTool;
+import io.github.jiangood.openadmin.lang.ContentTypeTool;
 import io.github.jiangood.openadmin.modules.system.entity.SysFile;
 import io.github.jiangood.openadmin.modules.system.service.SysFileService;
 import jakarta.servlet.http.HttpServletRequest;

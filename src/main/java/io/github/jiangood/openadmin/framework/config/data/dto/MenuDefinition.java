@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.config.data.dto;
 
-import io.github.jiangood.openadmin.common.dto.antd.AntdIcon;
+import io.github.jiangood.openadmin.dto.antd.AntdIcon;
 import lombok.Data;
 
 import java.util.ArrayList;

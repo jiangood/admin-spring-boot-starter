@@ -1,8 +1,8 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
-import io.github.jiangood.openadmin.common.tools.tree.drop.DropResult;
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.lang.tree.drop.DropResult;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.common.LoginTool;
 import io.github.jiangood.openadmin.modules.system.dao.SysOrgDao;

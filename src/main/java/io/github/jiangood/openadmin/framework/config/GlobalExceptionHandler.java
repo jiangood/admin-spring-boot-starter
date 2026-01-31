@@ -1,9 +1,9 @@
 package io.github.jiangood.openadmin.framework.config;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.dto.AjaxResult;
-import io.github.jiangood.openadmin.common.tools.ExceptionToMessageTool;
-import io.github.jiangood.openadmin.common.tools.HttpServletTool;
+import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.ExceptionToMessageTool;
+import io.github.jiangood.openadmin.lang.HttpServletTool;
 import io.github.jiangood.openadmin.framework.CodeException;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.system.dao;
 
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysManual;
 import org.springframework.data.domain.Sort;

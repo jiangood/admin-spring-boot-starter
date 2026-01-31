@@ -1,8 +1,8 @@
 package io.github.jiangood.openadmin.modules.api.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
-import io.github.jiangood.openadmin.common.tools.field.FieldDescription;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
+import io.github.jiangood.openadmin.lang.field.FieldDescription;
 import io.github.jiangood.openadmin.modules.api.ApiMapping;
 import io.github.jiangood.openadmin.modules.api.entity.ApiResource;
 import io.github.jiangood.openadmin.modules.api.entity.ApiResourceArgument;

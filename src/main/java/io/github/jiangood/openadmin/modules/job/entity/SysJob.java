@@ -1,10 +1,10 @@
 package io.github.jiangood.openadmin.modules.job.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
 import io.github.jiangood.openadmin.framework.data.DBConstants;
 import io.github.jiangood.openadmin.framework.data.converter.ToMapConverter;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

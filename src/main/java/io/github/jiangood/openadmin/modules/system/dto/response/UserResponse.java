@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.dto.response;
 
-import io.github.jiangood.openadmin.common.tools.annotation.Remark;
-import io.github.jiangood.openadmin.framework.data.domain.BaseDto;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
+import io.github.jiangood.openadmin.framework.data.BaseDto;
 import lombok.Data;
 
 import java.util.List;

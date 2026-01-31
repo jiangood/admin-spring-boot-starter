@@ -2,9 +2,9 @@ package io.github.jiangood.openadmin.framework.data.specification;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.tools.ArrayTool;
-import io.github.jiangood.openadmin.common.tools.range.Range;
-import io.github.jiangood.openadmin.common.tools.range.RangeTool;
+import io.github.jiangood.openadmin.lang.ArrayTool;
+import io.github.jiangood.openadmin.lang.range.Range;
+import io.github.jiangood.openadmin.lang.range.RangeTool;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

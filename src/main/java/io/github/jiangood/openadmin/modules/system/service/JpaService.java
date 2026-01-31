@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.modules.system.service;
 
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
-import io.github.jiangood.openadmin.common.tools.SpringTool;
+import io.github.jiangood.openadmin.lang.SpringTool;
 import jakarta.persistence.Entity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;

@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
-import io.github.jiangood.openadmin.common.tools.tree.TreeTool;
+import io.github.jiangood.openadmin.lang.tree.TreeTool;
 import io.github.jiangood.openadmin.framework.config.data.dto.MenuDefinition;
 import io.github.jiangood.openadmin.modules.system.dao.SysMenuDao;
 import jakarta.annotation.Resource;

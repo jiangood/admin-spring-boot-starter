@@ -2,11 +2,11 @@ package io.github.jiangood.openadmin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.tools.PasswordTool;
+import io.github.jiangood.openadmin.lang.PasswordTool;
 import io.github.jiangood.openadmin.framework.config.SysProperties;
 import io.github.jiangood.openadmin.framework.config.data.dto.MenuDefinition;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.dao.SysMenuDao;
 import io.github.jiangood.openadmin.modules.system.dao.SysOrgDao;

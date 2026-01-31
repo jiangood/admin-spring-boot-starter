@@ -1,8 +1,8 @@
 package io.github.jiangood.openadmin.framework.data.converter;
 
 
-import io.github.jiangood.openadmin.common.tools.JsonTool;
-import io.github.jiangood.openadmin.common.tools.ReflectTool;
+import io.github.jiangood.openadmin.lang.JsonTool;
+import io.github.jiangood.openadmin.lang.ReflectTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.Serializable;

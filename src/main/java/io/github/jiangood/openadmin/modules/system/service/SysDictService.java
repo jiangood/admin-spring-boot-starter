@@ -2,8 +2,8 @@ package io.github.jiangood.openadmin.modules.system.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Multimap;
-import io.github.jiangood.openadmin.common.tools.GoogleTool;
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.lang.GoogleTool;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.modules.system.dao.SysDictDao;
 import io.github.jiangood.openadmin.modules.system.dao.SysDictItemDao;
 import io.github.jiangood.openadmin.modules.system.entity.SysDict;

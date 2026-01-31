@@ -3,7 +3,7 @@ package io.github.jiangood.openadmin.framework.config.json;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import io.github.jiangood.openadmin.framework.data.domain.PageExt;
+import io.github.jiangood.openadmin.framework.data.PageExt;
 import org.springframework.data.domain.Page;
 
 import java.io.IOException;

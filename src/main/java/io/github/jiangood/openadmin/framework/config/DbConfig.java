@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.framework.config;
 
 
-import io.github.jiangood.openadmin.common.tools.jdbc.DbTool;
+import io.github.jiangood.openadmin.lang.jdbc.DbTool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

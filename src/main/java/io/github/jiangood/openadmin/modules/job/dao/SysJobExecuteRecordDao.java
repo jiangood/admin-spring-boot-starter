@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.job.dao;
 
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.modules.job.entity.SysJob;
 import io.github.jiangood.openadmin.modules.job.entity.SysJobExecuteRecord;
 import org.springframework.stereotype.Repository;

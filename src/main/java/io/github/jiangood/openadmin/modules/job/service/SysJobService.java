@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.job.service;
 
-import io.github.jiangood.openadmin.framework.data.service.BaseService;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.job.dao.SysJobExecuteRecordDao;
 import io.github.jiangood.openadmin.modules.job.entity.SysJob;

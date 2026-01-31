@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.dao;
 
 
-import io.github.jiangood.openadmin.framework.data.repository.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.modules.system.entity.SysRole;
 import org.springframework.stereotype.Repository;
 

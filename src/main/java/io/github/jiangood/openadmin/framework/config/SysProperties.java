@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.framework.config;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.common.tools.RequestTool;
+import io.github.jiangood.openadmin.lang.RequestTool;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

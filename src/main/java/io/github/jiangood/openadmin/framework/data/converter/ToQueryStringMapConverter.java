@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.data.converter;
 
-import io.github.jiangood.openadmin.common.tools.URLTool;
+import io.github.jiangood.openadmin.lang.URLTool;
 import jakarta.persistence.AttributeConverter;
 
 import java.io.Serializable;

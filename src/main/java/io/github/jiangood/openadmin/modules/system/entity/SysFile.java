@@ -1,10 +1,10 @@
 package io.github.jiangood.openadmin.modules.system.entity;
 
 import cn.hutool.core.io.FileUtil;
-import io.github.jiangood.openadmin.common.tools.ContentTypeTool;
-import io.github.jiangood.openadmin.common.tools.RequestTool;
-import io.github.jiangood.openadmin.common.tools.enums.MaterialType;
-import io.github.jiangood.openadmin.framework.data.domain.BaseEntity;
+import io.github.jiangood.openadmin.lang.ContentTypeTool;
+import io.github.jiangood.openadmin.lang.RequestTool;
+import io.github.jiangood.openadmin.lang.enums.MaterialType;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
