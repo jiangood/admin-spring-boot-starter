@@ -1,6 +1,6 @@
 # 介绍
 
-一个小型管理系统框架。
+这是一个使用 open-admin 框架的后端管理系统项目，基于 Spring Boot + React + Ant Design + Umi 技术栈。
 
 
 ## 后端

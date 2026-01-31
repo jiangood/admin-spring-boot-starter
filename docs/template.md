@@ -1,24 +1,6 @@
-## 1. 项目背景
-这是一个使用 open-admin 框架的后端管理系统项目，基于 Spring Boot + React + Ant Design + Umi 技术栈。
+## 1. 后端代码模板参考
 
-# 技术要求
-- 使用 open-admin 框架的标准代码模板
-- 遵循框架的编码规范
-- 后端使用 Java + Spring Boot
-- 前端使用 React + Ant Design + Umi
-- 集成 Trae AI 能力
-
-# 实现要求
-- 后端：创建完整的实体类、DAO、Service、Controller
-- 前端：创建对应的页面组件
-- 菜单：在 application-data.yml 中添加菜单配置
-- 权限：添加对应的权限配置
-
-
-
-## 2. 后端代码模板参考
-
-### 2.1 实体类模板
+### 1.1 实体类模板
 ```java
 package io.admin.modules.xxx.entity;
 
@@ -51,7 +33,7 @@ public class EntityName extends BaseEntity {
 }
 ```
 
-### 2.2 DAO类模板
+### 1.2 DAO类模板
 ```java
 package io.admin.modules.xxx.dao;
 
@@ -65,7 +47,7 @@ public class EntityNameDao extends BaseDao<EntityName> {
 }
 ```
 
-### 2.3 Service类模板
+### 1.3 Service类模板
 ```java
 package io.admin.modules.xxx.service;
 
@@ -84,7 +66,7 @@ public class EntityNameService extends BaseService<EntityName> {
 }
 ```
 
-### 2.4 Controller类模板
+### 1.4 Controller类模板
 ```java
 package io.admin.modules.xxx.controller;
 
@@ -134,9 +116,9 @@ public class EntityNameController {
 }
 ```
 
-## 3. 前端代码模板参考
+## 2. 前端代码模板参考
 
-### 3.1 前端页面模板
+### 2.1 前端页面模板
 ```jsx
 import {PlusOutlined} from '@ant-design/icons'
 import {Button, Form, Input, Modal, Popconfirm} from 'antd'
