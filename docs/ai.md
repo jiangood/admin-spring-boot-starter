@@ -12,7 +12,7 @@
 
 
 #  如何生成实体
-请分析需求文档 xxx.md,  并参考模板生成实体,模板代码如下
+参考模板生成实体,模板代码如下
 
 文件路径：`src/main/java/io/admin/modules/system/entity/User.java`
 ```java
