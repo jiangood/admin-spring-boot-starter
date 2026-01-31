@@ -46,17 +46,7 @@ const config = {
   // Set the favicon of your site
   favicon: 'img/logo.svg',
 
-  // Add custom metadata for SEO
-  metadata: [
-    {
-      name: 'description',
-      content: 'open-admin - 小型管理系统框架，提供一整套前后端开箱即用的解决方案',
-    },
-    {
-      name: 'keywords',
-      content: 'open-admin,管理系统,框架,前后端,Java,Spring Boot,React',
-    },
-  ],
+
 
   presets: [
     [
