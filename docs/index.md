@@ -1174,7 +1174,7 @@ process:
   list:
     - key: "leave_request"
       name: "请假流程"
-      listener: example.flowable.modules.io.github.jiangood.openadminenadmin.LeaveProcessListener
+      listener: io.github.jiangood.openadmin.LeaveProcessListener
       variables:
         - name: "days"
           label: "请假天数"
