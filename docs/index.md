@@ -113,7 +113,7 @@
     - [LeaveProcessListener](#leaveprocesslistener)
 - [一些规范和注释事项](#一些规范和注释事项)
 
-# springboot-admin-starter 使用说明书
+# open-admin 使用说明书
 
 ## 介绍
 
@@ -122,17 +122,17 @@
 本框架旨在简化企业级管理系统开发，提供了完整的权限体系、数据管理、作业调度和工作流引擎，支持快速构建各类管理后台系统。
 
 根据README.md补充：
-后端： ![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/springboot-admin-starter)
+后端： ![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/open-admin)
 ```xml
 <dependency>
   <groupId>io.github.jiangood</groupId>
-  <artifactId>springboot-admin-starter</artifactId>
+  <artifactId>open-admin</artifactId>
 </dependency>
 ```
 
-前端： ![NPM Version](https://img.shields.io/npm/v/@jiangood/springboot-admin-starter)
+前端： ![NPM Version](https://img.shields.io/npm/v/@jiangood/open-admin)
 ```
-npm install @jiangood/springboot-admin-starter
+npm install @jiangood/open-admin
 ```
 
 ### 项目依赖
@@ -141,13 +141,13 @@ npm install @jiangood/springboot-admin-starter
 ```xml
 <dependency>
   <groupId>io.github.jiangood</groupId>
-  <artifactId>springboot-admin-starter</artifactId>
+  <artifactId>open-admin</artifactId>
 </dependency>
 ```
 
-前端依赖（模块名为`@jiangood/springboot-admin-starter`，antd使用最新版6.x）：
+前端依赖（模块名为`@jiangood/open-admin`，antd使用最新版6.x）：
 ```bash
-npm install @jiangood/springboot-admin-starter
+npm install @jiangood/open-admin
 ```
 
 ### 核心功能
@@ -460,7 +460,7 @@ HTTP请求工具类，用于发送各种HTTP请求。
 
 **示例**：
 ```javascript
-import {HttpUtils} from '@jiangood/springboot-admin-starter';
+import {HttpUtils} from '@jiangood/open-admin';
 
 // GET请求
 HttpUtils.get('/api/users', {page: 1, size: 10})
@@ -496,7 +496,7 @@ HttpUtils.downloadFile('/api/files/download', {id: 1});
 
 **示例**：
 ```javascript
-import {MessageUtils} from '@jiangood/springboot-admin-starter';
+import {MessageUtils} from '@jiangood/open-admin';
 
 // 成功消息
 MessageUtils.success('操作成功');
