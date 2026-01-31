@@ -351,11 +351,6 @@ HttpUtils.downloadFile('/api/files/download', {id: 1});
 | `info` | 信息消息 | `(content, duration)` | - |
 | `loading` | 加载消息 | `(content, duration)` | - |
 | `hideAll` | 隐藏所有消息 | - | - |
-| `notify` | 通知提醒框 | `(message, description, type, placement, config)` | - |
-| `notifySuccess` | 成功通知 | `(message, description, placement, config)` | - |
-| `notifyError` | 错误通知 | `(message, description, placement, config)` | - |
-| `notifyWarning` | 警告通知 | `(message, description, placement, config)` | - |
-
 **示例**：
 ```javascript
 import {MessageUtils} from '@jiangood/open-admin';
