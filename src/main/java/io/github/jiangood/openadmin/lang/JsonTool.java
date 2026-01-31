@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * JSON工具类，提供JSON处理相关的工具方法
+ */
 public class JsonTool {
 
     // singleton ,as to initialize need much TIME
@@ -26,6 +29,14 @@ public class JsonTool {
         om.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
 
+    /**
+     * 将对象转换为指定类型
+     *
+     * @param fromValue 源对象
+     * @param toValueType 目标类型
+     * @param <T> 泛型类型
+     * @return 转换后的对象
+     */
     public static <T> T convert(Object fromValue, Class<T> toValueType) {
         ObjectMapper om = new ObjectMapper();
         return om.convertValue(fromValue, toValueType);
@@ -34,9 +45,9 @@ public class JsonTool {
     /**
      * 通过转换json实现对象拷贝
      *
-     * @param bean
-     * @param <T>
-     * @return
+     * @param bean 源对象
+     * @param <T> 泛型类型
+     * @return 拷贝后的对象
      */
     @SuppressWarnings("unchecked")
     public static <T> T clone(T bean) {
@@ -45,6 +56,13 @@ public class JsonTool {
         return jsonToBeanQuietly(json, cls);
     }
 
+    /**
+     * 通过转换json实现列表拷贝
+     *
+     * @param list 源列表
+     * @param <T> 泛型类型
+     * @return 拷贝后的列表
+     */
     @SuppressWarnings("unchecked")
     public static <T> List<T> clone(List<T> list) {
         if (CollUtil.isEmpty(list)) {
@@ -55,6 +73,13 @@ public class JsonTool {
         return jsonToBeanListQuietly(json, cls);
     }
 
+    /**
+     * 将对象转换为JSON字符串
+     *
+     * @param o 要转换的对象
+     * @return JSON字符串
+     * @throws JsonProcessingException 如果转换失败
+     */
     public static String toJson(Object o) throws JsonProcessingException {
         if (o == null) {
             return null;
@@ -62,6 +87,12 @@ public class JsonTool {
         return om.writeValueAsString(o);
     }
 
+    /**
+     * 将对象转换为JSON字符串（静默模式，忽略异常）
+     *
+     * @param o 要转换的对象
+     * @return JSON字符串，如果转换失败返回null
+     */
     public static String toJsonQuietly(Object o) {
         if (o == null) {
             return null;
@@ -74,6 +105,12 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将对象转换为格式化的JSON字符串（静默模式，忽略异常）
+     *
+     * @param o 要转换的对象
+     * @return 格式化的JSON字符串，如果转换失败返回null
+     */
     public static String toPrettyJsonQuietly(Object o) {
         if (o == null) {
             return null;
@@ -86,6 +123,15 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将JSON字符串转换为对象
+     *
+     * @param json JSON字符串
+     * @param cls 目标对象类型
+     * @param <T> 泛型类型
+     * @return 转换后的对象
+     * @throws IOException 如果转换失败
+     */
     public static <T> T jsonToBean(String json, Class<T> cls) throws IOException {
         if (json == null) {
             return null;
@@ -96,6 +142,15 @@ public class JsonTool {
 
     }
 
+    /**
+     * 将JSON字符串转换为对象（使用TypeReference）
+     *
+     * @param json JSON字符串
+     * @param valueTypeRef 类型引用
+     * @param <T> 泛型类型
+     * @return 转换后的对象
+     * @throws IOException 如果转换失败
+     */
     public static <T> T jsonToBean(String json, TypeReference<T> valueTypeRef)
             throws IOException {
         if (json == null) {
@@ -106,6 +161,14 @@ public class JsonTool {
         return om.readValue(json, valueTypeRef);
     }
 
+    /**
+     * 将JSON字符串转换为对象（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @param cls 目标对象类型
+     * @param <T> 泛型类型
+     * @return 转换后的对象，如果转换失败返回null
+     */
     public static <T> T jsonToBeanQuietly(String json, Class<T> cls) {
         if (json == null) {
             return null;
@@ -119,6 +182,14 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将JSON字符串转换为对象列表（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @param cls 目标对象类型
+     * @param <T> 泛型类型
+     * @return 转换后的对象列表，如果转换失败返回null
+     */
     public static <T> List<T> jsonToBeanListQuietly(String json, Class<T> cls) {
         if (json == null) {
             return null;
@@ -133,6 +204,13 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将JSON字符串转换为列表（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @param <T> 泛型类型
+     * @return 转换后的列表，如果转换失败返回null
+     */
     public static <T> List<T> jsonToListQuietly(String json) {
         if (json == null) {
             return null;
@@ -146,6 +224,12 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将JSON字符串转换为Object对象（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @return 转换后的Object对象，如果转换失败返回null
+     */
     public static Object jsonToBeanQuietly(String json) {
         if (json == null) {
             return null;
@@ -153,6 +237,12 @@ public class JsonTool {
         return jsonToBeanQuietly(json, Object.class);
     }
 
+    /**
+     * 将JSON字符串转换为Map对象（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @return 转换后的Map对象，如果转换失败返回空Map
+     */
     public static Map<String, Object> jsonToMapQuietly(String json) {
         if (json != null && !json.isEmpty()) {
             try {
@@ -166,6 +256,13 @@ public class JsonTool {
         return new HashMap<>();
     }
 
+    /**
+     * 将JSON字符串转换为Map对象
+     *
+     * @param json JSON字符串
+     * @return 转换后的Map对象，如果转换失败返回空Map
+     * @throws IOException 如果转换失败
+     */
     public static Map<String, Object> jsonToMap(String json)
             throws IOException {
         if (json != null && !json.isEmpty()) {
@@ -175,6 +272,12 @@ public class JsonTool {
         return new HashMap<>();
     }
 
+    /**
+     * 将JSON字符串转换为String类型的Map对象（静默模式，忽略异常）
+     *
+     * @param json JSON字符串
+     * @return 转换后的Map对象，如果转换失败返回null
+     */
     public static Map<String, String> jsonToMapStringStringQuietly(String json) {
         if (json == null) {
             return null;
@@ -188,11 +291,23 @@ public class JsonTool {
         return null;
     }
 
+    /**
+     * 将JSON字符串解析为JsonNode对象
+     *
+     * @param json JSON字符串
+     * @return JsonNode对象
+     * @throws JsonProcessingException 如果解析失败
+     */
     public static JsonNode readTree(String json) throws JsonProcessingException {
         JsonNode node = om.reader().readTree(json);
         return node;
     }
 
+    /**
+     * 获取ObjectMapper实例
+     *
+     * @return ObjectMapper实例
+     */
     public static ObjectMapper getObjectMapper() {
         return om;
     }

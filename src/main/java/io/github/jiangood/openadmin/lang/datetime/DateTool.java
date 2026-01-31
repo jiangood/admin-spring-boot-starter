@@ -14,14 +14,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 日期工具类，提供日期处理相关的工具方法
+ */
 public class DateTool {
 
-    // 2023-01-01/2023-01-01
+    /**
+     * 判断字符串是否为ISO格式的日期范围
+     *
+     * @param s 待检查的字符串
+     * @return 如果是ISO格式的日期范围返回true，否则返回false
+     */
     public static boolean isIsoDateRange(String s) {
         return s.length() == 21 && !s.contains("/") && StrUtil.count(s, "-") == 4;
     }
 
 
+    /**
+     * 判断日期是否在指定的时间范围内
+     *
+     * @param date 待检查的日期
+     * @param begin 开始时间
+     * @param end 结束时间
+     * @return 如果日期在范围内返回true，否则返回false
+     */
     public static boolean isBetween(String date, String begin, String end) {
         Assert.state(date != null, "时间不能为空");
         Assert.state(begin != null, "开始时间不能为空");
@@ -35,6 +51,12 @@ public class DateTool {
     }
 
 
+    /**
+     * 获取指定月份的所有日期
+     *
+     * @param month 月份对应的日期
+     * @return 该月份所有日期的列表
+     */
     public static List<String> allDaysOfMonth(Date month) {
         String str = DateUtil.format(month, "yyyy-MM-");
 
@@ -52,6 +74,12 @@ public class DateTool {
     }
 
 
+    /**
+     * 计算时间区间内的单位数量
+     *
+     * @param between 时间区间
+     * @return 单位数量
+     */
     public static long count(Range<String> between) {
         return count(between.getStart(), between.getEnd());
     }
@@ -112,31 +140,70 @@ public class DateTool {
         throw new IllegalArgumentException();
     }
 
+    /**
+     * 计算两个LocalDateTime之间的天数差
+     *
+     * @param a 第一个时间
+     * @param b 第二个时间
+     * @return 天数差
+     */
     public static int days(LocalDateTime a, LocalDateTime b) {
 
         return Period.between(a.toLocalDate(), b.toLocalDate()).getDays();
     }
 
+    /**
+     * 计算两个Date之间的天数差
+     *
+     * @param a 第一个日期
+     * @param b 第二个日期
+     * @return 天数差
+     */
     public static int days(Date a, Date b) {
         return (int) DateUtil.betweenDay(a, b, true);
     }
 
+    /**
+     * 从年月字符串中提取年份
+     *
+     * @param yyyyMM 年月字符串，格式为yyyy-MM
+     * @return 年份
+     */
     public static int getYearByYearMonthStr(String yyyyMM) {
         String year = yyyyMM.substring(0, 4);
         return Integer.parseInt(year);
     }
 
 
+    /**
+     * 获取日期的年份
+     *
+     * @param date 日期
+     * @return 年份
+     */
     public static int getYear(Date date) {
         return DateTime.of(date).year();
     }
 
+    /**
+     * 获取日期的月份（从1开始）
+     *
+     * @param date 日期
+     * @return 月份，从1开始
+     */
     // 月份从1开始
     public static int getMonth(Date date) {
         return DateTime.of(date).month() + 1;
     }
 
 
+    /**
+     * 获得上个月的年月字符串，如果不是同一年，则返回null
+     *
+     * @param yyyyMM 年月字符串，格式为yyyy-MM
+     * @return 上个月的年月字符串，格式为yyyy-MM；如果不是同一年，返回null
+     * @throws ParseException 如果解析日期失败
+     */
     // 获得上个月， 如果不是同一年，则返回空
     public static String getLastMonthOfTheSameYear(String yyyyMM) throws ParseException {
         Date date = org.apache.commons.lang3.time.DateUtils.parseDate(yyyyMM, "yyyy-MM");

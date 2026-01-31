@@ -6,8 +6,18 @@ import com.google.common.base.CaseFormat;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 字符串工具类，提供字符串处理相关的工具方法
+ */
 public class StrTool {
 
+    /**
+     * 连接非空字符串，使用指定的连接符
+     *
+     * @param conjunction 连接符
+     * @param list 字符串数组
+     * @return 连接后的字符串，空字符串数组返回空字符串
+     */
     public static String joinIgnoreEmpty(char conjunction, String... list) {
         StringBuilder sb = new StringBuilder();
         for (String s : list) {
@@ -43,10 +53,10 @@ public class StrTool {
 
 
     /**
-     * 判断是否包含中文
+     * 判断字符串是否包含中文
      *
-     * @param text
-     * @return
+     * @param text 待检查的字符串
+     * @return 如果包含中文返回true，否则返回false
      */
     public static boolean hasChinese(String text) {
         if (text == null) {
@@ -64,6 +74,13 @@ public class StrTool {
     }
 
 
+    /**
+     * 判断列表中是否有字符串包含指定的搜索内容
+     *
+     * @param list 字符串列表
+     * @param search 搜索内容
+     * @return 如果列表中存在包含搜索内容的字符串返回true，否则返回false
+     */
     public static boolean anyContains(List<String> list, String search) {
         for (String str : list) {
             if (str.contains(search)) {
@@ -74,6 +91,13 @@ public class StrTool {
         return false;
     }
 
+    /**
+     * 判断列表中是否有字符串包含指定的任意一个搜索内容
+     *
+     * @param list 字符串列表
+     * @param search 搜索内容数组
+     * @return 如果列表中存在包含任一搜索内容的字符串返回true，否则返回false
+     */
     public static boolean anyContains(List<String> list, String... search) {
         for (String str : list) {
             for (String searchItem : search) {
@@ -89,11 +113,25 @@ public class StrTool {
     }
 
 
+    /**
+     * 移除字符串前缀并将首字母转为小写
+     *
+     * @param str 原字符串
+     * @param prefix 要移除的前缀
+     * @return 处理后的字符串
+     */
     public static String removePreAndLowerFirst(String str, String prefix) {
         str = removePrefix(str, prefix);
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
+    /**
+     * 移除字符串前缀
+     *
+     * @param str 原字符串
+     * @param prefix 要移除的前缀
+     * @return 移除前缀后的字符串，如果原字符串为空、前缀为空或原字符串不以该前缀开头，则返回原字符串
+     */
     public static String removePrefix(String str, String prefix) {
         if (isEmpty(str) || isEmpty(prefix) || !str.startsWith(prefix)) {
             return str;
@@ -103,19 +141,42 @@ public class StrTool {
     }
 
 
+    /**
+     * 判断字符串是否为空
+     *
+     * @param str 待检查的字符串
+     * @return 如果字符串为null或长度为0返回true，否则返回false
+     */
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
 
+    /**
+     * 生成UUID字符串（不含连字符）
+     *
+     * @return UUID字符串
+     */
     public static String uuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * 将驼峰命名转换为下划线命名
+     *
+     * @param str 驼峰命名的字符串
+     * @return 下划线命名的字符串
+     */
     public static String toUnderlineCase(String str) {
         return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, str);
     }
 
 
+    /**
+     * 移除字符串中最后一个单词（以大写字母为分隔）
+     *
+     * @param str 原字符串
+     * @return 移除最后一个单词后的字符串，如果原字符串为空或没有大写字母，则返回原字符串
+     */
     public static String removeLastWord(String str) {
         if (str == null || str.isEmpty()) {
             return str;
