@@ -84,11 +84,7 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} open-admin 项目.`,
-      },
-      prism: {
-        theme: require('prism-react-renderer/themes/github'),
-        darkTheme: require('prism-react-renderer/themes/dracula'),
-      },
+      }
     }),
 };
 
