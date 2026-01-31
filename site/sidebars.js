@@ -5,7 +5,6 @@ const sidebars = {
       type: 'category',
       label: '项目概述',
       items: [
-        'index',
         'quick-start',
         'architecture',
       ],
