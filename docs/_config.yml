@@ -12,7 +12,7 @@ nav:
   - title: 项目概述
     children:
       - title: README
-        url: /../README.md
+        url: /README.html
       - title: 快速开始
         url: /quick-start.html
       - title: 架构设计
