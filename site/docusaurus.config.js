@@ -29,15 +29,7 @@ const config = {
   organizationName: 'jiangood', // Usually your GitHub org/user name.
   projectName: 'open-admin', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
-  },
+  onBrokenLinks: 'warn',
 
   // Control whether URLs have trailing slashes.
   // For GitHub pages, it's recommended to set this to true
@@ -111,55 +103,7 @@ const config = {
             },
           ],
         },
-        footer: {
-          style: 'dark',
-          links: [
-            {
-              title: '文档',
-              items: [
-                {
-                  label: '快速开始',
-                  to: '/docs/index',
-                },
-                {
-                  label: '架构设计',
-                  to: '/docs/architecture',
-                },
-                {
-                  label: '前端文档',
-                  to: '/docs/frontend/components',
-                },
-                {
-                  label: '后端文档',
-                  to: '/docs/backend/data-spec',
-                },
-              ],
-            },
-            {
-              title: '开发指南',
-              items: [
-                {
-                  label: '编码规范',
-                  to: '/docs/guide/coding-standard',
-                },
-                {
-                  label: '智能体使用',
-                  to: '/docs/guide/agent',
-                },
-              ],
-            },
-            {
-              title: '更多',
-              items: [
-                {
-                  label: 'GitHub',
-                  href: 'https://github.com/jiangood/open-admin',
-                },
-              ],
-            },
-          ],
-          copyright: `Copyright © ${new Date().getFullYear()} open-admin. Built with Docusaurus.`,
-        },
+
         prism: {
           theme: prismThemes.github,
           darkTheme: prismThemes.dracula,
@@ -171,15 +115,7 @@ const config = {
           minHeadingLevel: 2,
           maxHeadingLevel: 5,
         },
-        // Add announcement banner if needed
-        // announcementBar: {
-        //   id: 'support-us',
-        //   content:
-        //     '我们需要您的支持！请给我们一个 star ⭐',
-        //   backgroundColor: '#fafbfc',
-        //   textColor: '#091E42',
-        //   isCloseable: true,
-        // },
+
       }),
 };
 
