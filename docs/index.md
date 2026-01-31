@@ -1,118 +1,3 @@
-# 目录
-
-- [open-admin 使用说明书](#open-admin-使用说明书)
-- [介绍](#介绍)
-  - [项目依赖](#项目依赖)
-  - [核心功能](#核心功能)
-- [前端](#前端)
-  - [组件](#组件)
-    - [ProTable](#protable)
-    - [ProModal](#promodal)
-    - [Ellipsis](#ellipsis)
-    - [LinkButton](#linkbutton)
-    - [DownloadFileButton](#downloadfilebutton)
-    - [PageLoading](#pageloading)
-    - [NamedIcon](#namedicon)
-    - [Page](#page)
-  - [字段组件](#字段组件)
-    - [FieldRemoteSelect](#fieldremoteselect)
-    - [FieldRemoteSelectMultiple](#fieldremoteselectmultiple)
-    - [FieldRemoteSelectMultipleInline](#fieldremoteselectmultipleinline)
-    - [FieldRemoteTree](#fieldremotetree)
-    - [FieldDictSelect](#fielddictselect)
-    - [FieldEditor](#fieldeditor)
-    - [FieldRemoteTreeCascader](#fieldremotetreecascader)
-    - [FieldRemoteTreeSelect](#fieldremotetreeselect)
-    - [FieldRemoteTreeSelectMultiple](#fieldremotetreeselectmultiple)
-    - [FieldBoolean](#fieldboolean)
-    - [FieldDate](#fielddate)
-    - [FieldDateRange](#fielddaterange)
-    - [FieldTable](#fieldtable)
-    - [FieldTableSelect](#fieldtableselect)
-    - [FieldSysOrgTree](#fieldsysorgtree)
-    - [FieldSysOrgTreeSelect](#fieldsysorgtreeselect)
-    - [FieldPercent](#fieldpercent)
-    - [FieldUploadFile](#fielduploadfile)
-  - [工具类](#工具类)
-    - [HttpUtils](#httputils)
-    - [MessageUtils](#messageutils)
-    - [DateUtils](#dateutils)
-    - [ArrUtils](#arrutils)
-    - [UrlUtils](#urlutils)
-    - [StringUtils](#stringutils)
-    - [EventBusUtils](#eventbusutils)
-    - [ColorsUtils](#colorsutils)
-    - [DomUtils](#domutils)
-    - [UuidUtils](#uuidutils)
-    - [TreeUtils](#treeutils)
-    - [StorageUtils](#storageutils)
-    - [DeviceUtils](#deviceutils)
-    - [ObjectUtils](#objectutils)
-    - [ValidateUtils](#validateutils)
-- [后端](#后端)
-  - [数据规范相关](#数据规范相关)
-    - [Spec](#spec)
-  - [树相关工具](#树相关工具)
-    - [TreeUtils](#treeutils-1)
-  - [注解工具](#注解工具)
-    - [RemarkUtils](#remarkutils)
-  - [Excel工具](#excel工具)
-    - [ExcelUtils](#excelutils)
-  - [数据库工具](#数据库工具)
-    - [JdbcUtils](#jdbcutils)
-  - [ID生成相关注解](#id生成相关注解)
-    - [GeneratePrefixedSequence](#generateprefixedsequence)
-    - [GenerateUuidV7](#generateuuidv7)
-  - [数据类型转换器](#数据类型转换器)
-    - [BaseCodeEnumConverter](#basecodeenumconverter)
-    - [BaseConverter](#baseconverter)
-    - [BaseToListConverter](#basetolistconverter)
-    - [ToBigDecimalListConverter](#tobigdecimallistconverter)
-    - [ToEntryListConverter](#toentrylistconverter)
-    - [ToIntListConverter](#tointlistconverter)
-    - [ToListBracketConverter](#tolistbracketconverter)
-    - [ToListComplexConverter](#tolistcomplexconverter)
-    - [ToListConverter](#tolistconverter)
-    - [ToLongListConverter](#tolonglistconverter)
-    - [ToMapConverter](#tomapconverter)
-    - [ToMapStringObjectConverter](#tomapstringobjectconverter)
-    - [ToPositionConverter](#topositionconverter)
-    - [ToQueryStringMapConverter](#toquerystringmapconverter)
-    - [ToSetComplexConverter](#tosetcomplexconverter)
-    - [ToSetConverter](#tosetconverter)
-  - [数据验证注解](#数据验证注解)
-    - [ValidateCarDrivingLicence](#validatecardrivinglicence)
-    - [ValidateChineseName](#validatechinesename)
-    - [ValidateContainsChinese](#validatecontainschinese)
-    - [ValidateCreditCode](#validatecreditcode)
-    - [ValidateDate](#validatedate)
-    - [ValidateGeneral](#validategeneral)
-    - [ValidateHex](#validatehex)
-    - [ValidateIdNum](#validateidnum)
-    - [ValidateIp](#validateip)
-    - [ValidateIpv4](#validateipv4)
-    - [ValidateMobile](#validatemobile)
-    - [ValidateNotContainsChinese](#validatenotcontainschinese)
-    - [ValidatePassword](#validatepassword)
-    - [ValidatePlateNumber](#validateplatenumber)
-    - [ValidateStartWithLetter](#validatestartwithletter)
-    - [ValidateYearMonth](#validateyearmonth)
-    - [ValidateYearQuarter](#validateyearquarter)
-    - [ValidateZipCode](#validatezipcode)
-  - [公共工具](#公共工具)
-    - [LoginUtils](#loginutils)
-  - [作业调度](#作业调度)
-    - [BaseJob](#basejob)
-    - [JobDescription](#jobdescription)
-    - [HelloWorldJob](#helloworldjob)
-  - [配置说明](#配置说明)
-    - [application-data-framework.yml](#application-data-frameworkyml)
-    - [DataProperties](#dataproperties)
-  - [流程引擎](#流程引擎)
-    - [application-process.yml](#application-processyml)
-    - [LeaveProcessListener](#leaveprocesslistener)
-- [一些规范和注释事项](#一些规范和注释事项)
-
 # open-admin 使用说明书
 
 ## 介绍
@@ -121,45 +6,21 @@
 
 本框架旨在简化企业级管理系统开发，提供了完整的权限体系、数据管理、作业调度和工作流引擎，支持快速构建各类管理后台系统。
 
-根据README.md补充：
-后端： ![Maven Version](https://img.shields.io/maven-central/v/io.github.jiangood/open-admin)
-```xml
-<dependency>
-  <groupId>io.github.jiangood</groupId>
-  <artifactId>open-admin</artifactId>
-</dependency>
-```
 
-前端： ![NPM Version](https://img.shields.io/npm/v/@jiangood/open-admin)
-```
-npm install @jiangood/open-admin
-```
-
-### 项目依赖
-
-后端依赖：
-```xml
-<dependency>
-  <groupId>io.github.jiangood</groupId>
-  <artifactId>open-admin</artifactId>
-</dependency>
-```
-
-前端依赖（模块名为`@jiangood/open-admin`，antd使用最新版6.x）：
-```bash
-npm install @jiangood/open-admin
-```
 
 ### 核心功能
 
 1. **用户权限管理**：完整的用户、角色、权限体系
 2. **数据字典管理**：统一的数据字典维护和使用
 3. **作业调度**：基于Quartz的定时任务管理
-4. **流程引擎**：集成Flowable工作流引擎
 5. **文件管理**：统一的文件上传、存储和管理
 6. **系统配置**：灵活的系统参数配置
 7. **操作日志**：完整的操作日志记录
 8. **报表管理**：集成UReport报表引擎
+
+## 使用AI辅助生产代码
+[提示词](ai.md)
+
 
 ## 前端
 
