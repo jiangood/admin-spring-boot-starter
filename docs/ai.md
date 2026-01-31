@@ -11,9 +11,8 @@
 
 
 
-#  如何生成实体
-参考模板生成实体,模板代码如下
-
+#  代码模板
+## 实体代码模板
 文件路径：`src/main/java/io/admin/modules/system/entity/User.java`
 ```java
 package io.admin.modules.system.entity;
@@ -47,9 +46,6 @@ public class User extends BaseEntity {
     private String fav;
 }
 ```
-
-# 第二步、生成其他
-结合需求和实体，按照模板生成其他代码，模板如下：
 
 
 ## DAO类模板 (UserDao.java)
