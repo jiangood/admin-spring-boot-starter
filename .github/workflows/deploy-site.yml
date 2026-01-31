@@ -20,10 +20,10 @@ jobs:
           cd site
           npm install
           npm run build
-      - name: Deploy for GitHub 🚀
+      - name: Deploy for GitHub
         uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages
-          folder: bundles/www
+          folder: site/build
           single-commit: true
           clean: true

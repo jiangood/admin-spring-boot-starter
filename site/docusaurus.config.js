@@ -7,12 +7,6 @@ const config = {
   baseUrl: '/open-admin/',
   organizationName: 'jiangood',
   projectName: 'open-admin',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  i18n: {
-    defaultLocale: 'zh-CN',
-    locales: ['zh-CN'],
-  },
   presets: [
     [
       'classic',
