@@ -35,9 +35,28 @@ const config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans'],
   },
+
+  // Control whether URLs have trailing slashes.
+  // For GitHub pages, it's recommended to set this to true
+  trailingSlash: true,
+
+  // Set the favicon of your site
+  favicon: 'img/logo.svg',
+
+  // Add custom metadata for SEO
+  metadata: [
+    {
+      name: 'description',
+      content: 'open-admin - 小型管理系统框架，提供一整套前后端开箱即用的解决方案',
+    },
+    {
+      name: 'keywords',
+      content: 'open-admin,管理系统,框架,前后端,Java,Spring Boot,React',
+    },
+  ],
 
   presets: [
     [
@@ -50,22 +69,16 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
               'https://github.com/jiangood/open-admin/tree/main/site/',
+          // Show last update time
+          showLastUpdateTime: true,
+          // Show last update author
+          showLastUpdateAuthor: true,
+          // Route base path for docs
+          routeBasePath: 'docs',
+          // Include README.md as the homepage
+          includeCurrentVersion: true,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-              'https://github.com/jiangood/open-admin/tree/main/site/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -80,12 +93,17 @@ const config = {
         image: 'img/logo.svg',
         colorMode: {
           respectPrefersColorScheme: true,
+          // Enable dark mode toggle
+          defaultMode: 'light',
+          disableSwitch: false,
         },
         navbar: {
           title: 'open-admin',
           logo: {
             alt: 'open-admin Logo',
             src: 'img/logo.svg',
+            // Add logo for dark mode if needed
+            // srcDark: 'img/logo-dark.svg',
           },
           items: [
             {
@@ -94,11 +112,12 @@ const config = {
               position: 'left',
               label: '文档',
             },
-            {to: '/blog', label: 'Blog', position: 'left'},
             {
               href: 'https://github.com/jiangood/open-admin',
               label: 'GitHub',
               position: 'right',
+              // Add GitHub icon
+              className: 'navbar-github-link',
             },
           ],
         },
@@ -106,16 +125,41 @@ const config = {
           style: 'dark',
           links: [
             {
-              title: 'Docs',
+              title: '文档',
               items: [
                 {
                   label: '快速开始',
                   to: '/docs/index',
                 },
+                {
+                  label: '架构设计',
+                  to: '/docs/architecture',
+                },
+                {
+                  label: '前端文档',
+                  to: '/docs/frontend/components',
+                },
+                {
+                  label: '后端文档',
+                  to: '/docs/backend/data-spec',
+                },
               ],
             },
             {
-              title: 'More',
+              title: '开发指南',
+              items: [
+                {
+                  label: '编码规范',
+                  to: '/docs/guide/coding-standard',
+                },
+                {
+                  label: '智能体使用',
+                  to: '/docs/guide/agent',
+                },
+              ],
+            },
+            {
+              title: '更多',
               items: [
                 {
                   label: 'GitHub',
@@ -129,7 +173,23 @@ const config = {
         prism: {
           theme: prismThemes.github,
           darkTheme: prismThemes.dracula,
+          // Add additional languages for syntax highlighting
+          additionalLanguages: ['java', 'javascript', 'typescript', 'sql', 'yaml', 'json'],
         },
+        // Enable table of contents for docs
+        tableOfContents: {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 5,
+        },
+        // Add announcement banner if needed
+        // announcementBar: {
+        //   id: 'support-us',
+        //   content:
+        //     '我们需要您的支持！请给我们一个 star ⭐',
+        //   backgroundColor: '#fafbfc',
+        //   textColor: '#091E42',
+        //   isCloseable: true,
+        // },
       }),
 };
 
