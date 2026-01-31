@@ -20,7 +20,6 @@ jobs:
           cd site
           npm install
           npm run build
-
       - name: Deploy for GitHub 🚀
         uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
