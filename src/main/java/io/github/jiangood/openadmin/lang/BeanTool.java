@@ -161,11 +161,11 @@ public class BeanTool {
                 }
 
                 String name = method.getName();
-                if (!name.startsWith("getDefinition")) {
+                if (!name.startsWith("get")) {
                     continue;
                 }
 
-                String k = StrTool.removePreAndLowerFirst(name, "getDefinition");
+                String k = StrTool.removePreAndLowerFirst(name, "get");
                 if ("class".equals(k)) {
                     continue;
                 }
