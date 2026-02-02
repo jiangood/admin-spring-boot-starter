@@ -193,17 +193,23 @@ class GoogleToolTest {
     }
 
     @Test
-    void testIsEmpty() {
+    void testIsCollectionEmpty() {
         // 测试集合
         assertTrue(GoogleTool.isCollectionEmpty(null));
         assertTrue(GoogleTool.isCollectionEmpty(List.of()));
         assertFalse(GoogleTool.isCollectionEmpty(List.of("a")));
+    }
 
+    @Test
+    void testIsMapEmpty() {
         // 测试Map
         assertTrue(GoogleTool.isMapEmpty((Map<?, ?>) null));
         assertTrue(GoogleTool.isMapEmpty(Map.of()));
         assertFalse(GoogleTool.isMapEmpty(Map.of("a", 1)));
+    }
 
+    @Test
+    void testIsArrayEmpty() {
         // 测试数组
         assertTrue(GoogleTool.isArrayEmpty((Object[]) null));
         assertTrue(GoogleTool.isArrayEmpty(new Object[0]));
