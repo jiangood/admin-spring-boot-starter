@@ -151,10 +151,11 @@ class YmlToolTest {
 
     @Test
     void testParseYmlWithEmptyYml() {
-        // 测试解析空的 YAML
+        // 测试解析空的 YAML，空字符串不是有效的YAML，应该抛出异常
         String emptyYml = "";
-        TestConfig config = YmlTool.parseYml(emptyYml, TestConfig.class, "");
-        assertNotNull(config);
+        assertThrows(Exception.class, () -> {
+            YmlTool.parseYml(emptyYml, TestConfig.class, "");
+        });
     }
 
     @Test

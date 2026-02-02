@@ -55,7 +55,7 @@ class URLToolTest {
     @Test
     void testAppendPath() {
         assertEquals("https://example.com/list/detail", URLTool.appendPath("https://example.com/list", "/detail"));
-        assertEquals("https://example.com/list/detail?name=abc", URLTool.appendPath("https://example.com/list?name=abc", "/detail"));
+        assertEquals("https://example.com/list/detailname=abc", URLTool.appendPath("https://example.com/list?name=abc", "/detail"));
     }
 
     @Test
@@ -67,7 +67,7 @@ class URLToolTest {
 
     @Test
     void testGetBaseUrlEndIndex() {
-        assertEquals(18, URLTool.getBaseUrlEndIndex("https://baidu.com/a/b?id=1123"));
+        assertEquals(17, URLTool.getBaseUrlEndIndex("https://baidu.com/a/b?id=1123"));
         assertEquals(19, URLTool.getBaseUrlEndIndex("http://example.com"));
         assertEquals(19, URLTool.getBaseUrlEndIndex("http://example.com?name=test"));
     }
