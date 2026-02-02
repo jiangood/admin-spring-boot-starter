@@ -1,22 +1,22 @@
 package io.github.jiangood.openadmin.lang;
 
-public class CodeException extends IllegalStateException {
+public class BizException extends IllegalStateException {
 
     private int code;
 
-    public CodeException() {
+    public BizException() {
         super();
     }
 
-    public CodeException(String message) {
+    public BizException(String message) {
         super(message);
     }
 
-    public CodeException(String prefixMessage, Throwable e) {
+    public BizException(String prefixMessage, Throwable e) {
         super(prefixMessage + ": " + e.getMessage());
     }
 
-    public CodeException(int code, String message) {
+    public BizException(int code, String message) {
         super(message);
         this.code = code;
     }
