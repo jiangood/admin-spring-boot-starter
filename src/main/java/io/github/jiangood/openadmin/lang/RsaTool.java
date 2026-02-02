@@ -16,6 +16,13 @@ public class RsaTool {
 
 
     public static String decryptStr(String password, KeyType keyType) {
-        return rsa.decryptStr(password, keyType);
+        if (password == null || password.isEmpty()) {
+            return null;
+        }
+        try {
+            return rsa.decryptStr(password, keyType);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
