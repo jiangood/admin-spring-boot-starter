@@ -1,7 +1,7 @@
 package io.github.jiangood.openadmin.lang.tree.drop;
 
-import io.github.jiangood.openadmin.dto.antd.DropEvent;
-import io.github.jiangood.openadmin.dto.antd.TreeOption;
+import io.github.jiangood.openadmin.lang.dto.antd.DropEvent;
+import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
 import io.github.jiangood.openadmin.lang.tree.TreeTool;
 import org.springframework.util.Assert;
 
@@ -48,6 +48,7 @@ public class TreeDropTool {
     public static List<String> resort(List<String> list, DropEvent e) {
         String k = e.getDragKey();
         if (e.getDropPositionEnum() == DropEvent.DropPositionEnum.INSIDE) {
+            list.remove(k); // 先移除，避免重复添加
             list.add(0, k);
             return list;
         }

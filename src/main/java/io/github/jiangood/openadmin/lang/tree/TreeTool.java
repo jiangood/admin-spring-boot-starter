@@ -3,7 +3,7 @@ package io.github.jiangood.openadmin.lang.tree;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Dict;
-import io.github.jiangood.openadmin.dto.antd.TreeOption;
+import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -38,7 +38,17 @@ public class TreeTool {
     }
 
     public static List<Dict> buildTreeByDict(List<Dict> list) {
-        return buildTree(list, e -> e.getStr("key"), e -> e.getStr("parentKey"), (e) -> e.get("children", new ArrayList<>()), (e, children) -> e.set("children", children));
+        return buildTree(list, e -> e.getStr("key"), e -> e.getStr("parentKey"), 
+            (e) -> {
+                List<Dict> children = e.get("children", null);
+                if (children == null) {
+                    children = new ArrayList<>();
+                    e.set("children", children);
+                }
+                return children;
+            }, 
+            (e, children) -> e.set("children", children)
+        );
     }
 
 
@@ -159,7 +169,7 @@ public class TreeTool {
      *
      * @param <E>
      * @param list 注意不是树，而是列表
-     * @return
+     * @return 从根节点到父节点的顺序
      */
     public static <E> List<String> getPids(String nodeId, List<E> list, Function<E, String> keyFn, Function<E, String> pkeyFn) {
         Map<String, E> idMap = new HashMap<>();
@@ -181,12 +191,16 @@ public class TreeTool {
             parent = idMap.get(pid);
         }
 
-
+        // 反转列表，使根节点在前
+        Collections.reverse(pids);
         return pids;
 
     }
 
     public static <E> void removeIf(List<E> list, Function<E, List<E>> getChildren, Predicate<? super E> filter) {
+        if (list == null) {
+            return;
+        }
         list.removeIf(filter);
         walk(list, getChildren, t -> {
             List<E> children = getChildren.apply(t);

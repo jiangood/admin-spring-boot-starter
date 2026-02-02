@@ -2,36 +2,28 @@ package io.github.jiangood.openadmin.lang;
 
 
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import io.github.jiangood.openadmin.BasePackage;
+import io.github.jiangood.openadmin.OpenAdminConfiguration;
+import lombok.Getter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class SpringTool extends SpringUtil implements ApplicationContextAware {
-
-
-    /**
-     * Spring应用上下文环境
-     */
-    private static ApplicationContext applicationContext;
-
-    /**
-     * 获取{@link ApplicationContext}
-     *
-     * @return {@link ApplicationContext}
-     */
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
+@Component
+public class SpringTool implements ApplicationContextAware {
+    public SpringTool() {
+        System.out.println("SpringTool init");
     }
 
-    @SuppressWarnings("NullableProblems")
+
+    private static ApplicationContext applicationContext;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         SpringTool.applicationContext = applicationContext;
@@ -47,6 +39,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @return
      */
     public static Set<Class<?>> getBasePackageClasses() {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         Set<Class<?>> list = new HashSet<>();
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         for (String beanName : beanNames) {
@@ -61,7 +54,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
                 list.addAll(Arrays.asList(basePackageClasses));
             }
         }
-        list.add(BasePackage.class);
+        list.add(OpenAdminConfiguration.class);
         return list;
     }
 
@@ -77,6 +70,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return (T) applicationContext.getBean(name);
     }
 
@@ -88,6 +82,9 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @return Bean对象
      */
     public static <T> T getBean(Class<T> clazz) {
+        if (applicationContext == null) {
+            return null;
+        }
         try {
             return applicationContext.getBean(clazz);
         } catch (Exception e) {
@@ -106,6 +103,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @throws RuntimeException 如果Bean不存在，将抛出异常
      */
     public static <T> T getBean(String name, Class<T> clazz) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return applicationContext.getBean(name, clazz);
     }
 
@@ -119,10 +117,12 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @since 5.3.3
      */
     public static <T> Map<String, T> getBeansOfType(Class<T> type) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return applicationContext.getBeansOfType(type);
     }
 
     public static <T> Collection<String> getBeanNames(Class<T> type) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         Map<String, T> beansOfType = applicationContext.getBeansOfType(type);
         Set<String> beanNames = beansOfType.keySet();
         return beanNames;
@@ -131,6 +131,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
 
 
     public static <T> List<T> getBeans(Class<T> type) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         Collection<T> values = applicationContext.getBeansOfType(type).values();
         return new ArrayList<>(values);
     }
@@ -143,6 +144,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @since 5.3.3
      */
     public static String[] getBeanNamesForType(Class<?> type) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return applicationContext.getBeanNamesForType(type);
     }
 
@@ -154,9 +156,8 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
      * @since 5.3.3
      */
     public static String getProperty(String key) {
-        if (null == applicationContext) {
-            return null;
-        }
+        if(key == null) throw new NullPointerException("key is null");
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return applicationContext.getEnvironment().getProperty(key);
     }
 
@@ -184,6 +185,7 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
     }
 
     public static boolean hasProfile(String name) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
         return ArrayUtil.contains(applicationContext.getEnvironment().getActiveProfiles(), name);
     }
 
@@ -194,17 +196,17 @@ public class SpringTool extends SpringUtil implements ApplicationContextAware {
         }
     }
 
-    public static void publishEventAsync(ApplicationEvent event) {
-        if (null != applicationContext) {
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    applicationContext.publishEvent(event);
-                }
-            }, 5);
 
-        }
+    public static void publishEventAsync(ApplicationEvent event) {
+        AssertUtil.state(applicationContext != null, 500, "Spring应用上下文未初始化");
+        ThreadTool.execute(() -> {
+            try {
+                applicationContext.publishEvent(event);
+            } catch (Exception e) {
+                // 记录异常日志，防止异常被忽略
+                e.printStackTrace(); // 在实际项目中应使用日志框架记录
+            }
+        });
     }
 
     public static void publishEvent(Object event) {

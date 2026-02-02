@@ -13,19 +13,26 @@ public class RangeTool {
 
 
     public static Range<String> toStrRange(String str) {
-        String[] arr = StrUtil.splitToArray(str, SPLITTER);
-        Assert.state(arr.length <= 2, "参数格式错误");
+        // 处理空字符串
+        if (StrUtil.isBlank(str)) {
+            return new Range<>();
+        }
 
+        // 只分割第一个分隔符
+        int index = str.indexOf(SPLITTER);
         Range<String> range = new Range<>();
-        if (arr.length > 0) {
-            String a = arr[0];
-            String b = arr.length > 1 ? arr[1] : null;
-
-            a = StrUtil.emptyToNull(a);
-            b = StrUtil.emptyToNull(b);
-
-            range.setStart(a);
-            range.setEnd(b);
+        
+        if (index == -1) {
+            // 没有分隔符，只有一个值
+            String value = StrUtil.trim(str);
+            range.setStart(StrUtil.emptyToNull(value));
+        } else {
+            // 有分隔符，分割为两部分
+            String start = StrUtil.trim(str.substring(0, index));
+            String end = StrUtil.trim(str.substring(index + 1));
+            
+            range.setStart(StrUtil.emptyToNull(start));
+            range.setEnd(StrUtil.emptyToNull(end));
         }
 
         return range;

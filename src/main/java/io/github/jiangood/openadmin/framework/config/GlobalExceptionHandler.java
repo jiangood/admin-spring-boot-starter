@@ -1,10 +1,10 @@
 package io.github.jiangood.openadmin.framework.config;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.AjaxResult;
 import io.github.jiangood.openadmin.lang.ExceptionToMessageTool;
 import io.github.jiangood.openadmin.lang.HttpServletTool;
-import io.github.jiangood.openadmin.lang.CodeException;
+import io.github.jiangood.openadmin.lang.BizException;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -111,8 +111,8 @@ public class GlobalExceptionHandler {
     /**
      * 拦截权限异常
      */
-    @ExceptionHandler(CodeException.class)
-    public AjaxResult systemException(CodeException e) {
+    @ExceptionHandler(BizException.class)
+    public AjaxResult systemException(BizException e) {
         return AjaxResult.err(e.getCode(), e.getMessage());
     }
 

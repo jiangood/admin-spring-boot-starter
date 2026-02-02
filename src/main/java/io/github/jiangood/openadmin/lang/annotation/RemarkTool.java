@@ -47,6 +47,9 @@ public class RemarkTool {
     }
 
     public static String getRemark(Method method) {
+        if (method == null) {
+            return null;
+        }
         Remark ann = method.getAnnotation(Remark.class);
         return ann == null ? null : ann.value();
     }

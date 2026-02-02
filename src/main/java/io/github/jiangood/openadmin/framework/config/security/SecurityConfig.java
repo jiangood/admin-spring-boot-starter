@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.config.security;
 
-import io.github.jiangood.openadmin.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.AjaxResult;
 import io.github.jiangood.openadmin.lang.ArrayTool;
 import io.github.jiangood.openadmin.lang.PasswordTool;
 import io.github.jiangood.openadmin.lang.ResponseTool;
@@ -32,7 +32,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)  // 必须启用这个注解
+@EnableMethodSecurity  // 必须启用这个注解
 public class SecurityConfig {
 
     private final SysProperties sysProperties;

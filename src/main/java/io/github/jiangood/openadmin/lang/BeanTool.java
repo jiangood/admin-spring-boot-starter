@@ -146,6 +146,10 @@ public class BeanTool {
 
         Map<String, Object> map = new HashMap<>();
 
+        if (bean == null) {
+            return map;
+        }
+
         try {
             Method[] declaredFields = ReflectionUtils.getAllDeclaredMethods(cls);
             for (Method method : declaredFields) {
@@ -165,7 +169,7 @@ public class BeanTool {
                     continue;
                 }
 
-                String k = StrTool.removePreAndLowerFirst(name, "get");
+                String k = StringTool.removePreAndLowerFirst(name, "get");
                 if ("class".equals(k)) {
                     continue;
                 }
