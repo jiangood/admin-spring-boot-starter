@@ -8,7 +8,11 @@ public class ThreadTool {
     private static volatile ExecutorService asyncExecutor;
     public static void execute(Runnable runnable) {
         if(asyncExecutor == null){
-            asyncExecutor = Executors.newCachedThreadPool();
+            synchronized (ThreadTool.class) {
+                if(asyncExecutor == null){
+                    asyncExecutor = Executors.newCachedThreadPool();
+                }
+            }
         }
         asyncExecutor.execute(runnable);
     }
