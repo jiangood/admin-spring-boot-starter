@@ -42,13 +42,13 @@ public class AuthService {
         boolean locked = loginAttemptService.isAccountLocked(username);
         Assert.state(!locked, "账户已被锁定，请" + sysProperties.getLoginLockMinutes() + "分钟后再试");
 
-        // 实现指数退避策略的登录延迟
+        // 实现指数退避策略的登录延迟，防止暴力破解
         int remainingAttempts = loginAttemptService.getRemainingAttempts(username);
         if (remainingAttempts > 0) {
             // 计算延迟时间：基础延迟 1秒，每次失败后翻倍
             int maxAttempts = sysProperties.getLoginLockMaxAttempts();
             int failedAttempts = maxAttempts - remainingAttempts;
-            long delayMs = 1000L * (1L << Math.min(failedAttempts, 8)); // 最大延迟 256秒
+            long delayMs = 1000L * (1L << Math.min(failedAttempts, 3)); // 最大延迟 8秒，防止DoS攻击
             ThreadUtil.sleep(delayMs);
         }
 
