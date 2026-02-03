@@ -57,19 +57,83 @@
 - **功能**：调整字典项的显示顺序
 - **操作**：通过拖拽调整顺序
 
-## 技术实现
+## 数据字典定义
 
-### 后端实现
+### 配置文件定义
 
-1. **实体类**：`DictType.java`、`Dict.java`
-2. **服务类**：`DictTypeService.java`、`DictService.java`
-3. **缓存机制**：字典数据缓存，提高查询性能
+数据字典可以通过配置文件 `application-data.yml` 进行定义，这种方式适用于系统初始化时需要预设的字典数据。
 
-### 前端实现
+#### 配置格式
 
-1. **页面组件**：`dict-type/index.jsx`、`dict/index.jsx`
-2. **字典选择器**：`FieldDictSelect` 组件，用于表单中选择字典值
-3. **字典工具**：`DictUtils`，用于前端获取和使用字典数据
+```yaml
+data:
+  dicts:
+    - name: 字典名称
+      code: 字典编码
+      group-name: 字典分组
+      items:
+        - name: 字典项名称
+          code: 字典项值
+          color: 状态颜色（可选）
+          enabled: 是否启用（可选，默认true）
+          seq: 排序（可选）
+```
+
+#### 配置示例
+
+```yaml
+data:
+  dicts:
+    - name: 性别
+      code: gender
+      items:
+        - name: 男
+          code: MALE
+        - name: 女
+          code: FEMALE
+        - name: 保密
+          code: UNKNOWN
+    - name: 审核状态
+      code: approveStatus
+      group-name: 系统管理
+      items:
+        - name: 待提交
+          code: DRAFT
+          color: default
+        - name: 审核中
+          code: PENDING
+          color: warning
+        - name: 审核通过
+          code: APPROVED
+          color: success
+        - name: 审核未通过
+          code: REJECTED
+          color: error
+```
+
+### 配置与数据库的关系
+
+1. **配置文件定义**：系统初始化时加载，用于预设字典数据
+2. **数据库存储**：字典数据会存储到数据库中，支持后续的增删改查
+3. **优先级**：配置文件定义的数据会在系统启动时初始化到数据库，后续通过管理界面的修改会覆盖配置文件的定义
+
+## 字典定义最佳实践
+
+1. **字典编码**：使用小写字母和下划线组合，如 `user_status`、`order_type`
+2. **字典分组**：合理使用 `group-name` 进行字典分类，便于管理
+3. **状态颜色**：为不同状态的字典项设置合适的颜色，提升前端展示效果
+4. **字典项值**：使用有意义的枚举值或数字编码，如 `ACTIVE`、`INACTIVE` 或 `1`、`2`
+5. **排序设置**：通过 `seq` 属性设置字典项的显示顺序，确保前端展示的一致性
+6. **模块化配置**：不同模块的字典定义可以分散到多个配置文件中，系统会自动合并
+
+## 配置文件与管理界面的区别
+
+| 特性 | 配置文件定义 | 管理界面操作 |
+|------|-------------|-------------|
+| 适用场景 | 系统初始化预设 | 运行时动态管理 |
+| 操作方式 | 编辑配置文件，重启系统 | 网页界面操作，实时生效 |
+| 优先级 | 初始化时使用，后续会被界面操作覆盖 | 实时修改，优先级高于配置文件 |
+| 版本控制 | 可通过代码版本控制 | 存储在数据库中，需单独备份 |
 
 ## 使用示例
 
@@ -78,16 +142,24 @@
 #### 1.1 获取字典列表
 
 ```java
-import io.github.jiangood.openadmin.modules.system.service.DictService;
+import io.github.jiangood.openadmin.modules.system.service.SysDictService;
+import io.github.jiangood.openadmin.modules.system.dto.DictItemDto;
+import io.github.jiangood.openadmin.framework.config.datadefinition.DictDefinition;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @Autowired
-private DictService dictService;
+private SysDictService sysDictService;
 
 // 根据字典类型获取字典列表
-List<Dict> genderList = dictService.getDictListByType("gender");
+List<DictDefinition.Item> genderList = sysDictService.getItems("gender");
 
-// 获取字典Map
-Map<String, String> genderMap = dictService.getDictMapByType("gender");
+// 获取所有字典定义
+List<DictDefinition> allDicts = sysDictService.getAll();
+
+// 获取字典映射
+Map<String, Collection<DictItemDto>> dictMap = sysDictService.dictMap();
 ```
 
 #### 1.2 字典缓存
@@ -102,7 +174,7 @@ Map<String, String> genderMap = dictService.getDictMapByType("gender");
 import {FieldDictSelect} from "@jiangood/open-admin";
 
 <Form.Item label="性别" name="gender" rules={[{required: true}]}>
-    <FieldDictSelect dictType="gender" placeholder="请选择性别"/>
+    <FieldDictSelect typeCode="gender" placeholder="请选择性别"/>
 </Form.Item>
 ```
 
@@ -112,13 +184,16 @@ import {FieldDictSelect} from "@jiangood/open-admin";
 import {DictUtils} from "@jiangood/open-admin";
 
 // 获取字典列表
-const genderList = DictUtils.getDictList("gender");
+const genderList = DictUtils.dictList("gender");
 
 // 获取字典标签
-const genderLabel = DictUtils.getDictLabel("gender", "1");
+const genderLabel = DictUtils.dictLabel("gender", "MALE");
 
-// 获取字典值
-const genderValue = DictUtils.getDictValue("gender", "男");
+// 将字典列表转换为 Ant Design Select/Options 格式
+const genderOptions = DictUtils.dictOptions("gender");
+
+// 获取字典标签并包装为 Tag 组件
+const genderTag = DictUtils.dictTag("gender", "MALE");
 ```
 
 ## 最佳实践
