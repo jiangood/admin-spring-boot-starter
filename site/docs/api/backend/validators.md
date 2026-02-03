@@ -11,7 +11,7 @@
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateMobile;
+import io.github.jiangood.openadmin.framework.validator.ValidateMobile;
 
 public class User {
     @ValidateMobile(message = "请输入正确的手机号码")
@@ -28,7 +28,7 @@ public class User {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateIdCard;
+import io.github.jiangood.openadmin.framework.validator.ValidateIdCard;
 
 public class User {
     @ValidateIdCard(message = "请输入正确的身份证号码")
@@ -45,7 +45,7 @@ public class User {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateEmail;
+import io.github.jiangood.openadmin.framework.validator.ValidateEmail;
 
 public class User {
     @ValidateEmail(message = "请输入正确的邮箱地址")
@@ -62,7 +62,7 @@ public class User {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateCreditCode;
+import io.github.jiangood.openadmin.framework.validator.ValidateCreditCode;
 
 public class Company {
     @ValidateCreditCode(message = "请输入正确的统一社会信用代码")
@@ -79,7 +79,7 @@ public class Company {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateCarDrivingLicence;
+import io.github.jiangood.openadmin.framework.validator.ValidateCarDrivingLicence;
 
 public class Driver {
     @ValidateCarDrivingLicence(message = "请输入正确的驾驶证号码")
@@ -96,7 +96,7 @@ public class Driver {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateChineseName;
+import io.github.jiangood.openadmin.framework.validator.ValidateChineseName;
 
 public class User {
     @ValidateChineseName(message = "请输入正确的中文姓名")
@@ -113,7 +113,7 @@ public class User {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateContainsChinese;
+import io.github.jiangood.openadmin.framework.validator.ValidateContainsChinese;
 
 public class Product {
     @ValidateContainsChinese(message = "产品名称必须包含中文字符")
@@ -130,7 +130,7 @@ public class Product {
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.validator.ValidateDate;
+import io.github.jiangood.openadmin.framework.validator.ValidateDate;
 
 public class Order {
     @ValidateDate(message = "请输入正确的日期格式")

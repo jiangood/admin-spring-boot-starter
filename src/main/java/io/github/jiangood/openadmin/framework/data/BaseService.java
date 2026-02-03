@@ -1,5 +1,6 @@
 package io.github.jiangood.openadmin.framework.data;
 
+import java.util.List;
 
 import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
@@ -10,16 +11,15 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+/**
+ * 基础服务类
+ */
 @Slf4j
 public abstract class BaseService<T extends Persistable<String>> {
-
 
     @Delegate
     @Autowired
     protected BaseDao<T> baseDao;
-
 
     /**
      * 更新时，指定字段更新
@@ -35,7 +35,6 @@ public abstract class BaseService<T extends Persistable<String>> {
         return baseDao.findById(input.getId());
     }
 
-
     @Transactional
     public void deleteByUserAction(String id) {
         baseDao.deleteById(id);
@@ -48,6 +47,5 @@ public abstract class BaseService<T extends Persistable<String>> {
     public T findByRequest(String id) {
         return baseDao.findOne(id);
     }
-
 
 }

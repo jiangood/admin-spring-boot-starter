@@ -84,14 +84,14 @@ npm run dev
 3. 创建 Service 类（如 `UserService.java`），存储路径：`src/main/java/io/github/jiangood/openadmin/modules/xxx/service`
 4. 创建 Controller 类（如 `UserController.java`），存储路径：`src/main/java/io/github/jiangood/openadmin/modules/xxx/controller`
 
-详细步骤请参考 [后端开发指南](./backend/)。
+详细步骤请参考 [后端 API 文档](./api/backend/)。
 
 #### 1.2 前端开发
 
 1. 创建页面组件（如 `user/index.jsx`），存储路径：`web/src/pages/xxx/index.jsx`
 2. 配置路由和菜单
 
-详细步骤请参考 [前端开发指南](./frontend/)。
+详细步骤请参考 [前端 API 文档](./api/frontend/)。
 
 ### 2. 配置菜单
 
@@ -154,6 +154,6 @@ data:
 ## 下一步
 
 - 了解 [系统架构](./architecture.md)
-- 学习 [前端开发](./frontend/)
-- 学习 [后端开发](./backend/)
-- 参考 [开发指南](./guide/)
+- 学习 [前端 API 文档](./api/frontend/)
+- 学习 [后端 API 文档](./api/backend/)
+- 参考 [开发指南](./development/)
