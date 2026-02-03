@@ -42,7 +42,7 @@
 ### 使用示例
 
 ```java
-import io.github.jiangood.openadmin.Spec;
+import io.github.jiangood.openadmin.framework.data.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -82,9 +82,9 @@ Spec<Order> orderSpec = Spec.of()
 
 ## 树相关工具
 
-### TreeUtils
+### TreeTool
 
-将列表转换为树结构的工具类，请使用TreeManager。
+将列表转换为树结构的工具类，提供了构建树、遍历树、获取叶子节点等功能。
 
 **方法列表**：
 
@@ -105,12 +105,12 @@ Spec<Order> orderSpec = Spec.of()
 ### 使用示例
 
 ```java
-import io.github.jiangood.openadmin.utils.TreeUtils;
+import io.github.jiangood.openadmin.lang.tree.TreeTool;
 import io.github.jiangood.openadmin.modules.system.entity.Dept;
 
 // 构建部门树
 List<Dept> deptList = deptRepository.findAll();
-List<Dept> deptTree = TreeUtils.buildTree(
+List<Dept> deptTree = TreeTool.buildTree(
     deptList,
     Dept::getId,
     Dept::getParentId,
@@ -119,7 +119,7 @@ List<Dept> deptTree = TreeUtils.buildTree(
 );
 
 // 遍历树节点
-TreeUtils.walk(
+TreeTool.walk(
     deptTree,
     Dept::getChildren,
     (dept, level) -> {
@@ -128,8 +128,8 @@ TreeUtils.walk(
 );
 
 // 获取叶子节点
-List<Dept> leafDepts = TreeUtils.getLeafs(deptTree, Dept::getChildren);
+List<Dept> leafDepts = TreeTool.getLeafs(deptTree, Dept::getChildren);
 
 // 树转列表
-List<Dept> flatDeptList = TreeUtils.treeToList(deptTree, Dept::getChildren);
+List<Dept> flatDeptList = TreeTool.treeToList(deptTree, Dept::getChildren);
 ```

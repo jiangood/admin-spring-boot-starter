@@ -114,47 +114,19 @@ data:
       perm-codes: [ sysRole:manage ]
 ```
 
-### 3. 配置流程
-
-在 `application-process.yml` 中配置流程定义：
-
-```yaml
-process:
-  list:
-    - key: "leave_request"
-      name: "请假流程"
-      listener: io.github.jiangood.openadmin.LeaveProcessListener
-      variables:
-        - name: "days"
-          label: "请假天数"
-          value-type: number
-          required: true
-        - name: "reason"
-          label: "请假原因"
-          required: true
-      forms:
-        - key: "start_form"
-          label: "请假申请表"
-        - key: "manager_approve_form"
-          label: "经理审批表"
-        - key: "finish_view"
-          label: "流程结果查看"
-```
-
 ## 技术栈
 
 ### 前端技术
 
-- **React**：19.0.0+
-- **Ant Design**：6.0.0+
-- **Umi**：4.0.0+
-- **@ant-design/icons**：6.0.0+
+- **React**：18.0.0+
+- **Ant Design**：5.0.0+
+- **@ant-design/icons**：5.0.0+
 - **dayjs**：1.11.13+
 - **axios**：1.13.2+
 
 ### 后端技术
 
-- **Spring Boot**：3.5.10+
+- **Spring Boot**：3.0.0+
 - **JPA**：内置
 - **Quartz**：内置
 - **MySQL**：8.0+

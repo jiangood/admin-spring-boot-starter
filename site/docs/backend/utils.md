@@ -30,10 +30,10 @@ public class User {
 }
 
 // 导入Excel
-List<User> users = ExcelUtils.importExcel(User.class, inputStream);
+List<User> users = io.github.jiangood.openadmin.lang.excel.ExcelTool.importExcel(User.class, inputStream);
 
 // 导出Excel
-ExcelUtils.exportExcel(User.class, users, outputStream);
+io.github.jiangood.openadmin.lang.excel.ExcelTool.exportExcel(User.class, users, outputStream);
 ```
 
 ## JdbcUtils
@@ -77,31 +77,31 @@ Spring Boot环境下的原生SQL工具类，基于Spring的JdbcTemplate封装，
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.utils.JdbcUtils;
+import io.github.jiangood.openadmin.lang.jdbc.DbTool;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
 // 查询单个用户
-User user = jdbcUtils.findOne(User.class, "SELECT * FROM user WHERE id = ?", 1);
+User user = dbTool.findOne(User.class, "SELECT * FROM user WHERE id = ?", 1);
 
 // 查询用户列表
-List<User> users = jdbcUtils.findAll(User.class, "SELECT * FROM user WHERE status = ?", 1);
+List<User> users = dbTool.findAll(User.class, "SELECT * FROM user WHERE status = ?", 1);
 
 // 分页查询
 Pageable pageable = PageRequest.of(0, 10);
-Page<User> userPage = jdbcUtils.findAll(User.class, pageable, "SELECT * FROM user", new Object[]{});
+Page<User> userPage = dbTool.findAll(User.class, pageable, "SELECT * FROM user", new Object[]{});
 
 // 插入数据
 User user = new User();
 user.setName("张三");
 user.setAge(25);
-jdbcUtils.insert("t_user", user);
+dbTool.insert("t_user", user);
 
 // 更新数据
-jdbcUtils.updateById("t_user", user);
+dbTool.updateById("t_user", user);
 
 // 检查记录是否存在
-boolean exists = jdbcUtils.exists("SELECT * FROM user WHERE name = ?", "张三");
+boolean exists = dbTool.exists("SELECT * FROM user WHERE name = ?", "张三");
 ```
 
 ## LoginUtils
@@ -122,22 +122,22 @@ boolean exists = jdbcUtils.exists("SELECT * FROM user WHERE name = ?", "张三")
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.utils.LoginUtils;
+import io.github.jiangood.openadmin.modules.common.LoginTool;
 
 // 获取当前登录用户ID
-String userId = LoginUtils.getUserId();
+String userId = LoginTool.getUserId();
 
 // 获取当前登录用户信息
-LoginUser user = LoginUtils.getUser();
+LoginUser user = LoginTool.getUser();
 
 // 获取当前登录用户权限
-List<String> permissions = LoginUtils.getPermissions();
+List<String> permissions = LoginTool.getPermissions();
 
 // 判断当前用户是否为管理员
-boolean isAdmin = LoginUtils.isAdmin();
+boolean isAdmin = LoginTool.isAdmin();
 
 // 权限检查示例
-if (!LoginUtils.isAdmin() && !LoginUtils.getPermissions().contains("user:edit")) {
+if (!LoginTool.isAdmin() && !LoginTool.getPermissions().contains("user:edit")) {
     throw new AccessDeniedException("无权限编辑用户");
 }
 ```
@@ -158,7 +158,7 @@ if (!LoginUtils.isAdmin() && !LoginUtils.getPermissions().contains("user:edit"))
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.utils.RemarkUtils;
+import io.github.jiangood.openadmin.lang.annotation.RemarkTool;
 import java.lang.reflect.Field;
 
 // 获取类的Remark注解值

@@ -24,8 +24,8 @@
 ```java
 package io.github.jiangood.openadmin.modules.system.entity;
 
-import io.github.jiangood.openadmin.Remark;
-import io.github.jiangood.openadmin.BaseEntity;
+import io.github.jiangood.openadmin.lang.annotation.Remark;
+import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
@@ -61,7 +61,7 @@ public class User extends BaseEntity {
 ```java
 package io.github.jiangood.openadmin.modules.system.dao;
 
-import io.github.jiangood.openadmin.BaseDao;
+import io.github.jiangood.openadmin.framework.data.BaseDao;
 import io.github.jiangood.openadmin.modules.system.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -78,7 +78,7 @@ public class UserDao extends BaseDao<User> {
 ```java
 package io.github.jiangood.openadmin.modules.system.service;
 
-import io.github.jiangood.openadmin.BaseService;
+import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.modules.system.dao.UserDao;
 import io.github.jiangood.openadmin.modules.system.entity.User;
 import jakarta.annotation.Resource;
@@ -101,9 +101,8 @@ public class UserService extends BaseService<User> {
 package io.github.jiangood.openadmin.modules.system.controller;
 
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
-import io.github.jiangood.openadmin.RequestBodyKeys;
 import io.github.jiangood.openadmin.framework.perm.HasPermission;
-import io.github.jiangood.openadmin.Spec;
+import io.github.jiangood.openadmin.framework.data.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.User;
 import io.github.jiangood.openadmin.modules.system.service.UserService;
 import jakarta.annotation.Resource;
@@ -140,8 +139,8 @@ public class UserController {
 
     @HasPermission("user:save")
     @PostMapping("save")
-    public AjaxResult save(@RequestBody User input, RequestBodyKeys updateFields) throws Exception {
-        service.saveOrUpdateByUserAction(input, updateFields);
+    public AjaxResult save(@RequestBody User input) throws Exception {
+        service.saveOrUpdateByUserAction(input);
         return AjaxResult.ok().msg("保存成功");
     }
 
@@ -192,15 +191,18 @@ export default class extends React.Component {
             title: '名称',
             dataIndex: 'name',
         },
-       
-       
+        {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            valueType: 'date'
+        },
         {
             title: '操作',
             dataIndex: 'option',
             render: (_, record) => (
                 <ButtonList>
                     <Button size='small' perm='user:save' onClick={() => this.handleEdit(record)}>编辑</Button>
-                    <Popconfirm perm='user:delete' title='是否确定删除用户信息'  onConfirm={() => this.handleDelete(record)}>
+                    <Popconfirm perm='user:delete' title='是否确定删除用户信息' onConfirm={() => this.handleDelete(record)}>
                         <Button size='small'>删除</Button>
                     </Popconfirm>
                 </ButtonList>
@@ -217,14 +219,14 @@ export default class extends React.Component {
     }
 
     handleSave = values => {
-        HttpUtils.post('admin/user/save', values).then(rs => {
+        HttpUtils.post('admin/user/save', values).then(() => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
     }
 
     handleDelete = record => {
-        HttpUtils.get('admin/user/delete', {id: record.id}).then(rs => {
+        HttpUtils.get('admin/user/delete', {id: record.id}).then(() => {
             this.tableRef.current.reload()
         })
     }
@@ -233,7 +235,7 @@ export default class extends React.Component {
         return <Page padding={true}>
             <ProTable
                 actionRef={this.tableRef}
-                toolBarRender={(params, {selectedRows, selectedRowKeys}) => {
+                toolBarRender={() => {
                     return <ButtonList>
                         <Button perm='user:save' type='primary' onClick={this.handleAdd}>
                             <PlusOutlined/> 新增
@@ -248,7 +250,7 @@ export default class extends React.Component {
                    open={this.state.formOpen}
                    onOk={() => this.formRef.current.submit()}
                    onCancel={() => this.setState({formOpen: false})}
-                   destroyOnHidden
+                   destroyOnClose
                    maskClosable={false}
             >
                 <Form ref={this.formRef} labelCol={{flex: '100px'}}
@@ -265,7 +267,6 @@ export default class extends React.Component {
                         <Input/>
                     </Form.Item>
 
-
                 </Form>
             </Modal>
         </Page>
@@ -281,11 +282,11 @@ export default class extends React.Component {
 data:
   menus:
     - id: user
-        name: 用户信息
-        path: /system/user
-        icon: UserOutlined
-        perm-names: [ 列表,保存,删除 ]
-        perm-codes: [ user:view,user:save,user:delete ]
+      name: 用户信息
+      path: /system/user
+      icon: UserOutlined
+      perm-names: [ 列表,保存,删除 ]
+      perm-codes: [ user:view,user:save,user:delete ]
 ```
 
 ## 你的输出要求：

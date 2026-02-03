@@ -17,9 +17,9 @@
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.modules.job.BaseJob;
-import io.github.jiangood.openadmin.modules.job.annotation.JobDescription;
-import io.github.jiangood.openadmin.modules.job.annotation.FieldDescription;
+import io.github.jiangood.openadmin.framework.job.BaseJob;
+import io.github.jiangood.openadmin.framework.job.annotation.JobDescription;
+import io.github.jiangood.openadmin.framework.job.annotation.FieldDescription;
 import org.quartz.JobDataMap;
 import org.slf4j.Logger;
 

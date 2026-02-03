@@ -141,7 +141,7 @@ public class UserService extends BaseService<User> {
 ```java
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
 import io.github.jiangood.openadmin.framework.perm.HasPermission;
-import io.github.jiangood.openadmin.Spec;
+import io.github.jiangood.openadmin.framework.data.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.User;
 import io.github.jiangood.openadmin.modules.system.service.UserService;
 import jakarta.annotation.Resource;
