@@ -1,5 +1,8 @@
 package io.github.jiangood.openadmin.lang;
 
+import lombok.Getter;
+
+@Getter
 public class BizException extends IllegalStateException {
 
     private int code;
@@ -19,9 +22,5 @@ public class BizException extends IllegalStateException {
     public BizException(int code, String message) {
         super(message);
         this.code = code;
-    }
-
-    public int getCode() {
-        return code;
     }
 }
