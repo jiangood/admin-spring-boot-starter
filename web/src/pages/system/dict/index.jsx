@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Input, InputNumber, Modal, Popconfirm, Row, Splitter, Tag, Tree} from "antd";
+import {Button, Form, Input, InputNumber, Modal, Popconfirm, Splitter, Tag, Tree, Typography} from "antd";
 import {
     ButtonList,
     FieldBoolean,
@@ -30,9 +30,6 @@ export default class extends React.Component {
     }
 
     onSelect = (selectedKeys) => {
-        if (selectedKeys.length === 0) {
-            return
-        }
         const key = selectedKeys.length === 1 ? selectedKeys[0] : null
         this.setState({typeCode: key}, () => {
             this.tableRef.current.reload()
@@ -48,14 +45,14 @@ export default class extends React.Component {
 
     onFinish = values => {
         values.sysDict = {id: this.props.sysDictId}
-        HttpUtils.post('admin/sysDictItem/save', values).then(rs => {
+        HttpUtils.post('admin/dict/save', values).then(rs => {
             this.setState({formOpen: false})
             this.tableRef.current.reload()
         })
     }
 
     handleDelete = row => {
-        HttpUtils.post('admin/sysDictItem/delete', row).then(rs => {
+        HttpUtils.post('admin/dict/delete', row).then(rs => {
             this.tableRef.current.reload()
         })
     }
@@ -82,7 +79,7 @@ export default class extends React.Component {
             title: '显示颜色',
             dataIndex: 'color',
             render(v) {
-                if(v){
+                if (v) {
                     return <Tag color={v.toLowerCase()}>{v}</Tag>
                 }
 
@@ -130,6 +127,7 @@ export default class extends React.Component {
                     <Tree
                         treeData={this.state.treeData}
                         onSelect={this.onSelect}
+
                         showIcon
                         blockNode
                         showLine
@@ -138,12 +136,18 @@ export default class extends React.Component {
                     </Tree>
                 </Splitter.Panel>
                 <Splitter.Panel style={{paddingLeft: 16}}>
+                    <Typography.Text italic> 类型：</Typography.Text>
+                    <Typography.Text copyable>
+                        {this.state.typeCode}
+                    </Typography.Text>
+
+
                     <ProTable
                         rowKey='code'
                         actionRef={this.tableRef}
                         toolBarRender={() => {
                             return <ButtonList>
-                                <Button perm='sysDictItem:save' type='primary' onClick={this.handleAdd}>
+                                <Button perm='sysDict:save' type='primary' onClick={this.handleAdd}>
                                     <PlusOutlined/> 新增
                                 </Button>
                             </ButtonList>
@@ -171,32 +175,21 @@ export default class extends React.Component {
                       initialValues={this.state.formValues}
                       onFinish={this.onFinish}>
                     <Form.Item name='id' noStyle></Form.Item>
-
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item label='编码' name='code' rules={[{required: true}]}>
-                                <Input/>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item label='文本' name='text' rules={[{required: true}]}>
-                                <Input/>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item label='颜色' name='color' rules={[{required: true}]}>
-                                <Input/>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item label='序号' name='seq' rules={[{required: true}]}>
-                                <InputNumber/>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item label='类型编码' name='typeCode' rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item label='编码' name='code' rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item label='文本' name='text' rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item label='颜色' name='color' rules={[{required: true}]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item label='序号' name='seq' rules={[{required: true}]}>
+                        <InputNumber/>
+                    </Form.Item>
 
                     <Form.Item label='启用' name='enabled' rules={[{required: true}]}>
                         <FieldBoolean/>

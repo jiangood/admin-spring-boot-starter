@@ -72,16 +72,15 @@ public class SysDictService {
     public List<TreeOption> tree() {
         List<DictDefinition> list = getAll();
         List<TreeOption> treeList = new ArrayList<>();
-        {
-            TreeOption group = new TreeOption(DEFAULT_GROUP, DEFAULT_GROUP, null);
-            treeList.add(group);
-        }
 
 
         List<String> groups = list.stream().map(DictDefinition::getGroupName).filter(Objects::nonNull).distinct().toList();
+        groups = new ArrayList<>(groups);
+        groups.add(DEFAULT_GROUP);
         for (String s : groups) {
-            TreeOption group = new TreeOption(s, s, null);
-            treeList.add(group);
+            TreeOption option = new TreeOption(s, s, null);
+            option.setSelectable(false);
+            treeList.add(option);
         }
 
         for (DictDefinition definition : list) {
@@ -96,6 +95,6 @@ public class SysDictService {
     public List<DictDefinition.Item> getItems(String typeCode) {
         List<DictDefinition> list = this.getAll();
         Optional<DictDefinition> first = list.stream().filter(e -> e.getCode().equals(typeCode)).findFirst();
-        return first.map(DictDefinition::getItems).orElse(null);
+        return first.map(DictDefinition::getItems).orElse(Collections.emptyList());
     }
 }

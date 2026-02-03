@@ -1,12 +1,10 @@
 package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
+import io.github.jiangood.openadmin.framework.config.argument.RequestBodyKeys;
 import io.github.jiangood.openadmin.framework.config.datadefinition.DictDefinition;
-import io.github.jiangood.openadmin.lang.PageTool;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
 import io.github.jiangood.openadmin.lang.dto.IdRequest;
-import io.github.jiangood.openadmin.framework.config.argument.RequestBodyKeys;
-import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysDictItem;
 import io.github.jiangood.openadmin.modules.system.service.SysDictItemService;
 import io.github.jiangood.openadmin.modules.system.service.SysDictService;
@@ -14,9 +12,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +32,7 @@ public class SysDictController {
     @RequestMapping("tree")
     public AjaxResult tree() throws Exception {
 
-        return AjaxResult.ok().data( sysDictService.tree());
+        return AjaxResult.ok().data(sysDictService.tree());
     }
 
 
@@ -56,6 +51,11 @@ public class SysDictController {
     @PreAuthorize("hasAuthority('sysDict:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysDictItem param, RequestBodyKeys updateFields) throws Exception {
+
+        // 能修改的都是非内置项目
+        param.setBuiltin(false);
+        updateFields.add(SysDictItem.Fields.builtin);
+
         SysDictItem result = service.save(param, updateFields);
         return AjaxResult.ok().data(result.getId()).msg("保存成功");
     }

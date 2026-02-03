@@ -4,9 +4,12 @@ import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.modules.system.entity.SysDictItem;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class SysDictItemService extends BaseService<SysDictItem> {
+
 
 
 }

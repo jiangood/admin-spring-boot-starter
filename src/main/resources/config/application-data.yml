@@ -71,6 +71,52 @@ data:
           color: success
         - name: 部门
           code: 20
+    - name: 审核状态
+      code: approveStatus
+      items:
+          - name: 待提交
+            code: DRAFT
+            color: default
+          - name: 审核中
+            code: PENDING
+            color: warning
+          - name: 审核通过
+            code: APPROVED
+            color: success
+          - name: 审核未通过
+            code: REJECTED
+            color: error
+    - name: 性别
+      code: sex
+      items:
+        - name: 男
+          code: MALE
+        - name: 女
+          code: FEMALE
+        - name: 保密
+          code: UNKNOWN
+
+    - name: 是否
+      code: yesNo
+      items:
+        - name: 是
+          code: Y
+          color: success
+        - name: 否
+          code: N
+          color: error
+    - name: 数据权限
+      code: dataPermType
+      items:
+        - name: 所有
+          code: ALL
+        - name: 本级
+          code: LEVEL
+        - name: 本级和子级
+          code: CHILDREN
+        - name: 自定义
+          code: CUSTOM
+
 
 
 
