@@ -31,7 +31,7 @@ public class SysLogController {
         q.betweenDateRange(SysLog.Fields.operationTime, dateRange, true);
         q.like(SysLog.Fields.operation, operation);
 
-        Page<SysLog> page = service.findAllByUserAction(q, pageable);
+        Page<SysLog> page = service.getPage(q, pageable);
         return AjaxResult.ok().data(page);
     }
 

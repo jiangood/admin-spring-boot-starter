@@ -1,6 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
 import cn.hutool.core.collection.CollUtil;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.tree.drop.DropResult;
 import io.github.jiangood.openadmin.framework.data.BaseService;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
@@ -56,7 +57,7 @@ public class SysOrgService extends BaseService<SysOrg> {
     }
 
     @Override
-    public void deleteByUserAction(String id) {
+    public void delete(String id) {
         long count = sysOrgDao.count(Spec.<SysOrg>of().eq(SysOrg.Fields.pid, id));
         Assert.state(count == 0, "请先删除子节点");
 
@@ -84,7 +85,7 @@ public class SysOrgService extends BaseService<SysOrg> {
             q.eq(SysOrg.Fields.enabled, true);
         }
         if (!containsDept) {
-            q.ne(SysOrg.Fields.type, OrgType.TYPE_DEPT.getCode());
+            q.ne(SysOrg.Fields.type, OrgType.TYPE_DEPT);
         }
 
         return sysOrgDao.findAll(q, Sort.by(SysOrg.Fields.type, SysOrg.Fields.seq));
@@ -102,7 +103,7 @@ public class SysOrgService extends BaseService<SysOrg> {
 
     @Override
     @Transactional
-    public SysOrg saveOrUpdateByUserAction(SysOrg input, List<String> updateKeys) throws Exception {
+    public SysOrg save(SysOrg input, List<String> requestKeys) throws Exception {
         boolean isNew = input.isNew();
 
         if (!isNew) {
@@ -111,7 +112,7 @@ public class SysOrgService extends BaseService<SysOrg> {
             Assert.state(!childIdListById.contains(input.getId()), "父节点不能为本节点的子节点，请重新选择父节点");
         }
 
-        return super.saveOrUpdateByUserAction(input, updateKeys);
+        return super.save(input, requestKeys);
     }
 
 
@@ -199,7 +200,7 @@ public class SysOrgService extends BaseService<SysOrg> {
         // 如果没有找到部门领导，则机构树的上一级部门找
         while (deptId != null) {
             SysOrg dept = sysOrgDao.findOne(deptId);
-            if (dept == null || dept.getType() != OrgType.TYPE_DEPT.getCode()) {
+            if (dept == null || dept.getType() != OrgType.TYPE_DEPT) {
                 break;
             }
             SysUser leader = dept.getLeader();
@@ -228,11 +229,11 @@ public class SysOrgService extends BaseService<SysOrg> {
         return sysOrgDao.findOne(id);
     }
 
-    public List<SysOrg> findAll() {
+    public List<SysOrg> getAll() {
         return sysOrgDao.findAll(Sort.by(SysOrg.Fields.seq));
     }
 
-    public List<SysOrg> findAll(Specification<SysOrg> q, Sort sort) {
+    public List<SysOrg> getAll(Specification<SysOrg> q, Sort sort) {
         return sysOrgDao.findAll(q, sort);
     }
 

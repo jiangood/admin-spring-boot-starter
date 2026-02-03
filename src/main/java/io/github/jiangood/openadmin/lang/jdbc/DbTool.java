@@ -155,7 +155,7 @@ public class DbTool {
      * @param params
      * @return
      */
-    public Map<String, Object> findTwoFieldListToDict(String sql, Object... params) {
+    public Map<String, Object> findTwoFieldListToMap(String sql, Object... params) {
         List<Map<String, Object>> list = this.findAll(sql, params);
 
         // 大小写不敏感

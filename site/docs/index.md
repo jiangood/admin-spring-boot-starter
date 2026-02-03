@@ -6,29 +6,43 @@
 
 ### 项目概述
 
+- **[架构设计](./architecture.md)** - 系统架构和设计理念
 
 ### 入门指南
 
 - **[快速开始](./quick-start.md)** - 项目环境搭建和基础使用
-- **[架构设计](./architecture.md)** - 系统架构和设计理念
 
-### 前端文档
+### 核心功能
 
-- **[组件库](./frontend/components.md)** - 前端核心组件使用指南
-- **[字段组件](./frontend/field-components.md)** - 表单字段组件使用指南
-- **[工具类](./frontend/utils.md)** - 前端工具类使用指南
+- **[用户权限管理](./core-features/user-permission.md)** - 用户、角色、权限体系
+- **[数据字典管理](./core-features/data-dict.md)** - 统一的数据字典维护和使用
+- **[作业调度](./core-features/job-schedule.md)** - 基于Quartz的定时任务管理
+- **[文件管理](./core-features/file-management.md)** - 统一的文件上传、存储和管理
+- **[系统配置](./core-features/system-config.md)** - 灵活的系统参数配置
+- **[操作日志](./core-features/operation-log.md)** - 完整的操作日志记录
 
-### 后端文档
+### API 文档
 
-- **[数据规范](./backend/data-spec.md)** - 数据查询和操作规范
-- **[工具类](./backend/utils.md)** - 后端核心工具类使用指南
-- **[注解](./backend/annotations.md)** - 后端注解使用指南
-- **[验证器](./backend/validators.md)** - 数据验证器使用指南
+#### 前端 API
+
+- **[组件库](./api/frontend/components.md)** - 前端核心组件使用指南
+- **[字段组件](./api/frontend/field-components.md)** - 表单字段组件使用指南
+- **[系统组件](./api/frontend/system-components.md)** - 系统级组件使用指南
+- **[工具类](./api/frontend/utils.md)** - 前端工具类使用指南
+
+#### 后端 API
+
+- **[数据规范](./api/backend/data-spec.md)** - 数据查询和操作规范
+- **[工具类](./api/backend/utils.md)** - 后端核心工具类使用指南
+- **[注解](./api/backend/annotations.md)** - 后端注解使用指南
+- **[验证器](./api/backend/validators.md)** - 数据验证器使用指南
+- **[作业调度](./api/backend/job.md)** - 作业调度相关API
 
 ### 开发指南
 
-- **[编码规范](./guide/coding-standard.md)** - 后端和前端编码规范
-- **[智能体使用](./guide/agent.md)** - 智能体配置和使用指南
+- **[编码规范](./development/coding-standard.md)** - 后端和前端编码规范
+- **[智能体使用](./development/agent.md)** - 智能体配置和使用指南
+- **[最佳实践](./development/best-practices.md)** - 开发最佳实践
 
 ## 系统要求
 
@@ -45,16 +59,12 @@
 4. **文件管理**：统一的文件上传、存储和管理
 5. **系统配置**：灵活的系统参数配置
 6. **操作日志**：完整的操作日志记录
-7. **报表管理**：集成UReport报表引擎
-8. **流程引擎**：内置工作流引擎，支持自定义流程
 
 ## 技术栈
 
-- **前端**：React、Ant Design、UmiJS
+- **前端**：React、Ant Design
 - **后端**：Java、Spring Boot、JPA、Quartz
 - **数据库**：MySQL
-- **流程引擎**：内置工作流引擎
-- **报表引擎**：UReport
 
 ## 联系我们
 

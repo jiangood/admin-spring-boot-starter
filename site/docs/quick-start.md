@@ -84,14 +84,14 @@ npm run dev
 3. 创建 Service 类（如 `UserService.java`），存储路径：`src/main/java/io/github/jiangood/openadmin/modules/xxx/service`
 4. 创建 Controller 类（如 `UserController.java`），存储路径：`src/main/java/io/github/jiangood/openadmin/modules/xxx/controller`
 
-详细步骤请参考 [后端开发指南](./backend/)。
+详细步骤请参考 [后端 API 文档](./api/backend/)。
 
 #### 1.2 前端开发
 
 1. 创建页面组件（如 `user/index.jsx`），存储路径：`web/src/pages/xxx/index.jsx`
 2. 配置路由和菜单
 
-详细步骤请参考 [前端开发指南](./frontend/)。
+详细步骤请参考 [前端 API 文档](./api/frontend/)。
 
 ### 2. 配置菜单
 
@@ -114,47 +114,19 @@ data:
       perm-codes: [ sysRole:manage ]
 ```
 
-### 3. 配置流程
-
-在 `application-process.yml` 中配置流程定义：
-
-```yaml
-process:
-  list:
-    - key: "leave_request"
-      name: "请假流程"
-      listener: io.github.jiangood.openadmin.LeaveProcessListener
-      variables:
-        - name: "days"
-          label: "请假天数"
-          value-type: number
-          required: true
-        - name: "reason"
-          label: "请假原因"
-          required: true
-      forms:
-        - key: "start_form"
-          label: "请假申请表"
-        - key: "manager_approve_form"
-          label: "经理审批表"
-        - key: "finish_view"
-          label: "流程结果查看"
-```
-
 ## 技术栈
 
 ### 前端技术
 
-- **React**：19.0.0+
-- **Ant Design**：6.0.0+
-- **Umi**：4.0.0+
-- **@ant-design/icons**：6.0.0+
+- **React**：18.0.0+
+- **Ant Design**：5.0.0+
+- **@ant-design/icons**：5.0.0+
 - **dayjs**：1.11.13+
 - **axios**：1.13.2+
 
 ### 后端技术
 
-- **Spring Boot**：3.5.10+
+- **Spring Boot**：3.0.0+
 - **JPA**：内置
 - **Quartz**：内置
 - **MySQL**：8.0+
@@ -182,6 +154,6 @@ process:
 ## 下一步
 
 - 了解 [系统架构](./architecture.md)
-- 学习 [前端开发](./frontend/)
-- 学习 [后端开发](./backend/)
-- 参考 [开发指南](./guide/)
+- 学习 [前端 API 文档](./api/frontend/)
+- 学习 [后端 API 文档](./api/backend/)
+- 参考 [开发指南](./development/)

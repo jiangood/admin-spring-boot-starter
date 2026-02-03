@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.PasswdStrength;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.DropdownRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
@@ -62,7 +63,7 @@ public class SysUserController {
     @RequestMapping("page")
     public AjaxResult page(String orgId, String roleId, String searchText, @PageableDefault(sort = "updateTime", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
 
-        Page<UserResponse> page = sysUserService.findAll(orgId, roleId, searchText, pageable);
+        Page<UserResponse> page = sysUserService.getAll(orgId, roleId, searchText, pageable);
 
         return AjaxResult.ok().data(page);
     }
@@ -75,8 +76,8 @@ public class SysUserController {
         String defaultPassword = sysProperties.getDefaultPassword();
         boolean isNew = input.isNew();
         String inputOrgId = input.getDeptId();
-        SysOrg org = sysOrgService.findByRequest(inputOrgId);
-        if (org.getType() == OrgType.TYPE_UNIT.getCode()) {
+        SysOrg org = sysOrgService.detail(inputOrgId);
+        if (org.getType() == OrgType.TYPE_UNIT) {
             input.setUnitId(inputOrgId);
             input.setDeptId(null);
         } else {
@@ -87,7 +88,7 @@ public class SysUserController {
 
 
         updateFields.add("unitId");
-        sysUserService.saveOrUpdateByUserAction(input, updateFields);
+        sysUserService.save(input, updateFields);
 
         if (isNew) {
 
@@ -102,10 +103,10 @@ public class SysUserController {
 
     @Log("用户-删除")
     @PreAuthorize("hasAuthority('sysUser:delete')")
-    @GetMapping("delete")
-    public AjaxResult delete(String id) {
-        SysUser user = sysUserService.findOne(id);
-        sysUserService.delete(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        SysUser user = sysUserService.findOne(idRequest.getId());
+        sysUserService.delete(idRequest.getId());
         permissionStaleService.markUserStale(user.getAccount());
 
         return AjaxResult.ok().msg("删除用户成功");
@@ -163,7 +164,7 @@ public class SysUserController {
 
         }
 
-        Page<SysUser> page = sysUserService.findAllByUserAction(query, PageRequest.of(0, 200));
+        Page<SysUser> page = sysUserService.getPage(query, PageRequest.of(0, 200));
 
 
         Map<String, SysOrg> dict = sysOrgService.dict();

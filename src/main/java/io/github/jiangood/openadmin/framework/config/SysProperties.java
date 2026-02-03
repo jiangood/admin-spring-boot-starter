@@ -103,8 +103,7 @@ public class SysProperties {
     private String resetAdminPwd;
     private boolean printException;
 
-    @NotBlank(message = "请配置默认密码")
-    private String defaultPassword;
+    private String defaultPassword = RandomUtil.randomString(16);
 
     /**
      * AesTool的密钥，默认AesTool为随机生成

@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.SpringTool;
 import io.github.jiangood.openadmin.lang.field.Field;
@@ -19,6 +20,7 @@ import io.github.jiangood.openadmin.modules.job.entity.SysJobExecuteRecord;
 import io.github.jiangood.openadmin.modules.job.quartz.QuartzManager;
 import io.github.jiangood.openadmin.modules.job.service.SysJobService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.quartz.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,14 +58,14 @@ public class SysJobController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysJob param, RequestBodyKeys updateFields) throws Exception {
         Class.forName(param.getJobClass());
-        service.saveOrUpdateByUserAction(param, updateFields);
+        service.save(param, updateFields);
         return AjaxResult.ok().msg("操作成功");
     }
 
 
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) throws SchedulerException {
-        service.deleteJob(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) throws SchedulerException {
+        service.deleteJob(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 
@@ -72,7 +74,7 @@ public class SysJobController {
     @PreAuthorize("hasAuthority('job:triggerJob')")
     @GetMapping("triggerJob")
     public AjaxResult triggerJob(String id) throws SchedulerException, ClassNotFoundException {
-        SysJob job = service.findByRequest(id);
+        SysJob job = service.get(id);
         quartzService.triggerJob(job);
 
         return AjaxResult.ok().msg("执行一次命令已发送");

@@ -69,7 +69,8 @@ public class SysUserService extends BaseService<SysUser> {
 
 
     public List<SysUser> findByUnit(Collection<String> org) {
-        Spec<SysUser> s = spec().in(SysUser.Fields.unitId, org);
+        Spec<SysUser> s = Spec.of();
+                s.in(SysUser.Fields.unitId, org);
         return sysUserDao.findAll(s, Sort.by(SysUser.Fields.name));
     }
 
@@ -90,8 +91,8 @@ public class SysUserService extends BaseService<SysUser> {
     }
 
 
-    public Page<UserResponse> findAll(String orgId, String roleId, String searchText, Pageable pageable) throws SQLException {
-        Spec<SysUser> query = spec();
+    public Page<UserResponse> getAll(String orgId, String roleId, String searchText, Pageable pageable) throws SQLException {
+        Spec<SysUser> query = Spec.of();
 
         if (StrUtil.isNotEmpty(orgId)) {
             query.or(Spec.<SysUser>of().eq(SysUser.Fields.unitId, orgId), Spec.<SysUser>of().eq(SysUser.Fields.deptId, orgId));
@@ -115,20 +116,20 @@ public class SysUserService extends BaseService<SysUser> {
     }
 
     @Override
-    public SysUser saveOrUpdateByUserAction(SysUser input, List<String> updateKeys) throws Exception {
+    public SysUser save(SysUser input, List<String> requestKeys) throws Exception {
         boolean isNew = input.isNew();
         if (isNew) {
             String password = sysProperties.getDefaultPassword();
             input.setPassword(PasswordTool.encode(password));
         }
 
-        return super.saveOrUpdateByUserAction(input, updateKeys);
+        return super.save(input, requestKeys);
     }
 
 
     @Transactional
     public void delete(String id) {
-        SysUser sysUser = sysUserDao.findOne(id);
+        SysUser sysUser = sysUserDao.findById(id);
         try {
             sysUserDao.delete(sysUser);
         } catch (Exception e) {
@@ -273,7 +274,8 @@ public class SysUserService extends BaseService<SysUser> {
 
 
     public List<SysUser> findByRole(SysRole role) {
-        Spec<SysUser> q = spec().isMember(SysUser.Fields.roles, role);
+        Spec<SysUser> q = Spec.of();
+        q.isMember(SysUser.Fields.roles, role);
 
         return sysUserDao.findAll(q);
     }
@@ -294,7 +296,7 @@ public class SysUserService extends BaseService<SysUser> {
     }
 
 
-    public List<SysUser> findAll() {
+    public List<SysUser> getAll() {
         return sysUserDao.findAll();
     }
 

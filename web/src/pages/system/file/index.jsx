@@ -14,7 +14,7 @@ export default class extends React.Component {
     formRef = React.createRef()
 
     handleDelete = row => {
-        HttpUtils.get('admin/sysFile/delete', row).then(rs => {
+        HttpUtils.post('admin/sysFile/delete', row).then(rs => {
             this.tableRef.current.reload()
         })
     }

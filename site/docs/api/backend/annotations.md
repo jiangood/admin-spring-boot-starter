@@ -17,7 +17,7 @@
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.annotation.GeneratePrefixedSequence;
+import io.github.jiangood.openadmin.framework.data.annotation.GeneratePrefixedSequence;
 
 public class User {
     @GeneratePrefixedSequence(prefix = "USER")
@@ -34,7 +34,7 @@ UUID V7 ID生成器注解。
 **使用示例**：
 
 ```java
-import io.github.jiangood.openadmin.annotation.GenerateUuidV7;
+import io.github.jiangood.openadmin.framework.data.annotation.GenerateUuidV7;
 
 public class Order {
     @GenerateUuidV7

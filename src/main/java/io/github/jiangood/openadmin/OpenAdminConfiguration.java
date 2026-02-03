@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class OpenAdminConfiguration {
 
-    public static final String PKG = "io.github.jiangood.openadmin";
+    public static final String PKG =  "io.github.jiangood.openadmin";
 
 
 }

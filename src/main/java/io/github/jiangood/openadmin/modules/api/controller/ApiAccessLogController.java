@@ -22,7 +22,7 @@ public class ApiAccessLogController {
     @Deprecated
     @RequestMapping("page")
     public AjaxResult page(@PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
-        Page<ApiAccessLog> page = service.findAllByUserAction(null, pageable);
+        Page<ApiAccessLog> page = service.getPage(null, pageable);
         return AjaxResult.ok().data(page);
     }
 

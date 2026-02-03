@@ -2,6 +2,7 @@ package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.DropEvent;
 import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
 import io.github.jiangood.openadmin.lang.BeanTool;
@@ -18,6 +19,7 @@ import io.github.jiangood.openadmin.modules.system.entity.SysOrg;
 import io.github.jiangood.openadmin.modules.system.enums.OrgType;
 import io.github.jiangood.openadmin.modules.system.service.SysOrgService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,7 +56,7 @@ public class SysOrgController {
         }
 
         if (onlyShowUnit) {
-            q.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT.getCode());
+            q.eq(SysOrg.Fields.type, OrgType.TYPE_UNIT);
         }
         q.orLike(searchText, SysOrg.Fields.name);
 
@@ -63,7 +65,7 @@ public class SysOrgController {
         List<String> orgPermissions = LoginTool.getOrgPermissions();
         q.in("id", orgPermissions);
 
-        List<SysOrg> list = sysOrgService.findAll(q, Sort.by("seq"));
+        List<SysOrg> list = sysOrgService.getAll(q, Sort.by("seq"));
 
 
         return AjaxResult.ok().data(list2Tree(list));
@@ -80,9 +82,9 @@ public class SysOrgController {
             }
         }
         SysOrg input2 = BeanTool.copy(input, new SysOrg());
-        input2.setType(input.getType().getCode());
+        input2.setType(input.getType());
 
-        sysOrgService.saveOrUpdateByUserAction(input2, requestBodyKeys);
+        sysOrgService.save(input2, requestBodyKeys);
 
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
 
@@ -91,27 +93,26 @@ public class SysOrgController {
 
     @Log("机构-删除")
     @PreAuthorize("hasAuthority('sysOrg:delete')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) {
-        sysOrgService.deleteByUserAction(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        sysOrgService.delete(idRequest.getId());
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
         return AjaxResult.ok().msg("删除机构成功");
     }
 
     @GetMapping("detail")
     public AjaxResult detail(String id) {
-        SysOrg org = sysOrgService.findByRequest(id);
+        SysOrg org = sysOrgService.detail(id);
         return AjaxResult.ok().data(org);
     }
 
 
     private String getIconByType(int type) {
-        OrgType orgType = OrgType.valueOf(type);
-        switch (orgType) {
-            case TYPE_UNIT -> {
+        switch (type) {
+            case OrgType.TYPE_UNIT -> {
                 return "ApartmentOutlined";
             }
-            case TYPE_DEPT -> {
+            case OrgType.TYPE_DEPT -> {
                 return "HomeOutlined";
             }
 
@@ -123,7 +124,7 @@ public class SysOrgController {
     @PostMapping("sort")
     @PreAuthorize("hasAuthority('sysOrg:save')")
     public AjaxResult sort(@RequestBody DropEvent e) {
-        List<SysOrg> nodes = sysOrgService.findAll();
+        List<SysOrg> nodes = sysOrgService.getAll();
         List<TreeOption> tree = list2Tree(nodes);
 
         DropResult dropResult = TreeDropTool.onDrop(e, tree);

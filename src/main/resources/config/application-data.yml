@@ -1,5 +1,7 @@
 ## 框架的核心配置项和菜单结构。 业务项目需在 application-data.yml 中进行配置。
 data:
+  # 数据字典默认配置
+
   # 菜单配置
   menus:
     - id: sys
@@ -60,5 +62,87 @@ data:
           path: /system/api
           perm-names: [ 管理 ]
           perm-codes: [ api ]
+  dicts:
+    - name: 机构类型
+      code: orgType
+      group-name: 系统管理
+      items:
+        - name: 单位
+          code: 10
+          color: success
+        - name: 部门
+          code: 20
+    - name: 审核状态
+      code: approveStatus
+      group-name: 系统管理
+      items:
+          - name: 待提交
+            code: DRAFT
+            color: default
+          - name: 审核中
+            code: PENDING
+            color: warning
+          - name: 审核通过
+            code: APPROVED
+            color: success
+          - name: 审核未通过
+            code: REJECTED
+            color: error
+    - name: 性别
+      code: sex
+      items:
+        - name: 男
+          code: MALE
+        - name: 女
+          code: FEMALE
+        - name: 保密
+          code: UNKNOWN
+
+    - name: 是否
+      code: yesNo
+      items:
+        - name: 是
+          code: Y
+          color: success
+        - name: 否
+          code: N
+          color: error
+    - name: 数据权限
+      code: dataPermType
+      group-name: 系统管理
+      items:
+        - name: 所有
+          code: ALL
+        - name: 本级
+          code: LEVEL
+        - name: 本级和子级
+          code: CHILDREN
+        - name: 自定义
+          code: CUSTOM
+    - name: 状态颜色
+      code: statusColor
+      items:
+        - name: 成功
+          code: SUCCESS
+        - name: 处理中
+          code: PROCESSING
+        - name: 错误
+          code: ERROR
+        - name: 警告
+          code: WARNING
+        - name: 默认
+          code: DEFAULT
+        - name: 红色
+          code: RED
+        - name: 蓝色
+          code: BLUE
+        - name: 绿色
+          code: GREEN
+        - name: 灰色
+          code: GRAY
+
+
+
+
 
 

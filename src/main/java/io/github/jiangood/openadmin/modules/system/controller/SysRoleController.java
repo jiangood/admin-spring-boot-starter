@@ -3,6 +3,7 @@ package io.github.jiangood.openadmin.modules.system.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Dict;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.DropdownRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.CollectionTool;
@@ -19,6 +20,7 @@ import io.github.jiangood.openadmin.modules.system.service.SysMenuService;
 import io.github.jiangood.openadmin.modules.system.service.SysRoleService;
 import io.github.jiangood.openadmin.modules.system.service.SysUserService;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,15 +54,15 @@ public class SysRoleController {
     @RequestMapping("page")
     public AjaxResult page(@PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
         Spec<SysRole> q = Spec.of();
-        Page<SysRole> page = sysRoleService.findAllByUserAction(q, pageable);
+        Page<SysRole> page = sysRoleService.getPage(q, pageable);
         return AjaxResult.ok().data(page);
     }
 
 
     @PreAuthorize("hasAuthority('sysRole:manage')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) {
-        sysRoleService.deleteByUserAction(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        sysRoleService.delete(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 
@@ -72,7 +74,7 @@ public class SysRoleController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysRole role, RequestBodyKeys updateFields) throws Exception {
         role.setBuiltin(false);
-        role = sysRoleService.saveOrUpdateByUserAction(role, updateFields);
+        role = sysRoleService.save(role, updateFields);
 
         for (SysUser user : role.getUsers()) {
             permissionStaleService.markUserStale(user.getAccount());
@@ -101,7 +103,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @RequestMapping("ownPerms")
     public AjaxResult ownPerms(String id) {
-        SysRole role = sysRoleService.findByRequest(id);
+        SysRole role = sysRoleService.detail(id);
         List<String> rolePerms = role.getPerms();
 
         List<MenuDefinition> menuList = sysRoleService.ownMenu(id);
@@ -149,7 +151,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @RequestMapping("userList")
     public AjaxResult userList(String id) {
-        List<SysUser> users = sysUserService.findAll();
+        List<SysUser> users = sysUserService.getAll();
         List<Dict> list = users.stream().map(u -> Dict.of("key", u.getId(), "title", u.getName())).toList();
 
         List<SysUser> ownUser = sysRoleService.findUsers(id);
@@ -165,7 +167,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @GetMapping("get")
     public AjaxResult get(String id) {
-        SysRole role = sysRoleService.findByRequest(id);
+        SysRole role = sysRoleService.detail(id);
         return AjaxResult.ok().data(role);
     }
 
