@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ClassUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.SpringTool;
 import io.github.jiangood.openadmin.lang.field.Field;
@@ -61,9 +62,9 @@ public class SysJobController {
     }
 
 
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) throws SchedulerException {
-        service.deleteJob(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) throws SchedulerException {
+        service.deleteJob(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 

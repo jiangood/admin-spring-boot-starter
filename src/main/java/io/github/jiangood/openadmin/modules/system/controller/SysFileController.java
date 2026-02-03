@@ -1,6 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.controller;
 
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.enums.MaterialType;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysFile;
@@ -82,9 +83,9 @@ public class SysFileController {
 
 
     @PreAuthorize("hasAuthority('sysFile:delete')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) throws Exception {
-        service.deleteById(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) throws Exception {
+        service.deleteById(idRequest.getId());
         return AjaxResult.ok();
     }
 

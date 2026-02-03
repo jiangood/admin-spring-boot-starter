@@ -52,7 +52,7 @@ export default class extends React.Component {
     }
 
     handleDelete = record => {
-        HttpUtils.get('admin/sysRole/delete', {id: record.id}).then(rs => {
+        HttpUtils.post('admin/sysRole/delete', {id: record.id}).then(rs => {
             this.tableRef.current.reload()
         })
     }

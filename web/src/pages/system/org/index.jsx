@@ -52,7 +52,7 @@ export default class extends React.Component {
     }
 
     handleDelete = record => {
-        HttpUtils.get('admin/sysOrg/delete', {id: record.id})
+        HttpUtils.post('admin/sysOrg/delete', {id: record.id})
             .then(rs => {
                 this.setState({formValues: null})
                 this.loadTree()

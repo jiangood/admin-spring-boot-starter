@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.text.PasswdStrength;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.DropdownRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
@@ -102,10 +103,10 @@ public class SysUserController {
 
     @Log("用户-删除")
     @PreAuthorize("hasAuthority('sysUser:delete')")
-    @GetMapping("delete")
-    public AjaxResult delete(String id) {
-        SysUser user = sysUserService.findOne(id);
-        sysUserService.delete(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        SysUser user = sysUserService.findOne(idRequest.getId());
+        sysUserService.delete(idRequest.getId());
         permissionStaleService.markUserStale(user.getAccount());
 
         return AjaxResult.ok().msg("删除用户成功");

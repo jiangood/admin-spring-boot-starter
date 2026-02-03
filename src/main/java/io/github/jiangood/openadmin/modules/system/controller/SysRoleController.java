@@ -3,6 +3,7 @@ package io.github.jiangood.openadmin.modules.system.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Dict;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.DropdownRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.Option;
 import io.github.jiangood.openadmin.lang.CollectionTool;
@@ -58,9 +59,9 @@ public class SysRoleController {
 
 
     @PreAuthorize("hasAuthority('sysRole:manage')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) {
-        sysRoleService.deleteByUserAction(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        sysRoleService.deleteByUserAction(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 

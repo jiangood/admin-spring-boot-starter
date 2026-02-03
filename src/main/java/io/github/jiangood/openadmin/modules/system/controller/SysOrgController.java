@@ -2,6 +2,7 @@ package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.dto.antd.DropEvent;
 import io.github.jiangood.openadmin.lang.dto.antd.TreeOption;
 import io.github.jiangood.openadmin.lang.BeanTool;
@@ -91,9 +92,9 @@ public class SysOrgController {
 
     @Log("机构-删除")
     @PreAuthorize("hasAuthority('sysOrg:delete')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) {
-        sysOrgService.deleteByUserAction(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        sysOrgService.deleteByUserAction(idRequest.getId());
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
         return AjaxResult.ok().msg("删除机构成功");
     }

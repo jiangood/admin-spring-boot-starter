@@ -2,6 +2,7 @@ package io.github.jiangood.openadmin.modules.system.controller;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.framework.config.argument.RequestBodyKeys;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.entity.SysDictItem;
@@ -47,9 +48,9 @@ public class SysDictItemController {
 
 
     @PreAuthorize("hasAuthority('sysDict:delete')")
-    @RequestMapping("delete")
-    public AjaxResult delete(String id) {
-        service.deleteByUserAction(id);
+    @PostMapping("delete")
+    public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
+        service.deleteByUserAction(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 
