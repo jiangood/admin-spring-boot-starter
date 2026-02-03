@@ -7,7 +7,7 @@ spring:
   profiles:
     active: default,dev
   application:
-    name: open-admin
+    name: open
 
 
 logging:
@@ -16,8 +16,7 @@ logging:
   level:
     io.github.jiangood: debug
 sys:
-  reset-admin-pwd: admin_framework_123456
+  reset-admin-pwd: OpEnAdMiN_2026_${random.int[1000,9999]}
   captcha: false
   print-exception: true
-  default-password: admin_framework_123456
 
