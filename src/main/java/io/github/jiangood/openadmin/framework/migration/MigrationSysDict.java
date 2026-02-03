@@ -30,7 +30,7 @@ public class MigrationSysDict implements SystemHook {
             }
 
             // 删除错误的数据
-            db.executeQuietly("DELETE FROM sys_dict_item where type_code in('orgType','materialType','approveStatus','sex','dataPermType')");
+            db.executeQuietly("DELETE FROM sys_dict_item where type_code in('orgType','materialType','approveStatus','sex','dataPermType','yesNo')");
 
         }
 
