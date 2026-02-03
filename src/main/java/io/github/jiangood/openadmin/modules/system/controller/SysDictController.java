@@ -32,7 +32,7 @@ public class SysDictController {
         Spec<SysDict> q = service.spec();
         q.orLike(searchText, "text", "code");
 
-        Page<SysDict> page = service.findAllByUserAction(q, pageable);
+        Page<SysDict> page = service.getPage(q, pageable);
 
         return AjaxResult.ok().data(page);
     }
@@ -40,14 +40,14 @@ public class SysDictController {
     @PreAuthorize("hasAuthority('sysDict:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysDict input, RequestBodyKeys updateFields) throws Exception {
-        service.saveOrUpdateByUserAction(input, updateFields);
+        service.save(input, updateFields);
         return AjaxResult.ok().msg("保存成功");
     }
 
     @PreAuthorize("hasAuthority('sysDict:delete')")
     @PostMapping("delete")
     public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
-        service.deleteByUserAction(idRequest.getId());
+        service.delete(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 

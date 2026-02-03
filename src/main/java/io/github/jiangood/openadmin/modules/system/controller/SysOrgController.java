@@ -65,7 +65,7 @@ public class SysOrgController {
         List<String> orgPermissions = LoginTool.getOrgPermissions();
         q.in("id", orgPermissions);
 
-        List<SysOrg> list = sysOrgService.findAll(q, Sort.by("seq"));
+        List<SysOrg> list = sysOrgService.getAll(q, Sort.by("seq"));
 
 
         return AjaxResult.ok().data(list2Tree(list));
@@ -84,7 +84,7 @@ public class SysOrgController {
         SysOrg input2 = BeanTool.copy(input, new SysOrg());
         input2.setType(input.getType().getCode());
 
-        sysOrgService.saveOrUpdateByUserAction(input2, requestBodyKeys);
+        sysOrgService.save(input2, requestBodyKeys);
 
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
 
@@ -95,14 +95,14 @@ public class SysOrgController {
     @PreAuthorize("hasAuthority('sysOrg:delete')")
     @PostMapping("delete")
     public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
-        sysOrgService.deleteByUserAction(idRequest.getId());
+        sysOrgService.delete(idRequest.getId());
         permissionStaleService.markUserStale(LoginTool.getUser().getUsername());
         return AjaxResult.ok().msg("删除机构成功");
     }
 
     @GetMapping("detail")
     public AjaxResult detail(String id) {
-        SysOrg org = sysOrgService.findByRequest(id);
+        SysOrg org = sysOrgService.detail(id);
         return AjaxResult.ok().data(org);
     }
 
@@ -125,7 +125,7 @@ public class SysOrgController {
     @PostMapping("sort")
     @PreAuthorize("hasAuthority('sysOrg:save')")
     public AjaxResult sort(@RequestBody DropEvent e) {
-        List<SysOrg> nodes = sysOrgService.findAll();
+        List<SysOrg> nodes = sysOrgService.getAll();
         List<TreeOption> tree = list2Tree(nodes);
 
         DropResult dropResult = TreeDropTool.onDrop(e, tree);

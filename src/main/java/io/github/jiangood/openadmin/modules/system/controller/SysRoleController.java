@@ -54,7 +54,7 @@ public class SysRoleController {
     @RequestMapping("page")
     public AjaxResult page(@PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
         Spec<SysRole> q = Spec.of();
-        Page<SysRole> page = sysRoleService.findAllByUserAction(q, pageable);
+        Page<SysRole> page = sysRoleService.getPage(q, pageable);
         return AjaxResult.ok().data(page);
     }
 
@@ -62,7 +62,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @PostMapping("delete")
     public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
-        sysRoleService.deleteByUserAction(idRequest.getId());
+        sysRoleService.delete(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 
@@ -74,7 +74,7 @@ public class SysRoleController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysRole role, RequestBodyKeys updateFields) throws Exception {
         role.setBuiltin(false);
-        role = sysRoleService.saveOrUpdateByUserAction(role, updateFields);
+        role = sysRoleService.save(role, updateFields);
 
         for (SysUser user : role.getUsers()) {
             permissionStaleService.markUserStale(user.getAccount());
@@ -103,7 +103,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @RequestMapping("ownPerms")
     public AjaxResult ownPerms(String id) {
-        SysRole role = sysRoleService.findByRequest(id);
+        SysRole role = sysRoleService.detail(id);
         List<String> rolePerms = role.getPerms();
 
         List<MenuDefinition> menuList = sysRoleService.ownMenu(id);
@@ -151,7 +151,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @RequestMapping("userList")
     public AjaxResult userList(String id) {
-        List<SysUser> users = sysUserService.findAll();
+        List<SysUser> users = sysUserService.getAll();
         List<Dict> list = users.stream().map(u -> Dict.of("key", u.getId(), "title", u.getName())).toList();
 
         List<SysUser> ownUser = sysRoleService.findUsers(id);
@@ -167,7 +167,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sysRole:manage')")
     @GetMapping("get")
     public AjaxResult get(String id) {
-        SysRole role = sysRoleService.findByRequest(id);
+        SysRole role = sysRoleService.detail(id);
         return AjaxResult.ok().data(role);
     }
 

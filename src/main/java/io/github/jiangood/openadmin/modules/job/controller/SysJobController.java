@@ -58,7 +58,7 @@ public class SysJobController {
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysJob param, RequestBodyKeys updateFields) throws Exception {
         Class.forName(param.getJobClass());
-        service.saveOrUpdateByUserAction(param, updateFields);
+        service.save(param, updateFields);
         return AjaxResult.ok().msg("操作成功");
     }
 
@@ -74,7 +74,7 @@ public class SysJobController {
     @PreAuthorize("hasAuthority('job:triggerJob')")
     @GetMapping("triggerJob")
     public AjaxResult triggerJob(String id) throws SchedulerException, ClassNotFoundException {
-        SysJob job = service.findByRequest(id);
+        SysJob job = service.get(id);
         quartzService.triggerJob(job);
 
         return AjaxResult.ok().msg("执行一次命令已发送");

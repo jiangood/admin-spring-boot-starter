@@ -63,7 +63,7 @@ public class SysUserController {
     @RequestMapping("page")
     public AjaxResult page(String orgId, String roleId, String searchText, @PageableDefault(sort = "updateTime", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
 
-        Page<UserResponse> page = sysUserService.findAll(orgId, roleId, searchText, pageable);
+        Page<UserResponse> page = sysUserService.getAll(orgId, roleId, searchText, pageable);
 
         return AjaxResult.ok().data(page);
     }
@@ -76,7 +76,7 @@ public class SysUserController {
         String defaultPassword = sysProperties.getDefaultPassword();
         boolean isNew = input.isNew();
         String inputOrgId = input.getDeptId();
-        SysOrg org = sysOrgService.findByRequest(inputOrgId);
+        SysOrg org = sysOrgService.detail(inputOrgId);
         if (org.getType() == OrgType.TYPE_UNIT.getCode()) {
             input.setUnitId(inputOrgId);
             input.setDeptId(null);
@@ -88,7 +88,7 @@ public class SysUserController {
 
 
         updateFields.add("unitId");
-        sysUserService.saveOrUpdateByUserAction(input, updateFields);
+        sysUserService.save(input, updateFields);
 
         if (isNew) {
 
@@ -164,7 +164,7 @@ public class SysUserController {
 
         }
 
-        Page<SysUser> page = sysUserService.findAllByUserAction(query, PageRequest.of(0, 200));
+        Page<SysUser> page = sysUserService.getPage(query, PageRequest.of(0, 200));
 
 
         Map<String, SysOrg> dict = sysOrgService.dict();

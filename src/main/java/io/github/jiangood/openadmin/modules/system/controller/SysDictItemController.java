@@ -32,7 +32,7 @@ public class SysDictItemController {
         if (StrUtil.isNotEmpty(sysDictId)) {
             Spec<SysDictItem> q = service.spec();
             q.eq(SysDictItem.Fields.sysDict + ".id", sysDictId);
-            Page<SysDictItem> page = service.findAllByUserAction(q, pageable);
+            Page<SysDictItem> page = service.getPage(q, pageable);
             return AjaxResult.ok().data(page);
         } else {
             return AjaxResult.ok().data(Page.empty(pageable));
@@ -43,7 +43,7 @@ public class SysDictItemController {
     @PreAuthorize("hasAuthority('sysDict:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody SysDictItem param, RequestBodyKeys updateFields) throws Exception {
-        SysDictItem result = service.saveOrUpdateByUserAction(param, updateFields);
+        SysDictItem result = service.save(param, updateFields);
         return AjaxResult.ok().data(result.getId()).msg("保存成功");
     }
 
@@ -51,7 +51,7 @@ public class SysDictItemController {
     @PreAuthorize("hasAuthority('sysDict:delete')")
     @PostMapping("delete")
     public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
-        service.deleteByUserAction(idRequest.getId());
+        service.delete(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 

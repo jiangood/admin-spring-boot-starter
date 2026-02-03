@@ -34,7 +34,7 @@ public class SysManualPublicController {
         Spec<SysManual> s = Spec.<SysManual>of().orLike(searchText, "name");
 
         // 查询并保留最大版本记录
-        List<SysManual> list = service.findAll(s, Sort.by("name", "version"));
+        List<SysManual> list = service.getAll(s, Sort.by("name", "version"));
         Map<String, SysManual> rs = new HashMap<>();
         for (SysManual e : list) {
             if (!rs.containsKey(e.getName())) {

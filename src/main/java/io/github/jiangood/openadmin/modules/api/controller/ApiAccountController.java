@@ -43,7 +43,7 @@ public class ApiAccountController {
     public AjaxResult docInfo(String id) {
         List<ApiResource> list = apiResourceService.findAll();
         if (StrUtil.isNotEmpty(id)) {
-            ApiAccount acc = service.findOne(id);
+            ApiAccount acc = service.get(id);
             list = list.stream().filter(t -> acc.getPerms().contains(t.getAction())).toList();
         }
 
@@ -65,28 +65,28 @@ public class ApiAccountController {
     @RequestMapping("page")
     public AjaxResult page(String searchText, @PageableDefault(direction = Sort.Direction.DESC, sort = "updateTime") Pageable pageable) throws Exception {
         Spec<ApiAccount> q = service.spec().orLike(searchText, "name");
-        Page<ApiAccount> page = service.findAllByUserAction(q, pageable);
+        Page<ApiAccount> page = service.getPage(q, pageable);
         return AjaxResult.ok().data(page);
     }
 
     @PreAuthorize("hasAuthority('apiAccount:save')")
     @PostMapping("save")
     public AjaxResult save(@RequestBody ApiAccount input, RequestBodyKeys updateFields) throws Exception {
-        service.saveOrUpdateByUserAction(input, updateFields);
+        service.save(input, updateFields);
         return AjaxResult.ok().msg("保存成功");
     }
 
     @PreAuthorize("hasAuthority('api')")
     @PostMapping("delete")
     public AjaxResult delete(@Valid @RequestBody IdRequest idRequest) {
-        service.deleteByUserAction(idRequest.getId());
+        service.delete(idRequest.getId());
         return AjaxResult.ok().msg("删除成功");
     }
 
     @PreAuthorize("hasAuthority('api')")
     @GetMapping("accountOptions")
     public AjaxResult accountOptions() {
-        List<ApiAccount> list = service.findAll();
+        List<ApiAccount> list = service.getAll();
         List<Option> options = list.stream().map(a -> Option.of(a.getId(), a.getName())).toList();
         return AjaxResult.ok().data(options);
     }
@@ -94,7 +94,7 @@ public class ApiAccountController {
     @PreAuthorize("hasAuthority('api')")
     @PostMapping("grant")
     public AjaxResult grant(@Validate @RequestBody GrantRequest request) {
-        ApiAccount acc = service.findOne(request.getAccountId());
+        ApiAccount acc = service.get(request.getAccountId());
         if (request.getChecked()) {
             acc.getPerms().add(request.getAction());
         } else {
@@ -107,7 +107,7 @@ public class ApiAccountController {
     @PreAuthorize("hasAuthority('api')")
     @GetMapping("get")
     public AjaxResult get(String id) {
-        ApiAccount acc = service.findOne(id);
+        ApiAccount acc = service.get(id);
         return AjaxResult.ok().data(acc);
     }
 

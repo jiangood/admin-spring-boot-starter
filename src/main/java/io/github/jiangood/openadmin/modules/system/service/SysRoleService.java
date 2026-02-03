@@ -1,5 +1,6 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
+import io.github.jiangood.openadmin.lang.dto.IdRequest;
 import io.github.jiangood.openadmin.lang.tree.TreeTool;
 import io.github.jiangood.openadmin.framework.config.datadefinition.MenuDefinition;
 import io.github.jiangood.openadmin.framework.data.BaseService;
@@ -40,10 +41,9 @@ public class SysRoleService extends BaseService<SysRole> {
 
 
     @Override
-    public void deleteByUserAction(String id) {
-        Assert.hasText(id, "id不能为空");
+    public void delete(String id) {
 
-        SysRole db = baseDao.findOne(id);
+        SysRole db = baseDao.findById(id);
         Assert.state(!db.getBuiltin(), "内置角色不能删除");
         baseDao.deleteById(id);
     }
@@ -145,7 +145,7 @@ public class SysRoleService extends BaseService<SysRole> {
         return roleDao.save(role);
     }
 
-    public List<SysRole> findAll() {
+    public List<SysRole> getAll() {
         return roleDao.findAll();
     }
 
