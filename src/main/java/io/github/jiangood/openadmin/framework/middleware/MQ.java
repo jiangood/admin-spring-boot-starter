@@ -22,7 +22,7 @@ public class MQ  {
     /**
      * 发送消息到指定topic（自动创建队列）
      */
-    public void send(String topic, String tag, String message) throws InterruptedException {
+    public synchronized void send(String topic, String tag, String message) throws InterruptedException {
         BlockingQueue<Msg> queue = topicQueues.get(topic);
         if (queue == null) throw new IllegalStateException("消息队列未创建");
 
