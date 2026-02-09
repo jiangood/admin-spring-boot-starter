@@ -26,6 +26,7 @@ public abstract class BaseNoIdEntity implements Persistable<String> {
     @CreatedBy
     @Column(length = DBConstants.LEN_ID, updatable = false)
     private String createBy;
+
     @Schema(description = "创建时间", hidden = true)
     @CreatedDate
     @Column(updatable = false)
