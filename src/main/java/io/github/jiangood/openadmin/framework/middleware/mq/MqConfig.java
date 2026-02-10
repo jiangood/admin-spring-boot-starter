@@ -40,27 +40,14 @@ public class MqConfig implements SmartLifecycle {
     public void start() {
         log.info("简单MQ启动...");
         try {
-            MQListener deadLetterListener = null;
             for (MQListener listener : listeners) {
                 MQMessageListener annotation = listener.getClass().getAnnotation(MQMessageListener.class);
                 if (annotation != null) {
-                    // 检查是否为死信队列处理器
-                    if ("dead-letter".equals(annotation.topic())) {
-                        deadLetterListener = listener;
-                        log.info("找到死信队列处理器: {}", listener.getClass().getSimpleName());
-                    } else {
-                        // 普通队列处理器
-                        mq.subscribe(annotation.topic(), listener);
-                        log.info("注册队列处理器: topic={}, listener={}", annotation.topic(), listener.getClass().getSimpleName());
-                    }
+                    mq.subscribe(annotation.topic(), listener);
+                    log.info("注册队列处理器: topic={}, listener={}", annotation.topic(), listener.getClass().getSimpleName());
                 }
             }
             
-            // 注册死信队列处理器
-            if (deadLetterListener != null) {
-                mq.subscribeDeadLetter(deadLetterListener);
-            }
-
             mq.start();
             log.info("简单MQ成功...");
         } catch (Exception e) {

@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 消息队列重试和死信队列测试
+ * 消息队列重试测试
  */
 @SpringBootTest
 public class MQRetryTest {
@@ -63,15 +63,15 @@ public class MQRetryTest {
             count++;
             log.info("消费消息 ({}次): id={}, topic={}, message={}", count, msg.getId(), msg.getTopic(), msg.getMessage());
             
-            // 前3次返回重试，第4次应该进入死信队列
+            // 前2次返回重试，第3次应该被丢弃
             if (count < 3) {
                 log.info("返回RETRY_LATER");
                 return Result.RETRY_LATER;
             } else {
-                // 第4次调用不应该发生，因为超过最大重试次数后会进入死信队列
-                log.error("不应该执行到这里，消息应该进入死信队列");
+                // 第3次调用后，消息应该被丢弃
+                log.info("消息处理完成");
                 latch.countDown();
-                return Result.FAILURE;
+                return Result.SUCCESS;
             }
         }
 

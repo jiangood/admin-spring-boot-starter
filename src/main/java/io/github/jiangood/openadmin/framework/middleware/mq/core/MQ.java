@@ -21,8 +21,8 @@ public class MQ implements MessageQueueTemplate {
     private final Map<String, MQListener> consumers = new HashMap<>();
 
     // 死信队列
+    @Getter
     private final BlockingQueue<Message> deadLetterQueue = new LinkedBlockingQueue<>();
-    private MQListener deadLetterListener;
 
     // 最大重试次数
     private static final int MAX_RETRY_COUNT = 3;
@@ -73,12 +73,7 @@ public class MQ implements MessageQueueTemplate {
         consumers.put(topic, listener);
     }
 
-    /**
-     * 订阅死信队列
-     */
-    public void subscribeDeadLetter(MQListener listener) {
-        this.deadLetterListener = listener;
-    }
+
 
     private ExecutorService executorService;
 
@@ -106,7 +101,7 @@ public class MQ implements MessageQueueTemplate {
 
         Set<String> topics = topicQueues.keySet();
 
-        executorService = Executors.newFixedThreadPool(topics.size() + (deadLetterListener != null ? 1 : 0));
+        executorService = Executors.newFixedThreadPool(topics.size() );
 
         // 启动普通队列消费者
         for (String topic : topics) {
@@ -160,27 +155,7 @@ public class MQ implements MessageQueueTemplate {
             });
         }
 
-        // 启动死信队列消费者
-        if (deadLetterListener != null) {
-            executorService.submit(() -> {
-                while (!Thread.currentThread().isInterrupted()) {
-                    try {
-                        Message message = deadLetterQueue.take();
-                        Result result = deadLetterListener.consume(message);
-                        if (result == Result.SUCCESS || result == Result.DUPLICATE || result == Result.FAILURE) {
-                            if(rep != null){
-                                rep.delete(message.getId());
-                            }
-                        }
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        break;
-                    } catch (Exception e) {
-                        System.err.println("死信队列消费异常: " + e.getMessage());
-                    }
-                }
-            });
-        }
+
 
         isRunning = true;
     }
@@ -219,11 +194,6 @@ public class MQ implements MessageQueueTemplate {
             return Result.SUCCESS;
         });
 
-        // 订阅死信队列
-        queue.subscribeDeadLetter(message -> {
-            System.out.println("死信队列消费者: " + message);
-            return Result.SUCCESS;
-        });
 
         queue.start();
 
