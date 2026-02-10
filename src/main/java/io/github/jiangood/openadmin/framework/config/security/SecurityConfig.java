@@ -47,7 +47,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         String[] loginExclude = ArrayTool.toStrArr(sysProperties.getXssExcludePathList());
 
-        lifecycleHookManager.onConfigSecurity(http);
+        AuthenticationManager authenticationManager = authenticationConfiguration.getAuthenticationManager();
+        lifecycleHookManager.onConfigSecurity(http,authenticationManager);
 
         http.authorizeHttpRequests(authz -> {
             lifecycleHookManager.onConfigSecurityAuthorizeHttpRequests(authz);
