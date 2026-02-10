@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.framework.config;
+package io.github.jiangood.openadmin.framework;
 
 public class MessageConst {
     public static final String MGS_FORBIDDEN = "抱歉，您没有访问权限";

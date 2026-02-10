@@ -12,8 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static io.github.jiangood.openadmin.framework.config.MessageConst.MGS_FORBIDDEN;
-import static io.github.jiangood.openadmin.framework.config.MessageConst.MSG_UNAUTHORIZED;
+import static io.github.jiangood.openadmin.framework.MessageConst.MGS_FORBIDDEN;
+import static io.github.jiangood.openadmin.framework.MessageConst.MSG_UNAUTHORIZED;
 
 
 @RestControllerAdvice

@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.lang.dto;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import io.github.jiangood.openadmin.framework.config.MessageConst;
+import io.github.jiangood.openadmin.framework.MessageConst;
 import io.github.jiangood.openadmin.lang.JsonTool;
 import lombok.AccessLevel;
 import lombok.Getter;
