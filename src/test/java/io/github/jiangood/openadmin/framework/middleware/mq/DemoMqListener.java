@@ -1,13 +1,9 @@
 package io.github.jiangood.openadmin.framework.middleware.mq;
 
 import org.springframework.stereotype.Component;
-import io.github.jiangood.openadmin.framework.middleware.mq.annotation.MQMessageListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MQListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.Message;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.Result;
 
 @Component
-@MQMessageListener(topic = "demo")
+@MQTopicListener(topic = "demo")
 public class DemoMqListener implements MQListener {
 
 

@@ -1,10 +1,5 @@
 package io.github.jiangood.openadmin.framework.middleware.mq;
 
-import io.github.jiangood.openadmin.framework.middleware.mq.annotation.MQMessageListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MQListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.Message;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MessageQueueTemplate;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +47,7 @@ public class MQRetryTest {
      */
     @Slf4j
     @Component
-    @MQMessageListener(topic = "test-retry")
+    @MQTopicListener(topic = "test-retry")
     public static class TestRetryListener implements MQListener {
 
         private int count = 0;

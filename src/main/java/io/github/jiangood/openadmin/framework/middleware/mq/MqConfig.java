@@ -1,10 +1,5 @@
 package io.github.jiangood.openadmin.framework.middleware.mq;
 
-import io.github.jiangood.openadmin.framework.middleware.mq.annotation.MQMessageListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.DbRep;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MQ;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MQListener;
-import io.github.jiangood.openadmin.framework.middleware.mq.core.MessageQueueTemplate;
 import io.github.jiangood.openadmin.lang.SpringTool;
 import io.github.jiangood.openadmin.lang.jdbc.DbTool;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +7,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProp
 import org.springframework.context.SmartLifecycle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,7 +21,7 @@ public class MqConfig implements SmartLifecycle {
 
 
     public MqConfig( DbTool dbTool) {
-        this.mq = new MQ(new DbRep(dbTool));
+        this.mq = new MQ(new RepDatabaseImpl(dbTool));
     }
 
     @Bean
@@ -45,7 +39,7 @@ public class MqConfig implements SmartLifecycle {
         try {
             List<MQListener> listeners = SpringTool.getBeans(MQListener.class);
             for (MQListener listener : listeners) {
-                MQMessageListener annotation = listener.getClass().getAnnotation(MQMessageListener.class);
+                MQTopicListener annotation = listener.getClass().getAnnotation(MQTopicListener.class);
                 if (annotation != null) {
                     mq.subscribe(annotation.topic(), listener);
                     log.info("注册队列处理器: topic={}, listener={}", annotation.topic(), listener.getClass().getSimpleName());

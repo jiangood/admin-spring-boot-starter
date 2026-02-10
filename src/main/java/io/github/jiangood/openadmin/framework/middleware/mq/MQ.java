@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.framework.middleware.mq.core;
+package io.github.jiangood.openadmin.framework.middleware.mq;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

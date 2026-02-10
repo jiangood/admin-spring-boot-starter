@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.framework.middleware.mq.core;
+package io.github.jiangood.openadmin.framework.middleware.mq;
 
 import cn.hutool.core.util.IdUtil;
 import lombok.Data;

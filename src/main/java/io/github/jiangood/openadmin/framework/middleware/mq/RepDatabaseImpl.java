@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.framework.middleware.mq.core;
+package io.github.jiangood.openadmin.framework.middleware.mq;
 
 import io.github.jiangood.openadmin.lang.jdbc.DbTool;
 import lombok.extern.slf4j.Slf4j;
@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class DbRep implements Rep {
+public class RepDatabaseImpl implements Rep {
 
     private static final String TABLE_NAME = "sys_mq_message";
     
     private final DbTool dbTool;
     
-    public DbRep(DbTool dbTool) {
+    public RepDatabaseImpl(DbTool dbTool) {
         this.dbTool = dbTool;
         initTable();
     }
