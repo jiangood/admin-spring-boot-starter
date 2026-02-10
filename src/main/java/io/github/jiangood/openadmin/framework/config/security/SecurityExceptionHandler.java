@@ -26,7 +26,7 @@ public class SecurityExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public AjaxResult handleAccessDeniedException(AccessDeniedException ex) {
-        if (sysProperties.isPrintAdviceException()) {
+        if (sysProperties.isPrintGlobalException()) {
             log.error(MGS_FORBIDDEN, ex);
         }
         String msg = ex.getMessage();
@@ -38,7 +38,7 @@ public class SecurityExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public AjaxResult handleAuthenticationException(AuthenticationException ex) {
-        if (sysProperties.isPrintAdviceException()) {
+        if (sysProperties.isPrintGlobalException()) {
             log.error(MSG_UNAUTHORIZED, ex);
         }
         return AjaxResult.UNAUTHORIZED;

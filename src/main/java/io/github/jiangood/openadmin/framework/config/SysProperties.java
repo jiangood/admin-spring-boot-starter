@@ -103,9 +103,9 @@ public class SysProperties {
     private String resetAdminPwd;
 
     /**
-     *  是否打印ControllerAdvice的异常
+     *  是否打印全局捕获的异常， 通常指web请求异常
      */
-    private boolean printAdviceException = true;
+    private boolean printGlobalException = true;
 
     private String defaultPassword = RandomUtil.randomString(16);
 
