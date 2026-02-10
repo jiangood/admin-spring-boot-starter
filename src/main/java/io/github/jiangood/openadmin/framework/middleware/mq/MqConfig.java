@@ -29,6 +29,7 @@ public class MqConfig implements SmartLifecycle {
     public MqConfig(List<MQListener> listeners, DbTool dbTool) {
         this.listeners = listeners;
         this.mq = new MQ(new DbRep(dbTool));
+        this.init();
     }
 
     @Bean
@@ -38,6 +39,10 @@ public class MqConfig implements SmartLifecycle {
 
     @Override
     public void start() {
+        init();
+    }
+
+    private void init() {
         log.info("简单MQ启动...");
         try {
             for (MQListener listener : listeners) {
@@ -47,13 +52,12 @@ public class MqConfig implements SmartLifecycle {
                     log.info("注册队列处理器: topic={}, listener={}", annotation.topic(), listener.getClass().getSimpleName());
                 }
             }
-            
+
             mq.start();
             log.info("简单MQ成功...");
         } catch (Exception e) {
             log.error("简单MQ启动失败", e);
         }
-
     }
 
     @Override
