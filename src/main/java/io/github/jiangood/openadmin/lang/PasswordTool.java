@@ -13,7 +13,28 @@ public class PasswordTool {
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder() ;
 
     public static String random() {
-        return RandomUtil.randomString(BASE_CHAR_NUMBER + "_-!.@$^&*()+=", 12);
+        String specialChars = "_-!.@$^&*()+=";
+        String digits = "0123456789";
+        String letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        StringBuilder password = new StringBuilder();
+
+        // 确保至少包含一个数字
+        password.append(RandomUtil.randomChar(digits));
+
+        // 确保至少包含一个特殊字符
+        password.append(RandomUtil.randomChar(specialChars));
+
+        // 填充剩余字符
+        String allChars = BASE_CHAR_NUMBER + specialChars;
+        for (int i = 2; i < 12; i++) {
+            password.append(RandomUtil.randomChar(allChars));
+        }
+
+        // 打乱字符顺序
+        char[] chars = password.toString().toCharArray();
+        cn.hutool.core.util.ArrayUtil.shuffle(chars);
+        return new String(chars);
     }
 
     /**
