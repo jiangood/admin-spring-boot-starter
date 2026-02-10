@@ -101,7 +101,11 @@ public class SysProperties {
      * 重置管理员密码
      */
     private String resetAdminPwd;
-    private boolean printException;
+
+    /**
+     *  是否打印ControllerAdvice的异常
+     */
+    private boolean printAdviceException = true;
 
     private String defaultPassword = RandomUtil.randomString(16);
 
