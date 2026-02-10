@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.framework.middleware.mq;
+package io.github.jiangood.openadmin.framework.middleware.mq.core;
 
 public interface MessageQueueTemplate {
 

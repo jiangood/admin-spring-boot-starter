@@ -1,9 +1,6 @@
 package io.github.jiangood.openadmin.framework.middleware.mq.core;
 
-import io.github.jiangood.openadmin.framework.middleware.mq.MessageQueueTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +19,28 @@ public class MQ implements MessageQueueTemplate {
 
     // 存储所有topic对应的队列
     private final Map<String, BlockingQueue<Message>> topicQueues = new HashMap<>();
-    private final MultiValueMap<String, MQListener> consumers = new LinkedMultiValueMap<>();
+    private final Map<String, MQListener> consumers = new HashMap<>();
+
+    private Rep rep;
+
+    public MQ(Rep rep) {
+        this.rep = rep;
+    }
+
+    public MQ() {
+    }
 
     /**
      * 发送消息到指定topic（自动创建队列）
      */
     public synchronized boolean send(String topic, String tag, String message) {
-        BlockingQueue<Message> queue = topicQueues.get(topic);
-        if (queue == null) throw new IllegalStateException("消息队列未创建");
+        BlockingQueue<Message> queue = topicQueues.computeIfAbsent(topic, k -> new LinkedBlockingQueue<>());
         try {
-            queue.put(new Message(topic, tag, message));
+            Message e = new Message(topic, tag, message);
+            if(rep!= null){
+                rep.save(e);
+            }
+            queue.put(e);
 
             log.info("消息发送成功: topic={}, message={}", topic, message);
             return true;
@@ -48,7 +57,10 @@ public class MQ implements MessageQueueTemplate {
      * 订阅指定topic的消息
      */
     public void subscribe(String topic, MQListener listener) {
-        consumers.add(topic, listener);
+        if (consumers.containsKey(topic)) {
+            throw new IllegalArgumentException("消费者已存在" + topic);
+        }
+        consumers.put(topic, listener);
     }
 
     private ExecutorService executorService;
@@ -58,6 +70,18 @@ public class MQ implements MessageQueueTemplate {
         for (String topic : consumers.keySet()) {
             topicQueues.computeIfAbsent(topic, k -> new LinkedBlockingQueue<>());
         }
+        if(rep != null){
+            List<Message> dbList = rep.loadAll();
+            for (Message message : dbList) {
+                BlockingQueue<Message> queue = topicQueues.get(message.getTopic());
+                if(queue == null){
+                    log.error("消息队列不存在: {}", message.getTopic());
+                }else {
+                    queue.add(message);
+                }
+            }
+        }
+
 
         Set<String> topics = topicQueues.keySet();
 
@@ -70,9 +94,10 @@ public class MQ implements MessageQueueTemplate {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Message message = queue.take();
-                        List<MQListener> consumers = this.consumers.get(topic);
-                        for (MQListener consumer : consumers) {
-                            consumer.consume(message);
+                        MQListener consumer = this.consumers.get(topic);
+                        consumer.consume(message);
+                        if(rep != null){
+                            rep.delete(message.getId());
                         }
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();

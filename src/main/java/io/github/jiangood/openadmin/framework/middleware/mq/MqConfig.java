@@ -2,9 +2,11 @@ package io.github.jiangood.openadmin.framework.middleware.mq;
 
 import cn.hutool.core.lang.Assert;
 import io.github.jiangood.openadmin.framework.middleware.mq.annotation.MQMessageListener;
+import io.github.jiangood.openadmin.framework.middleware.mq.core.DbRep;
 import io.github.jiangood.openadmin.framework.middleware.mq.core.MQ;
 import io.github.jiangood.openadmin.framework.middleware.mq.core.MQListener;
-import lombok.RequiredArgsConstructor;
+import io.github.jiangood.openadmin.framework.middleware.mq.core.MessageQueueTemplate;
+import io.github.jiangood.openadmin.lang.jdbc.DbTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.context.SmartLifecycle;
@@ -16,17 +18,21 @@ import java.util.List;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
-@ConditionalOnBooleanProperty(prefix = "sys.simple-mq", name = "enabled")
+@ConditionalOnBooleanProperty(prefix = "sys", name = "simple-message-queue-enabled", matchIfMissing = true)
 @Configuration
 public class MqConfig implements SmartLifecycle {
 
-    private MQ mq;
+    private MQ mq ;
 
     private final List<MQListener> listeners;
 
+    public MqConfig(List<MQListener> listeners, DbTool dbTool) {
+        this.listeners = listeners;
+        this.mq = new MQ(new DbRep(dbTool));
+    }
+
     @Bean
-    public MessageQueueTemplate messageQueueTemplate(){
+    public MessageQueueTemplate messageQueueTemplate() {
         return mq;
     }
 
@@ -38,7 +44,6 @@ public class MqConfig implements SmartLifecycle {
 
         log.info("简单MQ启动...");
         try {
-            mq = new MQ();
             for (MQListener listener : listeners) {
                 MQMessageListener annotation = listener.getClass().getAnnotation(MQMessageListener.class);
                 Assert.notNull(annotation, listener.getClass().getSimpleName() + " does not have annotation " + MQMessageListener.class.getSimpleName());
