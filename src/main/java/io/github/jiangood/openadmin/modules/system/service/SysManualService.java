@@ -28,7 +28,7 @@ public class SysManualService {
         }
 
         dao.updateField(input, requestKeys);
-        return dao.findById(input.getId());
+        return dao.findByIdOrNull(input.getId());
     }
 
     // BaseService 方法
@@ -42,11 +42,11 @@ public class SysManualService {
     }
 
     public SysManual detail(String id) {
-        return dao.findById(id);
+        return dao.findByIdOrNull(id);
     }
 
     public SysManual get(String id) {
-        return dao.findById(id);
+        return dao.findByIdOrNull(id);
     }
 
     public List<SysManual> getAll() {
