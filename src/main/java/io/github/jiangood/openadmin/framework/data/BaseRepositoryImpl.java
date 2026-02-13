@@ -5,11 +5,6 @@ import cn.hutool.core.lang.Dict;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
-import java.util.*;
-import java.util.function.Function;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,6 +12,9 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import java.util.*;
+import java.util.function.Function;
 
 public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         implements BaseRepository<T, ID> {
