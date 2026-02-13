@@ -5,7 +5,6 @@ import cn.hutool.core.lang.Dict;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -68,7 +67,7 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     public void updateFieldDirect(T entity, List<String> fieldsToUpdate) {
         Assert.notEmpty(fieldsToUpdate, "fieldsToUpdate不能为空");
         Assert.notNull(entity, "实体对象不能为空");
-        
+
         ID id = getId(entity);
         Assert.notNull(id, "实体ID不能为空");
 
@@ -96,18 +95,18 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         if (ids == null || ids.length == 0) {
             return Collections.emptyList();
         }
-        
+
         List<ID> idList = new ArrayList<>();
         for (ID id : ids) {
             if (id != null) {
                 idList.add(id);
             }
         }
-        
+
         if (idList.isEmpty()) {
             return Collections.emptyList();
         }
-        
+
         return findAllById(idList);
     }
 
@@ -122,14 +121,14 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     @Override
     public void refresh(T t) {
         if (t != null) {
-            try {
+            // 检查实体是否被管理
+            if (entityManager.contains(t)) {
                 entityManager.refresh(t);
-            } catch (Exception e) {
-                // 实体未找到或未管理时，不做处理
             }
         }
     }
 
+    @Transactional
     @Override
     public T findByIdAndRefresh(ID id) {
         T t = findById(id).orElse(null);
@@ -169,6 +168,7 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     /**
      * 判断字段值是否存在
      * 例如修改用户名时，判断用户名是否唯一
+     *
      * @param id
      * @param fieldName
      * @param value
@@ -183,6 +183,7 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
 
     /**
      * 判断字段值是否唯一
+     *
      * @param id
      * @param fieldName
      * @param value
@@ -309,7 +310,7 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
 
     @Override
     public Map<ID, T> dict() {
-       return dict(null);
+        return dict(null);
     }
 
     /**
@@ -379,7 +380,7 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         for (T entity : entities) {
             entityManager.persist(entity);
             result.add(entity);
-            
+
             // 每100个实体刷新一次，避免内存占用过高
             if (++count % 100 == 0) {
                 entityManager.flush();
@@ -397,25 +398,25 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     @Override
     public void updateFieldBatch(Iterable<T> entities, List<String> fieldsToUpdate) {
         Assert.notEmpty(fieldsToUpdate, "fieldsToUpdate不能为空");
-        
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         int count = 0;
-        
+
         for (T entity : entities) {
             ID id = getId(entity);
             Assert.notNull(id, "id不能为空");
-            
+
             CriteriaUpdate<T> update = cb.createCriteriaUpdate(domainClass);
             Root<T> root = update.from(domainClass);
-            
+
             for (String fieldName : fieldsToUpdate) {
                 Object value = cn.hutool.core.bean.BeanUtil.getFieldValue(entity, fieldName);
                 update.set(root.get(fieldName), value);
             }
             update.where(cb.equal(root.get("id"), id));
-            
+
             entityManager.createQuery(update).executeUpdate();
-            
+
             // 每100个实体刷新一次
             if (++count % 100 == 0) {
                 entityManager.flush();
@@ -434,12 +435,12 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaDelete<T> delete = cb.createCriteriaDelete(domainClass);
         Root<T> root = delete.from(domainClass);
-        
+
         List<ID> idList = new ArrayList<>();
         for (ID id : ids) {
             idList.add(id);
         }
-        
+
         if (!idList.isEmpty()) {
             delete.where(root.get("id").in(idList));
             entityManager.createQuery(delete).executeUpdate();
