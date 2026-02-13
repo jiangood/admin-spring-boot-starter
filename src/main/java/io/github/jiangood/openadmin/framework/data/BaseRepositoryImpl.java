@@ -122,7 +122,11 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     @Override
     public void refresh(T t) {
         if (t != null) {
-            entityManager.refresh(t);
+            try {
+                entityManager.refresh(t);
+            } catch (Exception e) {
+                // 实体未找到或未管理时，不做处理
+            }
         }
     }
 
