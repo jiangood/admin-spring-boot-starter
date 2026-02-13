@@ -53,8 +53,6 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
 
     public T findByIdAndRefresh(String id);
 
-    T findByIdOrNull(ID id);
-
 
     // --- 5.1 JpaQuery/字段等值查询 (Custom Query Helpers) ---
 

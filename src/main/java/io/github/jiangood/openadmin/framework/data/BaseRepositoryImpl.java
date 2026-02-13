@@ -34,11 +34,6 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         return super.findById(id).orElse(null);
     }
 
-    @Override
-    public T findByIdOrNull(ID id) {
-        return this.findById(id).orElse(null);
-    }
-
     @Transactional
     @Override
     public void flush() {
