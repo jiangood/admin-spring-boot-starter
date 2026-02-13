@@ -1,5 +1,7 @@
 package io.github.jiangood.openadmin.modules.system.service;
 
+import cn.hutool.cache.Cache;
+import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.PasswordTool;
@@ -38,22 +40,19 @@ import java.util.stream.Collectors;
 @Service
 public class SysUserService {
 
+    private static final Cache<String, String> NAME_CACHE = CacheUtil.newTimedCache(1000 * 60 * 5);
 
     @Resource
     private SysUserDao sysUserDao;
 
-
     @Resource
     private SysRoleDao roleDao;
-
 
     @Resource
     private SysOrgService sysOrgService;
 
-
     @Resource
     private SysMenuDao sysMenuDao;
-
 
     @Resource
     private UserMapper userMapper;
@@ -63,7 +62,7 @@ public class SysUserService {
 
 
     public UserResponse findOneDto(String id) {
-        SysUser user = sysUserDao.findOne(id);
+        SysUser user = sysUserDao.findById(id).orElse(null);
         return userMapper.toResponse(user);
     }
 
@@ -85,7 +84,7 @@ public class SysUserService {
 
 
     public Set<String> getUserRoleIdList(String userId) {
-        SysUser user = sysUserDao.findOne(userId);
+        SysUser user = sysUserDao.findById(userId).orElse(null);
         Set<SysRole> roles = user.getRoles();
         return roles.stream().map(BaseEntity::getId).collect(Collectors.toSet());
     }
@@ -141,13 +140,13 @@ public class SysUserService {
         }
 
         sysUserDao.updateField(input, updateFields);
-        return sysUserDao.findById(input.getId());
+        return sysUserDao.findById(input.getId()).orElse(null);
     }
 
 
     @Transactional
     public void delete(String id) {
-        SysUser sysUser = sysUserDao.findById(id);
+        SysUser sysUser = sysUserDao.findById(id).orElse(null);
         try {
             sysUserDao.delete(sysUser);
         } catch (Exception e) {
@@ -159,7 +158,7 @@ public class SysUserService {
     @Transactional
     public void updatePwd(String userId, String newPassword) {
         Assert.hasText(newPassword, "请输入新密码");
-        SysUser sysUser = sysUserDao.findOne(userId);
+        SysUser sysUser = sysUserDao.findById(userId).orElse(null);
 
 
         PasswordTool.validateStrength(newPassword);
@@ -174,7 +173,23 @@ public class SysUserService {
             return null;
         }
 
-        return sysUserDao.getNameById(userId);
+        if (NAME_CACHE.containsKey(userId)) {
+            return NAME_CACHE.get(userId);
+        }
+
+        SysUser user = sysUserDao.findById(userId).orElse(null);
+        if (user == null) {
+            return null;
+        }
+
+        String name = user.getName();
+        if (name == null) {
+            return null;
+        }
+
+        NAME_CACHE.put(userId, name);
+
+        return name;
     }
 
 
@@ -186,7 +201,7 @@ public class SysUserService {
 
     @Transactional
     public void resetPwd(String id, String plainPassword) {
-        SysUser sysUser = sysUserDao.findOne(id);
+        SysUser sysUser = sysUserDao.findById(id).orElse(null);
         PasswordTool.validateStrength(plainPassword);
 
         sysUser.setPassword(PasswordTool.encode(plainPassword));
@@ -195,13 +210,13 @@ public class SysUserService {
 
 
     public List<SysUser> findValid() {
-        return sysUserDao.findValid();
+        return sysUserDao.findAllByEnabledTrue();
     }
 
 
     // 数据范围
     public List<String> getOrgPermissions(String userId) {
-        SysUser user = sysUserDao.findOne(userId);
+        SysUser user = sysUserDao.findById(userId).orElse(null);
         DataPermType dataPermType = user.getDataPermType();
         if (dataPermType == null) {
             dataPermType = DataPermType.CHILDREN;
@@ -229,7 +244,7 @@ public class SysUserService {
 
     @Transactional
     public Set<String> getUserPerms(String id) {
-        SysUser user = sysUserDao.findOne(id);
+        SysUser user = sysUserDao.findById(id).orElse(null);
 
         log.info("获取用户权限:{}", user.getName());
         Set<String> result = new TreeSet<>();
@@ -264,7 +279,7 @@ public class SysUserService {
     }
 
     public GrantUserPermRequest getPermInfo(String id) {
-        SysUser user = sysUserDao.findOne(id);
+        SysUser user = sysUserDao.findById(id).orElse(null);
 
         GrantUserPermRequest p = new GrantUserPermRequest();
         p.setId(user.getId());
@@ -277,7 +292,7 @@ public class SysUserService {
 
     @Transactional
     public SysUser grantPerm(String id, List<String> roleIds, DataPermType dataPermType, List<String> orgIdList) {
-        SysUser user = sysUserDao.findOne(id);
+        SysUser user = sysUserDao.findById(id).orElse(null);
         List<SysOrg> orgs = CollUtil.isNotEmpty(orgIdList) ? sysOrgService.findAllById(orgIdList) : Collections.emptyList();
         user.setDataPerms(orgs);
         user.setDataPermType(dataPermType);
@@ -319,7 +334,7 @@ public class SysUserService {
     }
 
     public SysUser findOne(String id) {
-        return sysUserDao.findOne(id);
+        return sysUserDao.findById(id).orElse(null);
     }
 
     // BaseService 方法
@@ -328,11 +343,11 @@ public class SysUserService {
     }
 
     public SysUser detail(String id) {
-        return sysUserDao.findById(id);
+        return sysUserDao.findById(id).orElse(null);
     }
 
     public SysUser get(String id) {
-        return sysUserDao.findById(id);
+        return sysUserDao.findById(id).orElse(null);
     }
 
     public List<SysUser> getAll(Sort sort) {

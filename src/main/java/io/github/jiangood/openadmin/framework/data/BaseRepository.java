@@ -60,6 +60,8 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
 
     public T findByField(String key, Object value);
 
+    public T findByField(String key, Object value, String key2, Object value2);
+
     public T findByField(String key, Object value, String key2, Object value2, String key3, Object value3);
 
 

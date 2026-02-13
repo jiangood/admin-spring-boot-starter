@@ -60,7 +60,7 @@ public class SysDictItemDaoTest {
         sysDictItemDao.updateField(testDictItem, List.of("name", "color"));
 
         // 重新查询，验证更新是否成功
-        SysDictItem updatedDictItem = sysDictItemDao.findById(testDictItem.getId());
+        SysDictItem updatedDictItem = sysDictItemDao.findOne(testDictItem.getId());
         assertNotNull(updatedDictItem);
         assertEquals("更新后的测试字典项", updatedDictItem.getName());
         assertEquals("#0000FF", updatedDictItem.getColor());
@@ -71,18 +71,18 @@ public class SysDictItemDaoTest {
         String dictItemId = testDictItem.getId();
         sysDictItemDao.delete(testDictItem);
 
-        SysDictItem deletedDictItem = sysDictItemDao.findById(dictItemId);
+        SysDictItem deletedDictItem = sysDictItemDao.findOne(dictItemId);
         assertNull(deletedDictItem);
     }
 
     @Test
     public void testFindById() {
-        SysDictItem foundDictItem = sysDictItemDao.findById(testDictItem.getId());
+        SysDictItem foundDictItem = sysDictItemDao.findOne(testDictItem.getId());
         assertNotNull(foundDictItem);
         assertEquals("测试字典项", foundDictItem.getName());
 
         // 测试不存在的ID
-        SysDictItem nonExistentDictItem = sysDictItemDao.findById("non-existent-id");
+        SysDictItem nonExistentDictItem = sysDictItemDao.findOne("non-existent-id");
         assertNull(nonExistentDictItem);
     }
 

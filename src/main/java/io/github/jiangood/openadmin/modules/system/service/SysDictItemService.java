@@ -28,7 +28,7 @@ public class SysDictItemService {
         }
 
         sysDictItemDao.updateField(input, requestKeys);
-        return sysDictItemDao.findById(input.getId());
+        return sysDictItemDao.findById(input.getId()).orElse(null);
     }
 
     @Transactional
@@ -41,11 +41,11 @@ public class SysDictItemService {
     }
 
     public SysDictItem detail(String id) {
-        return sysDictItemDao.findById(id);
+        return sysDictItemDao.findById(id).orElse(null);
     }
 
     public SysDictItem get(String id) {
-        return sysDictItemDao.findById(id);
+        return sysDictItemDao.findById(id).orElse(null);
     }
 
     public List<SysDictItem> getAll() {

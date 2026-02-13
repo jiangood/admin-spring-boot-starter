@@ -133,6 +133,11 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     }
 
     @Override
+    public T findByField(String key, Object value, String key2, Object value2) {
+        return findOne(Spec.<T>of().eq(key, value).eq(key2, value2)).orElse(null);
+    }
+
+    @Override
     public T findByField(String key, Object value, String key2, Object value2, String key3, Object value3) {
         return findOne(Spec.<T>of().eq(key, value).eq(key2, value2).eq(key3, value3)).orElse(null);
     }

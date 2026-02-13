@@ -70,7 +70,7 @@ public class SysLogService {
         }
 
         dao.updateField(input, requestKeys);
-        return dao.findById(input.getId());
+        return dao.findById(input.getId()).orElse(null);
     }
 
     @Transactional
@@ -83,11 +83,11 @@ public class SysLogService {
     }
 
     public SysLog detail(String id) {
-        return dao.findById(id);
+        return dao.findById(id).orElse(null);
     }
 
     public SysLog get(String id) {
-        return dao.findById(id);
+        return dao.findById(id).orElse(null);
     }
 
     public List<SysLog> getAll() {
