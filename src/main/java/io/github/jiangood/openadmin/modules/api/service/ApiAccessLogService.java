@@ -3,10 +3,10 @@ package io.github.jiangood.openadmin.modules.api.service;
 
 import io.github.jiangood.openadmin.lang.JsonTool;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
-import io.github.jiangood.openadmin.modules.api.dao.ApiAccessLogDao;
 import io.github.jiangood.openadmin.modules.api.entity.ApiAccessLog;
 import io.github.jiangood.openadmin.modules.api.entity.ApiAccount;
 import io.github.jiangood.openadmin.modules.api.entity.ApiResource;
+import io.github.jiangood.openadmin.modules.api.repository.ApiAccessLogRepository;
 import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class ApiAccessLogService {
 
     @Resource
-    ApiAccessLogDao dao;
+    ApiAccessLogRepository dao;
 
     public void add(long timestamp, ApiAccount account, ApiResource resource, Map<String, Object> params, Object retValue, String ip, long executionTime) {
         ApiAccessLog a = new ApiAccessLog();

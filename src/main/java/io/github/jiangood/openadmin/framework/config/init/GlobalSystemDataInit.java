@@ -3,10 +3,10 @@ package io.github.jiangood.openadmin.framework.config.init;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.PasswordTool;
 import io.github.jiangood.openadmin.framework.config.SysProperties;
-import io.github.jiangood.openadmin.modules.system.dao.SysUserDao;
 import io.github.jiangood.openadmin.modules.system.entity.DataPermType;
 import io.github.jiangood.openadmin.modules.system.entity.SysRole;
 import io.github.jiangood.openadmin.modules.system.entity.SysUser;
+import io.github.jiangood.openadmin.modules.system.repository.SysUserRepository;
 import io.github.jiangood.openadmin.modules.system.service.SysRoleService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
     SysRoleService sysRoleService;
 
     @Resource
-    SysUserDao sysUserDao;
+    SysUserRepository sysUserDao;
 
 
 

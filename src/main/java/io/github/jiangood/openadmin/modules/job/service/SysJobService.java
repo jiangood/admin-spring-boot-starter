@@ -1,11 +1,11 @@
 package io.github.jiangood.openadmin.modules.job.service;
 
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
-import io.github.jiangood.openadmin.modules.job.dao.SysJobRepository;
-import io.github.jiangood.openadmin.modules.job.dao.SysJobExecuteRecordRepository;
 import io.github.jiangood.openadmin.modules.job.entity.SysJob;
 import io.github.jiangood.openadmin.modules.job.entity.SysJobExecuteRecord;
 import io.github.jiangood.openadmin.modules.job.quartz.QuartzManager;
+import io.github.jiangood.openadmin.modules.job.repository.SysJobExecuteRecordRepository;
+import io.github.jiangood.openadmin.modules.job.repository.SysJobRepository;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Scheduler;

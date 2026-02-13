@@ -1,4 +1,4 @@
-package io.github.jiangood.openadmin.modules.job.dao;
+package io.github.jiangood.openadmin.modules.job.repository;
 
 import io.github.jiangood.openadmin.framework.data.BaseRepository;
 import io.github.jiangood.openadmin.modules.job.entity.SysJob;
