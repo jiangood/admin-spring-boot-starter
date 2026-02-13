@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.framework.config.security;
 
-import io.github.jiangood.openadmin.framework.config.SysProperties;
+import io.github.jiangood.openadmin.framework.config.SystemProperties;
 import io.github.jiangood.openadmin.lang.dto.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +22,11 @@ import static io.github.jiangood.openadmin.framework.MessageConst.MSG_UNAUTHORIZ
 @RequiredArgsConstructor
 public class SecurityExceptionHandler {
 
-    private final SysProperties sysProperties;
+    private final SystemProperties systemProperties;
 
     @ExceptionHandler(AccessDeniedException.class)
     public AjaxResult handleAccessDeniedException(AccessDeniedException ex) {
-        if (sysProperties.isPrintGlobalException()) {
+        if (systemProperties.isPrintGlobalException()) {
             log.error(MGS_FORBIDDEN, ex);
         }
         String msg = ex.getMessage();
@@ -38,7 +38,7 @@ public class SecurityExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public AjaxResult handleAuthenticationException(AuthenticationException ex) {
-        if (sysProperties.isPrintGlobalException()) {
+        if (systemProperties.isPrintGlobalException()) {
             log.error(MSG_UNAUTHORIZED, ex);
         }
         return AjaxResult.UNAUTHORIZED;

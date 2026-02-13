@@ -2,7 +2,7 @@ package io.github.jiangood.openadmin.framework.config.init;
 
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.PasswordTool;
-import io.github.jiangood.openadmin.framework.config.SysProperties;
+import io.github.jiangood.openadmin.framework.config.SystemProperties;
 import io.github.jiangood.openadmin.modules.system.entity.DataPermType;
 import io.github.jiangood.openadmin.modules.system.entity.SysRole;
 import io.github.jiangood.openadmin.modules.system.entity.SysUser;
@@ -35,7 +35,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
 
 
     @Resource
-    SysProperties sysProperties;
+    SystemProperties systemProperties;
 
 
 
@@ -79,7 +79,7 @@ public class GlobalSystemDataInit implements CommandLineRunner {
         }
         log.info("管理员登录账号:{}", admin.getAccount());
 
-        String pwd = sysProperties.getResetAdminPwd();
+        String pwd = systemProperties.getResetAdminPwd();
         if (StrUtil.isNotEmpty(pwd)) {
             admin.setPassword(PasswordTool.encode(pwd));
             log.info("管理员密码重置为 {}", pwd);

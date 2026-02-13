@@ -3,23 +3,23 @@ package io.github.jiangood.openadmin.lang;
 import lombok.Getter;
 
 @Getter
-public class BizException extends IllegalStateException {
+public class BusinessException extends IllegalStateException {
 
     private int code;
 
-    public BizException() {
+    public BusinessException() {
         super();
     }
 
-    public BizException(String message) {
+    public BusinessException(String message) {
         super(message);
     }
 
-    public BizException(String prefixMessage, Throwable e) {
+    public BusinessException(String prefixMessage, Throwable e) {
         super(prefixMessage + ": " + e.getMessage());
     }
 
-    public BizException(int code, String message) {
+    public BusinessException(int code, String message) {
         super(message);
         this.code = code;
     }

@@ -5,7 +5,7 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import io.github.jiangood.openadmin.lang.PasswordTool;
-import io.github.jiangood.openadmin.framework.config.SysProperties;
+import io.github.jiangood.openadmin.framework.config.SystemProperties;
 import io.github.jiangood.openadmin.framework.config.datadefinition.MenuDefinition;
 import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
@@ -58,7 +58,7 @@ public class SysUserService {
     private UserMapper userMapper;
 
     @Resource
-    private SysProperties sysProperties;
+    private SystemProperties systemProperties;
 
 
     public UserResponse findOneDto(String id) {
@@ -134,7 +134,7 @@ public class SysUserService {
 
         updateFields.add("unitId");
         if (isNew) {
-            String password = sysProperties.getDefaultPassword();
+            String password = systemProperties.getDefaultPassword();
             input.setPassword(PasswordTool.encode(password));
             return sysUserRepository.save(input);
         }
@@ -195,7 +195,7 @@ public class SysUserService {
 
     @Transactional
     public void resetPwd(String id) {
-        String password = sysProperties.getDefaultPassword();
+        String password = systemProperties.getDefaultPassword();
         this.resetPwd(id, password);
     }
 

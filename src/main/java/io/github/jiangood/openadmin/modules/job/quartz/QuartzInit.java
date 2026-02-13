@@ -1,6 +1,6 @@
 package io.github.jiangood.openadmin.modules.job.quartz;
 
-import io.github.jiangood.openadmin.framework.config.SysProperties;
+import io.github.jiangood.openadmin.framework.config.SystemProperties;
 import io.github.jiangood.openadmin.modules.job.entity.SysJob;
 import io.github.jiangood.openadmin.modules.job.repository.SysJobRepository;
 import jakarta.annotation.Resource;
@@ -31,12 +31,12 @@ public class QuartzInit implements CommandLineRunner {
     private QuartzManager quartzService;
 
     @Resource
-    private SysProperties sysProperties;
+    private SystemProperties systemProperties;
 
 
     @Override
     public void run(String... args) throws Exception {
-        if (!sysProperties.isJobEnable()) {
+        if (!systemProperties.isJobEnable()) {
             log.warn("定时任务模块已设置全局关闭");
             return;
         }

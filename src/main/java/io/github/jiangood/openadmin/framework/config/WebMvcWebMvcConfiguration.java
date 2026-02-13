@@ -28,7 +28,7 @@ import java.util.List;
 @EnableScheduling
 @EnableCaching
 @ConditionalOnClass(name = "org.springframework.web.servlet.config.annotation.WebMvcConfigurer")
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcWebMvcConfiguration implements WebMvcConfigurer {
     /**
      * 放开权限校验的接口
      */
@@ -53,7 +53,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
             "/openApi/gateway/**"
     };
     @Resource
-    SysProperties sysProperties;
+    SystemProperties systemProperties;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -98,7 +98,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public CodeGenerator getCodeGenerator() {
-        SysProperties.CaptchaType captchaType = sysProperties.getCaptchaType();
+        SystemProperties.CaptchaType captchaType = systemProperties.getCaptchaType();
         if (captchaType != null) {
             switch (captchaType) {
                 case MATH -> {

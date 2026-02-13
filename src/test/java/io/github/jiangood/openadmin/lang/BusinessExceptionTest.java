@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BizExceptionTest {
+class BusinessExceptionTest {
 
     @Test
     void testDefaultConstructor() {
-        BizException exception = new BizException();
+        BusinessException exception = new BusinessException();
         assertNull(exception.getMessage());
         assertEquals(0, exception.getCode());
     }
@@ -16,7 +16,7 @@ class BizExceptionTest {
     @Test
     void testConstructorWithMessage() {
         String expectedMsg = "测试异常消息";
-        BizException exception = new BizException(expectedMsg);
+        BusinessException exception = new BusinessException(expectedMsg);
         assertEquals(expectedMsg, exception.getMessage());
         assertEquals(0, exception.getCode());
     }
@@ -25,7 +25,7 @@ class BizExceptionTest {
     void testConstructorWithPrefixMessageAndThrowable() {
         String prefixMsg = "前缀消息";
         Throwable cause = new RuntimeException("原因异常");
-        BizException exception = new BizException(prefixMsg, cause);
+        BusinessException exception = new BusinessException(prefixMsg, cause);
         assertEquals(prefixMsg + ": " + cause.getMessage(), exception.getMessage());
         assertEquals(0, exception.getCode());
     }
@@ -34,7 +34,7 @@ class BizExceptionTest {
     void testConstructorWithCodeAndMessage() {
         int expectedCode = 500;
         String expectedMsg = "带代码的异常消息";
-        BizException exception = new BizException(expectedCode, expectedMsg);
+        BusinessException exception = new BusinessException(expectedCode, expectedMsg);
         assertEquals(expectedMsg, exception.getMessage());
         assertEquals(expectedCode, exception.getCode());
     }

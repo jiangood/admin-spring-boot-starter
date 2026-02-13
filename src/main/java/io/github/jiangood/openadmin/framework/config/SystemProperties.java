@@ -15,10 +15,10 @@ import org.springframework.validation.annotation.Validated;
 import java.util.List;
 
 @Configuration
-@ConfigurationProperties(prefix = SysProperties.CONFIG_PREFIX)
+@ConfigurationProperties(prefix = SystemProperties.CONFIG_PREFIX)
 @Data
 @Validated
-public class SysProperties {
+public class SystemProperties {
 
 
     public static final String CONFIG_PREFIX = "sys";

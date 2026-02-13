@@ -12,7 +12,7 @@ import io.github.jiangood.openadmin.lang.DownloadTool;
 import io.github.jiangood.openadmin.lang.IdTool;
 import io.github.jiangood.openadmin.lang.ImgTool;
 import io.github.jiangood.openadmin.lang.enums.MaterialType;
-import io.github.jiangood.openadmin.framework.config.SysProperties;
+import io.github.jiangood.openadmin.framework.config.SystemProperties;
 import io.github.jiangood.openadmin.modules.system.entity.SysFile;
 import io.github.jiangood.openadmin.modules.system.file.FileOperator;
 import io.github.jiangood.openadmin.modules.system.repository.SysFileRepository;
@@ -52,7 +52,7 @@ public class SysFileService {
     public static final String[] IMAGE_SIZE_LABEL = {"小图", "中图", "大图"};
 
     @Resource
-    SysProperties sysProperties;
+    SystemProperties systemProperties;
     @Resource
     FileOperator fileOperator;
     @Resource
@@ -63,7 +63,7 @@ public class SysFileService {
     }
 
     public String getPreviewUrl(String id, HttpServletRequest request) {
-        String baseUrl = sysProperties.getBaseUrl();
+        String baseUrl = systemProperties.getBaseUrl();
 
         return baseUrl + getPreviewUrl(id);
     }
@@ -79,7 +79,7 @@ public class SysFileService {
     }
 
     public String getDownloadUrl(String fileId, HttpServletRequest request) {
-        String baseUrl = sysProperties.getBaseUrl();
+        String baseUrl = systemProperties.getBaseUrl();
 
         return baseUrl + DOWNLOAD_URL_PATTERN.replace("{id}", fileId);
     }
@@ -172,7 +172,7 @@ public class SysFileService {
         }
 
         Assert.hasText(suffix, "解析后缀失败");
-        Assert.state(sysProperties.getAllowUploadFiles().contains(suffix), "文件格式" + suffix + "不允许上传");
+        Assert.state(systemProperties.getAllowUploadFiles().contains(suffix), "文件格式" + suffix + "不允许上传");
 
         String id = IdTool.uuidV7();
 
