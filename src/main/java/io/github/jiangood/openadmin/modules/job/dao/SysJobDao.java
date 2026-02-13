@@ -13,6 +13,4 @@ public interface SysJobDao extends BaseRepository<SysJob, String> {
 
     SysJob findByName(String name);
 
-    SysJob findByNameAndGroup(String name);
-
 }
