@@ -92,7 +92,27 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
 
 
     @Override
-    public List<T> findAllById(String[] ids) {
+    public List<T> findAllById(ID[] ids) {
+        if (ids == null || ids.length == 0) {
+            return Collections.emptyList();
+        }
+        
+        List<ID> idList = new ArrayList<>();
+        for (ID id : ids) {
+            if (id != null) {
+                idList.add(id);
+            }
+        }
+        
+        if (idList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        
+        return findAllById(idList);
+    }
+
+    @Override
+    public List<T> findAllByIds(String[] ids) {
         if (ids == null || ids.length == 0) {
             return Collections.emptyList();
         }
@@ -127,10 +147,15 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     }
 
     @Override
-    public T findByIdAndRefresh(String id) {
-        T t = findById((ID) id).orElse(null);
+    public T findByIdAndRefresh(ID id) {
+        T t = findById(id).orElse(null);
         refresh(t);
         return t;
+    }
+
+    @Override
+    public T findByIdAndRefreshStr(String id) {
+        return findByIdAndRefresh((ID) id);
     }
 
 
@@ -171,9 +196,14 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
      * @return
      */
     @Override
-    public boolean isFieldExist(String id, String fieldName, Object value) {
+    public boolean isFieldExist(ID id, String fieldName, Object value) {
         Specification<T> spec = Spec.<T>of().ne("id", id).eq(fieldName, value);
         return exists(spec);
+    }
+
+    @Override
+    public boolean isFieldExistStr(String id, String fieldName, Object value) {
+        return isFieldExist((ID) id, fieldName, value);
     }
 
 
@@ -185,9 +215,14 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
      * @return
      */
     @Override
-    public boolean isUnique(String id, String fieldName, Object value) {
+    public boolean isUnique(ID id, String fieldName, Object value) {
         boolean exist = isFieldExist(id, fieldName, value);
         return !exist;
+    }
+
+    @Override
+    public boolean isUniqueStr(String id, String fieldName, Object value) {
+        return isUnique((ID) id, fieldName, value);
     }
 
     @Override

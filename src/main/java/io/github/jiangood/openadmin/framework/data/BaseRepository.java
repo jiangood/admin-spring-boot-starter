@@ -41,7 +41,12 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
 
     T findOne(ID id);
 
-    public List<T> findAllById(String[] ids);
+    public List<T> findAllById(ID[] ids);
+
+    /**
+     * 兼容字符串ID数组的方法
+     */
+    public List<T> findAllByIds(String[] ids);
 
 
     public long count();
@@ -51,7 +56,12 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
      */
     public void refresh(T t);
 
-    public T findByIdAndRefresh(String id);
+    public T findByIdAndRefresh(ID id);
+
+    /**
+     * 兼容字符串ID的方法
+     */
+    public T findByIdAndRefreshStr(String id);
 
 
     // --- 5.1 JpaQuery/字段等值查询 (Custom Query Helpers) ---
@@ -79,7 +89,12 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
      * @param value
      * @return
      */
-    public boolean isFieldExist(String id, String fieldName, Object value);
+    public boolean isFieldExist(ID id, String fieldName, Object value);
+
+    /**
+     * 兼容字符串ID的方法
+     */
+    public boolean isFieldExistStr(String id, String fieldName, Object value);
 
 
     /**
@@ -89,7 +104,12 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecific
      * @param value
      * @return
      */
-    public boolean isUnique(String id, String fieldName, Object value);
+    public boolean isUnique(ID id, String fieldName, Object value);
+
+    /**
+     * 兼容字符串ID的方法
+     */
+    public boolean isUniqueStr(String id, String fieldName, Object value);
 
     public List<T> findByExampleLike(T t, Sort sort);
 
