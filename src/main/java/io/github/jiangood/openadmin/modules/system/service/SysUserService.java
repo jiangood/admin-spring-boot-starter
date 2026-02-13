@@ -8,7 +8,6 @@ import io.github.jiangood.openadmin.framework.config.datadefinition.MenuDefiniti
 import io.github.jiangood.openadmin.framework.data.BaseEntity;
 import io.github.jiangood.openadmin.framework.data.specification.Spec;
 import io.github.jiangood.openadmin.modules.system.dao.SysMenuDao;
-import io.github.jiangood.openadmin.modules.system.dao.SysOrgDao;
 import io.github.jiangood.openadmin.modules.system.dao.SysRoleDao;
 import io.github.jiangood.openadmin.modules.system.dao.SysUserDao;
 import io.github.jiangood.openadmin.modules.system.dto.mapper.UserMapper;
@@ -49,7 +48,7 @@ public class SysUserService {
 
 
     @Resource
-    private SysOrgDao sysOrgDao;
+    private SysOrgService sysOrgService;
 
 
     @Resource
@@ -124,12 +123,12 @@ public class SysUserService {
         Assert.state(accountUnique, "用户名已存在");
 
         String inputOrgId = input.getDeptId();
-        SysOrg org = sysOrgDao.findByIdOrNull(inputOrgId);
+        SysOrg org = sysOrgService.findOne(inputOrgId);
         if (org.getType() == OrgType.TYPE_UNIT) {
             input.setUnitId(inputOrgId);
             input.setDeptId(null);
         } else {
-            SysOrg unit = sysOrgDao.findParentUnit(org);
+            SysOrg unit = sysOrgService.findParentUnit(org);
             Assert.notNull(unit, "部门%s没有所属单位".formatted(org.getName()));
             input.setUnitId(unit.getId());
         }
@@ -211,7 +210,7 @@ public class SysUserService {
 
         // 超级管理员返回所有
         if (dataPermType == DataPermType.ALL) {
-            List<SysOrg> all = sysOrgDao.findAll();
+            List<SysOrg> all = sysOrgService.findAll();
             return all.stream().map(BaseEntity::getId).collect(Collectors.toList());
         }
 
@@ -220,7 +219,7 @@ public class SysUserService {
             case LEVEL:
                 return orgId == null ? Collections.emptyList() : Collections.singletonList(orgId);
             case CHILDREN:
-                return sysOrgDao.findChildIdListWithSelfById(orgId, true);
+                return sysOrgService.findChildIdListWithSelfById(orgId, true);
             case CUSTOM:
                 return user.getDataPerms().stream().map(BaseEntity::getId).collect(Collectors.toList());
         }
@@ -279,7 +278,7 @@ public class SysUserService {
     @Transactional
     public SysUser grantPerm(String id, List<String> roleIds, DataPermType dataPermType, List<String> orgIdList) {
         SysUser user = sysUserDao.findOne(id);
-        List<SysOrg> orgs = CollUtil.isNotEmpty(orgIdList) ? sysOrgDao.findAllById(orgIdList) : Collections.emptyList();
+        List<SysOrg> orgs = CollUtil.isNotEmpty(orgIdList) ? sysOrgService.findAllById(orgIdList) : Collections.emptyList();
         user.setDataPerms(orgs);
         user.setDataPermType(dataPermType);
 
