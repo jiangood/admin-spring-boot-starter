@@ -112,26 +112,6 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     }
 
     @Override
-    public List<T> findAllByIds(String[] ids) {
-        if (ids == null || ids.length == 0) {
-            return Collections.emptyList();
-        }
-        
-        List<ID> idList = new ArrayList<>();
-        for (String id : ids) {
-            if (id != null && !id.trim().isEmpty()) {
-                idList.add((ID) id);
-            }
-        }
-        
-        if (idList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        
-        return findAllById(idList);
-    }
-
-    @Override
     public long count() {
         return super.count();
     }
@@ -151,11 +131,6 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         T t = findById(id).orElse(null);
         refresh(t);
         return t;
-    }
-
-    @Override
-    public T findByIdAndRefreshStr(String id) {
-        return findByIdAndRefresh((ID) id);
     }
 
 
@@ -201,11 +176,6 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
         return exists(spec);
     }
 
-    @Override
-    public boolean isFieldExistStr(String id, String fieldName, Object value) {
-        return isFieldExist((ID) id, fieldName, value);
-    }
-
 
     /**
      * 判断字段值是否唯一
@@ -218,11 +188,6 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
     public boolean isUnique(ID id, String fieldName, Object value) {
         boolean exist = isFieldExist(id, fieldName, value);
         return !exist;
-    }
-
-    @Override
-    public boolean isUniqueStr(String id, String fieldName, Object value) {
-        return isUnique((ID) id, fieldName, value);
     }
 
     @Override
