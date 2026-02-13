@@ -56,7 +56,7 @@ public class MQ {
             return true;
         } catch (Exception e) {
             log.error("消息发送失败: topic={}, message={}", topic, message);
-
+            log.error("详细错误",e);
             return false;
         }
 
